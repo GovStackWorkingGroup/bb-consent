@@ -1,0 +1,13 @@
+FROM caddy:2-builder AS builder
+
+RUN xcaddy build --with github.com/chukmunnlee/caddy-openapi
+
+FROM caddy:2-alpine
+
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
+COPY examples/demo/Caddyfile /etc/caddy/Caddyfile
+
+COPY api/consent-openapi.yaml /consent-openapi.yaml
+
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]

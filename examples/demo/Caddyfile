@@ -1,0 +1,33 @@
+{$SITE_ADDRESS}:80, {$SITE_ADDRESS}:443 {
+
+
+  @api {
+    path /api/*
+  }
+
+  route @api {
+    uri strip_prefix /api
+    reverse_proxy {
+      to consent:8000
+    }
+    openapi {
+      spec /consent-openapi.yaml
+      log_error
+      check {
+        req_params req_body
+        # When we are ready to handle validation of the body:
+        # req_params req_body resp_body
+      }
+      validate_servers
+    }
+  }
+
+
+  handle_errors {
+    respond @api "Resource: {http.request.orig_uri}. Error: {openapi.error}" {openapi.status_code}  {
+      close
+    }
+  }
+
+  respond "all is OK"
+}

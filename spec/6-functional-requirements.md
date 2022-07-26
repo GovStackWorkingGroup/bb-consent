@@ -152,9 +152,6 @@ The functional requirements section lists the technical capabilities that this b
   </tr>
 </table>
 
-
-
-
  ## 6.3 Consent Audit Requirements
 
 <table>

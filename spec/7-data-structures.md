@@ -49,7 +49,7 @@ The following standards are applicable to data structures in the registration bu
 
 ## 7.4 Data models
 
-Data models are defined in [Appendix A: Data models](#heading=h.aq5kk1vg6pfe). This specification is seen as a minimum requirement, all further implementation may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
+Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementation may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
 
 The OpenAPI definition file is maintained in JSON format, and OpenAPI schemas may be interactively explored on Swagger Hub at [Consent BB](https://github.com/GovStackWorkingGroup/bb-consent)GitHub. 
 

@@ -89,7 +89,7 @@
   <tr>
    <td><strong>Regulations</strong>
    </td>
-   <td>are broadly defined as rules followed by any system: could be laws, bylaws, ​norms or architectures[^1] that ​ regulates a given system.
+   <td>are broadly defined as rules followed by any system: could be laws, bylaws, ​norms or architectures (Defintion inspired by Lessig’s modalities of regulation: https://lessig.org/images/resources/1999-Code.pdf) that ​ regulates a given system. 
    </td>
   </tr>
 </table>

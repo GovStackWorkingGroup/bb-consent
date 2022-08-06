@@ -1,10 +1,10 @@
-# GovStack Building Block Template
+# Consent Building Block
 
-This template is intended to be used by the various GovStack building block
-repos. Each building block repo will have at least 4 main sections, outlined in
-the directory structure below.
+This hosts the consent BB repos as part of GovStack. Each building block repo has a structure outlined below.
 
-## Gitbook and the published "Building Block Specifications" document
+## Consent specs in Gitbook
+
+Govstack specs are published at [Gitbook - Govstack Global](https://docs.govstack.global/).
 
 Note that pushes to the `main` branch will automatically trigger a Gitbook build
 and deployment from the `/spec` directory.

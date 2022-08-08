@@ -14,7 +14,8 @@
   <a href="#release-status">Release Status</a> •
   <a href="#core-team">Core Team</a> •
   <a href="#contributing">Contributing</a> •
-  <a href="#licensing">Licensing</a>
+  <a href="#consent-specs-in-gitbook">Specification in Gitbook</a> •
+  <a href="#repo-structure">Repo structure</a> •
 </p>
 
 ## About
@@ -34,16 +35,6 @@ This repository contains the deliverables from Consent BB team, as part of the G
 
 Working Group Representative: Ramkumar ([psramkumar2@gmail.com](psramkumar2@gmail.com))
 
-## Deliverables
-
-The key deliverables are as summarised below:
-
-1. [Consent BB definition 0.9.0RC2](https://docs.google.com/document/d/1LR2PRhhE2YMUqnIpIKAu4IprYXXPmsMG/edit?usp=drive_web&ouid=100253799258087784406&rtpof=true)
-1. Use case specifications (see Consent BB Definition)
-1. Functional and technical requirements (see Consent BB Definition)
-1. OpenAPI specs - Latest version: [0.9.0rc1](https://app.swaggerhub.com/apis/GovStack/consent-management-bb/)
-1. Rendered diagrams and diagram sources (maintained in Git)
-
 ## Release Status
 
 All diagrams and API specifications contained here are subject to ongoing changes by an internal GovStack Working Group, following this roadmap:
@@ -56,10 +47,6 @@ All diagrams and API specifications contained here are subject to ongoing change
 ## Contributing
 
 Feel free to improve the plugin and send us a pull request. If you found any problems, please create an issue in this repo.
-
-## Licensing
-
-Licensing is under [GNU General Public License 3.0](https://github.com/lalc/BuildingBlockAPI/blob/main/LICENSE) 
 
 ## Consent specs in Gitbook
 

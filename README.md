@@ -8,6 +8,7 @@
   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat"></a>
 </p>
 
+<!--TODO: Update the TOC-->
 <p align="center">
   <a href="#about">About</a> •
   <a href="#release-status">Release Status</a> •
@@ -59,3 +60,32 @@ Feel free to improve the plugin and send us a pull request. If you found any pro
 ## Licensing
 
 Licensing is under [GNU General Public License 3.0](https://github.com/lalc/BuildingBlockAPI/blob/main/LICENSE) 
+
+## Consent specs in Gitbook
+
+Govstack specs are published at [Gitbook - Govstack Global](https://docs.govstack.global/).
+
+Note that pushes to the `main` branch will automatically trigger a Gitbook build
+and deployment from the `/spec` directory.
+
+## Repo Structure
+
+```sh
+README.md
+/spec # the markdown files which are used to build the specification in GitBook
+/api # the openapi specification
+/test # the test plan and tests
+  plan.md
+/examples # examples for deploying, configuring, and testing applications which implement the behaviors specified by this building block
+  /application-a
+    README.md # instructions for deployment/testing
+    docker-compose.yaml # example deployment file
+      db
+      web
+      adaptor
+      security-server
+    Caddyfile # example config for "adaptor"
+    Dockerfile # dockerfile to build "adaptor"
+  /application-b
+  /application-c
+```

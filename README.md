@@ -14,6 +14,8 @@
   <a href="#release-status">Release Status</a> •
   <a href="#core-team">Core Team</a> •
   <a href="#contributing">Contributing</a> •
+  <a href="#consent-specs-in-gitbook">Specification in Gitbook</a> •
+  <a href="#repo-structure">Repo structure</a> •
 </p>
 
 ## About

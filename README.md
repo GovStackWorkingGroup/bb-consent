@@ -57,10 +57,6 @@ All diagrams and API specifications contained here are subject to ongoing change
 
 Feel free to improve the plugin and send us a pull request. If you found any problems, please create an issue in this repo.
 
-## Licensing
-
-Licensing is under [GNU General Public License 3.0](https://github.com/lalc/BuildingBlockAPI/blob/main/LICENSE) 
-
 ## Consent specs in Gitbook
 
 Govstack specs are published at [Gitbook - Govstack Global](https://docs.govstack.global/).

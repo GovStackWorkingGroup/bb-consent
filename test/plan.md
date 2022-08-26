@@ -1,6 +1,6 @@
 # Test plan for the Consent Building Block
 
-The Consent Building Block Test Plan contains a set of high-level integration tests which align with the outlined [Test Strategy](#Strategy).
+This Test Plan contains a set of high-level integration tests which align with the outlined [Test Strategy](#Strategy).
 Test cases are written to closely conform to the Gherkin/Cucumber standard.
 A fully implemented test suite will ultimately make it possible to implement this specification through BDD (Behaviour Driven Development).
 

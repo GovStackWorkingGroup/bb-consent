@@ -1,25 +1,31 @@
 # Test plan for the Consent Building Block
 
-The following tests are integration tests (intended for BDD), mean to be described as closely as possible to Gherkin/Cucumber language.
+The following test plan contain a set of high-level integration tests (intended for BDD), following the outlined [Test Strategy](#Strategy).
+Test cases are written to closely conform to the Gherkin/Cucumber standard.
+
+The intended next step for the test plan is to be implementended as a parsable set of Gherkin tests and finally implemented in an executing test framework feeding back to a test management setup. Thus, we can verify on a very detailed level if a particular Consent implementation lives up to a particular released version of the Consent Building Block Specification.
 
 ## Strategy
 
 * This test plan focuses on validating the compliance between an implementation of the Consent Building Block and the specification of the Consent Building Block.
 * This test plan **does not** specify all test cases possible, it only outlines important examples.
+* This test plan **is versioned** together with the entire Building Block definition.
 
 ## Tests
 
 ### 1. Topic name
 
-One-liner about the topic. Use-case mapping.
+Description: One-liner about the topic.
+Use-cases: Enumerated use-case mapping.
 
 #### 1.1 Scenario name
 
-One-liner about the scenario and use-case mapping.
+Description: One-liner about the scenario
+Use-cases: Enumerated use-case mapping.
 
 ##### 1.1.a Test name
 
-Here, we write the concrete test.
+Comment: Here, we write a description of the test, unless it's clear from the Gherkin.
 
 ```
 Feature: Google Searching

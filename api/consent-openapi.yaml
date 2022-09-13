@@ -27,11 +27,207 @@ tags:
     description: Callback API for other Building Blocks, especially relevant for asynchronous processes.
 paths:
 
-  /org/policy/:
+  /config/policy/:
+
+    post:
+      tags:
+        - config
+      summary: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
+      operationId: "configPolicyCreate"
+      description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
+      parameters: 
+        - in: query
+          name: Policy
+          description: "An object of type Policy"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Policy'
+
+      x-specification-usecase: "UC-C-PIC-A-001"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: "A set consisting of the new Policy object created, together with the initial Revision object."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /config/policy/{policyId}/:
 
     get:
       tags:
-        - org
+        - config
+      summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
+      operationId: "orgReadPolicy"
+      description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: PolicyFilter
+          description: "An object of type PolicyFilter"
+          required: true
+          schema:
+            $ref: '#/components/schemas/PolicyFilter'
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /config/policy/{policyId}/revisions/:
+
+    get:
+      tags:
+        - config
+      summary: "LIST - returns a Policy object with a list of all Revisions"
+      operationId: "orgListPolicyRevisions"
+      description: "LIST - returns a Policy object with a list of all Revisions"
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /config/policy/{id}/:
+
+    put:
+      tags:
+        - config
+      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      operationId: "orgUpdatePolicy"
+      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      parameters: 
+        - in: path
+          name: "id"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: Policy
+          description: "An object of type Policy"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Policy'
+
+      x-specification-usecase: "UC-C-PIC-A-002"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+    delete:
+      tags:
+        - config
+      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      operationId: "orgDeletePolicy"
+      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      parameters: 
+        - in: path
+          name: "id"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-004"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /config/policies/:
+
+    get:
+      tags:
+        - config
       summary: "Returns a list of readable Policy objects"
       operationId: "orgListPolicy"
       description: "LIST - Fetches list of readable Policy objects"
@@ -75,60 +271,21 @@ paths:
         - OAuth2: [admin]
 
 
-    post:
-      tags:
-        - org
-      summary: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
-      operationId: "orgCreatePolicy"
-      description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
-      parameters: 
-        - in: query
-          name: Policy
-          description: "An object of type Policy"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Policy'
-
-      x-specification-usecase: "UC-C-PIC-A-001"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: "A set consisting of the new Policy object created, together with the initial Revision object."
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /org/policy/{id}/:
+  /config/agreement/{agreementId}/:
 
     get:
       tags:
-        - org
-      summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
-      operationId: "orgReadPolicy"
-      description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
+        - config
+      summary: "READ - fetches the latest version of an Agreement"
+      operationId: "configAgreementRead"
+      description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
-          name: "id"
+          name: "agreementId"
           description: "Unique ID of an object"
           required: true
           schema:
             type: string
-
-        - in: query
-          name: PolicyFilter
-          description: "An object of type PolicyFilter"
-          required: true
-          schema:
-            $ref: '#/components/schemas/PolicyFilter'
 
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
@@ -150,24 +307,24 @@ paths:
 
     put:
       tags:
-        - org
-      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
-      operationId: "orgUpdatePolicy"
-      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+        - config
+      summary: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
+      operationId: "orgUpdateAgreement"
+      description: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
       parameters: 
         - in: path
-          name: "id"
+          name: "agreementId"
           description: "Unique ID of an object"
           required: true
           schema:
             type: string
 
         - in: query
-          name: Policy
-          description: "An object of type Policy"
+          name: Agreement
+          description: "An object of type Agreement"
           required: true
           schema:
-            $ref: '#/components/schemas/Policy'
+            $ref: '#/components/schemas/Agreement'
 
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
@@ -189,13 +346,13 @@ paths:
 
     delete:
       tags:
-        - org
-      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
-      operationId: "orgDeletePolicy"
-      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+        - config
+      summary: ""
+      operationId: "orgDeleteAgreement"
+      description: ""
       parameters: 
         - in: path
-          name: "id"
+          name: "agreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -219,37 +376,23 @@ paths:
         - OAuth2: [org]
 
 
-  /org/policy/{id}/revisions/:
+  /config/agreement/:
 
-    get:
+    post:
       tags:
-        - org
-      summary: "LIST - returns a Policy object with a list of all Revisions"
-      operationId: "orgListPolicyRevisions"
-      description: "LIST - returns a Policy object with a list of all Revisions"
+        - config
+      summary: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
+      operationId: "orgCreateAgreement"
+      description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
       parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
+        - in: query
+          name: Agreement
+          description: "An object of type Agreement"
           required: true
           schema:
-            type: string
+            $ref: '#/components/schemas/Agreement'
 
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
       responses:
@@ -267,11 +410,11 @@ paths:
         - OAuth2: [org]
 
 
-  /org/agreement/:
+  /config/agreements/:
 
     get:
       tags:
-        - org
+        - config
       summary: ""
       operationId: "orgListAgreement"
       description: ""
@@ -315,209 +458,11 @@ paths:
         - OAuth2: [org]
 
 
-    post:
-      tags:
-        - org
-      summary: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
-      operationId: "orgCreateAgreement"
-      description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
-      parameters: 
-        - in: query
-          name: Agreement
-          description: "An object of type Agreement"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Agreement'
-
-      x-specification-usecase: "UC-C-PIC-A-001"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-    delete:
-      tags:
-        - org
-      summary: ""
-      operationId: "orgDeleteAgreement"
-      description: ""
-      parameters: []
-      x-specification-usecase: "UC-C-PIC-A-004"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /org/agreement/{id}/:
-
-    get:
-      tags:
-        - org
-      summary: "READ - fetches the latest version of an Agreement"
-      operationId: "orgReadAgreement"
-      description: "READ - fetches the latest version of an Agreement"
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-    put:
-      tags:
-        - org
-      summary: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
-      operationId: "orgUpdateAgreement"
-      description: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: Agreement
-          description: "An object of type Agreement"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Agreement'
-
-      x-specification-usecase: "UC-C-PIC-A-002"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /org/record/{id}/:
-
-    get:
-      tags:
-        - org
-      summary: "READ - fetches a ConsentRecord"
-      operationId: "orgReadConsentRecord"
-      description: "READ - fetches a ConsentRecord"
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /org/record/{id}/withdraw/:
-
-    put:
-      tags:
-        - org
-      summary: "UPDATE - invalidates/withdraws a ConsentRecord, for usage in unconventional withdrawal of consent, for instance if withdrawal happens through an email or phone call."
-      operationId: "orgUpdateConsentRecord"
-      description: "UPDATE - invalidates/withdraws a ConsentRecord, for usage in unconventional withdrawal of consent, for instance if withdrawal happens through an email or phone call."
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /org/individual/:
+  /service/individual/:
 
     post:
       tags:
-        - org
+        - service
       summary: "CREATE - Creates an Individual in the Consent system"
       operationId: "orgIndividualCreate"
       description: "CREATE - Creates an Individual in the Consent system"
@@ -547,17 +492,17 @@ paths:
         - OAuth2: [org]
 
 
-  /org/individual/{id}/:
+  /service/individual/{individualId}/:
 
     get:
       tags:
-        - org
+        - service
       summary: "READ - Fetch an Individual in the Consent system"
       operationId: "orgIndividualRead"
       description: "READ - Fetch an Individual in the Consent system"
       parameters: 
         - in: path
-          name: "id"
+          name: "individualId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -583,13 +528,13 @@ paths:
 
     put:
       tags:
-        - org
+        - service
       summary: "UPDATE - Updates an Individual in the Consent system"
       operationId: "orgIndividualUpdate"
       description: "UPDATE - Updates an Individual in the Consent system"
       parameters: 
         - in: path
-          name: "id"
+          name: "individualId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -615,13 +560,13 @@ paths:
 
     delete:
       tags:
-        - org
+        - service
       summary: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
       operationId: "orgIndividualDelete"
       description: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
       parameters: 
         - in: path
-          name: "id"
+          name: "individualId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -645,14 +590,82 @@ paths:
         - OAuth2: [org]
 
 
-  /dataconsumer/config/agreement/:
+  /service/individuals/:
 
     get:
       tags:
-        - dataconsumer
-      summary: "LIST - Fetch agreements"
-      operationId: ""
-      description: "LIST - Fetch agreements"
+        - service
+      summary: "LIST - lists individuals in the system"
+      operationId: "orgIndividualCreate"
+      description: "LIST - lists individuals in the system"
+      parameters: 
+        - in: query
+          name: RegistryReference
+          description: "An object of type RegistryReference"
+          required: true
+          schema:
+            $ref: '#/components/schemas/RegistryReference'
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/agreement/{agreementId}/:
+
+    get:
+      tags:
+        - service
+      summary: "READ - fetches the latest version of an Agreement"
+      operationId: "serviceAgreementRead"
+      description: "READ - fetches the latest version of an Agreement"
+      parameters: 
+        - in: path
+          name: "agreementId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/verification/agreements/:
+
+    get:
+      tags:
+        - service
+      summary: "LIST - Fetch consent records"
+      operationId: "serviceAgreementList"
+      description: "LIST - Fetch consent records"
       parameters: 
         - in: query
           name: AgreementFilter
@@ -661,7 +674,21 @@ paths:
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
-      x-specification-usecase: ""
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "1.1"
       x-specification-pii-or-sensitive: "False"
       responses:
@@ -679,57 +706,23 @@ paths:
         - OAuth2: [consumer]
 
 
-  /dataconsumer/consent/:
+  /service/verification/agreement/{agreementId}/:
 
     get:
       tags:
-        - dataconsumer
-      summary: "LIST - Fetch consent records. For a given Agreement and Individual, query if consent exists"
+        - service
+      summary: "READ - Fetch a specific Consent Record (latest revision)"
       operationId: ""
-      description: "LIST - Fetch consent records. For a given Agreement and Individual, query if consent exists"
-      parameters: 
-        - in: query
-          name: ConsentRecordFilter
-          description: "An object of type ConsentRecordFilter"
-          required: true
-          schema:
-            $ref: '#/components/schemas/ConsentRecordFilter'
-
-      x-specification-usecase: ""
-      x-specification-scenario: "3.1, 1.2"
-      x-specification-pii-or-sensitive: "True"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [consumer]
-
-
-  /dataconsumer/agreement/{id}/:
-
-    get:
-      tags:
-        - dataconsumer
-      summary: "READ - Fetch a specific agreement"
-      operationId: ""
-      description: "READ - Fetch a specific agreement"
+      description: "READ - Fetch a specific Consent Record (latest revision)"
       parameters: 
         - in: path
-          name: "id"
+          name: "agreementId"
           description: "Unique ID of an object"
           required: true
           schema:
             type: string
 
-      x-specification-usecase: ""
+      x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "False"
       responses:
@@ -747,22 +740,63 @@ paths:
         - OAuth2: [consumer]
 
 
-  /individual/{id}/agreement/{agreementId}/:
+  /service/verification/consentrecords/:
+
+    get:
+      tags:
+        - service
+      summary: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
+      operationId: "serviceListIndividualRecord"
+      description: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
+      parameters: 
+        - in: query
+          name: ConsentRecordFilter
+          description: "An object of type ConsentRecordFilter"
+          required: true
+          schema:
+            $ref: '#/components/schemas/ConsentRecordFilter'
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: "3.1, 1.2"
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [consumer]
+
+
+  /service/individual/record/agreement/{agreementId}/:
 
     post:
       tags:
-        - individual
-      summary: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement"
-      operationId: ""
-      description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement"
+        - service
+      summary: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
+      operationId: "serviceCreateIndividualRecord"
+      description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
       parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
         - in: path
           name: "agreementId"
           description: "Unique ID of an object"
@@ -811,18 +845,11 @@ paths:
 
     get:
       tags:
-        - individual
-      summary: "LIST"
+        - service
+      summary: "READ - Individual ID supplied as HTTP header."
       operationId: ""
-      description: "LIST"
+      description: "READ - Individual ID supplied as HTTP header."
       parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
         - in: path
           name: "agreementId"
           description: "Unique ID of an object"
@@ -848,22 +875,15 @@ paths:
         - OAuth2: [individual]
 
 
-  /individual/{id}/consentrecord/{consentRecordId}/:
+  /service/individual/record/consentrecord/{consentRecordId}/:
 
     put:
       tags:
-        - individual
-      summary: "UPDATE*"
-      operationId: ""
-      description: "UPDATE*"
+        - service
+      summary: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
+      operationId: "serviceUpdateIndividualRecord"
+      description: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
       parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
         - in: path
           name: "consentRecordId"
           description: "Unique ID of an object"
@@ -910,69 +930,28 @@ paths:
         - OAuth2: [individual]
 
 
-  /individual/{id}/agreement/{agreementId}/withdraw/:
-
-    put:
-      tags:
-        - individual
-      summary: "UPDATE*"
-      operationId: ""
-      description: "UPDATE*"
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: path
-          name: "agreementId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: Individual
-          description: "An object of type Individual"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Individual'
-
-      x-specification-usecase: "UC-C-PIC-I-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      responses:
-        '200':
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [individual]
-
-
-  /individual/{id}/agreement/:
+  /service/individual/record/agreement/:
 
     get:
       tags:
-        - individual
-      summary: "LIST"
-      operationId: ""
-      description: "LIST"
+        - service
+      summary: "LIST - Individual ID supplied as HTTP header."
+      operationId: "serviceListIndividualRecord"
+      description: "LIST - Individual ID supplied as HTTP header."
       parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
           schema:
-            type: string
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
 
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
@@ -992,23 +971,16 @@ paths:
         - OAuth2: [individual]
 
 
-  /individual/{id}/:
+  /service/individual/record/:
 
     delete:
       tags:
-        - individual
-      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement."
-      operationId: ""
-      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement."
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: ""
+        - service
+      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      operationId: "serviceDeleteAllRecords"
+      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      parameters: []
+      x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
       responses:
@@ -1026,7 +998,7 @@ paths:
         - OAuth2: [individual]
 
 
-  /auditor/tracker/:
+  /audit/trackers/:
 
     get:
       tags:
@@ -1052,6 +1024,8 @@ paths:
       security:
         - OAuth2: []
 
+
+  /audit/tracker/:
 
     post:
       tags:
@@ -1085,7 +1059,7 @@ paths:
         - OAuth2: []
 
 
-  /auditor/tracker/{id}/:
+  /audit/tracker/{trackerId}/:
 
     get:
       tags:
@@ -1095,7 +1069,7 @@ paths:
       description: "READ - get the details of an AuditTracker"
       parameters: 
         - in: path
-          name: "id"
+          name: "trackerId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1127,7 +1101,7 @@ paths:
       description: "UPDATE - get the details of an AuditTracker"
       parameters: 
         - in: path
-          name: "id"
+          name: "trackerId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1166,7 +1140,7 @@ paths:
       description: "DELETE - removes an AuditTracker"
       parameters: 
         - in: path
-          name: "id"
+          name: "trackerId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1190,7 +1164,7 @@ paths:
         - OAuth2: []
 
 
-  /auditor/consentrecord/:
+  /audit/consentrecords/:
 
     get:
       tags:
@@ -1224,15 +1198,97 @@ paths:
         - OAuth2: []
 
 
-  /auditor/agreement/:
+  /audit/consentrecord/{consentRecordId}/:
 
     get:
       tags:
         - auditor
-      summary: "LIST - fetch configured Agreement objects"
+      summary: "READ"
       operationId: ""
-      description: "LIST - fetch configured Agreement objects"
+      description: "READ"
       parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: ConsentRecord
+          description: "An object of type ConsentRecord"
+          required: true
+          schema:
+            $ref: '#/components/schemas/ConsentRecord'
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /audit/agreements/:
+
+    get:
+      tags:
+        - auditor
+      summary: ""
+      operationId: ""
+      description: ""
+      parameters: 
+        - in: query
+          name: AgreementFilter
+          description: "An object of type AgreementFilter"
+          required: true
+          schema:
+            $ref: '#/components/schemas/AgreementFilter'
+
+      x-specification-usecase: "UC-C-PIC-AT-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /audit/agreement/{agreementId}/:
+
+    get:
+      tags:
+        - auditor
+      summary: "READ"
+      operationId: ""
+      description: "READ"
+      parameters: 
+        - in: path
+          name: "agreementId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
         - in: query
           name: AgreementFilter
           description: "An object of type AgreementFilter"
@@ -1267,9 +1323,8 @@ components:
       description: "Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements."
       required:
            - id
-           - functional_id
-           - foundational_id
-           - session_id
+           - external_id
+           - external_id_type
       properties:
 
         id:
@@ -1278,23 +1333,17 @@ components:
           example: ""
           description: "The unique ID of an Individual row."
 
-        functional_id:
+        external_id:
           type: string
           format: ""
           example: ""
-          description: "Non-mandatory reference to a functional ID, which is likely PII"
+          description: "Reference to another foundational/functional ID, which is likely PII"
 
-        foundational_id:
+        external_id_type:
           type: string
           format: ""
           example: ""
-          description: "Non-mandatory (natural) ID and PII"
-
-        session_id:
-          type: string
-          format: ""
-          example: ""
-          description: "An Individual may simply be mapped to a temporary session."
+          description: "External id type specifier. A string. For instance \"email\" or \"foundational id\". Can be used in later queries."
 
 
     Agreement:
@@ -1491,7 +1540,7 @@ components:
 
     ConsentRecord:
       type: object
-      description: "A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement."
+      description: "A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)"
       required:
            - id
            - agreement
@@ -1631,6 +1680,11 @@ components:
       required:
            - id
            - opt_in
+           - agreement
+           - agreement_revision
+           - individual
+           - functional_id
+           - foundational_id
       properties:
 
         id:
@@ -1641,6 +1695,27 @@ components:
 
         opt_in:
           type: boolean
+          format: ""
+          example: ""
+          description: ""
+
+        agreement:
+          $ref: '#/components/schemas/Agreement'
+
+        agreement_revision:
+          $ref: '#/components/schemas/Revision'
+
+        individual:
+          $ref: '#/components/schemas/Individual'
+
+        functional_id:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        foundational_id:
+          type: string
           format: ""
           example: ""
           description: ""
@@ -1956,3 +2031,4 @@ components:
 security:
   - OAuth2:
       - read
+

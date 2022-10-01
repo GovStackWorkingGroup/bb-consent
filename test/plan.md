@@ -12,7 +12,38 @@ The intended next step for the test plan is to be implementended as a parsable s
 * This test plan **does not** specify all test cases possible, it only outlines important examples.
 * This test plan **is versioned** together with the entire Building Block definition.
 
+## Gherkin Reference
+
+Test scenarious are written with Gherkin and can be implemented with several tools. Please read the [Official Gherkin Reference](https://cucumber.io/docs/gherkin/reference/).
+
 ## Tests
+
+We write Gherkin features in the following structure:
+
+```
+=> Topic (as a folder)
+   => Feature (as a .feature file)
+      => Scenario (as part of a .feature file)
+```
+
+For example:
+
+```
+auditing/
+  external_real_time.feature
+     Scenario: Notification is sent to external auditor
+     
+     Background:
+       Given an auditor named "A&B"
+       Given an individual named "Jane Doe"
+       Given an agreement named "Data Agreement"
+    
+     Given auditor "A&B" signs up for notifications
+     When individual "Jane Doe" consents to agreement "Data Agreement"
+     Then an auditing notification is sent to "A&B"
+
+
+```
 
 ### 1. Topic name
 

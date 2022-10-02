@@ -6,7 +6,7 @@ Developed in cooperation with GIZ, ITU, DIAL, and the Government of Estonia.
 * Ain Aaviksoo (Estonian Telecommunications Union)
 * Benjamin Balder Bach (Independent consultant, fmly Danish Tax & Revenue)
 * Lal Chandran (MyData Global, iGrant.io Sweden)
-* Philippe Page (MyData Global, Switzerland)
+* Philippe Page (MyData Global, Human Colossus Foundation, Switzerland)
 
 **Advisors:**
 * Ramkumar (ITU)

@@ -40,7 +40,7 @@ Working Group Representative: Ramkumar ([psramkumar2@gmail.com](psramkumar2@gmai
 All diagrams and API specifications contained here are subject to ongoing changes by an internal GovStack Working Group, following this roadmap:
 
 * Wave 2, Internal Review (July 14th, 2022)
-* Release certification (Deadline TBA)
+* Release certification (30 September 2022)
 * Limited publication (Deadline TBA)
 * Community-wide publication (~August 2022)
 

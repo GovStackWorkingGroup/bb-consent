@@ -20,36 +20,36 @@ API tag: service,,,,,,,,,,,
 /service/individual/{individualId}/,GET,,,,Individual,READ - Fetch an Individual in the Consent system,TRUE,,orgIndividualRead,,org
 /service/individual/{individualId}/,PUT,,,,Individual,UPDATE - Updates an Individual in the Consent system,TRUE,,orgIndividualUpdate,,org
 /service/individual/{individualId}/,DELETE,,,,Individual,DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects,TRUE,,orgIndividualDelete,,org
-/service/individuals/,GET,,,RegistryReference,Individual,LIST - lists individuals in the system,TRUE,,orgIndividualCreate,,org
+/service/individuals/,GET,,,RegistryReference,Individual,LIST - lists individuals in the system,TRUE,,orgIndividualList,,org
 "Read operation for ""Agreement"" object",,,,,,,FALSE,,,,
 /service/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceAgreementRead,,org
 Verification mechanisms,,,,,,,FALSE,,,,
-/service/verification/agreements/,GET,UC-C-PIC-A-003,1.1,AgreementFilter,ConsentRecord<List>,LIST - Fetch consent records,FALSE,,serviceAgreementList,,consumer
-/service/verification/agreement/{agreementId}/,GET,UC-C-PIC-A-003,1.2,,"ConsentRecord, Revision",READ - Fetch a specific Consent Record (latest revision),FALSE,,,,consumer
-/service/verification/consentrecords/,GET,UC-C-PIC-A-003,"3.1, 1.2",ConsentRecordFilter,ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists",TRUE,,serviceListIndividualRecord,,consumer
+/service/verification/agreements/,GET,UC-C-PIC-A-003,1.1,AgreementFilter,ConsentRecord<List>,LIST - Fetch consent records for suplied AgreementFilter,FALSE,,serviceVerificationAgreementList,,consumer
+/service/verification/agreement/{agreementId}/,GET,UC-C-PIC-A-003,1.2,,"ConsentRecord, Revision",READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header.,FALSE,,serviceVerificationAgreementConsentRecordRead,,consumer
+/service/verification/consentrecords/,GET,UC-C-PIC-A-003,"3.1, 1.2",ConsentRecordFilter,ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists",TRUE,,serviceVerificationConsentRecordList,,consumer
 Recording consent (giving/withdrawing),,,,,,All services need to specify the Individual ID as an HTTP header.,FALSE,,,,
 /service/individual/record/agreement/{agreementId}/,POST,UC-C-PIC-I-002,1.2,"Individual, Agreement, Revision","ConsentRecord, Revision","CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header.",TRUE,,serviceCreateIndividualRecord,,individual
 /service/individual/record/consentrecord/{consentRecordId}/,PUT,UC-C-PIC-I-003,,"Individual, Agreement, Revision","ConsentRecord, Revision",UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header.,TRUE,,serviceUpdateIndividualRecord,,individual
-/service/individual/record/agreement/,GET,UC-C-PIC-I-001,,,"ConsentRecord<list>, Agreement<list>",LIST - Individual ID supplied as HTTP header.,TRUE,,serviceListIndividualRecord,,individual
-/service/individual/record/agreement/{agreementId}/,GET,UC-C-PIC-I-001,,,"ConsentRecord, Revision<list>",READ - Individual ID supplied as HTTP header.,TRUE,,,,individual
+/service/individual/record/agreement/,GET,UC-C-PIC-I-001,,,"ConsentRecord<list>, Agreement<list>",LIST - Individual ID supplied as HTTP header.,TRUE,,serviceListIndividualRecordList,,individual
+/service/individual/record/agreement/{agreementId}/,GET,UC-C-PIC-I-001,,,"ConsentRecord, Revision<list>",READ - Individual ID supplied as HTTP header.,TRUE,,serviceReadIndividualRecordRead,,individual
 /service/individual/record/,DELETE,UC-C-PIC-I-003,,,,"DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a ""forgettable"" Agreement. Individual ID supplied as HTTP header.",TRUE,,serviceDeleteAllRecords,,individual
 ,,,,,,,,,,,
 API tag: auditor,,,,,,,,,,,
-/audit/trackers/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker<List>,LIST - show available AuditTracker objects,,,,,
-/audit/tracker/,POST,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker,AuditTracker,CREATE - A new AuditTracker is set up,,,,,
-/audit/tracker/{trackerId}/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,READ - get the details of an AuditTracker,,,,,
-/audit/tracker/{trackerId}/,PUT,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker,AuditTracker,UPDATE - get the details of an AuditTracker,,,,,
-/audit/tracker/{trackerId}/,DELETE,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,DELETE - removes an AuditTracker,,,,,
-/audit/consentrecords/,GET,UC-C-PIC-AT-003,,ConsentRecordFilter,ConsentRecord<List>,LIST - fetch ConsentRecord objects,,,,,
-/audit/consentrecord/{consentRecordId}/,GET,,,ConsentRecord,ConsentRecord,READ,,,,,
-/audit/agreements/,GET,UC-C-PIC-AT-003,,AgreementFilter,Agreement<List>,,,,,,
-/audit/agreement/{agreementId}/,GET,UC-C-PIC-AT-003,,AgreementFilter,Agreement,READ,,,,,
+/audit/trackers/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker<List>,LIST - show available AuditTracker objects,,,auditListTrackers,,
+/audit/tracker/,POST,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker,AuditTracker,CREATE - A new AuditTracker is set up,,,auditCreateTracker,,
+/audit/tracker/{trackerId}/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,READ - get the details of an AuditTracker,,,auditReadTracker,,
+/audit/tracker/{trackerId}/,PUT,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker,AuditTracker,UPDATE - get the details of an AuditTracker,,,auditUpdateTracker,,
+/audit/tracker/{trackerId}/,DELETE,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,DELETE - removes an AuditTracker,,,auditDeleteTracker,,
+/audit/consentrecords/,GET,UC-C-PIC-AT-003,,ConsentRecordFilter,ConsentRecord<List>,LIST - fetch ConsentRecord objects,,,auditConsentRecordList,,
+/audit/consentrecord/{consentRecordId}/,GET,,,ConsentRecord,ConsentRecord,READ,,,auditConsentRecordRead,,
+/audit/agreements/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-003",,AgreementFilter,Agreement<List>,,,,auditAgreementList,,
+/audit/agreement/{agreementId}/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-003",,AgreementFilter,Agreement,READ,,,auditReadRecord,,
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 API tag: notification,,,,,,,,,,,
 ,,,,,,,,,,,
 API tag: callback,,,,,,,,,,,
-/callback/registrybb/revision/{id}/,,,,RegistryReference,,"For asynchronous flows, the Consenent BB will require a callback from the Registry BB when saving and updating records on an Individual.",FALSE,,,,
+/callback/registrybb/revision/{id}/,,,,RegistryReference,,"For asynchronous flows, the Consent BB will require a callback from the Registry BB when saving and updating records on an Individual.",FALSE,,,,
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 Questions / notes,,,,,,,,,,,

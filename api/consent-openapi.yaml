@@ -4,9 +4,9 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
-  description: This is a basic API for GovStack's Consent Management Building Block. It reflects the basic requirements of the Consent Management BB specification, which is versioned .
-  version: 0.9.0-rc1
-  title: Consent Management BB API
+  description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
+  version: 1.0.0-rc1
+  title: Consent BB API
   contact:
     email: balder@overtag.dk
   license:
@@ -596,7 +596,7 @@ paths:
       tags:
         - service
       summary: "LIST - lists individuals in the system"
-      operationId: "orgIndividualCreate"
+      operationId: "orgIndividualList"
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
@@ -605,6 +605,20 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/RegistryReference'
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
 
       x-specification-usecase: ""
       x-specification-scenario: ""
@@ -663,9 +677,9 @@ paths:
     get:
       tags:
         - service
-      summary: "LIST - Fetch consent records"
-      operationId: "serviceAgreementList"
-      description: "LIST - Fetch consent records"
+      summary: "LIST - Fetch consent records for suplied AgreementFilter"
+      operationId: "serviceVerificationAgreementList"
+      description: "LIST - Fetch consent records for suplied AgreementFilter"
       parameters: 
         - in: query
           name: AgreementFilter
@@ -711,9 +725,9 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - Fetch a specific Consent Record (latest revision)"
-      operationId: ""
-      description: "READ - Fetch a specific Consent Record (latest revision)"
+      summary: "READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header."
+      operationId: "serviceVerificationAgreementConsentRecordRead"
+      description: "READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header."
       parameters: 
         - in: path
           name: "agreementId"
@@ -746,7 +760,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
-      operationId: "serviceListIndividualRecord"
+      operationId: "serviceVerificationConsentRecordList"
       description: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
       parameters: 
         - in: query
@@ -847,7 +861,7 @@ paths:
       tags:
         - service
       summary: "READ - Individual ID supplied as HTTP header."
-      operationId: ""
+      operationId: "serviceReadIndividualRecordRead"
       description: "READ - Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -936,7 +950,7 @@ paths:
       tags:
         - service
       summary: "LIST - Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualRecord"
+      operationId: "serviceListIndividualRecordList"
       description: "LIST - Individual ID supplied as HTTP header."
       parameters: 
         - in: query
@@ -1004,9 +1018,23 @@ paths:
       tags:
         - auditor
       summary: "LIST - show available AuditTracker objects"
-      operationId: ""
+      operationId: "auditListTrackers"
       description: "LIST - show available AuditTracker objects"
-      parameters: []
+      parameters: 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
@@ -1031,7 +1059,7 @@ paths:
       tags:
         - auditor
       summary: "CREATE - A new AuditTracker is set up"
-      operationId: ""
+      operationId: "auditCreateTracker"
       description: "CREATE - A new AuditTracker is set up"
       parameters: 
         - in: query
@@ -1065,7 +1093,7 @@ paths:
       tags:
         - auditor
       summary: "READ - get the details of an AuditTracker"
-      operationId: ""
+      operationId: "auditReadTracker"
       description: "READ - get the details of an AuditTracker"
       parameters: 
         - in: path
@@ -1097,7 +1125,7 @@ paths:
       tags:
         - auditor
       summary: "UPDATE - get the details of an AuditTracker"
-      operationId: ""
+      operationId: "auditUpdateTracker"
       description: "UPDATE - get the details of an AuditTracker"
       parameters: 
         - in: path
@@ -1136,7 +1164,7 @@ paths:
       tags:
         - auditor
       summary: "DELETE - removes an AuditTracker"
-      operationId: ""
+      operationId: "auditDeleteTracker"
       description: "DELETE - removes an AuditTracker"
       parameters: 
         - in: path
@@ -1170,7 +1198,7 @@ paths:
       tags:
         - auditor
       summary: "LIST - fetch ConsentRecord objects"
-      operationId: ""
+      operationId: "auditConsentRecordList"
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
         - in: query
@@ -1179,6 +1207,20 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/ConsentRecordFilter'
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
 
       x-specification-usecase: "UC-C-PIC-AT-003"
       x-specification-scenario: ""
@@ -1204,7 +1246,7 @@ paths:
       tags:
         - auditor
       summary: "READ"
-      operationId: ""
+      operationId: "auditConsentRecordRead"
       description: "READ"
       parameters: 
         - in: path
@@ -1245,7 +1287,7 @@ paths:
       tags:
         - auditor
       summary: ""
-      operationId: ""
+      operationId: "auditAgreementList"
       description: ""
       parameters: 
         - in: query
@@ -1255,7 +1297,21 @@ paths:
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
-      x-specification-usecase: "UC-C-PIC-AT-003"
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
       responses:
@@ -1279,7 +1335,7 @@ paths:
       tags:
         - auditor
       summary: "READ"
-      operationId: ""
+      operationId: "auditReadRecord"
       description: "READ"
       parameters: 
         - in: path
@@ -1296,7 +1352,7 @@ paths:
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
-      x-specification-usecase: "UC-C-PIC-AT-003"
+      x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
       responses:

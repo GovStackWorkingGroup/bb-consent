@@ -1,13 +1,13 @@
 FROM python:3
 
-# This is a demo app. It's okay to run pip as root inside a docker container
+# This is a mock app. It's okay to run pip as root inside a docker container
 ENV PIP_ROOT_USER_ACTION=ignore
 
-COPY examples/demo/djangoapp/requirements.txt /requirements.txt
+COPY examples/mock/djangoapp/requirements.txt /requirements.txt
 
 RUN python3 -m pip install pip --upgrade && pip install -r /requirements.txt
 
-ADD ./examples/demo/djangoapp/ /djangoapp
+ADD ./examples/mock/djangoapp/ /djangoapp
 
 WORKDIR "/djangoapp/"
 

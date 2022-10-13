@@ -6,7 +6,7 @@ FROM caddy:2-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
-COPY examples/demo/Caddyfile /etc/caddy/Caddyfile
+COPY examples/mock/Caddyfile /etc/caddy/Caddyfile
 
 COPY api/consent-openapi.yaml /consent-openapi.yaml
 

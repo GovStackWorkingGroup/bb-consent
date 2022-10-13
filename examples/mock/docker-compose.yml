@@ -1,21 +1,21 @@
-version: "3"
+version: '3'
 
 services:
   consent:
-    image: consent_bb_demo_app
+    image: consent_bb_mock_app
     expose:
       - 8000
     networks:
       - web
     build:
       context: ../../
-      dockerfile: examples/demo/Dockerfile_app
+      dockerfile: examples/mock/Dockerfile_app
 
   caddy:
-    image: consent_bb_demo_http
+    image: consent_bb_mock_http
     ports:
-      - "8080:80"
-      - "8888:443"
+      - '8080:80'
+      - '8888:443'
     environment:
       - SITE_ADDRESS=localhost
     volumes:
@@ -24,7 +24,7 @@ services:
       - web
     build:
       context: ../../
-      dockerfile: examples/demo/Dockerfile_caddy
+      dockerfile: examples/mock/Dockerfile_caddy
 
 volumes:
   caddy:

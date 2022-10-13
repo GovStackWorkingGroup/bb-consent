@@ -15,8 +15,8 @@ in order to execute Docker and Docker Compose without sudo.
 
 ## Configure
 
-To set up a demo, `cd` into that applications folder, copy the example env, set
-your own secrets, then start up via docker compose.
+To set up an implementation of this bb, `cd` into that applications folder, copy
+the example env, set your own secrets, then start up via docker compose.
 
 - `cd << someApp >>`
 - `cp .env.example .env`

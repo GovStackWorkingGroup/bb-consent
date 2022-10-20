@@ -31,16 +31,19 @@ For example:
 ```
 auditing/
   external_real_time.feature
-     Scenario: Notification is sent to external auditor
-     
-     Background:
-       Given an auditor named "A&B"
-       Given an individual named "Jane Doe"
-       Given an agreement named "Data Agreement"
-    
-     Given auditor "A&B" signs up for notifications
-     When individual "Jane Doe" consents to agreement "Data Agreement"
-     Then an auditing notification is sent to "A&B"
+  
+     Feature: Notifications are sent to external auditor
+  
+       Scenario: External auditor is notified of a new consent record
+       
+       Background:
+         Given an auditor named "A&B"
+         Given an individual named "Jane Doe"
+         Given an agreement named "Data Agreement"
+      
+       Given auditor "A&B" signs up for notifications
+       When individual "Jane Doe" consents to agreement "Data Agreement"
+       Then an auditing notification is sent to "A&B"
 
 
 ```

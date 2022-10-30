@@ -6,7 +6,8 @@ FROM caddy:2-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
-COPY examples/mock/Caddyfile /etc/caddy/Caddyfile
+# Replace with a bind mount?
+# COPY examples/mock/Caddyfile /etc/caddy/Caddyfile
 
 COPY api/consent-openapi.yaml /consent-openapi.yaml
 

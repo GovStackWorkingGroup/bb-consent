@@ -16,6 +16,7 @@ services:
     ports:
       - '8080:80'
       - '8888:443'
+      - '2019'
     environment:
       - SITE_ADDRESS=localhost
     volumes:
@@ -25,6 +26,9 @@ services:
     build:
       context: ../../
       dockerfile: examples/mock/Dockerfile_caddy
+    volumes:
+      - ./caddy:/etc/caddy
+      - ./static-responses:/static-reponses
 
 volumes:
   caddy:

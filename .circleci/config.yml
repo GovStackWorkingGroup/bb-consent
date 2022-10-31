@@ -11,6 +11,7 @@ jobs:
 
     machine:
       image: ubuntu-2004:current
+      docker_layer_caching: true
     # docker:
     #   - image: circleci/python:3.10
     # Add steps to the job
@@ -27,10 +28,6 @@ jobs:
           command: |
             cd ./examples/mock/
             docker-compose up -d
-
-      - run:
-          name: Start all services declared in docker-compose.yml
-          command: |
             # In this example, we have a "contacts" service, and
             # we are trying to check, via `dockerize`, if the service is ready.
             docker container run --network mock_web \

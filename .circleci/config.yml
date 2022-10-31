@@ -35,7 +35,7 @@ jobs:
             # we are trying to check, via `dockerize`, if the service is ready.
             docker container run --network mock_web \
               docker.io/jwilder/dockerize \
-              -wait http://localhost:8000/healthcheck \
+              -wait http://caddy:8000/healthcheck \
               -wait-retry-interval 2s \
               -timeout 20s          
 

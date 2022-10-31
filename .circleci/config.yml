@@ -33,7 +33,7 @@ jobs:
           command: |
             # In this example, we have a "contacts" service, and
             # we are trying to check, via `dockerize`, if the service is ready.
-            docker container run --network container:consent_bb_mock_1 \
+            docker container run --network mock_web \
               docker.io/jwilder/dockerize \
               -wait http://localhost:8000/healthcheck \
               -wait-retry-interval 2s \

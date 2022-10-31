@@ -8,8 +8,8 @@ jobs:
   test-mock-application:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    # docker:
-    #   - image: circleci/python:3.10
+    docker:
+      - image: circleci/python:3.10
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -23,7 +23,7 @@ jobs:
           name: Build images of services declared in docker-compose.yml
           command: |
             ls
-            cd "$CIRCLE_WORKING_DIRECTORY/examples/mock/"
+            cd "./examples/mock/"
             docker-compose build
           
 # Invoke jobs via workflows

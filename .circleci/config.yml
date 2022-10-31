@@ -28,11 +28,15 @@ jobs:
           command: |
             cd ./examples/mock/
             docker-compose up -d
+
+      - run:
+          name: Start all services declared in docker-compose.yml
+          command: |
             # In this example, we have a "contacts" service, and
             # we are trying to check, via `dockerize`, if the service is ready.
             docker container run --network mock_web \
               docker.io/jwilder/dockerize \
-              -wait http://caddy:8000/healthcheck \
+              -wait https://caddy:8888/healthcheck \
               -wait-retry-interval 2s \
               -timeout 20s          
 

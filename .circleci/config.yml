@@ -24,6 +24,11 @@ jobs:
             cd ./examples/mock/
             docker-compose build
       - run:
+          name: Build test image
+          command: |
+            cd ./test/
+            docker build . -t test:latest
+      - run:
           name: Start all services declared in docker-compose.yml
           command: |
             cd ./examples/mock/
@@ -38,6 +43,7 @@ jobs:
               -wait tcp://caddy:80 \
               -wait-retry-interval 2s \
               -timeout 20s
+            docker container run --network mock_web test:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

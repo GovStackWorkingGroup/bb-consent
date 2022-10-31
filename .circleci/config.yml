@@ -32,9 +32,9 @@ jobs:
             # we are trying to check, via `dockerize`, if the service is ready.
             docker container run --network mock_web \
               docker.io/jwilder/dockerize \
-              -wait http://caddy:80/healthcheck \
+              -wait tcp://caddy:80 \
               -wait-retry-interval 2s \
-              -timeout 20s          
+              -timeout 20s
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

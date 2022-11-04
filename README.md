@@ -1,6 +1,4 @@
-<h1 align="center">
-  Consent Building Block (Govstack)
-</h1>
+# Consent Building Block (Govstack)
 
 [![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=svg)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
 [![last commits](https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat)](../commits/)

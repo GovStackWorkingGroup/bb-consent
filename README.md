@@ -2,21 +2,19 @@
   Consent Building Block (Govstack)
 </h1>
 
-<p align="center">
-  [![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=svg)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
-  <a href="../commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat"></a>
-  <a href="../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/GovStackWorkingGroup/bb-consent?style=flat"></a>
-  <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat"></a>
-</p>
+[![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=svg)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
+[![last commits](https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat)](../commits/)
+[![open issues](https://img.shields.io/github/issues/GovStackWorkingGroup/bb-consent?style=flat)](../issues/)
+[![license](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat)](./LICENSE/)
 
 <!--TODO: Update the TOC-->
-<p align="center">
+<p>
   <a href="#about">About</a> •
   <a href="#release-status">Release Status</a> •
   <a href="#core-team">Core Team</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#consent-specs-in-gitbook">Specification in Gitbook</a> •
-  <a href="#repo-structure">Repo structure</a> •
+  <a href="#repo-structure">Repo structure</a>
 </p>
 
 ## About

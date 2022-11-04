@@ -1,12 +1,26 @@
-{$SITE_ADDRESS}:80, {$SITE_ADDRESS}:443 {
+{
+    debug
+}
 
+{$SITE_ADDRESS}:80, {$SITE_ADDRESS}:443 {
 
   @api {
     path /api/*
   }
 
+  # Makes it easier to write static responses later
+  root * /static-reponses/
+
   route @api {
     uri strip_prefix /api
+
+    # An example of a static response, taking precedence over the reverse proxy to the Django application
+    handle /service/policy/ {
+        header "Content-Type" "application/json"
+        rewrite * "policy-1.json"
+        file_server
+    }
+
     reverse_proxy {
       to consent:8000
     }

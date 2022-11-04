@@ -6,8 +6,6 @@ FROM caddy:2-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
-COPY examples/mock/Caddyfile /etc/caddy/Caddyfile
-
 COPY api/consent-openapi.yaml /consent-openapi.yaml
 
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]

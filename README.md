@@ -3,6 +3,7 @@
 </h1>
 
 <p align="center">
+  [![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=svg)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
   <a href="../commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat"></a>
   <a href="../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/GovStackWorkingGroup/bb-consent?style=flat"></a>
   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat"></a>

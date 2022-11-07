@@ -31,6 +31,6 @@ def when_api_basic_public_call(api_url, client):
 
 
 @then("I get some valid JSON data back")
-def sum_matches(when_api_basic_public_call):
+def json_data_is_valid(when_api_basic_public_call):
     assert when_api_basic_public_call.status_code == 200
     assert isinstance(json.loads(when_api_basic_public_call.content), dict)

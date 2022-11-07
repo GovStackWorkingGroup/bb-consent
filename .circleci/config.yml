@@ -34,7 +34,7 @@ jobs:
             cd ./examples/mock/
             docker-compose up -d
       - run:
-          name: Ping the caddy container to see if it is alive
+          name: Wait for service to be alive
           command: |
             # In this example, we have a "contacts" service, and
             # we are trying to check, via `dockerize`, if the service is ready.
@@ -43,6 +43,9 @@ jobs:
               -wait tcp://caddy:80 \
               -wait-retry-interval 2s \
               -timeout 20s
+      - run:
+          name: Run Gherkin tests
+          command: |
             docker container run --network mock_web test:latest
 
 # Invoke jobs via workflows

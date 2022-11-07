@@ -19,11 +19,13 @@ services:
       - '2019'
     environment:
       - SITE_ADDRESS=localhost
-      - INTERNAL_SITE_ADDRESS=caddy
+      - INTERNAL_SITE_ADDRESS=caddy.local
     volumes:
       - caddy:/data
     networks:
-      - web
+      web:
+        aliases:
+          - caddy.local
     build:
       context: ../../
       dockerfile: examples/mock/Dockerfile_caddy

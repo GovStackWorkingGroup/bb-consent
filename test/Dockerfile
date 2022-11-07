@@ -8,7 +8,7 @@ COPY . /tests
 
 WORKDIR /tests/
 
-ENV CONSENTBB_API_HOST=caddy:443
+ENV CONSENTBB_API_HOST=caddy.local:443
 ENV CONSENTBB_API_PATH=/api
 
 CMD pytest

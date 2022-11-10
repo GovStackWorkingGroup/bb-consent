@@ -1,6 +1,7 @@
 # Consent Building Block (Govstack)
 
-[![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=svg)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
+[![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=shield)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
+[![latest spec on GitBook](https://img.shields.io/badge/GitBook-Latest-orange.svg?style=flat)](https://govstack.gitbook.io/bb-consent/)
 [![last commits](https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat)](../commits/)
 [![open issues](https://img.shields.io/github/issues/GovStackWorkingGroup/bb-consent?style=flat)](../issues/)
 [![license](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat)](./LICENSE/)
@@ -11,7 +12,7 @@
   <a href="#release-status">Release Status</a> •
   <a href="#core-team">Core Team</a> •
   <a href="#contributing">Contributing</a> •
-  <a href="#consent-specs-in-gitbook">Specification in Gitbook</a> •
+  <a href="#consent-specs-in-gitbook">Specification in GitBook</a> •
   <a href="#repo-structure">Repo structure</a>
 </p>
 
@@ -49,6 +50,8 @@ Feel free to improve the plugin and send us a pull request. If you found any pro
 
 Govstack specs are published at [Gitbook - Govstack Global](https://docs.govstack.global/).
 
+You may view the Consent BB's latest publication directly on [https://govstack.gitbook.io/bb-consent/](https://govstack.gitbook.io/bb-consent/).
+
 Note that pushes to the `main` branch will automatically trigger a Gitbook build
 and deployment from the `/spec` directory.
 
@@ -61,7 +64,7 @@ README.md
 /test # the test plan and tests
   plan.md
 /examples # examples for deploying, configuring, and testing applications which implement the behaviors specified by this building block
-  /application-a
+  /mock
     README.md # instructions for deployment/testing
     docker-compose.yaml # example deployment file
       db
@@ -70,6 +73,7 @@ README.md
       security-server
     Caddyfile # example config for "adaptor"
     Dockerfile # dockerfile to build "adaptor"
+  /application-a
   /application-b
   /application-c
 ```

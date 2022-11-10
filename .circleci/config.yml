@@ -26,7 +26,7 @@ jobs:
       - run:
           name: Build test image
           command: |
-            cd ./test/
+            cd ./test/gherkin/
             docker build . -t test:latest
       - run:
           name: Start all services declared in docker-compose.yml

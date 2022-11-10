@@ -23,6 +23,10 @@ API tag: service,,,,,,,,,,,
 /service/individuals/,GET,,,RegistryReference,Individual,LIST - lists individuals in the system,TRUE,,orgIndividualList,,org
 "Read operation for ""Agreement"" object",,,,,,,FALSE,,,,
 /service/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceAgreementRead,,org
+"Read operation for ""Policy"" object",,,,,,,FALSE,,,,
+/service/policy/{policyId}/,GET,UC-C-PIC-A-003,,,"Policy, Revision",READ - fetches the latest version of a Policy,FALSE,,serviceAgreementRead,,org
+"Read operation for ""Purpose"" object",,,,,,,FALSE,,,,
+/service/purpose/{purposeId}/,GET,UC-C-PIC-A-003,,,"AgreementPurpose, Revision",READ - fetches the latest version of an AgreementPolicy,FALSE,,serviceAgreementRead,,org
 Verification mechanisms,,,,,,,FALSE,,,,
 /service/verification/agreements/,GET,UC-C-PIC-A-003,1.1,AgreementFilter,ConsentRecord<List>,LIST - Fetch consent records for suplied AgreementFilter,FALSE,,serviceVerificationAgreementList,,consumer
 /service/verification/agreement/{agreementId}/,GET,UC-C-PIC-A-003,1.2,,"ConsentRecord, Revision",READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header.,FALSE,,serviceVerificationAgreementConsentRecordRead,,consumer

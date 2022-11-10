@@ -1982,6 +1982,7 @@ components:
            - id
            - name
            - description
+           - hash
       properties:
 
         id:
@@ -2001,6 +2002,12 @@ components:
           format: ""
           example: ""
           description: "Description of purpose"
+
+        hash:
+          type: string
+          format: ""
+          example: ""
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement."
 
 
     AgreementLifecycle:

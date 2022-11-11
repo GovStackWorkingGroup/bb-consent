@@ -1,6 +1,10 @@
 import pytest
 import requests
 
+pytest_plugins = [
+   "tests.shared_steps"
+]
+
 @pytest.fixture(scope="session")
 def client():
     """

@@ -9,24 +9,13 @@ from pytest_bdd import (
 
 scenarios("something_exists.feature")
 
-
-@given(
-    "A URL of a Consent Building Block instance",
-    target_fixture="api_url"
-)
-def api_url():
-    return "https://{}{}".format(
-        os.environ["CONSENTBB_API_HOST"],
-        os.environ["CONSENTBB_API_PATH"]
-    )
-
 @when(
     "I call a basic public API endpoint",
     target_fixture="when_api_basic_public_call"
 )
 def when_api_basic_public_call(api_url, client):
     return client.get(
-        os.path.join(api_url, "service/policy/")
+        os.path.join(api_url, "service/policy/1/")
     )
 
 

@@ -25,13 +25,6 @@
         file_server
     }
 
-    # An example of a static response, taking precedence over the reverse proxy to the Django application
-    handle /service/agreement/1/ {
-        header "Content-Type" "application/json"
-        rewrite * "policy-1.json"
-        file_server
-    }
-
     reverse_proxy {
       to consent:8000
     }

@@ -1,3 +1,11 @@
 {
-    "test": "123"
+    "id": 1,
+    "name": "Data Policy Agreement for Individual data processing in a Government",
+    "version": "1.0",
+    "url": "https://localhost:8888/api/service/policy/1/",
+    "jurisdiction": "Utopia",
+    "industry_sector": "Government",
+    "data_retention_period_days": 200,
+    "geographic_restriction": "Utopia",
+    "storage_location": "Utopia"
 }

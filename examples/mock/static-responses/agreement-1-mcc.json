@@ -1,0 +1,14 @@
+{
+    "id": "1",
+    "version": "1.0",
+    "controller": "Ministry of Health, Government of Utopia",
+    "policy": "1",
+    "purpose": "1",
+    "lawful_basis": "Act of Child Health, Assessment of Legal dept. at Ministry of Health, Government of Utopia",
+    "data_use": "Registration at local MCC center",
+    "dpia": "https://<some-url> or perhaps this field needs to be designed a bit more",
+    "lifecycle": "4",
+    "signature": "<crypto-signature>",
+    "active": true,
+    "forgettable": false
+}

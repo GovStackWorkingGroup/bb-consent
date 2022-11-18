@@ -5,6 +5,6 @@ Feature: Consent Agreements can be fetched in a variety of scenarios.
     This generic scenario implements UC-Post-Partum-001.
   
     Given A URL of a Consent Building Block instance
-    Given an Agreement for Test Organization's User Registration exists
+    And an Agreement for Test Organization's User Registration exists
     When I fetch an Agreement for Test Organization
     Then I get a valid Agreement

@@ -8,10 +8,14 @@ The current API specification can be found here:
 * [OpenAPI spec in GitHub](https://github.com/GovStackWorkingGroup/bb-consent/) _(Raise PR if you want to suggest a change)_
 * [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) _(view only)_
 
-**NOTE 1:** The API version follows the general version of the Consent BB and is released with the Consent BB as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the Consent BB Working Group for more guidance on the current versioning semantics.
+{% hint style="warning" %}
+The API version follows the general version of the Consent BB and is released with the Consent BB as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the Consent BB Working Group for more guidance on the current versioning semantics.
+{% endhint %}
 
-**NOTE 2:** _Changes to the API definitions can be made by submitting a Pull Request on [this repository](https://github.com/GovStackWorkingGroup/BuildingBlockAPI/pull/15)_
-
+{% hint style="info" %}
+Changes to the API definitions can be made by submitting a Pull Request on [this repository](https://github.com/GovStackWorkingGroup/bb-consent/)
+{% endhint %}
+​
 <!--
 ### TODO
 

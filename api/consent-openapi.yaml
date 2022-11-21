@@ -711,12 +711,46 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - fetches the latest version of an AgreementPolicy"
+      summary: "READ - fetches the latest version of an AgreementPurpose"
       operationId: "serviceAgreementRead"
-      description: "READ - fetches the latest version of an AgreementPolicy"
+      description: "READ - fetches the latest version of an AgreementPurpose"
       parameters: 
         - in: path
           name: "purposeId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/agreement/{agreementId}/agreementdata/:
+
+    get:
+      tags:
+        - service
+      summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      operationId: "serviceAgreementRead"
+      description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      parameters: 
+        - in: path
+          name: "agreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -876,7 +910,7 @@ paths:
       tags:
         - service
       summary: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceCreateIndividualRecord"
+      operationId: "serviceCreateIndividualConsentRecord"
       description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -962,9 +996,9 @@ paths:
     put:
       tags:
         - service
-      summary: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
-      operationId: "serviceUpdateIndividualRecord"
-      description: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
+      summary: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      operationId: "serviceUpdateIndividualConsentRecord"
+      description: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -995,6 +1029,72 @@ paths:
             $ref: '#/components/schemas/Revision'
 
       x-specification-usecase: "UC-C-PIC-I-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/{consentRecordId}/signature/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      operationId: "serviceCreateIndividualConsentRecordSignature"
+      description: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+    put:
+      tags:
+        - service
+      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      operationId: "serviceUpdateIndividualConsentRecordSignature"
+      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
       responses:
@@ -1058,9 +1158,9 @@ paths:
     delete:
       tags:
         - service
-      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
       operationId: "serviceDeleteAllRecords"
-      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
       parameters: []
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
@@ -1543,7 +1643,7 @@ components:
           type: boolean
           format: ""
           example: ""
-          description: "Agreement may be deleted when consent is withdrawn, as its existence is not necessary for auditability."
+          description: "Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability."
 
 
     AgreementData:
@@ -1700,7 +1800,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "unsigned/pending more signatures/signed"
+          description: "The state field is used to record state changes after-the-fact. It is maintained by the Consent BB itself. Valid states: unsigned/pending more signatures/signed"
 
         signature:
           $ref: '#/components/schemas/Signature'
@@ -1930,7 +2030,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Internally generated cryptographic hash of the value to be signed."
+          description: "Payload. Internally generated cryptographic hash of the value to be signed."
 
         verification_signature:
           type: string
@@ -1954,7 +2054,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Identifier information may change over time. This field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing."
+          description: "Identifier information may change over time. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing."
 
         timestamp:
           type: string

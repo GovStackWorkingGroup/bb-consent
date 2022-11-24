@@ -11,7 +11,7 @@ scenarios("get_agreement.feature")
 
 
 @given(
-    "an Agreement for MCC Registration exists",
+    "an Agreement for Test Organization's User Registration exists",
     target_fixture="mcc_registration_create"
 )
 def mcc_registration_create():
@@ -21,7 +21,7 @@ def mcc_registration_create():
 
 
 @when(
-    "I fetch an Agreement for MCC Registration",
+    "I fetch an Agreement for Test Organization",
     target_fixture="api_mcc_registration"
 )
 def when_api_basic_public_call(api_url, mcc_registration_create, client):

@@ -36,7 +36,7 @@ servers:
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
   description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
-  version: 1.0.0-rc1
+  version: 1.1.0-rc1
   title: Consent BB API
   contact:
     email: balder@overtag.dk

@@ -49,12 +49,19 @@ paths:
       responses:
         '200':
           description: "A set consisting of the new Policy object created, together with the initial Revision object."
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -90,12 +97,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -138,12 +152,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -179,12 +200,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -211,12 +239,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -259,12 +287,17 @@ paths:
       responses:
         '200':
           description: "A list of Policy objects readable for the current session's credentials."
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+
         '400':
           description: bad input parameter
       security:
@@ -293,12 +326,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -332,12 +372,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -364,12 +411,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -398,12 +445,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -446,12 +500,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+
         '400':
           description: bad input parameter
       security:
@@ -480,12 +539,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -514,12 +573,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -546,12 +605,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -578,12 +637,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -626,12 +685,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -660,12 +719,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -678,7 +744,7 @@ paths:
       tags:
         - service
       summary: "READ - fetches the latest version of a Policy"
-      operationId: "serviceAgreementRead"
+      operationId: "servicePolicyRead"
       description: "READ - fetches the latest version of a Policy"
       parameters: 
         - in: path
@@ -694,12 +760,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Policy'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -712,7 +785,7 @@ paths:
       tags:
         - service
       summary: "READ - fetches the latest version of an AgreementPurpose"
-      operationId: "serviceAgreementRead"
+      operationId: "serviceAgreementPurposeRead"
       description: "READ - fetches the latest version of an AgreementPurpose"
       parameters: 
         - in: path
@@ -728,12 +801,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/AgreementPurpose'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -746,7 +826,7 @@ paths:
       tags:
         - service
       summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
-      operationId: "serviceAgreementRead"
+      operationId: "serviceAgreementDataRead"
       description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
       parameters: 
         - in: path
@@ -762,12 +842,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/AgreementData'
+
+
         '400':
           description: bad input parameter
       security:
@@ -810,12 +895,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+
         '400':
           description: bad input parameter
       security:
@@ -844,12 +934,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -892,12 +989,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+
         '400':
           description: bad input parameter
       security:
@@ -922,24 +1024,24 @@ paths:
 
         - in: query
           name: individualId
-          description: "An object of type individualId"
+          description: "An object with id individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/individualId'
+            type: string
 
         - in: query
           name: agreementId
-          description: "An object of type agreementId"
+          description: "An object with id agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/agreementId'
+            type: string
 
         - in: query
           name: revisionId
-          description: "An object of type revisionId"
+          description: "An object with id revisionId"
           required: true
           schema:
-            $ref: '#/components/schemas/revisionId'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
@@ -947,12 +1049,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -979,12 +1088,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -997,29 +1113,29 @@ paths:
       tags:
         - service
       summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
-      operationId: "serviceCreateIndividualConsentRecord"
+      operationId: "serviceCreateIndividualConsentRecordDraft"
       description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
       parameters: 
         - in: query
           name: individualId
-          description: "An object of type individualId"
+          description: "An object with id individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/individualId'
+            type: string
 
         - in: query
           name: agreementId
-          description: "An object of type agreementId"
+          description: "An object with id agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/agreementId'
+            type: string
 
         - in: query
           name: revisionId
-          description: "An object of type revisionId"
+          description: "An object with id revisionId"
           required: true
           schema:
-            $ref: '#/components/schemas/revisionId'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
@@ -1027,12 +1143,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Signature'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1044,9 +1167,9 @@ paths:
     post:
       tags:
         - service
-      summary: "CREATE - Creates a ConsentRecord and Signature object. Returns the same objects with the PK defined."
-      operationId: "serviceCreateIndividualConsentRecord"
-      description: "CREATE - Creates a ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      summary: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      operationId: "serviceCreateIndividualConsentRecordAndSignature"
+      description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
       parameters: 
         - in: query
           name: ConsentRecord
@@ -1068,12 +1191,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Signature'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1123,12 +1253,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Revision'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1157,12 +1294,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Signature'
+
         '400':
           description: bad input parameter
       security:
@@ -1183,18 +1320,25 @@ paths:
           schema:
             type: string
 
+        - in: query
+          name: Signature
+          description: "An object of type Signature"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Signature'
+
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Signature'
+
         '400':
           description: bad input parameter
       security:
@@ -1230,12 +1374,19 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+                    - $ref: '#/components/schemas/Agreement'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1257,12 +1408,7 @@ paths:
       responses:
         '200':
           description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+            
         '400':
           description: bad input parameter
       security:
@@ -1298,12 +1444,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/AuditTracker'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1332,12 +1483,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1366,12 +1517,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1405,12 +1556,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1437,12 +1588,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1485,12 +1636,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1526,12 +1682,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -1574,12 +1730,17 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                  
+                    - $ref: '#/components/schemas/Agreement'
+
+
         '400':
           description: bad input parameter
       security:
@@ -1615,12 +1776,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Agreement'
+
         '400':
           description: bad input parameter
       security:

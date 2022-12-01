@@ -921,25 +921,25 @@ paths:
             type: string
 
         - in: query
-          name: Individual
-          description: "An object of type Individual"
+          name: individualId
+          description: "An object of type individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/Individual'
+            $ref: '#/components/schemas/individualId'
 
         - in: query
-          name: Agreement
-          description: "An object of type Agreement"
+          name: agreementId
+          description: "An object of type agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/Agreement'
+            $ref: '#/components/schemas/agreementId'
 
         - in: query
-          name: Revision
-          description: "An object of type Revision"
+          name: revisionId
+          description: "An object of type revisionId"
           required: true
           schema:
-            $ref: '#/components/schemas/Revision'
+            $ref: '#/components/schemas/revisionId'
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
@@ -975,6 +975,95 @@ paths:
 
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/draft/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      operationId: "serviceCreateIndividualConsentRecord"
+      description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      parameters: 
+        - in: query
+          name: individualId
+          description: "An object of type individualId"
+          required: true
+          schema:
+            $ref: '#/components/schemas/individualId'
+
+        - in: query
+          name: agreementId
+          description: "An object of type agreementId"
+          required: true
+          schema:
+            $ref: '#/components/schemas/agreementId'
+
+        - in: query
+          name: revisionId
+          description: "An object of type revisionId"
+          required: true
+          schema:
+            $ref: '#/components/schemas/revisionId'
+
+      x-specification-usecase: "UC-C-PIC-I-002"
+      x-specification-scenario: "1.2"
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Policy'
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Creates a ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      operationId: "serviceCreateIndividualConsentRecord"
+      description: "CREATE - Creates a ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      parameters: 
+        - in: query
+          name: ConsentRecord
+          description: "An object of type ConsentRecord"
+          required: true
+          schema:
+            $ref: '#/components/schemas/ConsentRecord'
+
+        - in: query
+          name: Signature
+          description: "An object of type Signature"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Signature'
+
+      x-specification-usecase: "UC-C-PIC-I-002"
+      x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "True"
       responses:
         '200':
@@ -1779,7 +1868,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Objects may be passed back by some API endpoints without an id (PK), denoting that they are a \"draft\", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated."
 
         agreement:
           $ref: '#/components/schemas/Agreement'
@@ -2018,7 +2107,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Objects may be passed back by some API endpoints without an id (PK), denoting that they are a \"draft\", i.e. a Signature that is not yet stored in the database and only exist in transit."
 
         verification_method:
           type: string

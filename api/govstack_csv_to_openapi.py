@@ -118,12 +118,10 @@ responseOK_template_objects = """
               schema:
                 type: array
                 items:
-                  oneOf:
-                  {objects}
+                  oneOf:{objects}
 """
 responseOK_template_object = """
-                    - $ref: '#/components/schemas/{schema}'
-"""
+                    - $ref: '#/components/schemas/{schema}'"""
 
 path_spec_template_post = path_spec_template + """
       requestBody:

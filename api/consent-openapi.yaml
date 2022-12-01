@@ -56,11 +56,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -104,11 +101,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -159,11 +153,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -207,11 +198,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -294,9 +282,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
 
         '400':
           description: bad input parameter
@@ -333,11 +319,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -379,11 +362,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -452,11 +432,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -507,9 +484,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
 
         '400':
           description: bad input parameter
@@ -726,11 +701,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -767,11 +739,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Policy'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -808,11 +777,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/AgreementPurpose'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -849,9 +815,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/AgreementData'
-
 
         '400':
           description: bad input parameter
@@ -902,9 +866,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
 
         '400':
           description: bad input parameter
@@ -941,11 +903,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -996,9 +955,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
 
         '400':
           description: bad input parameter
@@ -1056,11 +1013,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -1095,11 +1049,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -1150,11 +1101,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Signature'
-
 
         '400':
           description: bad input parameter
@@ -1198,11 +1146,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Signature'
-
 
         '400':
           description: bad input parameter
@@ -1260,11 +1205,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Revision'
-
 
         '400':
           description: bad input parameter
@@ -1381,11 +1323,8 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
                     - $ref: '#/components/schemas/Agreement'
-
 
         '400':
           description: bad input parameter
@@ -1451,9 +1390,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/AuditTracker'
-
 
         '400':
           description: bad input parameter
@@ -1643,9 +1580,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/ConsentRecord'
-
 
         '400':
           description: bad input parameter
@@ -1737,9 +1672,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                  
                     - $ref: '#/components/schemas/Agreement'
-
 
         '400':
           description: bad input parameter

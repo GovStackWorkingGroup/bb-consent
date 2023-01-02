@@ -36,7 +36,7 @@ servers:
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
   description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
-  version: 1.0.0-rc1
+  version: 1.1.0-rc1
   title: Consent BB API
   contact:
     email: balder@overtag.dk
@@ -97,17 +97,31 @@ path_spec_template = """
       responses:
         '200':
           description: "{responseOK}"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+            {responseOK_objects}
         '400':
           description: bad input parameter
       security:
         - OAuth2: [{security}]
 """
+
+responseOK_template_single_object = """
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{schema}'
+"""
+
+
+responseOK_template_objects = """
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:{objects}
+"""
+responseOK_template_object = """
+                    - $ref: '#/components/schemas/{schema}'"""
 
 path_spec_template_post = path_spec_template + """
       requestBody:
@@ -138,6 +152,17 @@ parameter_template_schema = """
           schema:
             $ref: '#/components/schemas/{schema_model}'
 """
+
+# See: https://swagger.io/docs/specification/describing-parameters/
+parameter_template_objectid = """
+        - in: {where}
+          name: {name}
+          description: "{description}"
+          required: {required}
+          schema:
+            type: string
+"""
+
 
 schema_template = """
     {schema}:
@@ -226,13 +251,21 @@ def get_api_spec_from_row(row, current_tag):
         )
     
     for query_parameter in filter(lambda x: bool(x), row[4].split(", ")):
-        parameters += parameter_template_schema.format(
-            where="query",
-            name=query_parameter,
-            required="true",
-            schema_model=query_parameter,
-            description="An object of type {}".format(query_parameter),
-        )
+        if query_parameter.endswith("Id"):
+            parameters += parameter_template_objectid.format(
+                where="query",
+                name=query_parameter,
+                required="true",
+                description="An object with id {}".format(query_parameter),
+            )
+        else:
+            parameters += parameter_template_schema.format(
+                where="query",
+                name=query_parameter,
+                required="true",
+                schema_model=query_parameter,
+                description="An object of type {}".format(query_parameter),
+            )
 
     if "List" in operation_id:
         parameters += parameter_template.format(
@@ -250,6 +283,31 @@ def get_api_spec_from_row(row, current_tag):
             schema_type="integer",
         )
     
+    response_ok_objects = ""
+    objects_to_return = list(filter(lambda x: bool(x), row[5].split(", ")))
+    
+    # Single object
+    if len(objects_to_return) == 1:
+        if objects_to_return[0].endswith("<List>"):
+            object_name = objects_to_return[0].replace("<List>", "")
+            response_ok_objects = responseOK_template_objects.format(
+                objects=responseOK_template_object.format(schema=object_name)
+            )
+        else:
+            response_ok_objects = responseOK_template_single_object.format(
+                schema=objects_to_return[0]
+            )
+    elif len(objects_to_return) > 1:
+        response_ok_objects_schemas_to_insert = ""
+        for return_object in objects_to_return:
+            if return_object.endswith("<List>"):
+                sys.stderr.write("Found an array inside an array, which is not supported, so just removing the fact that the nested object was meant as an array.")
+            # We don't support arrays inside arrays currently
+            return_object = return_object.replace("<List>", "")
+            response_ok_objects_schemas_to_insert += responseOK_template_object.format(schema=return_object)
+        response_ok_objects = responseOK_template_objects.format(
+            objects=response_ok_objects_schemas_to_insert
+        )
 
     return {
         "url": url,
@@ -261,6 +319,7 @@ def get_api_spec_from_row(row, current_tag):
         "url_parameters": parameters or "[]",
         "request_parameter": "",
         "responseOK": response_ok,
+        "responseOK_objects": response_ok_objects,
         "security": security,
         "usecase": usecase,
         "scenario": scenario,

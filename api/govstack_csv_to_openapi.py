@@ -149,6 +149,12 @@ schema_template = """
 {properties}
 """
 
+django_model_schema_template = """
+class {schema}(models.Model):
+    \"\"\"{description}\"\"\"
+    {fields}
+"""
+
 schema_property_template = """
         {name}:
           type: {property_type}
@@ -157,9 +163,24 @@ schema_property_template = """
           description: "{description}"
 """
 
+django_model_field_template = """
+    {name} = models.{property_type}(
+        verbose_name="{name}",
+        help_text="{description}",
+    )
+"""
+
 schema_property_fk_template = """
         {name}:
           $ref: '#/components/schemas/{fk_model}'
+"""
+
+django_model_foreignkey_template = """
+    {name} = models.ForeignKey(
+        {fk_model},
+        verbose_name="{name}",
+        help_text="{description}",
+    )
 """
 
 
@@ -347,6 +368,8 @@ schema_fields = {}
 schema_field_names = {}
 schema_descriptions = {}
 
+schema_field_properties = {}
+
 with open(schema_csv_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
     for row in spamreader:
@@ -357,9 +380,15 @@ with open(schema_csv_file, newline='') as csvfile:
         if current_model:
             schema_fields.setdefault(current_model, "")
             schema_field_names.setdefault(current_model, [])
+            schema_field_properties.setdefault(current_model, [])
 
         if current_model and is_row_with_schema_property(row):
             schema_field_names[current_model].append(row[0])
+            schema_field_properties[current_model].append({
+                "name": row[0],
+                "type": row[1],
+                "description": row[3],
+            })
             schema_fields[current_model] += schema_property_template.format(
                 name=row[0],
                 property_type=row[1],
@@ -369,6 +398,12 @@ with open(schema_csv_file, newline='') as csvfile:
             )
         elif current_model and is_row_with_schema_fk(row):
             schema_field_names[current_model].append(row[0])
+            schema_field_properties[current_model].append({
+                "name": row[0],
+                "type": "fk",
+                "description": row[3],
+                "fk_model": row[2],
+            })
             schema_fields[current_model] += schema_property_fk_template.format(
                 name=row[0],
                 fk_model=row[2],
@@ -391,13 +426,51 @@ for schema_name, properties in schema_fields.items():
         model_fields=", ".join("""<code style="font-family: monospace">{}</code>""".format(x) for x in schema_field_names[schema_name])
     )
 
+django_models_output = ""
+
+openapi_type_to_django_map = {
+    "string": "CharField",
+    "fk": "ForeignKey",
+    "boolean": "BooleanField",
+    "integer": "IntegerField",
+}
+
+for schema_name in schema_fields.keys():
+    properties_output = ""
+
+    for field in schema_field_properties[schema_name]:
+        if field["type"] == "fk":
+            properties_output += django_model_foreignkey_template.format(
+                name=field["name"],
+                fk_model=field["fk_model"],
+                property_type=openapi_type_to_django_map[field["type"]],
+                description=field["description"]
+            )
+        else:
+            properties_output += django_model_field_template.format(
+                name=field["name"],
+                property_type=openapi_type_to_django_map[field["type"]],
+                description=field["description"]
+            )
+
+    django_models_output += django_model_schema_template.format(
+        schema=schema_name,
+        description=schema_descriptions[schema_name],
+        fields=properties_output,
+    )
+
+
 yaml_output = template.format(paths=output_paths, schemas=output_schemas)
 
-html_table_output = html_table_template.format(rows=html_table_rows_output)
+html_table_output = html_table_template.format(rows=django_models_output)
 
 if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 
     print(html_table_output)
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-models":
+
+    print(django_models_output)
 
 else:
     print(yaml_output)

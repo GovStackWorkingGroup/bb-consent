@@ -13,10 +13,15 @@
   route @api {
     uri strip_prefix /api
 
-    # An example of a static response, taking precedence over the reverse proxy to the Django application
-    handle /service/policy/ {
+    # Static responses that take precedence over the Django application
+    handle /service/policy/1/ {
         header "Content-Type" "application/json"
         rewrite * "policy-1.json"
+        file_server
+    }
+    handle /service/agreement/1/ {
+        header "Content-Type" "application/json"
+        rewrite * "agreement-1-mcc.json"
         file_server
     }
 

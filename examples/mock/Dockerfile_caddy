@@ -1,8 +1,8 @@
-FROM caddy:2-builder AS builder
+FROM caddy:2.5.2-builder AS builder
 
-RUN xcaddy build --with github.com/chukmunnlee/caddy-openapi
+RUN xcaddy build --with github.com/chukmunnlee/caddy-openapi@v0.7.0
 
-FROM caddy:2-alpine
+FROM caddy:2.5.2-alpine
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 

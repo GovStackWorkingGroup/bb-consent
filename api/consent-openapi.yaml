@@ -5,7 +5,7 @@ servers:
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
   description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
-  version: 1.0.0-rc1
+  version: 1.1.0-rc1
   title: Consent BB API
   contact:
     email: balder@overtag.dk
@@ -49,12 +49,16 @@ paths:
       responses:
         '200':
           description: "A set consisting of the new Policy object created, together with the initial Revision object."
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -90,12 +94,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -107,9 +115,9 @@ paths:
     get:
       tags:
         - config
-      summary: "LIST - returns a Policy object with a list of all Revisions"
+      summary: "LIST - returns the current Policy"
       operationId: "orgListPolicyRevisions"
-      description: "LIST - returns a Policy object with a list of all Revisions"
+      description: "LIST - returns the current Policy"
       parameters: 
         - in: path
           name: "policyId"
@@ -138,12 +146,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Policy'
+
         '400':
           description: bad input parameter
       security:
@@ -179,12 +187,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -211,12 +223,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -259,12 +271,15 @@ paths:
       responses:
         '200':
           description: "A list of Policy objects readable for the current session's credentials."
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+
         '400':
           description: bad input parameter
       security:
@@ -293,12 +308,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -332,12 +351,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -364,12 +387,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -398,12 +421,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -446,12 +473,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+
         '400':
           description: bad input parameter
       security:
@@ -480,12 +510,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -514,12 +544,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -546,12 +576,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -578,12 +608,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -626,12 +656,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Individual'
+
         '400':
           description: bad input parameter
       security:
@@ -660,12 +690,129 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/policy/{policyId}/:
+
+    get:
+      tags:
+        - service
+      summary: "READ - fetches the latest version of a Policy"
+      operationId: "servicePolicyRead"
+      description: "READ - fetches the latest version of a Policy"
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/purpose/{purposeId}/:
+
+    get:
+      tags:
+        - service
+      summary: "READ - fetches the latest version of an AgreementPurpose"
+      operationId: "serviceAgreementPurposeRead"
+      description: "READ - fetches the latest version of an AgreementPurpose"
+      parameters: 
+        - in: path
+          name: "purposeId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/AgreementPurpose'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /service/agreement/{agreementId}/agreementdata/:
+
+    get:
+      tags:
+        - service
+      summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      operationId: "serviceAgreementDataRead"
+      description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      parameters: 
+        - in: path
+          name: "agreementId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/AgreementData'
+
         '400':
           description: bad input parameter
       security:
@@ -708,12 +855,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -742,12 +892,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -790,12 +944,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -808,7 +965,7 @@ paths:
       tags:
         - service
       summary: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceCreateIndividualRecord"
+      operationId: "serviceCreateIndividualConsentRecord"
       description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -819,25 +976,25 @@ paths:
             type: string
 
         - in: query
-          name: Individual
-          description: "An object of type Individual"
+          name: individualId
+          description: "An object with id individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/Individual'
+            type: string
 
         - in: query
-          name: Agreement
-          description: "An object of type Agreement"
+          name: agreementId
+          description: "An object with id agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/Agreement'
+            type: string
 
         - in: query
-          name: Revision
-          description: "An object of type Revision"
+          name: revisionId
+          description: "An object with id revisionId"
           required: true
           schema:
-            $ref: '#/components/schemas/Revision'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
@@ -845,12 +1002,16 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Revision'
+
         '400':
           description: bad input parameter
       security:
@@ -860,9 +1021,9 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - Individual ID supplied as HTTP header."
+      summary: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       operationId: "serviceReadIndividualRecordRead"
-      description: "READ - Individual ID supplied as HTTP header."
+      description: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       parameters: 
         - in: path
           name: "agreementId"
@@ -877,12 +1038,109 @@ paths:
       responses:
         '200':
           description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsentRecord'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/draft/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      operationId: "serviceCreateIndividualConsentRecordDraft"
+      description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      parameters: 
+        - in: query
+          name: individualId
+          description: "An object with id individualId"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: agreementId
+          description: "An object with id agreementId"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-I-002"
+      x-specification-scenario: "1.2"
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Signature'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      operationId: "serviceCreateIndividualConsentRecordAndSignature"
+      description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
+      parameters: 
+        - in: query
+          name: ConsentRecord
+          description: "An object of type ConsentRecord"
+          required: true
+          schema:
+            $ref: '#/components/schemas/ConsentRecord'
+
+        - in: query
+          name: Signature
+          description: "An object of type Signature"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Signature'
+
+      x-specification-usecase: "UC-C-PIC-I-002"
+      x-specification-scenario: "1.2"
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Signature'
+
         '400':
           description: bad input parameter
       security:
@@ -894,9 +1152,9 @@ paths:
     put:
       tags:
         - service
-      summary: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
-      operationId: "serviceUpdateIndividualRecord"
-      description: "UPDATE* - Update a particular signed Consent Record. Individual ID supplied as HTTP header."
+      summary: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      operationId: "serviceUpdateIndividualConsentRecord"
+      description: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -932,12 +1190,89 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/consentrecord/{consentRecordId}/signature/:
+
+    post:
+      tags:
+        - service
+      summary: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      operationId: "serviceCreateIndividualConsentRecordSignature"
+      description: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Signature'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+    put:
+      tags:
+        - service
+      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      operationId: "serviceUpdateIndividualConsentRecordSignature"
+      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: Signature
+          description: "An object of type Signature"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Signature'
+
+      x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Signature'
+
         '400':
           description: bad input parameter
       security:
@@ -973,12 +1308,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -990,9 +1328,9 @@ paths:
     delete:
       tags:
         - service
-      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
       operationId: "serviceDeleteAllRecords"
-      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. Individual ID supplied as HTTP header."
+      description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
       parameters: []
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
@@ -1000,12 +1338,7 @@ paths:
       responses:
         '200':
           description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+            
         '400':
           description: bad input parameter
       security:
@@ -1041,12 +1374,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1075,12 +1411,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1109,12 +1445,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1148,12 +1484,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1180,12 +1516,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/AuditTracker'
+
         '400':
           description: bad input parameter
       security:
@@ -1228,12 +1564,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -1269,12 +1608,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/ConsentRecord'
+
         '400':
           description: bad input parameter
       security:
@@ -1317,12 +1656,15 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Policy'
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+
         '400':
           description: bad input parameter
       security:
@@ -1358,12 +1700,12 @@ paths:
       responses:
         '200':
           description: ""
+            
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Policy'
+                $ref: '#/components/schemas/Agreement'
+
         '400':
           description: bad input parameter
       security:
@@ -1475,7 +1817,7 @@ components:
           type: boolean
           format: ""
           example: ""
-          description: "Agreement may be deleted when consent is withdrawn, as its existence is not necessary for auditability."
+          description: "Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability."
 
 
     AgreementData:
@@ -1611,7 +1953,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Objects may be passed back by some API endpoints without an id (PK), denoting that they are a \"draft\", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated."
 
         agreement:
           $ref: '#/components/schemas/Agreement'
@@ -1632,7 +1974,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "unsigned/pending more signatures/signed"
+          description: "The state field is used to record state changes after-the-fact. It is maintained by the Consent BB itself. Valid states: unsigned/pending more signatures/signed"
 
         signature:
           $ref: '#/components/schemas/Signature'
@@ -1835,12 +2177,13 @@ components:
       description: "A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object."
       required:
            - id
+           - payload
+           - signature
            - verification_method
            - verification_hash
-           - verification_signature
            - verification_artifact
-           - jws_header
-           - signed_by
+           - verification_signed_by
+           - verification_jws_header
            - timestamp
            - object_type
            - object_reference
@@ -1850,25 +2193,31 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Objects may be passed back by some API endpoints without an id (PK), denoting that they are a \"draft\", i.e. a Signature that is not yet stored in the database and only exist in transit."
+
+        payload:
+          type: string
+          format: ""
+          example: ""
+          description: "The payload that is signed, constructed as a serialization of fields verification_method + verification_hash + verification_artifact + verification_signed_by + verification_jws_header. Serialized as a JSON dict."
+
+        signature:
+          type: string
+          format: ""
+          example: ""
+          description: "Signature (of payload), the format of the signature should be specified by either verification_method or verification_jws_header"
 
         verification_method:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary."
 
         verification_hash:
           type: string
           format: ""
           example: ""
-          description: "Internally generated cryptographic hash of the value to be signed."
-
-        verification_signature:
-          type: string
-          format: ""
-          example: ""
-          description: "Signature of verification_hash"
+          description: "Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those."
 
         verification_artifact:
           type: string
@@ -1876,35 +2225,35 @@ components:
           example: ""
           description: "A verification artifact in the form of a scanned object, image, signature etc."
 
-        jws_header:
+        verification_signed_by:
+          type: string
+          format: ""
+          example: ""
+          description: "Because an identifier's information may change over time, there is a need to store that information at the time of signing. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session."
+
+        verification_jws_header:
           type: string
           format: ""
           example: ""
           description: "Alternative to the verification_method, verification_hash and verification_signature, give a JWS serialized object (RFC7515)"
 
-        signed_by:
-          type: string
-          format: ""
-          example: ""
-          description: "Identifier information may change over time. This field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing."
-
         timestamp:
           type: string
           format: ""
           example: ""
-          description: "Timestamp of signature"
+          description: "Timestamp of signature, currently this field isn't part of the payload so it's not tamper-proof."
 
         object_type:
           type: string
           format: ""
           example: ""
-          description: "signature/revision"
+          description: "Name of the schema model that object_reference points to. Values: \"signature\" or \"revision\""
 
         object_reference:
           type: string
           format: ""
           example: ""
-          description: "A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of an agreement, policy etc)"
+          description: "A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)"
 
 
     AgreementPurpose:
@@ -1914,6 +2263,7 @@ components:
            - id
            - name
            - description
+           - hash
       properties:
 
         id:
@@ -1933,6 +2283,12 @@ components:
           format: ""
           example: ""
           description: "Description of purpose"
+
+        hash:
+          type: string
+          format: ""
+          example: ""
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement."
 
 
     AgreementLifecycle:

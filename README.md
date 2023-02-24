@@ -1,9 +1,9 @@
 # Consent Building Block (Govstack)
 
 [![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-consent.svg?style=shield)](https://circleci.com/gh/GovStackWorkingGroup/bb-consent)
-[![latest spec on GitBook](https://img.shields.io/badge/GitBook-Latest-orange.svg?style=flat)](https://govstack.gitbook.io/bb-consent/)
+[![latest spec on GitBook](https://img.shields.io/badge/GitBook-Latest-blue.svg?style=flat)](https://govstack.gitbook.io/bb-consent/)
 [![last commits](https://img.shields.io/github/last-commit/GovStackWorkingGroup/bb-consent?style=flat)](../commits/)
-[![open issues](https://img.shields.io/github/issues/GovStackWorkingGroup/bb-consent?style=flat)](../issues/)
+[![open issues](https://img.shields.io/badge/jira-open%20issues-green.svg?style=flat)](https://govstack-global.atlassian.net/jira/software/c/projects/CON/issues)
 [![license](https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat)](./LICENSE/)
 
 <!--TODO: Update the TOC-->
@@ -44,7 +44,7 @@ All diagrams and API specifications contained here are subject to ongoing change
 
 ## Contributing
 
-Feel free to improve the plugin and send us a pull request. If you found any problems, please create an issue in this repo.
+Feel free to improve the plugin and send us a pull request. If you found any problems, please create an issue in our Jira project: https://govstack-global.atlassian.net/jira/software/c/projects/CON/issues
 
 ## Consent specs in Gitbook
 

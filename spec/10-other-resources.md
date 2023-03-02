@@ -1,3 +1,3 @@
 # 10 Other Resources
 
-NA
+There are no other resources for the Consent Building Block.

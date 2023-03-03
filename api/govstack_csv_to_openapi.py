@@ -174,6 +174,26 @@ schema_template = """
 {properties}
 """
 
+
+django_admin_template = """
+from django.contrib import admin
+from . import models
+
+{admins}
+"""
+
+django_model_admin_template = """
+@admin.register(models.{schema})
+class {schema}Admin(admin.ModelAdmin):
+    pass
+"""
+
+django_model_template = """
+from django.db import models
+
+{models}
+"""
+
 django_model_schema_template = """
 class {schema}(models.Model):
     \"\"\"{description}\"\"\"
@@ -188,8 +208,23 @@ schema_property_template = """
           description: "{description}"
 """
 
-django_model_field_template = """
-    {name} = models.{property_type}(
+django_model_charfield_template = """
+    {name} = models.CharField(
+        verbose_name="{name}",
+        help_text="{description}",
+        max_length=1024,
+    )
+"""
+
+django_model_integerfield_template = """
+    {name} = models.IntegerField(
+        verbose_name="{name}",
+        help_text="{description}",
+    )
+"""
+
+django_model_booleanfield_template = """
+    {name} = models.BooleanField(
         verbose_name="{name}",
         help_text="{description}",
     )
@@ -202,9 +237,10 @@ schema_property_fk_template = """
 
 django_model_foreignkey_template = """
     {name} = models.ForeignKey(
-        {fk_model},
+        "{fk_model}",
         verbose_name="{name}",
         help_text="{description}",
+        on_delete=models.PROTECT,
     )
 """
 
@@ -488,34 +524,51 @@ for schema_name, properties in schema_fields.items():
 django_models_output = ""
 
 openapi_type_to_django_map = {
-    "string": "CharField",
-    "fk": "ForeignKey",
-    "boolean": "BooleanField",
-    "integer": "IntegerField",
+    "string": django_model_charfield_template,
+    "fk": django_model_foreignkey_template,
+    "boolean": django_model_booleanfield_template,
+    "integer": django_model_integerfield_template,
 }
+
+
+def escape_string_for_django(str_unescaped):
+    return str_unescaped.replace("\"", "\\\"")
+
 
 for schema_name in schema_fields.keys():
     properties_output = ""
 
     for field in schema_field_properties[schema_name]:
+        if field["name"] == "id":
+            # We skip ID fields, the mocking application can use Django's AutoField for this
+            # It's named 'id' as well.
+            continue
         if field["type"] == "fk":
             properties_output += django_model_foreignkey_template.format(
-                name=field["name"],
+                name=escape_string_for_django(field["name"]),
                 fk_model=field["fk_model"],
                 property_type=openapi_type_to_django_map[field["type"]],
-                description=field["description"]
+                description=escape_string_for_django(field["description"]),
             )
         else:
-            properties_output += django_model_field_template.format(
-                name=field["name"],
-                property_type=openapi_type_to_django_map[field["type"]],
-                description=field["description"]
+            properties_output += openapi_type_to_django_map[field["type"]].format(
+                name=escape_string_for_django(field["name"]),
+                description=escape_string_for_django(field["description"]),
             )
 
     django_models_output += django_model_schema_template.format(
         schema=schema_name,
         description=schema_descriptions[schema_name],
         fields=properties_output,
+    )
+
+
+django_admin_output = ""
+
+for schema_name in schema_fields.keys():
+
+    django_admin_output += django_model_admin_template.format(
+        schema=schema_name,
     )
 
 
@@ -529,7 +582,12 @@ if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-models":
 
-    print(django_models_output)
+    print(django_model_template.format(models=django_models_output))
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
+
+    print(django_admin_template.format(admins=django_admin_output))
+
 
 else:
     print(yaml_output)

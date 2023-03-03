@@ -12,11 +12,19 @@ then
   cd ./examples/mock/
   docker-compose build
   cd -
+  exit
 fi
 
 cd ./examples/mock/
-docker-compose up -d
+
+if [ "$1" == "test" ]
+then
+  docker-compose up -d
+else
+  docker-compose up
+fi
 cd -
+
 
 docker container run --network mock_web \
   docker.io/jwilder/dockerize \
@@ -24,5 +32,14 @@ docker container run --network mock_web \
   -wait-retry-interval 2s \
   -timeout 20s
 
-docker container run --network mock_web test:latest
+echo ""
+echo "Consent BB mocking application is ready and responsive"
+echo ""
+echo "Navigate to:"
+echo "http://localhost:8080 or https://localhost:8888 (HTTPS)"
 
+if [ "$1" == "test" ]
+then
+  echo "Running the tests"
+  docker container run --network mock_web test:latest
+fi

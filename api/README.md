@@ -21,3 +21,11 @@ To generate Django models:
 ```
 ./govstack_csv_to_openapi.py GovStack\ Consent\ BB\ API\ endpoints\ -\ endpoints.csv GovStack\ Consent\ BB\ API\ endpoints\ -\ schema.csv --django-models > ../examples/mock/djangoapp/consentbb/app/models.py
 ```
+
+To generate a Django admin.py for the previous models:
+
+```
+./govstack_csv_to_openapi.py GovStack\ Consent\ BB\ API\ endpoints\ -\ endpoints.csv GovStack\ Consent\ BB\ API\ endpoints\ -\ schema.csv --django-admin > ../examples/mock/djangoapp/consentbb/app/models.py
+```
+
+The mock application creates a Django admin with login `admin:admin`.

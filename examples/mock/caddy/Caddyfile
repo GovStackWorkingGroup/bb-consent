@@ -26,7 +26,7 @@
     }
 
     reverse_proxy {
-      to consent:8000
+      to consent:8000/api
     }
     openapi {
       spec /consent-openapi.yaml

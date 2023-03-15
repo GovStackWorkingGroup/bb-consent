@@ -50,6 +50,14 @@ Application-->>-Individual: Confirm registration
 note over Foundational ID: Individual is registered
 ```
 
+```mermaid
+sequenceDiagram
+Individual->+Application: Invoke registration workflow
+Application->+Workflow BB: Trigger registration workflow
+```
+
+
+
 
 
 ### 4.4.2 Consenting after the registration (Post-registration)

@@ -1,14 +1,14 @@
-# 9 Workflows
+# 9 Internal Workflows
 
-A workflow provides a detailed view of how this building block will interact with other building blocks to support common use cases. This section lists workflows that this building block must support. Other workflows may be implemented in addition to those listed.
+A workflow provides a detailed view of how this Building Block will interact with other Building Blocks to support common use cases. This section lists workflows that this Building Block must support. Other workflows may be implemented in addition to those listed.
 
 ## 4.4 Universal Consent Workflows
 
-The workflow BB triggers the need for consent as part of the general business flow. The assumption is that a consenting process never exists outside of a purposeful comprehensive business process. Hence, it is important to define and control the data processing activities as part of a holistic data service. This section lays out key universal consent workflows that can be re-used within the various use-cases (see [explanation in Workflow BB](https://docs.google.com/document/d/1TIQ756eWauQLNeSWUqfm5dpDz\_wJsesfZgXBiWXLx9w/edit#bookmark=id.r8eld9zgc5tv)). This enforces the best practices for organisations to adhere to personal data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries BB in the sequence for simplicity. It will store all persistent consent data.
+The workflow Building Block triggers the need for consent as part of the general business flow. The assumption is that a consenting process never exists outside of a purposeful comprehensive business process. Hence, it is important to define and control the data processing activities as part of a holistic data service. This section lays out key universal consent workflows that can be re-used within the various use cases (see [explanation in Workflow BB](https://docs.google.com/document/d/1TIQ756eWauQLNeSWUqfm5dpDz\_wJsesfZgXBiWXLx9w/edit#bookmark=id.r8eld9zgc5tv)). This enforces the best practices for organisations to adhere to personal data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries Building Block in the sequence for simplicity. It will store all persistent consent data.
 
 ### 4.4.1 Consenting at initial registration (Pre-registration) using a centralised ID system
 
-The first and somewhat unique use-case is related to the need for consent when the Individual is not yet provisioned in the System processing the data. In such cases, the workflow requires the creation of a valid and trusted Foundational ID to be linked with the Consent Record. Below is shown how a pre-registration use of consent workflow works.
+The first and somewhat unique use case is related to the need for consent when the Individual is not yet provisioned in the System processing the data. In such cases, the workflow requires the creation of a valid and trusted Foundational ID to be linked with the Consent Record. Below is shown how a pre-registration use of Consent's Workflow works.
 
 #### Universal consent workflow pre-registration (uses centralised ID)
 
@@ -54,7 +54,7 @@ note over Foundational ID: Individual is registered
 
 ### 4.4.2 Consenting after the registration (Post-registration)
 
-In more frequent situations, when the Individual is already provisioned in the System (post-registration), the consent workflow use the existing ID tokens, and only the Consent Record is to be created. The following diagram shows how a generic post-registration use of consent works:
+In more frequent situations, when the Individual is already provisioned in the System (post-registration), the consent workflow uses the existing ID tokens, and only the Consent Record is to be created. The following diagram shows how a generic post-registration use of consent works:
 
 #### Universal consent management flow post-registration (uses centralised ID)
 

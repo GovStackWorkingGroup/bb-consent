@@ -11,7 +11,7 @@ The current API specification can be found here:
 * [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) _(view only)_
 
 {% hint style="warning" %}
-The API version follows the general version of the Consent BB and is released with the Consent BB as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent BB Working Group](./) for more guidance on the current versioning semantics.
+The API version follows the general version of the Consent Building Block and is released with the Consent Building Block as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent BB Working Group](./) for more guidance on the current versioning semantics.
 {% endhint %}
 
 {% hint style="info" %}

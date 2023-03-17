@@ -91,8 +91,25 @@ The intention is to help with shortcuts for local demos and development of the m
 
 # Launch docker-compose mock application
 ./dev.sh
+```
 
+Once you have the mock application up and running, you can now access several interesting endpoints:
+
+* http://localhost:8080/api/service/policy/1/ - this is a static endpoint that just returns a policy mock.
+* http://localhost:8000/docs/ - this is where the mock application server lives.
+
+The docker compose environment has an HTTP proxy on ``localhost:8080`` and ``localhost:8888`` (HTTPS).
+The proxy serves static mocks, but for all dynamic mocks there is a mock application where all other requests are forwarded to.
+The mock application sits on ``localhost:8000`` (8000 is the default Django development port) and may be accessed in cases where you for instance need to see the raw traceback of an error that has occurred.
+
+### Running tests
+```sh
 # Run mock application for testing + test suite
 # NB! Close the other development environment
 ./dev.sh test
 ```
+
+### Prerequisites
+
+* Docker
+* Docker Compose v2

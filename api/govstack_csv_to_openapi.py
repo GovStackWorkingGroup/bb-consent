@@ -6,6 +6,7 @@ import re
 import shutil
 import sys
 
+VERSION = "1.1.0-rc1"
 
 if len(sys.argv) < 3:
     print("USAGE: govstack_csv_to_openapi.py <path_to_endpoint_spec.csv> <path_to_schema_spec.csv> [--html-table]")
@@ -36,7 +37,7 @@ servers:
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
   description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
-  version: 1.1.0-rc1
+  version: {VERSION}
   title: Consent BB API
   contact:
     email: balder@overtag.dk
@@ -174,6 +175,37 @@ schema_template = """
 {properties}
 """
 
+django_api_template = """
+from ninja import NinjaAPI
+
+api = NinjaAPI(urls_namespace="consentbb", version="{VERSION}")
+
+{endpoints}
+"""
+
+django_api_get_template = """
+@api.get("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_post_template = """
+@api.post("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_put_template = """
+@api.put("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_delete_template = """
+@api.delete("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
 
 django_admin_template = """
 from django.contrib import admin
@@ -418,6 +450,9 @@ def is_row_with_schema_fk(row):
 
 path_specs = {}
 
+# Store properties of each url => {get: ..., post: ...}
+endpoints = []
+
 current_tag = None
 with open(endpoint_csv_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -431,6 +466,9 @@ with open(endpoint_csv_file, newline='') as csvfile:
             path = path_spec_template.format(
                 **api_path
             )
+
+            endpoints.append(api_path)
+
             if not api_path["url"] in path_specs:
                 path_specs[api_path["url"]] = []
             path_specs[api_path["url"]].append(path)
@@ -572,7 +610,36 @@ for schema_name in schema_fields.keys():
     )
 
 
-yaml_output = template.format(paths=output_paths, schemas=output_schemas)
+django_api_output = ""
+
+
+for endpoint in endpoints:
+
+    snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
+
+    if endpoint["method"] == "get":
+        django_api_output += django_api_get_template.format(
+            url=endpoint["url"],
+            method=snake_case_method_name,
+        )
+    elif endpoint["method"] == "post":
+        django_api_output += django_api_post_template.format(
+            url=endpoint["url"],
+            method=snake_case_method_name,
+        )
+    elif endpoint["method"] == "put":
+        django_api_output += django_api_put_template.format(
+            url=endpoint["url"],
+            method=snake_case_method_name,
+        )
+    elif endpoint["method"] == "delete":
+        django_api_output += django_api_delete_template.format(
+            url=endpoint["url"],
+            method=snake_case_method_name,
+        )
+
+
+yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSION=VERSION)
 
 html_table_output = html_table_template.format(rows=django_models_output)
 
@@ -588,6 +655,9 @@ elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
 
     print(django_admin_template.format(admins=django_admin_output))
 
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
+
+    print(django_api_template.format(endpoints=django_api_output, VERSION=VERSION))
 
 else:
     print(yaml_output)

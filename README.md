@@ -59,6 +59,7 @@ and deployment from the `/spec` directory.
 
 ```sh
 README.md
+/dev.sh # A utility script for the Consent BB, see README.md
 /spec # the markdown files which are used to build the specification in GitBook
 /api # the openapi specification
 /test # the test plan and tests
@@ -76,4 +77,22 @@ README.md
   /application-a
   /application-b
   /application-c
+```
+
+
+## dev.sh
+
+This file is written to closely reproduce the same environment that otherwise runs on Circle CI.
+The intention is to help with shortcuts for local demos and development of the mock application and test suites.
+
+```sh
+# Build docker images
+./dev.sh build
+
+# Launch docker-compose mock application
+./dev.sh
+
+# Run mock application for testing + test suite
+# NB! Close the other development environment
+./dev.sh test
 ```

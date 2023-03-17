@@ -6,7 +6,9 @@ services:
     ports:
       - '8000:8000'
     networks:
-      - web
+      web:
+        aliases:
+          - consent
     build:
       context: ../../
       dockerfile: examples/mock/Dockerfile_app

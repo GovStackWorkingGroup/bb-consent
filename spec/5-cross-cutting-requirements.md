@@ -1,3 +1,9 @@
+---
+description: >-
+  This section will highlight important requirements or describe any additional
+  cross-cutting requirements that apply to this Building Block.
+---
+
 # 5 Cross-Cutting Requirements
 
 The cross-cutting requirements described in this section are an extension of the cross-cutting requirements defined in the [architecture specification document](https://govstack.gitbook.io/specification/architecture-and-nonfunctional-requirements). Any implementation MUST adhere to all requirements from [GovStack Security Requirements](https://govstack.gitbook.io/specification/security-requirements).

@@ -1,3 +1,7 @@
+---
+description: This section provides context for this Building Block.
+---
+
 # 2 Description
 
 The Consent Building Block enables services for individuals to approve the use of their personal data by defining the principles, functions, and architecture of an information system. For organisations that process personal data​,​ it provides the ability to know the ​individual's will and legitimately process such personal data.
@@ -85,6 +89,6 @@ The main actions a Data Processing Auditor (or Data Protection Officer, DPO) is 
 * auditing tracking Data Policy changes and configuration conformance with it;
 * viewing (reading, exporting) the Consent Agreements and relevant reports in a verifiable form.
 
-The Data Processing Auditor relies on an audit universe defined by the control and risk management of the specific project and context (i.e. outside the Consent Building Block). “_Who needs to consent to what_” is the outcome of a DPIA (Data Protection Impact Analysis), ensuring that the data policies are compliant with the relevant data protection regulations for the project.
+The Data Processing Auditor relies on an audit universe defined by the control and risk management of the specific project and context (i.e. outside the Consent Building Block). “Who needs to consent to what” is the outcome of a DPIA (Data Protection Impact Analysis), ensuring that the data policies are compliant with the relevant data protection regulations for the project.
 
 For the implementation of a specific use case, it is important to distinguish the Data Processing Auditor, an actor described here, from a data policy auditor, an actor of the risk organisation. It is expected that the two roles are coordinated in the risk management process. Within the Consent Building Block, the Data Processing Auditor performs the tasks that will allow a data policy auditor to confirm that the implemented system complies with existing regulations demanding consent.

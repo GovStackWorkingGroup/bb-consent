@@ -1,16 +1,10 @@
----
-description: >-
-  This section provides a detailed view of how this Building Block will interact
-  with other Building Blocks to support common use cases.
----
-
 # 9 Internal Workflows
 
 A workflow provides a detailed view of how this Building Block will interact with other Building Blocks to support common use cases. This section lists workflows that this Building Block must support. Other workflows may be implemented in addition to those listed.
 
 ## 9.1 Universal Consent Workflows
 
-The workflow Building Block triggers the need for consent as part of the general business flow. The assumption is that a consenting process never exists outside of a purposeful comprehensive business process. Hence, it is important to define and control the data processing activities as part of a holistic data service. This section lays out key universal consent workflows that can be re-used within the various use cases (see [explanation in Workflow BB](https://docs.google.com/document/d/1TIQ756eWauQLNeSWUqfm5dpDz\_wJsesfZgXBiWXLx9w/edit#bookmark=id.r8eld9zgc5tv)). This enforces the best practices for organisations to adhere to personal data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries Building Block in the sequence for simplicity. It will store all persistent consent data.
+The workflow Building Block triggers the need for consent as part of the general business flow. The assumption is that a consenting process never exists outside of a purposeful comprehensive business process. Hence, it is important to define and control the data processing activities as part of a holistic data service. This section lays out key universal consent workflows that can be re-used within the various use cases (see [explanation in Workflow BB](https://govstack.gitbook.io/specification/building-blocks/workflow)). This enforces the best practices for organisations to adhere to personal data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries Building Block in the sequence for simplicity. It will store all persistent consent data.
 
 ### 9.1.1 Consenting at initial registration (Pre-registration) using a centralised ID system
 

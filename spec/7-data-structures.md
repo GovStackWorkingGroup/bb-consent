@@ -103,6 +103,6 @@ graph TD
 
 ## 7.4 Data models
 
-Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementation may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
+Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
 
 The OpenAPI definition file is maintained in YAML format, and OpenAPI schemas may be interactively explored in the [next section](8-service-apis.md).

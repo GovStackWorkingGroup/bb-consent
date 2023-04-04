@@ -31,13 +31,13 @@ The use of consent should be avoided in cases as below, which are not part of th
 
 The life cycle of consent management starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
 
-Consent Building Block deals with transparency on data usage in a given context. Thus privacy-by-design of the system's actors is often an excellent guiding principle for interpreting international, national, and organisational policies and governance principles to implement the functional consent framework. A tangible outcome from a data protection impact analysis (DPIA) is a structured approach that can deliver the input for the actual implementation of the Consent Building Block.
+Consent Building Block deals with transparency on data usage in a given context. Thus privacy-by-design of the system's actors is often an excellent guiding principle for interpreting international, national, and organisational policies and governance principles to implement the functional consent framework. A tangible outcome from a Data Protection Impact Analysis (DPIA) is a structured approach that can deliver the input for the actual implementation of the Consent Building Block.
 
 Individual consent is captured within the context of digital interaction. This interaction is composite of all the information systems involved, not solely the Consent Building Block. Thus, the legal and ethical boundaries of consent are defined in the entirety of the interaction. In particular, consent, as defined by ISO/TS 17975:2015(E), should be seen as a "set of agreements and constraints" that an informed and knowledgeable \[individual] agrees to apply to their data processing. This definition, not based on the purpose of the data usage, can lead to a consent management framework also incorporating authorisations or unrelated constraints of the system. For example, in health information and healthcare service delivery, consent is also the process whereby a set of constraints is agreed upon so that information may be collected and used or disclosed. However, it is also the outcome of the process. As a rule of thumb, limiting unintended secondary usage of data is helpful to separate "consent" for a purpose from "consent" as an agreement to constraints and authorisation imposed by the system's functional requirements.
 
 As a result, the organisation responsible for the information system is the driver of the definition of the functional consent management framework. It is also the function of the organisation to design the workflow for obtaining and processing the consent in a way that is purposeful, but not annoying for individuals or data processors with unnecessary bureaucratic overhead. From this framework, the Consent Building Block achieves its purpose by employing Consent Agreements that contain the following:
 
-* A data policy that could be reused across multiple consent agreements (for example, based on GDPR or any specific regulation)
+* A data policy that could be reused across multiple consent agreements (for example, based on the General Data Protection Regulation or any specific regulation)
 * The purpose of consent, processed data attributes
 * Signatures
 
@@ -68,7 +68,7 @@ The capabilities for individuals that Consent Building Block supports are:
 * viewing and understanding Data Policies applying to their personal data processing;
 * agreeing and disagreeing with and toggling between the conditions of personal data use as described in the Consent Agreement;
 * obtaining copies of their Consent Agreement(s);
-* delegating their consent rights (_out-of-scope for current technical release_).
+* delegating their consent rights (out-of-scope for current technical release).
 
 The scope for version 1.0 of Consent Building Block assumes that the Individual is acting for themselves. Ultimately the Consent Building Block will include in the Consenting Process the capacity to sign a Consent Agreement in the name of another individual - to act as the Delegate, which is used as the criterion for technical implementation. However, the Delegate and the Individual relationship is expected to be maintained outside of the Consent Manager, which assumes that the person signing the Consent Agreement (i.e. Consenter) has been authorised to do so.
 

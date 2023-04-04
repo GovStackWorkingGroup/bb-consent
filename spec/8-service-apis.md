@@ -12,12 +12,12 @@ The [GovStack non-functional requirements document](https://govstack.gitbook.io/
 
 #### 8.1 External resources
 
-* [API and Data model main definition document](https://docs.google.com/spreadsheets/d/1snIszqyTGYk1u25liwQ\_1jONTsQeH7D8aqv1Td74xt4/edit?usp=sharing) _(for commenting)_
-* [OpenAPI spec in GitHub](../api/consent-openapi.yaml) _(open a PR if you want to suggest a change)_
-* [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) _(view only)_
+* [API and Data model main definition document](https://docs.google.com/spreadsheets/d/1snIszqyTGYk1u25liwQ\_1jONTsQeH7D8aqv1Td74xt4/edit?usp=sharing) (for commenting)
+* [OpenAPI spec in GitHub](../api/consent-openapi.yaml) (open a PR if you want to suggest a change)
+* [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) (view only)
 
 {% hint style="warning" %}
-The API version follows the general version of the Consent Building Block and is released with the Consent Building Block as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent BB Working Group](./) for more guidance on the current versioning semantics.
+The API version follows the general version of the Consent Building Block and is released with the Consent Building Block as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent Building Block Working Group](./) for more guidance on the current versioning semantics.
 {% endhint %}
 
 {% hint style="info" %}

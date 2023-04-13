@@ -6,6 +6,22 @@ description: This section lists the technical capabilities of this Building Bloc
 
 The functional requirements section lists the technical capabilities that this Building Block should have. These requirements should be sufficient to deliver all functionality that is listed in the Key Digital Functionalities section. These functional requirements do not define specific APIs - they provide a list of information about functionality that must be implemented within the Building Block. These requirements should be defined by subject-matter experts and don’t have to be highly technical in this section.
 
+## 6.1 Design and Components of Consent Building Block
+
+Within the scope of Consent Building Block version 1.0, the required components are as given: &#x20;
+
+<figure><img src="images/consent-bb-components.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/aeb6c8723">Diagram Source</a></p></figcaption></figure>
+
+**Consent Agreement Configuration Handler** - handles the creation, updation & deletion of consent agreements for organisations. Organisations can be Data Providers or Data Consumers.
+
+**Consent Record Handler** -  enables Individuals to view data usage and consent record.
+
+**Notification Handler** - handles all notification configurations and notifications requested by different subscribers.
+
+**Administrative User Interface and Client Software Development Kit** - these are readily available components that can configure and use the services offered, making integration easy and low code.
+
+**RESTful APIs**: All APIs are exposed as RESTful APIs. These are categorised into Organisation APIs, Individual APIs, and Auditing APIs.
+
 ## 6.1 Consent Agreement Configuration Requirements
 
 | **Name**                         | **Description**                                                                                                                                                     | **Optionality** |

@@ -27,6 +27,15 @@ The use of consent should be avoided in cases as below, which are not part of th
 * When a person is simply informed of the processing of the data by the organisation as part of the service provided under contract or by an authority.
 * When consent does not have to be obtained in a situation where the entity does not identify or cannot identify people with reasonable effort.
 
+## 2.3 Assumptions
+
+Lays out the pre-conditions needed for anyone to use the Consent Building Block.
+
+1. Data Disclosure Agreements between organisations are already in place. For example, a healthcare organisation has already got the required authorisation to use the citizen data registry.
+2. To link a Consent Agreement with the specific Individual, Consent Building Block assumes the authentication and authorization to be handled in a trusted manner outside of it (see below).
+3. Within the early scope of the Consent Building Block, the act of delegating is kept outside the scope of the Consent Building Block. It is assumed that the authorisation to act on behalf of someone else is already resolved.
+4. It is the organization's (a Data Provider or a Data Consumer) obligation to manage and implement internal policies toward its employees relating to their responsibilities for Personal data processing integrity, specifying it in the employment contract or by other means.
+
 ## 2.3 Consent Agreement Lifecycle
 
 The life cycle of consent management starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
@@ -92,3 +101,21 @@ The main actions a Data Processing Auditor (or Data Protection Officer, DPO) is 
 The Data Processing Auditor relies on an audit universe defined by the control and risk management of the specific project and context (i.e. outside the Consent Building Block). “Who needs to consent to what” is the outcome of a DPIA (Data Protection Impact Analysis), ensuring that the data policies are compliant with the relevant data protection regulations for the project.
 
 For the implementation of a specific use case, it is important to distinguish the Data Processing Auditor, an actor described here, from a data policy auditor, an actor of the risk organisation. It is expected that the two roles are coordinated in the risk management process. Within the Consent Building Block, the Data Processing Auditor performs the tasks that will allow a data policy auditor to confirm that the implemented system complies with existing regulations demanding consent.
+
+## 4.2.1 Interactions with other Building Blocks
+
+The overall relationship diagram is shown below.
+
+![Diagram Source](images/consent-bb-relationships.png)
+
+
+
+The table below summarises the key relationships consumed during a consent transaction.
+
+| Building Block                      | Relationship description                                                                                                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Identity Building Block             | It is assumed the Consent Building Block has already obtained requisite access tokens.                                                                       |
+| Digital Registries Building Block   | This is used to store any consent agreement, individual consent receipts etc.                                                                                |
+| Workflow Building Block             | Manages the workflow and rules associated with requiring or not requiring consent to use personal data.                                                      |
+| Scheduler Building Block            | Provides an engine for time-based triggers to various events of an automated business process, which might also require consent.                             |
+| Information mediator Building Block | The information mediator Building Block provides a gateway for exchanging data related to consenting workflows; it also provides logs for auditing purposes. |

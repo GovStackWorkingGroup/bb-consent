@@ -10,11 +10,20 @@ The consent process (creating and signing Consent Agreements and Consent Records
 
 While the Actors generally fall in line with the categories of the functionalities, it is important to realise that “auditing” functions in the narrow sense, verifying if data processing is being (or has been) processed according to the Data Policy requiring a consent, is relevant to various entities involved in the data processing. For this reason, the generic “verification” activity may be executed as part of various workflows satisfying the needs of different actors.
 
+Following are the first core set of key functionalities of the Consent Building Block. For potential future developments of the specification follow the work in progress at [GovStack confluence page](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183205908/Future+Considerations+Consent).
+
 ### 4.1 Administrator User Functionalities
 
-The table below summarises the key use cases identified for an organisation's Administrator. Organisations can be Data Consumers or Data Providers, i.e. the organisations legally delegated the responsibility for collecting consent for the systems handling personal data processing.
+The Administrator (Data Provider or Data Consumer Admin) configures the consent management system on behalf of the organisation. For simplicity, it is foreseen that one organisation involved in the data processing transaction (that is either Data Provider or Data Consumer) takes the responsibility for the configuration of the Data Policy and respective Consent Agreements(s), and so that organisation’s Administrator maintains the required configurations.
 
-It is foreseen that one organisation involved in the data processing transaction takes responsibility for the configuration of the Data Policy and respective Consent Agreements(s), and so the organisation’s Administrator maintains the required configurations.
+The main Administrator actions expected to perform via Consent Building Block are:
+
+* configuring Data Policies, requesting and signing Consent Agreements with Individuals;
+* viewing (reading, exporting) the Consent Agreements and relevant reports;
+* event-driven (opt-in or opt-out) subscription to (notifications of) changes in Consent Agreements;
+* logging and maintaining an auditable overview of all personal data transactions according to Consent Agreements as well as configuration versions.
+
+The table below summarises the key use cases identified for an organisation's Administrator. Organisations can be Data Consumers or Data Providers, i.e. the organisations legally delegated the responsibility for collecting consent for the systems handling personal data processing.
 
 | **Consent management use-cases**                                                                                                                                               | **Link(s) to the UCS**                                                                                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -25,6 +34,15 @@ It is foreseen that one organisation involved in the data processing transaction
 | CONSENT AGREEMENT CHANGE NOTIFICATION - Notifications for Data Providing and Data Consuming Systems, as well as Individuals upon changes to Agreement or Policy configuration. | [UC-C-PIC-A-005](https://app.gitbook.com/o/pxmRWOPoaU8fUAbbcrus/s/oEAfhW9JLP3tJ6mPyxtF/\~/changes/18/internal-use-case-definitions/uc-c-pic-a-organisation-administration-use-cases-configuration/\~/comments/P9KoCK2K1QddhTxnkOzi#uc-c-pic-a-005-postpartum-and-infant-care-configuration-notifications) |
 
 ### 4.2 Individual User Functionalities
+
+The capabilities for individuals that Consent Building Block supports are:
+
+* viewing and understanding Data Policies applying to their personal data processing;
+* agreeing and disagreeing with and toggling between the conditions of personal data use as described in the Consent Agreement;
+* obtaining copies of their Consent Agreement(s);
+* delegating their consent rights (out-of-scope for current technical release).
+
+The scope for version 1.0 of Consent Building Block assumes that the Individual is acting for themselves. Ultimately the Consent Building Block will include in the Consenting Process the capacity to sign a Consent Agreement in the name of another individual - to act as the Delegate, which is used as the criterion for technical implementation. However, the Delegate and the Individual relationship is expected to be maintained outside of the Consent Manager, which assumes that the person signing the Consent Agreement (i.e. Consenter) has been authorised to do so.
 
 The table below summarises the key use cases identified for the Individuals.
 
@@ -37,11 +55,17 @@ The table below summarises the key use cases identified for the Individuals.
 
 ### 4.3 Data Processing Auditor User Functionalities
 
-The table below summarises the key use cases identified for the Data Processing Auditor.
-
 **Important note**: In the Consent Building Block, we define the Data Processing Auditor's role (see 1.3 Terminology and 1.5.3 Actor definition) as an organisation's auditor implementing the Consent Building Block. The auditor role will most probably be akin to a Data Protection Officer (DPO), possibly from an external third-party organisation and involve activities outside of the Consent Building Block.
 
-To avoid ambiguity, we use the precise term Data Processing Auditor to stress the specificity of tasks to be performed by and for the Consent Building Block; all other actions not within the Consent Building Block's scope are considered as an external prerequisite and as a “black box” activity. With respect to audit, this role is distinguished from the data policy auditor.
+To avoid ambiguity, we use the precise term Data Processing Auditor to stress the specificity of tasks to be performed by and for the Consent Building Block; all other actions not within the Consent Building Block's scope are considered as an external prerequisite and as a “black box” activity. With respect to audit, this role is distinguished from the data policy auditor.The Data Processing Auditor relies on an audit universe defined by the control and risk management of the specific project and context (i.e. outside the Consent Building Block). “Who needs to consent to what” is the outcome of a DPIA (Data Protection Impact Analysis), ensuring that the data policies are compliant with the relevant data protection regulations for the project.
+
+The main actions a Data Processing Auditor (or Data Protection Officer, DPO) is expected to perform via Consent Building Block are:
+
+* auditing tracking the consents (opt-in/opt-out);
+* auditing tracking Data Policy changes and configuration conformance with it;
+* viewing (reading, exporting) the Consent Agreements and relevant reports in a verifiable form.
+
+For the implementation of a specific use case, it is important to distinguish the Data Processing Auditor, an actor described here, from a data policy auditor, an actor of the risk organisation. It is expected that the two roles are coordinated in the risk management process. Within the Consent Building Block, the Data Processing Auditor performs the tasks that will allow a data policy auditor to confirm that the implemented system complies with existing regulations demanding consent.The table below summarises the key use cases identified for the Data Processing Auditor.
 
 **Also to consider:** “READ CONSENT STATUS” use-case is also used by any workflow (and Actor) that requires verification of the consent status (for example, before executing the data transfer from Data Providing System to the Data Consuming System).
 

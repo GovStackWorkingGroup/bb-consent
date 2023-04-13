@@ -20,6 +20,12 @@ This specification has used several available and recognised open standards belo
 
 In the GovStack context, consent is understood as a voluntary declaration by an individual to approve the processing of their Personal data. It is one specific justification for personal data processing that is assumed to be required by legal or ethical conditions. It assumes that the person can decide on processing their personal data, managed in and by other GovStack Building Blocks, and also that the person is free to withdraw their consent at any time.
 
+Some examples of such consent are:
+
+* allowing a healthcare provider to fetch socio-demographic data from a government-run population registry to provide adequate primary health care services;
+* allowing a government official to fetch relevant data from other/multiple government-run registries to analyse the eligibility for a social benefit programme.
+* allow a government official to send personal data to bank for cash transfers on behalf of the government.
+
 ## 2.2 What Consent Is Not
 
 The use of consent should be avoided in cases as below, which are not part of this specification:
@@ -64,43 +70,21 @@ A consent agreement life-cycle has four main phases\[^2], as illustrated in the 
 
 ## 2.4 Actors
 
-The following actors (performing a distinct human role) are identified to be acting on the Consent Building Block. &#x20;
+Consent Building Block enables interaction between three (3) distinct user categories, which in combination create the necessary trust framework for the integrity of personal data processing. The actors are defined via distinct human roles to be performed in various consent life-cycle phases:&#x20;
+
+1. Individual as the subject of personal data processing;
+2. Administrator of the information system exchanging the personal data;
+3. Data Processing Auditor maintaining independent oversight of the data processing.
+
+Below is the graphical depiction of the actors and their interactions; a more detailed description of the Consent Building Block capabilities is provided in [Chapter 4 - Key Digital Functionalities](4-key-digital-functionalities.md). &#x20;
 
 <figure><img src="images/consent-bb-actors-02.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
 <figure><img src="images/consent-bb-actors-01.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
-### 2.4.1 Individual
+It is important to realise that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.&#x20;
 
-The capabilities for individuals that Consent Building Block supports are:
-
-* viewing and understanding Data Policies applying to their personal data processing;
-* agreeing and disagreeing with and toggling between the conditions of personal data use as described in the Consent Agreement;
-* obtaining copies of their Consent Agreement(s);
-* delegating their consent rights (out-of-scope for current technical release).
-
-The scope for version 1.0 of Consent Building Block assumes that the Individual is acting for themselves. Ultimately the Consent Building Block will include in the Consenting Process the capacity to sign a Consent Agreement in the name of another individual - to act as the Delegate, which is used as the criterion for technical implementation. However, the Delegate and the Individual relationship is expected to be maintained outside of the Consent Manager, which assumes that the person signing the Consent Agreement (i.e. Consenter) has been authorised to do so.
-
-### 2.4.2 Administrator
-
-The Administrator (Data Provider or Data Consumer Admin) configures the consent management system on behalf of the organisation. The main actions expected to perform via Consent Building Block are:
-
-* configuring Data Policies, requesting and signing Consent Agreements with Individuals;
-* viewing (reading, exporting) the Consent Agreements and relevant reports;
-* event-driven (opt-in or opt-out) subscription to (notifications of) changes in Consent Agreements;
-* logging and maintaining an auditable overview of all personal data transactions according to Consent Agreements as well as configuration versions.
-
-### 2.4.3 Data Processing Auditor
-
-The main actions a Data Processing Auditor (or Data Protection Officer, DPO) is expected to perform via Consent Building Block are:
-
-* auditing tracking the consents (opt-in/opt-out);
-* auditing tracking Data Policy changes and configuration conformance with it;
-* viewing (reading, exporting) the Consent Agreements and relevant reports in a verifiable form.
-
-The Data Processing Auditor relies on an audit universe defined by the control and risk management of the specific project and context (i.e. outside the Consent Building Block). “Who needs to consent to what” is the outcome of a DPIA (Data Protection Impact Analysis), ensuring that the data policies are compliant with the relevant data protection regulations for the project.
-
-For the implementation of a specific use case, it is important to distinguish the Data Processing Auditor, an actor described here, from a data policy auditor, an actor of the risk organisation. It is expected that the two roles are coordinated in the risk management process. Within the Consent Building Block, the Data Processing Auditor performs the tasks that will allow a data policy auditor to confirm that the implemented system complies with existing regulations demanding consent.
+###
 
 ## 4.2.1 Interactions with other Building Blocks
 

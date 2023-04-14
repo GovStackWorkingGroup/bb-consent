@@ -1,3 +1,9 @@
+---
+description: >-
+  This section provides information on the core data structures/data models that
+  are used by this Building Block.
+---
+
 # 7 Data Structures
 
 ## 7.1 Resource Model
@@ -10,30 +16,7 @@ When an individual gives consent, it is implied that the Organisation from one s
 
 This Consent Record is a digital instance referencing the Agreement which is consented to or subsequently has consent withdrawn from.
 
-<figure><img src="diagrams/Consent Mangement BB Simplified resource relationship model.drawio.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/BuildingBlockAPI/tree/main/consent-management">Diagram Source</a></p></figcaption></figure>
-
-```mermaid
-graph TD
-
-subgraph Individual's Consent Choices
-consentRecord(Consent Record)
-individual(Individual) --> consentRecord
-end
-
-individual -.- registration(Registration<br>Functional ID or<br>Foundational ID)
-
-subgraph Configuration
-agreement(Consent Agreement) --> consentRecord
-policy --> agreement
-end
-
-org --> policy(Data Policy)
-
-consumer(Organization <br> Consumer) -..- agreement
-consumer -..- consentRecord
-org(Organization <br> Provider or Controller) --> agreement
-
-```
+<figure><img src="diagrams/Consent Mangement BB Simplified resource relationship model.drawio.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
 ### 7.1.2 Elaborated Resource Model
 
@@ -43,7 +26,7 @@ Revisions are maintained for Consent Records + Agreements and Data Policies, tog
 
 For a configured Agreement, data elements requiring consent are individually specified as Agreement Data. Agreement Data is not directly relatable to processes and internals of an external system. This architectural choice gives the consent model flexibility and greatly simplifies the architecture and consent lifecycle, but it does not contradict any additional features, allowing for relations to external systems.
 
-<figure><img src="diagrams/Consent Mangement BB Extended resource relationship model.drawio.png" alt=""><figcaption><p> <a href="https://github.com/GovStackWorkingGroup/BuildingBlockAPI/tree/main/consent-management">Diagram Source</a></p></figcaption></figure>
+<figure><img src="diagrams/Consent Mangement BB Extended resource relationship model.drawio.png" alt=""><figcaption><p> <a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
 * Individual changes Consent Record
 * Individual withdraws/revokes Consent Agreement
@@ -60,43 +43,8 @@ The following standards are applicable to data structures in the registration bu
 * OpenAPI Version 3.1.0
 * RESTful APIs follow TM Forum Specification: “REST API Design Guidelines Part 1” (requirement derived from GovStack Architecture and Nonfunctional Requirements)
 
-```mermaid
-graph TD
-
-    subgraph Individual[Individual Consent<br>Consent Records are captured<br>and under full control]
-    consentRecord(Consent Record)
-      individual(Individual) --> consentRecord
-    end
-
-    individual -.- registration(Registration<br>Functional ID or<br>Foundational ID)
-
-    subgraph Configuration
-    agreement(Consent Agreement) --> consentRecord
-    agreement --> agreementData(Agreement Data<br>Specification of PII<br>Processed or shared)
-    policy --> agreement
-    end
-
-    org --> policy(Data Policy)
-
-    consumer(Organization <br> Consumer) -..- agreement
-    consumer -..- consentRecord
-    org(Organization <br> Provider or Controller) --> agreement
-
-    subgraph Auditable snapshots
-
-    agreement --> signature(Signature)
-    consentRecord --> signature
-    agreement -..- revision(Revision)
-    consentRecord -..- revision
-    policy -..- revision
-
-
-    end
-    
-```
-
 ## 7.4 Data models
 
-Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementation may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
+Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
 
 The OpenAPI definition file is maintained in YAML format, and OpenAPI schemas may be interactively explored in the [next section](8-service-apis.md).

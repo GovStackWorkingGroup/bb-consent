@@ -9,7 +9,11 @@
 * [6 Functional Requirements](6-functional-requirements.md)
 * [7 Data Structures](7-data-structures.md)
 * [8 Service APIs](8-service-apis.md)
-* [9 Workflows](9-workflows.md)
+* [9 Internal Workflows](9-workflows.md)
 * [10 Other Resources](10-other-resources.md)
-* [11 Key Decision Log](11-key-decision-log.md)
-* [12 Future Considerations](12-future-considerations.md)
+
+## Internal use-case definitions
+
+* [UC-C-PIC-A: Organisation Administration Use Cases (CONFIGURATION)](internal-use-case-definitions/uc-c-pic-a-organisation-administration-use-cases-configuration.md)
+* [UC-C-PIC-I: Individual use cases (SERVICES)](internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services.md)
+* [UC-C-PIC-AT: Data Processing Auditor Use Cases (AUDIT)](internal-use-case-definitions/uc-c-pic-at-data-processing-auditor-use-cases-audit.md)

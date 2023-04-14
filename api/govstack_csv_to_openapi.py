@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-from subprocess import Popen, PIPE
 import csv
 import os
 import re
-import shutil
 import sys
+
+try:
+    import yaml
+except ImportError:
+    print("You need to install PyYAML: pip install pyyaml")
 
 VERSION = "1.1.0-rc1"
 
@@ -612,34 +615,37 @@ for schema_name in schema_fields.keys():
 
 django_api_output = ""
 
-
-for endpoint in endpoints:
-
-    snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
-
-    if endpoint["method"] == "get":
-        django_api_output += django_api_get_template.format(
-            url=endpoint["url"],
-            method=snake_case_method_name,
-        )
-    elif endpoint["method"] == "post":
-        django_api_output += django_api_post_template.format(
-            url=endpoint["url"],
-            method=snake_case_method_name,
-        )
-    elif endpoint["method"] == "put":
-        django_api_output += django_api_put_template.format(
-            url=endpoint["url"],
-            method=snake_case_method_name,
-        )
-    elif endpoint["method"] == "delete":
-        django_api_output += django_api_delete_template.format(
-            url=endpoint["url"],
-            method=snake_case_method_name,
-        )
-
-
 yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSION=VERSION)
+
+yaml_data = yaml.safe_load(yaml_output)
+
+print(yaml_data)
+for api_url, endpoints in yaml_data["paths"].items():
+
+    for method, endpoint in endpoints.items():
+
+        snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
+
+        if method == "get":
+            django_api_output += django_api_get_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "post":
+            django_api_output += django_api_post_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "put":
+            django_api_output += django_api_put_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "delete":
+            django_api_output += django_api_delete_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
 
 html_table_output = html_table_template.format(rows=django_models_output)
 
@@ -661,4 +667,3 @@ elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
 
 else:
     print(yaml_output)
-

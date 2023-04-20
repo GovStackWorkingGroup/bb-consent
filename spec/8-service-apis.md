@@ -1,8 +1,14 @@
+---
+description: >-
+  This section provides a reference for APIs that should be implemented by this
+  Building Block.
+---
+
 # 8 Service APIs
 
-This section provides a reference for APIs that should be implemented by this Building Block. The APIs defined here establish a blueprint for how the Building Block will interact with other Building Blocks. Additional APIs may be implemented by the Building Block, but the listed APIs define a minimal set of functionality that should be provided by any implementation of this Building Block.&#x20;
+This section provides a reference for APIs that should be implemented by this Building Block. The APIs defined here establish a blueprint for how the Building Block will interact with other Building Blocks. Additional APIs may be implemented by the Building Block, but the listed APIs define a minimal set of functionality that should be provided by any implementation of this Building Block.
 
-The [GovStack non-functional requirements document](https://govstack.gitbook.io/specification/architecture-and-nonfunctional-requirements/6-onboarding) provides additional information on how 'adaptors' may be used to translate an existing API to the patterns described here.
+The [GovStack non-functional requirements document](https://govstack.gitbook.io/specification/v/1.0/architecture-and-nonfunctional-requirements/6-onboarding) provides additional information on how 'adaptors' may be used to translate an existing API to the patterns described here.
 
 The current API specification is:
 
@@ -12,19 +18,17 @@ The current API specification is:
 * [Pull-Request for 0.8 API spec](https://github.com/GovStackWorkingGroup/BuildingBlockAPI/pull/15) _(Raise PR if you want to suggest a change)_
 * [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) _(view only)_
 
-
-
 {% hint style="warning" %}
 The API version follows the general version of the Consent Building Block and is released with the Consent Building Block as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent Building Block Working Group](./) for more guidance on the current versioning semantics.
 {% endhint %}
 
 {% hint style="info" %}
-Changes to the API definitions can be made by submitting a Pull Request on [this repository](https://github.com/GovStackWorkingGroup/bb-consent/)
+Changes to the API definitions can be made by submitting a Pull Request on [this repository](https://github.com/GovStackWorkingGroup/bb-consent/tree/1.0-QA)
 {% endhint %}
 
 ### 8.2 API specification
 
-The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/main/api).
+The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/1.0-QA/api).
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/config/policy/" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
@@ -189,4 +193,3 @@ The following is an automated rendition of our latest [OpenAPI YAML specificatio
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/audit/agreement/{agreementId}/" method="get" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
 {% endswagger %}
-

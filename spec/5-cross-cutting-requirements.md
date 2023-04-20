@@ -6,11 +6,9 @@ description: >-
 
 # 5 Cross-Cutting Requirements
 
-The cross-cutting requirements described in this section are an extension of the cross-cutting requirements defined in the [architecture specification document](https://govstack.gitbook.io/specification/architecture-and-nonfunctional-requirements). Any implementation MUST adhere to all requirements from [GovStack Security Requirements](https://govstack.gitbook.io/specification/security-requirements).
+The cross-cutting requirements described in this section are an extension of the cross-cutting requirements defined in the [architecture specification document](https://govstack.gitbook.io/specification/v/1.0/architecture-and-nonfunctional-requirements). Any implementation MUST adhere to all requirements from [GovStack Security Requirements](https://govstack.gitbook.io/specification/v/1.0/security-requirements).
 
 This section will describe any additional cross-cutting requirements for the Consent Building Block.
-
-
 
 | Digital Registries Building Block   | Must provide all functions related to the persistent storage of consent data.                        |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -28,4 +26,4 @@ All audit logs shall be integrity protected against tampering. The Consent Build
 
 ## 5.3 Access control
 
-In general, the Consent Building Block shall follow the authentication and authorisation requirements as laid out in the [Govstack architecture](http://localhost:5000/s/39QVhd0jD6S29Isr7KGF/security-requirements/4-security-management#4.2.1.1-authentication-and-authorization). For clarity, Consent Building Block's API endpoints are invoked with a client-supplied API key which MUST defer to the Identification and Verification Building Block in order to verify the role and/or scope of the API key matches the API endpoint to which it is supplied. This is mentioned here, as this Definition is drafted without clear guidance in the OpenAPI spec for the handling of roles and scopes.
+In general, the Consent Building Block shall follow the authentication and authorisation requirements as laid out in the [Govstack architecture](https://govstack.gitbook.io/specification/v/1.0/security-requirements/4-security-management). For clarity, Consent Building Block's API endpoints are invoked with a client-supplied API key which MUST defer to the Identification and Verification Building Block in order to verify the role and/or scope of the API key matches the API endpoint to which it is supplied. This is mentioned here, as this Definition is drafted without clear guidance in the OpenAPI spec for the handling of roles and scopes.

@@ -26,7 +26,7 @@ Revisions are maintained for Consent Records + Agreements and Data Policies, tog
 
 For a configured Agreement, data elements requiring consent are individually specified as Agreement Data. Agreement Data is not directly relatable to processes and internals of an external system. This architectural choice gives the consent model flexibility and greatly simplifies the architecture and consent lifecycle, but it does not contradict any additional features, allowing for relations to external systems.
 
-<figure><img src="diagrams/Consent Mangement BB Extended resource relationship model.drawio.png" alt=""><figcaption><p> <a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
+<figure><img src="diagrams/Consent Mangement BB Extended resource relationship model.drawio.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
 * Individual changes Consent Record
 * Individual withdraws/revokes Consent Agreement
@@ -47,4 +47,4 @@ The following standards are applicable to data structures in the registration bu
 
 Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
 
-The OpenAPI definition file is maintained in YAML format, and OpenAPI schemas may be interactively explored in the [next section](8-service-apis.md).
+The OpenAPI definition file is maintained in YAML format, and OpenAPI schemas may be interactively explored in the next section.

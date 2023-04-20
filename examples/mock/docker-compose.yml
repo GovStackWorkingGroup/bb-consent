@@ -37,5 +37,5 @@ volumes:
   caddy:
 
 networks:
-  web:
+  isolation-network:
     driver: bridge

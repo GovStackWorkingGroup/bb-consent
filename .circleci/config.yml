@@ -20,5 +20,5 @@ workflows:
                   - generated.yml
       - test-harness/execute-tests:
           requires:
-            - test-harness/create-configuration
+            - test-harness/create-config
 

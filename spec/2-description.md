@@ -4,9 +4,7 @@ description: This section provides context for this Building Block.
 
 # 2 Description
 
-The Consent Building Block enables services for individuals to approve the use of their personal data by defining the principles, functions, and architecture of an information system. For organisations that process personal data​,​ it provides the ability to know the ​individual's will and legitimately process such personal data.
-
-The Consent Building Block is a process-oriented GovStack Building Block facilitating auditable bilateral agreements within a multi-agent environment that integrates with most other Building Blocks.
+The Consent Building Block enables services for individuals to approve the use of their personal data by defining the principles, functions, and architecture of an information system. For organisations that process personal data​,​ it provides the ability to know the ​individual's will and legitimately process such personal data. The Consent Building Block is a process-oriented GovStack Building Block facilitating auditable bilateral agreements within a multi-agent environment that integrates with most other Building Blocks.
 
 This specification has used several available and recognised open standards below and legal frameworks (such as the [GDPR](https://gdpr.eu/)) for laying the groundwork for its approach to consent management.
 
@@ -16,24 +14,24 @@ This specification has used several available and recognised open standards belo
 * [ISO/TS 17975:2015](https://www.iso.org/standard/61186.html) Health informatics — Principles and data requirements for consent in the Collection, Use or Disclosure of personal health information
 * [ISO/IEC TS 27560](https://www.iso.org/standard/80392.html) — Consent record information structure (under development)
 
-## 2.1 What Consent Is
+## What Consent Is
 
 In the GovStack context, consent is understood as a voluntary declaration by an individual to approve the processing of their Personal data. It is one specific justification for personal data processing that is assumed to be required by legal or ethical conditions. It assumes that the person can decide on processing their personal data, managed in and by other GovStack Building Blocks, and also that the person is free to withdraw their consent at any time.
 
 Some examples of such consent are:
 
-* allowing a healthcare provider to fetch socio-demographic data from a government-run population registry to provide adequate primary health care services;
+* allowing a healthcare provider to fetch socio-demographic data from a government-run population registry to provide adequate primary healthcare services.
 * allowing a government official to fetch relevant data from other/multiple government-run registries to analyse the eligibility for a social benefit programme.
-* allow a government official to send personal data to bank for cash transfers on behalf of the government.
+* allow a government official to send personal data to a bank for cash transfers on behalf of the government.
 
-## 2.2 What Consent Is Not
+## What Consent Is Not
 
 The use of consent should be avoided in cases as below, which are not part of this specification:
 
 * When a person is simply informed of the processing of the data by the organisation as part of the service provided under contract or by an authority.
 * When consent does not have to be obtained in a situation where the entity does not identify or cannot identify people with reasonable effort.
 
-## 2.3 Assumptions
+## Assumptions
 
 Lays out the pre-conditions needed for anyone to use the Consent Building Block.
 
@@ -42,7 +40,7 @@ Lays out the pre-conditions needed for anyone to use the Consent Building Block.
 3. Within the early scope of the Consent Building Block, the act of delegating is kept outside the scope of the Consent Building Block. It is assumed that the authorisation to act on behalf of someone else is already resolved.
 4. It is the organization's (a Data Provider or a Data Consumer) obligation to manage and implement internal policies toward its employees relating to their responsibilities for Personal data processing integrity, specifying it in the employment contract or by other means.
 
-## 2.3 Consent Agreement Lifecycle
+## Consent Agreement Lifecycle
 
 The life cycle of consent management starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
 
@@ -56,7 +54,7 @@ As a result, the organisation responsible for the information system is the driv
 * The purpose of consent, processed data attributes
 * Signatures
 
-A consent agreement life-cycle has four main phases\[^2], as illustrated in the figure below: &#x20;
+A consent agreement life-cycle has four main phases\[^2], as illustrated in the figure below:
 
 <figure><img src=".gitbook/assets/Consent Workflow.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/a2cb2359e">Diagram Source</a></p></figcaption></figure>
 
@@ -68,31 +66,29 @@ A consent agreement life-cycle has four main phases\[^2], as illustrated in the 
 
 **Proof**: In this phase, an organisation (A Data Provider or a Data Consumer) can demonstrate that a valid record exists for performing data processing within itself or with other organisations. This allows for internal usage and for an auditor to verify and ensure records are in place to process the individual's personal data.
 
-## 2.4 Actors
+## Actors
 
-Consent Building Block enables interaction between three (3) distinct user categories, which in combination create the necessary trust framework for the integrity of personal data processing. The actors are defined via distinct human roles to be performed in various consent life-cycle phases:&#x20;
+Consent Building Block enables interaction between three (3) distinct user categories, which in combination create the necessary trust framework for the integrity of personal data processing. The actors are defined via distinct human roles to be performed in various consent life-cycle phases:
 
 1. Individual as the subject of personal data processing;
 2. Administrator of the information system exchanging the personal data;
 3. Data Processing Auditor maintaining independent oversight of the data processing.
 
-Below is the graphical depiction of the actors and their interactions; a more detailed description of the Consent Building Block capabilities is provided in [Chapter 4 - Key Digital Functionalities](4-key-digital-functionalities.md). &#x20;
+Below is the graphical depiction of the actors and their interactions; a more detailed description of the Consent Building Block capabilities is provided in [Chapter 4 - Key Digital Functionalities](4-key-digital-functionalities.md).
 
 <figure><img src="images/consent-bb-actors-02.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
 <figure><img src="images/consent-bb-actors-01.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
-It is important to realise that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.&#x20;
+It is important to realise that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.
 
 ###
 
-## 4.2.1 Interactions with other Building Blocks
+## Interactions with other Building Blocks
 
 The overall relationship diagram is shown below.
 
 ![Diagram Source](images/consent-bb-relationships.png)
-
-
 
 The table below summarises the key relationships consumed during a consent transaction.
 

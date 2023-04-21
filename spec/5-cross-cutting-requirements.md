@@ -10,10 +10,6 @@ The cross-cutting requirements described in this section are an extension of the
 
 This section will describe any additional cross-cutting requirements for the Consent Building Block.
 
-| Digital Registries Building Block   | Must provide all functions related to the persistent storage of consent data.                        |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Information Mediator Building Block | Shall provide functions to register Data Providers from which the Data Consumer will fetch the data. |
-
 ## 5.1 Privacy
 
 Personal data MUST be kept private and never shared with any parties, except where specific authorisation has been granted. The Consent Building Block shall follow the privacy principles as laid out in the GovStack architecture.

@@ -2,14 +2,6 @@
 
 The [GovStack non-functional requirements document](https://govstack.gitbook.io/specification/architecture-and-nonfunctional-requirements/6-onboarding) provides additional information on how 'adaptors' may be used to translate an existing API to the patterns described here. The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/main/api).
 
-{% hint style="warning" %}
-The API version follows the general version of the Consent Building Block and is released with the Consent Building Block as a whole. However, the API is currently undergoing review, refinements and redesign. Please consult the [Consent Building Block Working Group](./) for more guidance on the current versioning semantics.
-{% endhint %}
-
-{% hint style="info" %}
-Changes to the API definitions can be made by submitting a Pull Request on [this repository](https://github.com/GovStackWorkingGroup/bb-consent/)
-{% endhint %}
-
 ## 8.1 Configuration APIs
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/config/policy/" method="post" %}
@@ -179,9 +171,3 @@ Changes to the API definitions can be made by submitting a Pull Request on [this
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/audit/agreement/{agreementId}/" method="get" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
 {% endswagger %}
-
-### External resources
-
-* [API and Data model main definition document](https://docs.google.com/spreadsheets/d/1snIszqyTGYk1u25liwQ\_1jONTsQeH7D8aqv1Td74xt4/edit?usp=sharing) (for commenting).
-* [Pull-Request for 0.8 API spec](https://github.com/GovStackWorkingGroup/BuildingBlockAPI/pull/15) (Raise a Pull Request if you want to suggest a change).
-* [Latest version rendered API spec](https://app.swaggerhub.com/apis/GovStack/consent-management-bb) (view only).

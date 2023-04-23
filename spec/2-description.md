@@ -98,4 +98,4 @@ The table below summarises the key relationships consumed during a consent trans
 | Digital Registries Building Block   | This is used to store any consent agreement, individual consent receipts etc.                                                                                |
 | Workflow Building Block             | Manages the workflow and rules associated with requiring or not requiring consent to use personal data.                                                      |
 | Scheduler Building Block            | Provides an engine for time-based triggers to various events of an automated business process, which might also require consent.                             |
-| Information mediator Building Block | The information mediator Building Block provides a gateway for exchanging data related to consenting workflows; it also provides logs for auditing purposes. |
+| Information Mediator Building Block | The information mediator Building Block provides a gateway for exchanging data related to consenting workflows; it also provides logs for auditing purposes. |

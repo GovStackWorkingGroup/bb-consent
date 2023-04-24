@@ -1,3 +1,9 @@
+---
+description: >-
+  This section provides a detailed view of how this Building Block will interact
+  with other Building Blocks to support common use cases.
+---
+
 # 9 Internal Workflows
 
 A workflow provides a detailed view of how this Building Block will interact with other Building Blocks to support common use cases. This section lists workflows that this Building Block must support. Other workflows may be implemented in addition to those listed.

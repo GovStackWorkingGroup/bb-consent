@@ -1,3 +1,7 @@
+---
+description: Terminology used within this specification.
+---
+
 # 3 Terminology
 
 | **Term**                       | **Description**                                                                                                                                                                                                                                                                                                                                                                                      |

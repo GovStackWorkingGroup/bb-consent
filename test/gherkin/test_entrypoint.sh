@@ -16,3 +16,6 @@ docker container \
 mkdir -p test-data-volume
 
 docker-compose up --build
+
+mkdir -p ./results
+cp ./test_data/results.json ./results/${RESULT_NAME}.message

@@ -4,6 +4,9 @@ set -e
 
 sleep 2s
 
+# Waits for the application to be responsive.
+# We could do a more thorough healthcheck once more
+# is know/specified about what being 'ready' means.
 docker container \
   run \
   --network host \

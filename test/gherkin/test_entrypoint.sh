@@ -1,11 +1,18 @@
 #!/bin/bash
 
-docker build . -t test:latest
+set -e
 
-docker container run \
+sleep 2s
+
+docker container \
+  run \
+  --network host \
+  --rm \
   docker.io/jwilder/dockerize \
-  -wait tcp://caddy:80 \
+  -wait tcp://localhost:8888 \
   -wait-retry-interval 2s \
-  -timeout 20s
+  -timeout 20s \
 
-docker container run test:latest
+mkdir -p test-data-volume
+
+docker-compose up --build

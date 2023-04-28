@@ -20,6 +20,8 @@ services:
     environment:
       - SITE_ADDRESS=localhost
       - INTERNAL_SITE_ADDRESS=caddy.local
+    volumes:
+      - caddy:/data
     networks:
       web:
         aliases:
@@ -35,5 +37,5 @@ volumes:
   caddy:
 
 networks:
-  isolation-network:
+  web:
     driver: bridge

@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  # Local test execution waits for API to be available and create test harness report
+  gherkin-tests:
+    image: gherkin-tests
+    build:
+      context: .
+    environment:
+      - CONSENTBB_API_HOST=${CONSENTBB_API_HOST:-localhost:8888}
+      - CONSENTBB_API_PATH=${CONSENTBB_API_PATH:-/api}
+    volumes:
+      - ./test_data/:/data
+    network_mode: host

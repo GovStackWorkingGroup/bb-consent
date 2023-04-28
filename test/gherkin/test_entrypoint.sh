@@ -17,5 +17,5 @@ mkdir -p test-data-volume
 
 docker-compose up --build
 
-mkdir -p ./results
-cp ./test_data/results.json ./results/example_result.message
+mkdir -p ./result
+cp ./test_data/results.json ./result/example_result.message

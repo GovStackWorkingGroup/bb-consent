@@ -13,4 +13,6 @@ description: >-
 | 0.8     | Ain Aaviksoo, Lal Chandran, Benjamin Balder Bach, Philippe Page, Dr. P. S. Ramkumar | Ready of GovStack internal review                                     |
 | 0.9 RC1 | Ain Aaviksoo, Lal Chandran, Benjamin Balder Bach, Philippe Page, Dr. P. S. Ramkumar | Ready for the Technical Advisory Committee Review                     |
 | 0.9 RC2 | Ain Aaviksoo, Lal Chandran, Benjamin Balder Bach, Philippe Page, Dr. P. S. Ramkumar | Updated according to the Technical Advisory Committee review feedback |
-| 1.0     | Lal Chandran                                                                        | Published Version                                                     |
+| 1.0 RC1 | Lal Chandran                                                                        | Ready to be published                                                 |
+| 1.0     | Wesley Brown, Steve Conrad, Valeria Tafoya                                          | Final edits to align content to specification template                |
+

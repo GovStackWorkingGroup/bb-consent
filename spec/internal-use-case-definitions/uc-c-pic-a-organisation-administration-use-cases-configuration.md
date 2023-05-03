@@ -54,7 +54,7 @@ Postpartum and infant care (Configuration CREATE)
 \
 
 
-The following sequence diagrams details the role of the Independent Authority and the DPIA (Data Protection Impact Assessment) as the document upon which the postpartum infant care program can rely to parametrise the healthcare application for interacting with the consent management BB.
+The following sequence diagrams details the role of the Independent Authority and the DPIA (Data Protection Impact Assessment) as the document upon which the postpartum infant care program can rely to parametrise the healthcare application for interacting with the Consent BB.
 
 <figure><img src="https://lh5.googleusercontent.com/AK1vJOZoljR2EfRr_z9ND9hGWvUlYwz_P_snucAPNUFIYClM30uF_tL_dkKxPTU7a4G-2vtQZ30bAq7uRGaxhpRncOdjiKbNtqrP3_USVi7IlCm97T0SoRT-Y8V-wTkIkjGp_5NqAw4araxvQgZehA" alt=""><figcaption></figcaption></figure>
 

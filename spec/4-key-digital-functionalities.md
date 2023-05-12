@@ -76,7 +76,7 @@ For the implementation of a specific use case, it is important to distinguish th
 | READ CONSENT STATUS - Viewing (reading, exporting) the Consent Agreements and relevant reports in a verifiable form | [UC-C-PIC-AT-003](internal-use-case-definitions/uc-c-pic-at-data-processing-auditor-use-cases-audit.md#uc-c-pic-at-003-consent-postpartum-and-infant-care-read-consent-status)      |
 | VERIFY CONSENT INTEGRITY - Ability to check the integrity of the signed agreements                                  | [UC-C-PIC-AT-004](internal-use-case-definitions/uc-c-pic-at-data-processing-auditor-use-cases-audit.md#uc-c-pic-at-004-consent-postpartum-and-infant-care-verify-consent-integrity) |
 
-## 4.4 Scenarios: Consent and Data Access
+## Scenarios: Consent and Data Access
 
 As described above under [Universal Consenting Workflows](9-workflows.md#44-universal-consent-workflows), there may be an unlimited number of business processes that require consent. The following scenarios are but a few examples illuminating how appropriate access to data can and should be handled when processing or consuming data with the support of Consent Building Block functionalities.
 

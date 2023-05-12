@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Consent BB development script"
 echo ""
 echo "This runs a developer-version of what happens in the Circle CI configuration."
@@ -18,11 +20,7 @@ cd ./examples/mock/
 docker-compose up -d
 cd -
 
-docker container run --network mock_web \
-  docker.io/jwilder/dockerize \
-  -wait tcp://caddy:80 \
-  -wait-retry-interval 2s \
-  -timeout 20s
-
-docker container run --network mock_web test:latest
-
+# Run gherkin test suite
+cd ./test/gherkin
+./test_entrypoint.sh
+cd -

@@ -4,6 +4,17 @@ Note that this same adaptor pattern (using Caddy) can be used to create adaptors
 for any GovStack building block specification, and may be used to mock BB
 endpoints that have not yet been developed.
 
+## What is exposed
+
+The application's docker-compose setup is expected to expose the following:
+
+* `https://localhost:8888/api` - SSL-encrypted base API URL, certificate may be self-signed
+* `https://localhost:8080/api` - Unencrypted API base URL
+
+The test suites expect these endpoints,
+however for demonstration purposes,
+other qualities might also be added to the docker-compose setup.
+
 ## Prerequisites
 
 You need to have Docker and Docker Compose up and running to be able to run this

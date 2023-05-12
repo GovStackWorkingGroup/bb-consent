@@ -22,8 +22,6 @@ services:
     environment:
       - SITE_ADDRESS=localhost
       - INTERNAL_SITE_ADDRESS=caddy.local
-    volumes:
-      - caddy:/data
     networks:
       web:
         aliases:
@@ -32,6 +30,7 @@ services:
       context: ../../
       dockerfile: examples/mock/Dockerfile_caddy
     volumes:
+      - caddy:/data
       - ./caddy:/etc/caddy
       - ./static-responses:/static-reponses
 

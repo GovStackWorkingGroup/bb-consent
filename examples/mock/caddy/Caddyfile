@@ -16,12 +16,18 @@
     # Static responses that take precedence over the Django application
     handle /service/policy/1/ {
         header "Content-Type" "application/json"
-        rewrite * "policy-1.json"
+        rewrite * "service-policy-1.json"
         file_server
     }
     handle /service/agreement/1/ {
         header "Content-Type" "application/json"
-        rewrite * "agreement-1-mcc.json"
+        rewrite * "service-agreement-1-mcc.json"
+        file_server
+    }
+
+    handle /service/agreement/1/agreementdata/ {
+        header "Content-Type" "application/json"
+        rewrite * "service-agreement-1-data.json"
         file_server
     }
 

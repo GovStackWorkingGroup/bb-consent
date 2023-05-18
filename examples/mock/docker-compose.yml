@@ -3,10 +3,12 @@ version: '3'
 services:
   consent:
     image: consent_bb_mock_app
-    expose:
-      - 8000
+    ports:
+      - '8000:8000'
     networks:
-      - web
+      web:
+        aliases:
+          - consent
     build:
       context: ../../
       dockerfile: examples/mock/Dockerfile_app

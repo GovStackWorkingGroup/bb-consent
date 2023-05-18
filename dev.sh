@@ -14,13 +14,32 @@ then
   cd ./examples/mock/
   docker-compose build
   cd -
+  exit
 fi
 
 cd ./examples/mock/
-docker-compose up -d
+
+if [ "$1" == "test" ]
+then
+  docker-compose up -d
+else
+
+  echo ""
+  echo "Running the consent BB mocking application."
+  echo ""
+  echo "By default, you can reach it on:"
+  echo "http://localhost:8080 or https://localhost:8888 (HTTPS)"
+
+  docker-compose up
+fi
 cd -
 
-# Run gherkin test suite
-cd ./test/gherkin
-./test_entrypoint.sh
-cd -
+if [ "$1" == "test" ]
+then
+  echo "Running test suites..."
+  echo ""
+  cd ./test/gherkin
+  ./test_entrypoint.sh
+  cd -
+fi
+

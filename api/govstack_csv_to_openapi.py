@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-from subprocess import Popen, PIPE
 import csv
 import os
 import re
-import shutil
 import sys
 
+try:
+    import yaml
+except ImportError:
+    print("You need to install PyYAML: pip install pyyaml")
+
+VERSION = "1.1.0-rc1"
 
 if len(sys.argv) < 3:
     print("USAGE: govstack_csv_to_openapi.py <path_to_endpoint_spec.csv> <path_to_schema_spec.csv> [--html-table]")
@@ -36,7 +40,7 @@ servers:
     url: https://app.swaggerhub.com/apis/GovStack/consent-management-bb/
 info:
   description: This is a basic API for GovStack's Consent Building Block. It reflects the basic requirements of the Consent BB specification, which is versioned .
-  version: 1.1.0-rc1
+  version: {VERSION}
   title: Consent BB API
   contact:
     email: balder@overtag.dk
@@ -174,6 +178,63 @@ schema_template = """
 {properties}
 """
 
+django_api_template = """
+from ninja import NinjaAPI
+
+api = NinjaAPI(urls_namespace="consentbb", version="{VERSION}")
+
+{endpoints}
+"""
+
+django_api_get_template = """
+@api.get("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_post_template = """
+@api.post("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_put_template = """
+@api.put("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_api_delete_template = """
+@api.delete("{url}")
+def {method}(request, a: int, b: int):
+    return {{ "result": a + b }}
+"""
+
+django_admin_template = """
+from django.contrib import admin
+from . import models
+
+{admins}
+"""
+
+django_model_admin_template = """
+@admin.register(models.{schema})
+class {schema}Admin(admin.ModelAdmin):
+    pass
+"""
+
+django_model_template = """
+from django.db import models
+
+{models}
+"""
+
+django_model_schema_template = """
+class {schema}(models.Model):
+    \"\"\"{description}\"\"\"
+    {fields}
+"""
+
 schema_property_template = """
         {name}:
           type: {property_type}
@@ -182,9 +243,40 @@ schema_property_template = """
           description: "{description}"
 """
 
+django_model_charfield_template = """
+    {name} = models.CharField(
+        verbose_name="{name}",
+        help_text="{description}",
+        max_length=1024,
+    )
+"""
+
+django_model_integerfield_template = """
+    {name} = models.IntegerField(
+        verbose_name="{name}",
+        help_text="{description}",
+    )
+"""
+
+django_model_booleanfield_template = """
+    {name} = models.BooleanField(
+        verbose_name="{name}",
+        help_text="{description}",
+    )
+"""
+
 schema_property_fk_template = """
         {name}:
           $ref: '#/components/schemas/{fk_model}'
+"""
+
+django_model_foreignkey_template = """
+    {name} = models.ForeignKey(
+        "{fk_model}",
+        verbose_name="{name}",
+        help_text="{description}",
+        on_delete=models.PROTECT,
+    )
 """
 
 
@@ -361,6 +453,9 @@ def is_row_with_schema_fk(row):
 
 path_specs = {}
 
+# Store properties of each url => {get: ..., post: ...}
+endpoints = []
+
 current_tag = None
 with open(endpoint_csv_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -374,6 +469,9 @@ with open(endpoint_csv_file, newline='') as csvfile:
             path = path_spec_template.format(
                 **api_path
             )
+
+            endpoints.append(api_path)
+
             if not api_path["url"] in path_specs:
                 path_specs[api_path["url"]] = []
             path_specs[api_path["url"]].append(path)
@@ -406,6 +504,8 @@ schema_fields = {}
 schema_field_names = {}
 schema_descriptions = {}
 
+schema_field_properties = {}
+
 with open(schema_csv_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
     for row in spamreader:
@@ -416,9 +516,15 @@ with open(schema_csv_file, newline='') as csvfile:
         if current_model:
             schema_fields.setdefault(current_model, "")
             schema_field_names.setdefault(current_model, [])
+            schema_field_properties.setdefault(current_model, [])
 
         if current_model and is_row_with_schema_property(row):
             schema_field_names[current_model].append(row[0])
+            schema_field_properties[current_model].append({
+                "name": row[0],
+                "type": row[1],
+                "description": row[3],
+            })
             schema_fields[current_model] += schema_property_template.format(
                 name=row[0],
                 property_type=row[1],
@@ -428,6 +534,12 @@ with open(schema_csv_file, newline='') as csvfile:
             )
         elif current_model and is_row_with_schema_fk(row):
             schema_field_names[current_model].append(row[0])
+            schema_field_properties[current_model].append({
+                "name": row[0],
+                "type": "fk",
+                "description": row[3],
+                "fk_model": row[2],
+            })
             schema_fields[current_model] += schema_property_fk_template.format(
                 name=row[0],
                 fk_model=row[2],
@@ -450,14 +562,108 @@ for schema_name, properties in schema_fields.items():
         model_fields=", ".join("""<code style="font-family: monospace">{}</code>""".format(x) for x in schema_field_names[schema_name])
     )
 
-yaml_output = template.format(paths=output_paths, schemas=output_schemas)
+django_models_output = ""
 
-html_table_output = html_table_template.format(rows=html_table_rows_output)
+openapi_type_to_django_map = {
+    "string": django_model_charfield_template,
+    "fk": django_model_foreignkey_template,
+    "boolean": django_model_booleanfield_template,
+    "integer": django_model_integerfield_template,
+}
+
+
+def escape_string_for_django(str_unescaped):
+    return str_unescaped.replace("\"", "\\\"")
+
+
+for schema_name in schema_fields.keys():
+    properties_output = ""
+
+    for field in schema_field_properties[schema_name]:
+        if field["name"] == "id":
+            # We skip ID fields, the mocking application can use Django's AutoField for this
+            # It's named 'id' as well.
+            continue
+        if field["type"] == "fk":
+            properties_output += django_model_foreignkey_template.format(
+                name=escape_string_for_django(field["name"]),
+                fk_model=field["fk_model"],
+                property_type=openapi_type_to_django_map[field["type"]],
+                description=escape_string_for_django(field["description"]),
+            )
+        else:
+            properties_output += openapi_type_to_django_map[field["type"]].format(
+                name=escape_string_for_django(field["name"]),
+                description=escape_string_for_django(field["description"]),
+            )
+
+    django_models_output += django_model_schema_template.format(
+        schema=schema_name,
+        description=schema_descriptions[schema_name],
+        fields=properties_output,
+    )
+
+
+django_admin_output = ""
+
+for schema_name in schema_fields.keys():
+
+    django_admin_output += django_model_admin_template.format(
+        schema=schema_name,
+    )
+
+
+django_api_output = ""
+
+yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSION=VERSION)
+
+yaml_data = yaml.safe_load(yaml_output)
+
+print(yaml_data)
+for api_url, endpoints in yaml_data["paths"].items():
+
+    for method, endpoint in endpoints.items():
+
+        snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
+
+        if method == "get":
+            django_api_output += django_api_get_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "post":
+            django_api_output += django_api_post_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "put":
+            django_api_output += django_api_put_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+        elif method == "delete":
+            django_api_output += django_api_delete_template.format(
+                url=api_url,
+                method=snake_case_method_name,
+            )
+
+html_table_output = html_table_template.format(rows=django_models_output)
 
 if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 
     print(html_table_output)
 
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-models":
+
+    print(django_model_template.format(models=django_models_output))
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
+
+    print(django_admin_template.format(admins=django_admin_output))
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
+
+    print(django_api_template.format(endpoints=django_api_output, VERSION=VERSION))
+
 else:
     print(yaml_output)
-

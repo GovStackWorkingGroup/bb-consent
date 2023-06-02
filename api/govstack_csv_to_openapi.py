@@ -8,6 +8,7 @@ try:
     import yaml
 except ImportError:
     print("You need to install PyYAML: pip install pyyaml")
+    raise SystemExit
 
 VERSION = "1.1.0-rc1"
 
@@ -619,7 +620,6 @@ yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSIO
 
 yaml_data = yaml.safe_load(yaml_output)
 
-print(yaml_data)
 for api_url, endpoints in yaml_data["paths"].items():
 
     for method, endpoint in endpoints.items():

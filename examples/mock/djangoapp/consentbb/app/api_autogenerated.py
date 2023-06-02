@@ -168,12 +168,3 @@ def audit_agreement_list(request, a: int, b: int):
 def audit_read_record(request, a: int, b: int):
     return { "result": a + b }
 
-@api.get("/status/startup/")
-def status_startup(request, a: int, b: int):
-    return { "result": a + b }
-
-@api.get("/status/readiness/")
-def status_readiness(request, a: int, b: int):
-    return { "result": a + b }
-
-

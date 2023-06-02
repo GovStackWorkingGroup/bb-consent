@@ -1728,11 +1728,6 @@ paths:
         '200':
           description: ""
             
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatusStartup'
-
         '400':
           description: bad input parameter
       security:
@@ -1745,7 +1740,7 @@ paths:
       tags:
         - status
       summary: "READ"
-      operationId: "StatusReadiness"
+      operationId: "statusReadiness"
       description: "READ"
       parameters: []
       x-specification-usecase: ""
@@ -1755,11 +1750,6 @@ paths:
         '200':
           description: ""
             
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatusRediness'
-
         '400':
           description: bad input parameter
       security:

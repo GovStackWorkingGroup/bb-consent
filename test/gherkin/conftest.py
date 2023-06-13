@@ -23,27 +23,29 @@ class TestClient(requests.Session):
 
         TODO: When we mock failure, the request should be sent into oblivion
         """
-        request = super().prepare_request(request)
         if self.mock_soft_failure:
             self.hooks["response"] = response_hook_soft_fail
-        elif response_hook_soft_fail == self.hooks["response"]:
-            self.hooks["response"] = []
+        request = super().prepare_request(request)
         return request
 
 
-def response_hook_soft_fail(response):
+def response_hook_soft_fail(response, **kwargs):
     """
     This is a hook for request.Session.
 
     Whenevever something happens, we fail. Except if it's a status API!
     """
+    # TODO: This doesn't throw away the request so it still pass through
+    # to the API backend
+    # TODO: We really want to simulate that the backend is down, but
+    # that's only possible if we can tell the example application to
+    # play along.
     if "/status/" not in response.url:
         response.status_code = 502
-        response.content = "we down"
     return response
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="module")
 def client():
     """
     This is a very simple client, we can expand it to contain more state and to

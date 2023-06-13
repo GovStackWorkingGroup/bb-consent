@@ -32,16 +32,16 @@ def org_list_policy(request, a: int, b: int):
 def config_agreement_read(request, a: int, b: int):
     return { "result": a + b }
 
-@api.post("/config/agreement/")
-def org_create_agreement(request, a: int, b: int):
-    return { "result": a + b }
-
 @api.put("/config/agreement/{agreementId}/")
 def org_update_agreement(request, a: int, b: int):
     return { "result": a + b }
 
 @api.delete("/config/agreement/{agreementId}/")
 def org_delete_agreement(request, a: int, b: int):
+    return { "result": a + b }
+
+@api.post("/config/agreement/")
+def org_create_agreement(request, a: int, b: int):
     return { "result": a + b }
 
 @api.get("/config/agreements/")
@@ -100,6 +100,10 @@ def service_verification_consent_record_list(request, a: int, b: int):
 def service_create_individual_consent_record(request, a: int, b: int):
     return { "result": a + b }
 
+@api.get("/service/individual/record/agreement/{agreementId}/")
+def service_read_individual_record_read(request, a: int, b: int):
+    return { "result": a + b }
+
 @api.post("/service/individual/record/consentrecord/draft/")
 def service_create_individual_consent_record_draft(request, a: int, b: int):
     return { "result": a + b }
@@ -122,10 +126,6 @@ def service_update_individual_consent_record_signature(request, a: int, b: int):
 
 @api.get("/service/individual/record/agreement/")
 def service_list_individual_record_list(request, a: int, b: int):
-    return { "result": a + b }
-
-@api.get("/service/individual/record/agreement/{agreementId}/")
-def service_read_individual_record_read(request, a: int, b: int):
     return { "result": a + b }
 
 @api.delete("/service/individual/record/")

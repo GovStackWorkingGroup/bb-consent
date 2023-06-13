@@ -58,7 +58,7 @@ else
   echo "By default, you can reach it on:"
   echo "http://localhost:8080 or https://localhost:8888 (HTTPS)"
 
-  docker-compose up
+  docker-compose up --build
 fi
 cd -
 

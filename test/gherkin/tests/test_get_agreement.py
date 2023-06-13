@@ -12,21 +12,27 @@ scenarios("get_agreement.feature")
 
 @given(
     "an Agreement for Test Organization's User Registration exists",
-    target_fixture="mcc_registration_create"
+    target_fixture="basic_agreement"
 )
-def mcc_registration_create():
-    # Currently, this is just mocked in Caddy, so we don't create the object,
-    # we just return a hard-coded ID
-    return 1
+def agreement_create(api_url, client):
+    data = {
+        "name": "Test data policy",
+        "version": "1.0",
+        "url": "https://example.com",
+    }
+    policy_create = api_url + "/config/policy/"
+    response = client.post(policy_create, json=data)
+    raise Exception(response.content)
+    assert response.status_code == 200
 
 
 @when(
     "I fetch an Agreement for Test Organization",
     target_fixture="api_mcc_registration"
 )
-def when_api_basic_public_call(api_url, mcc_registration_create, client):
+def when_api_basic_public_call(api_url, basic_agreement, client):
     return client.get(
-        os.path.join(api_url, f"service/agreement/{mcc_registration_create}/")
+        os.path.join(api_url, f"service/agreement/{basic_agreement['id']}/")
     )
 
 

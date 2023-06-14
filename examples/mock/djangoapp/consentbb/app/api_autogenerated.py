@@ -1,8 +1,5 @@
 
-from ninja import NinjaAPI
-
-api = NinjaAPI(urls_namespace="consentbb", version="1.1.0-rc1")
-
+from .api import api
 
 @api.post("/config/policy/")
 def config_policy_create(request, a: int, b: int):

@@ -69,5 +69,11 @@ then
   cd ./test/gherkin
   ./test_entrypoint.sh
   cd -
+
+  cd ./examples/mock/
+
+  docker-compose stop
+
+  cd -
 fi
 

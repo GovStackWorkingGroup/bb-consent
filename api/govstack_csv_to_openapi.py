@@ -249,6 +249,8 @@ django_model_charfield_template = """
         verbose_name="{name}",
         help_text="{description}",
         max_length=1024,
+        null={not_required},
+        blank={not_required},
     )
 """
 
@@ -256,6 +258,8 @@ django_model_integerfield_template = """
     {name} = models.IntegerField(
         verbose_name="{name}",
         help_text="{description}",
+        null={not_required},
+        blank={not_required},
     )
 """
 
@@ -263,6 +267,8 @@ django_model_booleanfield_template = """
     {name} = models.BooleanField(
         verbose_name="{name}",
         help_text="{description}",
+        null={not_required},
+        blank={not_required},
     )
 """
 
@@ -277,6 +283,7 @@ django_model_foreignkey_template = """
         verbose_name="{name}",
         help_text="{description}",
         on_delete=models.PROTECT,
+        null={not_required},
     )
 """
 
@@ -503,6 +510,7 @@ current_model = None
 output_schemas = ""
 schema_fields = {}
 schema_field_names = {}
+schema_field_names_required = {}
 schema_descriptions = {}
 
 schema_field_properties = {}
@@ -517,6 +525,7 @@ with open(schema_csv_file, newline='') as csvfile:
         if current_model:
             schema_fields.setdefault(current_model, "")
             schema_field_names.setdefault(current_model, [])
+            schema_field_names_required.setdefault(current_model, [])
             schema_field_properties.setdefault(current_model, [])
 
         if current_model and is_row_with_schema_property(row):
@@ -526,6 +535,8 @@ with open(schema_csv_file, newline='') as csvfile:
                 "type": row[1],
                 "description": row[3],
             })
+            if row[4] == "TRUE":
+                schema_field_names_required[current_model].append(row[0])
             schema_fields[current_model] += schema_property_template.format(
                 name=row[0],
                 property_type=row[1],
@@ -555,7 +566,7 @@ for schema_name, properties in schema_fields.items():
         description=schema_descriptions[schema_name],
         schema_type="object",
         properties=properties,
-        required="\n".join("           - {}".format(name) for name in schema_field_names[schema_name])
+        required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
     )
     html_table_rows_output += html_table_rows_template.format(
         model_name="""<code style="font-family: monospace; white-space: nowrap">{}</code>""".format(schema_name),
@@ -577,10 +588,13 @@ def escape_string_for_django(str_unescaped):
     return str_unescaped.replace("\"", "\\\"")
 
 
+# Auto-generated Django model output
 for schema_name in schema_fields.keys():
     properties_output = ""
 
+    required_fields = schema_field_names_required[schema_name]
     for field in schema_field_properties[schema_name]:
+        not_required = "True" if field["name"] not in required_fields else "False"
         if field["name"] == "id":
             # We skip ID fields, the mocking application can use Django's AutoField for this
             # It's named 'id' as well.
@@ -591,11 +605,13 @@ for schema_name in schema_fields.keys():
                 fk_model=field["fk_model"],
                 property_type=openapi_type_to_django_map[field["type"]],
                 description=escape_string_for_django(field["description"]),
+                not_required=not_required,
             )
         else:
             properties_output += openapi_type_to_django_map[field["type"]].format(
                 name=escape_string_for_django(field["name"]),
                 description=escape_string_for_django(field["description"]),
+                not_required=not_required,
             )
 
     django_models_output += django_model_schema_template.format(
@@ -605,6 +621,7 @@ for schema_name in schema_fields.keys():
     )
 
 
+# Auto-generated Django admin output
 django_admin_output = ""
 
 for schema_name in schema_fields.keys():

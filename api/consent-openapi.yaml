@@ -1721,8 +1721,6 @@ components:
       description: "Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements."
       required:
            - id
-           - external_id
-           - external_id_type
       properties:
 
         id:
@@ -1750,16 +1748,8 @@ components:
       required:
            - id
            - version
-           - controller
-           - policy
-           - purpose
            - lawful_basis
-           - data_use
            - dpia
-           - lifecycle
-           - signature
-           - active
-           - forgettable
       properties:
 
         id:
@@ -1825,7 +1815,6 @@ components:
       description: "Agreement data contains specifications of exactly what is collected."
       required:
            - id
-           - agreement
            - name
            - sensitivity
            - category
@@ -1874,11 +1863,6 @@ components:
            - name
            - version
            - url
-           - jurisdiction
-           - industry_sector
-           - data_retention_period_days
-           - geographic_restriction
-           - storage_location
       properties:
 
         id:
@@ -1941,12 +1925,7 @@ components:
       description: "A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)"
       required:
            - id
-           - agreement
-           - agreement_revision
-           - individual
-           - opt_in
            - state
-           - signature
       properties:
 
         id:
@@ -1989,11 +1968,6 @@ components:
            - object_id
            - serialized_snapshot
            - timestamp
-           - authorized_by_individual
-           - authorized_by_other
-           - successor
-           - predecessor_hash
-           - predecessor_signature
       properties:
 
         id:
@@ -2078,11 +2052,6 @@ components:
       required:
            - id
            - opt_in
-           - agreement
-           - agreement_revision
-           - individual
-           - functional_id
-           - foundational_id
       properties:
 
         id:
@@ -2125,7 +2094,6 @@ components:
       required:
            - id
            - name
-           - revision
       properties:
 
         id:
@@ -2181,12 +2149,8 @@ components:
            - signature
            - verification_method
            - verification_hash
-           - verification_artifact
            - verification_signed_by
-           - verification_jws_header
            - timestamp
-           - object_type
-           - object_reference
       properties:
 
         id:
@@ -2263,7 +2227,6 @@ components:
            - id
            - name
            - description
-           - hash
       properties:
 
         id:
@@ -2317,8 +2280,6 @@ components:
       description: "TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"
       required:
            - id
-           - foundational_id
-           - functional_id
       properties:
 
         id:
@@ -2350,8 +2311,6 @@ components:
            - callback_agreement
            - callback_consent_record
            - callback_policy
-           - callback_revision_table_hash
-           - callback_signature_table_hash
       properties:
 
         id:
@@ -2408,7 +2367,6 @@ components:
       description: "TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."
       required:
            - id
-           - event_name
       properties:
 
         id:

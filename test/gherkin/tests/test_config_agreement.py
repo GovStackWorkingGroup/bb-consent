@@ -9,11 +9,11 @@ from pytest_bdd import (
 
 from .utils import assert_response_code
 
-scenarios("get_agreement.feature")
+scenarios("config_agreement.feature")
 
 
 @given(
-    "an Agreement for Test Organization's User Registration exists",
+    "An Agreement for Test Organization's User Registration exists",
     target_fixture="basic_agreement"
 )
 def agreement_create(api_url, client):
@@ -31,7 +31,7 @@ def agreement_create(api_url, client):
 
 
 @when(
-    "I fetch an Agreement for Test Organization",
+    "A valid admin fetches an Agreement for Test Organization",
     target_fixture="api_mcc_registration"
 )
 def when_api_basic_public_call(api_url, basic_agreement, client):
@@ -40,7 +40,7 @@ def when_api_basic_public_call(api_url, basic_agreement, client):
     )
 
 
-@then("I get a valid Agreement")
+@then("A valid Agreement is returned")
 def json_data_is_valid(api_mcc_registration):
     assert api_mcc_registration.status_code == 200
     json_data = json.loads(api_mcc_registration.content)

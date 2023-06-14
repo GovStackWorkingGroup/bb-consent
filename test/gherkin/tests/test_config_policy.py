@@ -7,7 +7,7 @@ from pytest_bdd import (
     then,
 )
 
-scenarios("get_policy.feature")
+scenarios("config_policy.feature")
 
 
 @given(

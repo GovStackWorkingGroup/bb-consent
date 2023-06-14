@@ -16,6 +16,11 @@ docker container \
   -wait-retry-interval 2s \
   -timeout 20s \
 
+# Once the container is ready, we need to wait a bit more
+# TODO: Replace this with some real wait command, since our mock
+# application is returning 502s in the beginning
+sleep 2s
+
 mkdir -p test-data-volume
 
 docker-compose up --build

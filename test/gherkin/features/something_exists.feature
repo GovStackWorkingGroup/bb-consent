@@ -1,4 +1,3 @@
-@method=GET @endpoint=/{GovStackInstance}/{memberClass}/{memberCode}/{applicationCode}/tbd
 Feature: The Consent Building Block exists
 
   @smoke

@@ -7,6 +7,8 @@ from pytest_bdd import (
     then,
 )
 
+from .utils import assert_response_code
+
 scenarios("get_agreement.feature")
 
 
@@ -17,13 +19,15 @@ scenarios("get_agreement.feature")
 def agreement_create(api_url, client):
     data = {
         "name": "Test data policy",
+        "jurisdiction": "EU",
         "version": "1.0",
         "url": "https://example.com",
     }
     policy_create = api_url + "/config/policy/"
     response = client.post(policy_create, json=data)
-    raise Exception(response.content)
-    assert response.status_code == 200
+    assert_response_code(response, 200)
+    response_json = json.loads(response.content)
+    return response_json
 
 
 @when(

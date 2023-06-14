@@ -1,4 +1,3 @@
-@method=GET @endpoint=/{GovStackInstance}/{memberClass}/{memberCode}/{applicationCode}/serviceAgreementRead
 Feature: Consent Agreements can be fetched in a variety of scenarios.
 
   @unit @positive

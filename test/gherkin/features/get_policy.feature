@@ -1,4 +1,3 @@
-@method=GET @endpoint=/{GovStackInstance}/{memberClass}/{memberCode}/{applicationCode}/servicePolicyRead
 Feature: Ability to read the Consent Policy
 
   @unit @positive

@@ -63,10 +63,12 @@ Everything implemented runs according to GovStack standards, including Docker Co
 
 ## Notes
 
+(these notes/questions originate from the template)
+
 At least three levels of testing...
 
-1. can the BB be deployed via docker-compose?
-2. can the BB interact with the IM?
-3. can an adaptor be deployed alongside it to test API compliance?
-4. do the required APIs respond to the required inputs and provide the required responses?
+1. can the BB be deployed via docker-compose? Yes
+2. can the BB interact with the IM? Not currently
+3. can an adaptor be deployed alongside it to test API compliance? Yes
+4. do the required APIs respond to the required inputs and provide the required responses? No, the mock application needs to be expanded
 

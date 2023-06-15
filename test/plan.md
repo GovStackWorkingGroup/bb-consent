@@ -28,6 +28,15 @@ Those files are available here:
 
 Please see the Development section further down for implementation details.
 
+### Proposing a new scenario
+
+Scenarios are discussed and approved by the Working Group.
+But anyone is welcome to add a scenario.
+
+1. Scenarios are proposed and discussed in the following Confluence document: https://govstack-global.atlassian.net/l/cp/Qh3koEkU
+1. After a discussion, the scenario is approved and should be migrated to `test/gherkin/features`.
+1. Once migrated to `test/gherkin/features`, it should be REMOVED from the Confluence document.
+
 ### Structure
 
 APIs for the Consent BB are structured in the following top-level URL paths:

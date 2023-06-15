@@ -28,6 +28,11 @@ then
   ./api/govstack_csv_to_openapi.py \
     "api/GovStack Consent BB API endpoints - endpoints.csv" \
     "api/GovStack Consent BB API endpoints - schema.csv" \
+    --django-ninja-schemas > "examples/mock/djangoapp/consentbb/app/schemas.py"
+
+  ./api/govstack_csv_to_openapi.py \
+    "api/GovStack Consent BB API endpoints - endpoints.csv" \
+    "api/GovStack Consent BB API endpoints - schema.csv" \
     --django-admin > "examples/mock/djangoapp/consentbb/app/admin.py"
 
   exit

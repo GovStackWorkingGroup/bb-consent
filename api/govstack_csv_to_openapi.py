@@ -180,34 +180,37 @@ schema_template = """
 """
 
 django_api_template = """
-from ninja import NinjaAPI
+# Use the api object from the already-existing api with all
+# the views that override these auto-generated views
+from .api import api
 
-api = NinjaAPI(urls_namespace="consentbb", version="{VERSION}")
+# Import auto-generated schemas
+from . import schemas
 
 {endpoints}
 """
 
 django_api_get_template = """
 @api.get("{url}")
-def {method}(request, a: int, b: int):
+def {method}(request,{view_arguments}):
     return {{ "result": a + b }}
 """
 
 django_api_post_template = """
 @api.post("{url}")
-def {method}(request, a: int, b: int):
+def {method}(request,{view_arguments}):
     return {{ "result": a + b }}
 """
 
 django_api_put_template = """
 @api.put("{url}")
-def {method}(request, a: int, b: int):
+def {method}(request,{view_arguments}):
     return {{ "result": a + b }}
 """
 
 django_api_delete_template = """
 @api.delete("{url}")
-def {method}(request, a: int, b: int):
+def {method}(request,{view_arguments}):
     return {{ "result": a + b }}
 """
 
@@ -230,10 +233,26 @@ from django.db import models
 {models}
 """
 
+django_schema_template = """
+from ninja import ModelSchema
+
+from . import models
+
+{schemas}
+"""
+
 django_model_schema_template = """
 class {schema}(models.Model):
     \"\"\"{description}\"\"\"
     {fields}
+"""
+
+
+django_api_schema_template = """
+class {schema}Schema(ModelSchema):
+    class Config:
+        model = models.{schema}
+        model_fields = "__all__"
 """
 
 schema_property_template = """
@@ -315,6 +334,10 @@ html_table_cols_template = """
 """
 
 
+def first_lowercase(string):
+    return string[0].lower() + string[1:]
+
+
 def get_api_spec_from_row(row, current_tag):
 
     url = row[0]
@@ -354,14 +377,14 @@ def get_api_spec_from_row(row, current_tag):
         if query_parameter.endswith("Id"):
             parameters += parameter_template_objectid.format(
                 where="query",
-                name=query_parameter,
+                name=first_lowercase(query_parameter),
                 required="true",
                 description="An object with id {}".format(query_parameter),
             )
         else:
             parameters += parameter_template_schema.format(
                 where="query",
-                name=query_parameter,
+                name=first_lowercase(query_parameter),
                 required="true",
                 schema_model=query_parameter,
                 description="An object of type {}".format(query_parameter),
@@ -621,6 +644,13 @@ for schema_name in schema_fields.keys():
     )
 
 
+# Auto-generated django-ninja schema output
+django_schema_output = ""
+for schema_name in schema_fields.keys():
+    django_schema_output += django_api_schema_template.format(schema=schema_name)
+    # for field in schema_field_properties[schema_name]:
+
+
 # Auto-generated Django admin output
 django_admin_output = ""
 
@@ -637,9 +667,33 @@ yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSIO
 
 yaml_data = yaml.safe_load(yaml_output)
 
+
+def map_openapi_parameters_to_django_api(endpoint_parameters):
+    for entry in endpoint_parameters:
+        if entry[1] == {"type": "string"}:
+            yield entry[0], "str"
+        elif entry[1] == {"type": "integer"}:
+            yield entry[0], "int"
+        elif "$ref" in entry[1]:
+            yield entry[0], entry[1]["$ref"].split("/")[-1] + "Schema"
+        else:
+            raise RuntimeError(f"Does not understand {entry}")
+
+
 for api_url, endpoints in yaml_data["paths"].items():
 
     for method, endpoint in endpoints.items():
+
+        parameters = ((x["name"], x["schema"]) for x in endpoint["parameters"])
+        parameters = map_openapi_parameters_to_django_api(parameters)
+
+        view_arguments = ""
+        for parameter in parameters:
+            view_arguments += f" {parameter[0]}: {parameter[1]},"
+
+        # Trim last ","
+        if view_arguments:
+            view_arguments = view_arguments[:-1]
 
         snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
 
@@ -647,21 +701,26 @@ for api_url, endpoints in yaml_data["paths"].items():
             django_api_output += django_api_get_template.format(
                 url=api_url,
                 method=snake_case_method_name,
+                view_arguments=view_arguments,
             )
         elif method == "post":
             django_api_output += django_api_post_template.format(
                 url=api_url,
                 method=snake_case_method_name,
+                view_arguments=view_arguments,
             )
         elif method == "put":
             django_api_output += django_api_put_template.format(
                 url=api_url,
                 method=snake_case_method_name,
+                view_arguments=view_arguments,
+
             )
         elif method == "delete":
             django_api_output += django_api_delete_template.format(
                 url=api_url,
                 method=snake_case_method_name,
+                view_arguments=view_arguments,
             )
 
 html_table_output = html_table_template.format(rows=django_models_output)
@@ -673,6 +732,10 @@ if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-models":
 
     print(django_model_template.format(models=django_models_output))
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-ninja-schemas":
+
+    print(django_schema_template.format(schemas=django_schema_output))
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
 

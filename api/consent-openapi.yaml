@@ -37,7 +37,7 @@ paths:
       description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
       parameters: 
         - in: query
-          name: Policy
+          name: policy
           description: "An object of type Policy"
           required: true
           schema:
@@ -82,7 +82,7 @@ paths:
             type: string
 
         - in: query
-          name: PolicyFilter
+          name: policyFilter
           description: "An object of type PolicyFilter"
           required: true
           schema:
@@ -175,7 +175,7 @@ paths:
             type: string
 
         - in: query
-          name: Policy
+          name: policy
           description: "An object of type Policy"
           required: true
           schema:
@@ -245,7 +245,7 @@ paths:
       description: "LIST - Fetches list of readable Policy objects"
       parameters: 
         - in: query
-          name: PolicyFilter
+          name: policyFilter
           description: "An object of type PolicyFilter"
           required: true
           schema:
@@ -339,7 +339,7 @@ paths:
             type: string
 
         - in: query
-          name: Agreement
+          name: agreement
           description: "An object of type Agreement"
           required: true
           schema:
@@ -409,7 +409,7 @@ paths:
       description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
       parameters: 
         - in: query
-          name: Agreement
+          name: agreement
           description: "An object of type Agreement"
           required: true
           schema:
@@ -447,7 +447,7 @@ paths:
       description: ""
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
           required: true
           schema:
@@ -498,7 +498,7 @@ paths:
       description: "CREATE - Creates an Individual in the Consent system"
       parameters: 
         - in: query
-          name: RegistryReference
+          name: registryReference
           description: "An object of type RegistryReference"
           required: true
           schema:
@@ -630,7 +630,7 @@ paths:
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
-          name: RegistryReference
+          name: registryReference
           description: "An object of type RegistryReference"
           required: true
           schema:
@@ -829,7 +829,7 @@ paths:
       description: "LIST - Fetch consent records for suplied AgreementFilter"
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
           required: true
           schema:
@@ -918,7 +918,7 @@ paths:
       description: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
       parameters: 
         - in: query
-          name: ConsentRecordFilter
+          name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
           required: true
           schema:
@@ -1112,14 +1112,14 @@ paths:
       description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
       parameters: 
         - in: query
-          name: ConsentRecord
+          name: consentRecord
           description: "An object of type ConsentRecord"
           required: true
           schema:
             $ref: '#/components/schemas/ConsentRecord'
 
         - in: query
-          name: Signature
+          name: signature
           description: "An object of type Signature"
           required: true
           schema:
@@ -1164,21 +1164,21 @@ paths:
             type: string
 
         - in: query
-          name: Individual
+          name: individual
           description: "An object of type Individual"
           required: true
           schema:
             $ref: '#/components/schemas/Individual'
 
         - in: query
-          name: Agreement
+          name: agreement
           description: "An object of type Agreement"
           required: true
           schema:
             $ref: '#/components/schemas/Agreement'
 
         - in: query
-          name: Revision
+          name: revision
           description: "An object of type Revision"
           required: true
           schema:
@@ -1255,7 +1255,7 @@ paths:
             type: string
 
         - in: query
-          name: Signature
+          name: signature
           description: "An object of type Signature"
           required: true
           schema:
@@ -1399,7 +1399,7 @@ paths:
       description: "CREATE - A new AuditTracker is set up"
       parameters: 
         - in: query
-          name: AuditTracker
+          name: auditTracker
           description: "An object of type AuditTracker"
           required: true
           schema:
@@ -1472,7 +1472,7 @@ paths:
             type: string
 
         - in: query
-          name: AuditTracker
+          name: auditTracker
           description: "An object of type AuditTracker"
           required: true
           schema:
@@ -1538,7 +1538,7 @@ paths:
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
         - in: query
-          name: ConsentRecordFilter
+          name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
           required: true
           schema:
@@ -1596,7 +1596,7 @@ paths:
             type: string
 
         - in: query
-          name: ConsentRecord
+          name: consentRecord
           description: "An object of type ConsentRecord"
           required: true
           schema:
@@ -1630,7 +1630,7 @@ paths:
       description: ""
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
           required: true
           schema:
@@ -1688,7 +1688,7 @@ paths:
             type: string
 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
           required: true
           schema:

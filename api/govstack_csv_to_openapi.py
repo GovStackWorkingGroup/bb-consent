@@ -187,31 +187,49 @@ from .api import api
 # Import auto-generated schemas
 from . import schemas
 
+# Import auto-generated models
+from . import models
+
 {endpoints}
 """
 
 django_api_get_template = """
 @api.get("{url}")
 def {method}(request,{view_arguments}):
-    return {{ "result": a + b }}
+    return "undefined"
+
 """
 
 django_api_post_template = """
 @api.post("{url}")
 def {method}(request,{view_arguments}):
-    return {{ "result": a + b }}
+    db_instance = models.{schema_name}.objects.create(**{schema_argument}.dict())
+    return schemas.{schema_name}Schema.from_orm(db_instance)
+
 """
+
+
+django_api_post_template_empty_object = """
+@api.post("{url}")
+def {method}(request,{view_arguments}):
+    db_instance = models.{schema_name}.objects.create()
+    return schemas.{schema_name}Schema.from_orm(db_instance)
+
+"""
+
 
 django_api_put_template = """
 @api.put("{url}")
 def {method}(request,{view_arguments}):
-    return {{ "result": a + b }}
+    return "undefined"
+
 """
 
 django_api_delete_template = """
 @api.delete("{url}")
 def {method}(request,{view_arguments}):
-    return {{ "result": a + b }}
+    return "undefined"
+
 """
 
 django_admin_template = """
@@ -225,6 +243,7 @@ django_model_admin_template = """
 @admin.register(models.{schema})
 class {schema}Admin(admin.ModelAdmin):
     pass
+
 """
 
 django_model_template = """
@@ -245,6 +264,7 @@ django_model_schema_template = """
 class {schema}(models.Model):
     \"\"\"{description}\"\"\"
     {fields}
+
 """
 
 
@@ -675,17 +695,24 @@ def map_openapi_parameters_to_django_api(endpoint_parameters):
         elif entry[1] == {"type": "integer"}:
             yield entry[0], "int"
         elif "$ref" in entry[1]:
-            yield entry[0], entry[1]["$ref"].split("/")[-1] + "Schema"
+            yield entry[0], "schemas." + entry[1]["$ref"].split("/")[-1] + "Schema"
         else:
             raise RuntimeError(f"Does not understand {entry}")
+
+
+def crud_schema_name_and_view_argument(endpoint_parameters):
+    for entry in endpoint_parameters:
+        if "$ref" in entry[1]:
+            return entry[0], entry[1]["$ref"].split("/")[-1]
+    return None, None
 
 
 for api_url, endpoints in yaml_data["paths"].items():
 
     for method, endpoint in endpoints.items():
 
-        parameters = ((x["name"], x["schema"]) for x in endpoint["parameters"])
-        parameters = map_openapi_parameters_to_django_api(parameters)
+        endpoint_parameters = list((x["name"], x["schema"]) for x in endpoint["parameters"])
+        parameters = map_openapi_parameters_to_django_api(endpoint_parameters)
 
         view_arguments = ""
         for parameter in parameters:
@@ -704,11 +731,23 @@ for api_url, endpoints in yaml_data["paths"].items():
                 view_arguments=view_arguments,
             )
         elif method == "post":
-            django_api_output += django_api_post_template.format(
-                url=api_url,
-                method=snake_case_method_name,
-                view_arguments=view_arguments,
-            )
+            schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
+            if schema_argument:
+                django_api_output += django_api_post_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                    schema_argument=schema_argument,
+                    schema_name=schema_name,
+                )
+            else:
+                django_api_output += django_api_post_template_empty_object.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                    schema_name="TBD",
+                )
+
         elif method == "put":
             django_api_output += django_api_put_template.format(
                 url=api_url,

@@ -84,4 +84,14 @@ class AuditEventTypeSchema(ModelSchema):
         model = models.AuditEventType
         model_fields = "__all__"
 
+class StatusStartupSchema(ModelSchema):
+    class Config:
+        model = models.StatusStartup
+        model_fields = "__all__"
+
+class StatusReadinessSchema(ModelSchema):
+    class Config:
+        model = models.StatusReadiness
+        model_fields = "__all__"
+
 

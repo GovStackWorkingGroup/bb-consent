@@ -21,6 +21,15 @@ class Individual(models.Model):
         blank=True,
     )
 
+    identity_provider_id = models.CharField(
+        verbose_name="identity_provider_id",
+        help_text="This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements.",
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
+
+
 
 class Agreement(models.Model):
     """An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord"""
@@ -112,6 +121,7 @@ class Agreement(models.Model):
     )
 
 
+
 class AgreementData(models.Model):
     """Agreement data contains specifications of exactly what is collected."""
     
@@ -133,7 +143,7 @@ class AgreementData(models.Model):
 
     sensitivity = models.CharField(
         verbose_name="sensitivity",
-        help_text="TBD: categories of sensitivity from som ISO",
+        help_text="categories of sensitivity",
         max_length=1024,
         null=False,
         blank=False,
@@ -154,6 +164,7 @@ class AgreementData(models.Model):
         null=False,
         blank=False,
     )
+
 
 
 class Policy(models.Model):
@@ -223,6 +234,7 @@ class Policy(models.Model):
     )
 
 
+
 class ConsentRecord(models.Model):
     """A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)"""
     
@@ -274,11 +286,12 @@ class ConsentRecord(models.Model):
     )
 
 
+
 class Revision(models.Model):
     """A *generic* revision model captures the serialized contents of any shema's single row. This is then subject to 1) cryptographic signature and 2) auditing.\n\nAside from \"successor\" column, a revision should be considered locked."""
     
-    schema = models.CharField(
-        verbose_name="schema",
+    schema_name = models.CharField(
+        verbose_name="schema_name",
         help_text="",
         max_length=1024,
         null=False,
@@ -350,6 +363,7 @@ class Revision(models.Model):
     )
 
 
+
 class AgreementFilter(models.Model):
     """Query filter for API endpoint listing Agreement objects"""
     
@@ -360,6 +374,7 @@ class AgreementFilter(models.Model):
         null=False,
         blank=False,
     )
+
 
 
 class ConsentRecordFilter(models.Model):
@@ -413,6 +428,7 @@ class ConsentRecordFilter(models.Model):
     )
 
 
+
 class PolicyFilter(models.Model):
     """Query filter for API endpoint listing Policy objects"""
     
@@ -433,6 +449,7 @@ class PolicyFilter(models.Model):
     )
 
 
+
 class Controller(models.Model):
     """Details of a data controller."""
     
@@ -451,6 +468,7 @@ class Controller(models.Model):
         null=False,
         blank=False,
     )
+
 
 
 class Signature(models.Model):
@@ -537,6 +555,7 @@ class Signature(models.Model):
     )
 
 
+
 class AgreementPurpose(models.Model):
     """TBD: Models the purpose of an agreement"""
     
@@ -565,6 +584,7 @@ class AgreementPurpose(models.Model):
     )
 
 
+
 class AgreementLifecycle(models.Model):
     """TBD: Models the valid lifecycle states of an Agreement"""
     
@@ -575,6 +595,7 @@ class AgreementLifecycle(models.Model):
         null=False,
         blank=False,
     )
+
 
 
 class RegistryReference(models.Model):
@@ -595,6 +616,7 @@ class RegistryReference(models.Model):
         null=True,
         blank=True,
     )
+
 
 
 class AuditTracker(models.Model):
@@ -657,6 +679,7 @@ class AuditTracker(models.Model):
     )
 
 
+
 class AuditEventType(models.Model):
     """TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."""
     
@@ -664,9 +687,68 @@ class AuditEventType(models.Model):
         verbose_name="event_name",
         help_text="What happened - create/update/delete",
         max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+
+
+class StatusStartup(models.Model):
+    """This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."""
+    
+    status = models.CharField(
+        verbose_name="status",
+        help_text="Possible values: OK, TIMEOUT, ERROR",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    error_message = models.CharField(
+        verbose_name="error_message",
+        help_text="Description of failure",
+        max_length=1024,
         null=True,
         blank=True,
     )
+
+    waiting_for = models.CharField(
+        verbose_name="waiting_for",
+        help_text="When a timeout occurs, a list of pending operations may be shared",
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
+
+
+
+class StatusReadiness(models.Model):
+    """This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."""
+    
+    status = models.CharField(
+        verbose_name="status",
+        help_text="Possible values: OK, WAITING, ERROR",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    error_message = models.CharField(
+        verbose_name="error_message",
+        help_text="Description of failure",
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
+
+    waiting_for = models.CharField(
+        verbose_name="waiting_for",
+        help_text="When a timeout occurs, a list of pending operations may be shared",
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
+
 
 
 

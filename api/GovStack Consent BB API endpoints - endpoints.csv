@@ -34,7 +34,7 @@ Verification mechanisms,,,,,,,FALSE,,,,
 /service/verification/agreement/{agreementId}/,GET,UC-C-PIC-A-003,1.2,,"ConsentRecord, Revision",READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header.,FALSE,,serviceVerificationAgreementConsentRecordRead,,consumer
 /service/verification/consentrecords/,GET,UC-C-PIC-A-003,"3.1, 1.2",ConsentRecordFilter,ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists",TRUE,,serviceVerificationConsentRecordList,,consumer
 Recording consent (giving/withdrawing),,,,,,All services need to specify the Individual ID as an HTTP header.,FALSE,,,,
-/service/individual/record/agreement/{agreementId}/,POST,UC-C-PIC-I-002,1.2,"individualId, agreementId, revisionId","ConsentRecord, Revision","CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header.",TRUE,,serviceCreateIndividualConsentRecord,,individual
+/service/individual/record/agreement/{agreementId}/,POST,UC-C-PIC-I-002,1.2,"individualId, revisionId","ConsentRecord, Revision","CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header.",TRUE,,serviceCreateIndividualConsentRecord,,individual
 /service/individual/record/consentrecord/draft/,POST,UC-C-PIC-I-002,1.2,"individualId, agreementId, revisionId","ConsentRecord, Signature",CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId.,TRUE,,serviceCreateIndividualConsentRecordDraft,,individual
 /service/individual/record/consentrecord/,POST,UC-C-PIC-I-002,1.2,"ConsentRecord, Signature","ConsentRecord, Signature",CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined.,TRUE,,serviceCreateIndividualConsentRecordAndSignature,,individual
 /service/individual/record/consentrecord/{consentRecordId}/,PUT,UC-C-PIC-I-003,,"Individual, Agreement, Revision","ConsentRecord, Revision",UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature.,TRUE,,serviceUpdateIndividualConsentRecord,,individual
@@ -54,6 +54,11 @@ API tag: auditor,,,,,,,,,,,
 /audit/consentrecord/{consentRecordId}/,GET,,,ConsentRecord,ConsentRecord,READ,,,auditConsentRecordRead,,
 /audit/agreements/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-003",,AgreementFilter,Agreement<List>,,,,auditAgreementList,,
 /audit/agreement/{agreementId}/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-003",,AgreementFilter,Agreement,READ,,,auditReadRecord,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+API tag: status,,,,,,,,,,,
+/status/startup/,GET,,,,,READ,,,statusStartup,,
+/status/readiness/,GET,,,,,READ,,,statusReadiness,,
 ,,,,,,,,,,,
 ,,,,,,,,,,,
 API tag: notification,,,,,,,,,,,

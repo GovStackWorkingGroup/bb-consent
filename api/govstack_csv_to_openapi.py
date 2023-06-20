@@ -180,8 +180,12 @@ schema_template = """
 """
 
 django_api_template = """
+# !!! This code is auto-generated, please do not modify
+#
 # Use the api object from the already-existing api with all
 # the views that override these auto-generated views
+from django.shortcuts import get_object_or_404
+
 from .api import api
 
 # Import auto-generated schemas
@@ -193,11 +197,18 @@ from . import models
 {endpoints}
 """
 
-django_api_get_template = """
+django_api_get_stub_template = """
 @api.get("{url}")
 def {method}(request,{view_arguments}):
     return "undefined"
 
+"""
+
+django_api_get_object_template = """
+@api.get("{url}")
+def {method}(request,{view_arguments}):
+    db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
+    return schemas.{schema_name}Schema.from_orm(db_instance)
 """
 
 django_api_post_template = """
@@ -225,14 +236,25 @@ def {method}(request,{view_arguments}):
 
 """
 
-django_api_delete_template = """
+django_api_delete_stub_template = """
 @api.delete("{url}")
 def {method}(request,{view_arguments}):
     return "undefined"
 
 """
 
+django_api_delete_object_template = """
+@api.post("{url}")
+def {method}(request,{view_arguments}):
+    db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
+    db_instance.delete()
+    return {"success": True}
+"""
+
+
 django_admin_template = """
+# !!! This code is auto-generated, please do not modify
+
 from django.contrib import admin
 from . import models
 
@@ -247,12 +269,16 @@ class {schema}Admin(admin.ModelAdmin):
 """
 
 django_model_template = """
+# !!! This code is auto-generated, please do not modify
+
 from django.db import models
 
 {models}
 """
 
 django_schema_template = """
+# !!! This code is auto-generated, please do not modify
+
 from ninja import ModelSchema
 
 from . import models
@@ -707,10 +733,17 @@ def crud_schema_name_and_view_argument(endpoint_parameters):
     return None, None
 
 
+def crud_schema_pk_argument(endpoint_parameters):
+    """Returns an argument that can be assumed to be primary key"""
+    if endpoint_parameters and endpoint_parameters[0][0].endswith("Id"):
+        return endpoint_parameters[0][0]
+
+
 for api_url, endpoints in yaml_data["paths"].items():
 
     for method, endpoint in endpoints.items():
 
+        endpoint_return_values = list((x["name"], x["schema"]) for x in endpoint["parameters"])
         endpoint_parameters = list((x["name"], x["schema"]) for x in endpoint["parameters"])
         parameters = map_openapi_parameters_to_django_api(endpoint_parameters)
 
@@ -724,14 +757,27 @@ for api_url, endpoints in yaml_data["paths"].items():
 
         snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
 
+        schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
+        pk_arg = crud_schema_pk_argument(endpoint_parameters)
+
+        schema_name_return = crud_schema_name_return_value()
+
         if method == "get":
-            django_api_output += django_api_get_template.format(
-                url=api_url,
-                method=snake_case_method_name,
-                view_arguments=view_arguments,
-            )
+            if schema_argument:
+                django_api_output += django_api_get_object_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                    schema_name=schema_name,
+                    pk_arg=pk_arg,
+                )
+            else:
+                django_api_output += django_api_get_stub_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                )
         elif method == "post":
-            schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
             if schema_argument:
                 django_api_output += django_api_post_template.format(
                     url=api_url,
@@ -756,11 +802,20 @@ for api_url, endpoints in yaml_data["paths"].items():
 
             )
         elif method == "delete":
-            django_api_output += django_api_delete_template.format(
-                url=api_url,
-                method=snake_case_method_name,
-                view_arguments=view_arguments,
-            )
+            if schema_argument:
+                django_api_output += django_api_delete_object_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                    pk_arg=pk_arg,
+                    schema_name=schema_name,
+                )
+            else:
+                django_api_output += django_api_delete_stub_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+                )
 
 html_table_output = html_table_template.format(rows=django_models_output)
 

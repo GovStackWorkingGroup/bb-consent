@@ -110,56 +110,6 @@ paths:
         - OAuth2: [org]
 
 
-  /config/policy/{policyId}/revisions/:
-
-    get:
-      tags:
-        - config
-      summary: "LIST - returns the current Policy"
-      operationId: "orgListPolicyRevisions"
-      description: "LIST - returns the current Policy"
-      parameters: 
-        - in: path
-          name: "policyId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Policy'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-  /config/policy/{id}/:
-
     put:
       tags:
         - config
@@ -168,7 +118,7 @@ paths:
       description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
       parameters: 
         - in: path
-          name: "id"
+          name: "policyId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -211,7 +161,7 @@ paths:
       description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
       parameters: 
         - in: path
-          name: "id"
+          name: "policyId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -228,6 +178,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+  /config/policy/{policyId}/revisions/:
+
+    get:
+      tags:
+        - config
+      summary: "LIST - returns the current Policy"
+      operationId: "orgListPolicyRevisions"
+      description: "LIST - returns the current Policy"
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
 
         '400':
           description: bad input parameter
@@ -983,13 +981,6 @@ paths:
             type: string
 
         - in: query
-          name: agreementId
-          description: "An object with id agreementId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
           name: revisionId
           description: "An object with id revisionId"
           required: true
@@ -1706,6 +1697,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/Agreement'
 
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /status/startup/:
+
+    get:
+      tags:
+        - status
+      summary: "READ"
+      operationId: "statusStartup"
+      description: "READ"
+      parameters: []
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /status/readiness/:
+
+    get:
+      tags:
+        - status
+      summary: "READ"
+      operationId: "statusReadiness"
+      description: "READ"
+      parameters: []
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      responses:
+        '200':
+          description: ""
+            
         '400':
           description: bad input parameter
       security:

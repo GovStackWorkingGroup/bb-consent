@@ -85,7 +85,7 @@ paths:
         - in: query
           name: policyFilter
           description: "An object of type PolicyFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/PolicyFilter'
 
@@ -252,7 +252,7 @@ paths:
         - in: query
           name: policyFilter
           description: "An object of type PolicyFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/PolicyFilter'
 
@@ -459,7 +459,7 @@ paths:
         - in: query
           name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -511,7 +511,7 @@ paths:
         - in: query
           name: registryReference
           description: "An object of type RegistryReference"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/RegistryReference'
 
@@ -647,7 +647,7 @@ paths:
         - in: query
           name: registryReference
           description: "An object of type RegistryReference"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/RegistryReference'
 
@@ -851,7 +851,7 @@ paths:
         - in: query
           name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -942,7 +942,7 @@ paths:
         - in: query
           name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/ConsentRecordFilter'
 
@@ -1008,7 +1008,7 @@ paths:
         - in: query
           name: revisionId
           description: "An object with id revisionId"
-          required: true
+          required: false
           schema:
             type: string
 
@@ -1094,7 +1094,7 @@ paths:
         - in: query
           name: revisionId
           description: "An object with id revisionId"
-          required: true
+          required: false
           schema:
             type: string
 
@@ -1184,25 +1184,25 @@ paths:
             type: string
 
         - in: query
-          name: individual
-          description: "An object of type Individual"
+          name: individualId
+          description: "An object with id individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/Individual'
+            type: string
 
         - in: query
-          name: agreement
-          description: "An object of type Agreement"
+          name: agreementId
+          description: "An object with id agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/Agreement'
+            type: string
 
         - in: query
-          name: revision
-          description: "An object of type Revision"
-          required: true
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
           schema:
-            $ref: '#/components/schemas/Revision'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
@@ -1570,7 +1570,7 @@ paths:
         - in: query
           name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/ConsentRecordFilter'
 
@@ -1626,13 +1626,6 @@ paths:
           schema:
             type: string
 
-        - in: query
-          name: consentRecord
-          description: "An object of type ConsentRecord"
-          required: true
-          schema:
-            $ref: '#/components/schemas/ConsentRecord'
-
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
@@ -1664,7 +1657,7 @@ paths:
         - in: query
           name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -1723,7 +1716,7 @@ paths:
         - in: query
           name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 

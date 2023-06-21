@@ -436,20 +436,23 @@ def get_api_spec_from_row(row, current_tag):
         )
     
     for query_parameter in filter(lambda x: bool(x), row[4].split(", ")):
-        if query_parameter.endswith("Id"):
+        # A * at the end of a query argument means "required"
+        query_parameter_required = query_parameter.endswith("*")
+        query_parameter_cleaned = query_parameter.rstrip("*")
+        if query_parameter_cleaned.endswith("Id"):
             parameters += parameter_template_objectid.format(
                 where="query",
-                name=first_lowercase(query_parameter),
-                required="true",
-                description="An object with id {}".format(query_parameter),
+                name=first_lowercase(query_parameter_cleaned),
+                required="true" if query_parameter_required else "false",
+                description="An object with id {}".format(query_parameter_cleaned),
             )
         else:
             parameters += parameter_template_schema.format(
                 where="query",
-                name=first_lowercase(query_parameter),
-                required="true",
-                schema_model=query_parameter,
-                description="An object of type {}".format(query_parameter),
+                name=first_lowercase(query_parameter_cleaned),
+                required="true" if query_parameter_required else "false",
+                schema_model=query_parameter_cleaned,
+                description="An object of type {}".format(query_parameter_cleaned),
             )
 
     if "List" in operation_id:

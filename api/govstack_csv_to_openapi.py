@@ -99,6 +99,7 @@ path_spec_template = """
       x-specification-usecase: "{usecase}"
       x-specification-scenario: "{scenario}"
       x-specification-pii-or-sensitive: "{sensitive}"
+      x-specification-crudl-model: "{crudl_model}"
       responses:
         '200':
           description: "{responseOK}"
@@ -186,6 +187,10 @@ django_api_template = """
 # the views that override these auto-generated views
 from django.shortcuts import get_object_or_404
 
+# Dynamic fixtures
+# https://django-dynamic-fixture.readthedocs.io/en/latest/
+from ddf import G
+
 from .api import api
 
 # Import auto-generated schemas
@@ -209,6 +214,16 @@ django_api_get_object_template = """
 def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     return schemas.{schema_name}Schema.from_orm(db_instance)
+"""
+
+django_api_get_object_template_2_response_objects = """
+@api.get("{url}")
+def {method}(request,{view_arguments}):
+    db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
+    mocked_instance = G(models.{schema_name2})
+    object1 = schemas.{schema_name}Schema.from_orm(db_instance)
+    object2 = schemas.{schema_name}Schema.from_orm(mocked_instance)
+    return object1, object2
 """
 
 django_api_post_template = """
@@ -248,7 +263,7 @@ django_api_delete_object_template = """
 def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     db_instance.delete()
-    return {"success": True}
+    return {{"success": True}}
 """
 
 
@@ -409,6 +424,7 @@ def get_api_spec_from_row(row, current_tag):
     operation_id = row[9]
     response_ok = row[10]
     security = row[11]
+    crudl_model = row[12]
 
     for parameter in pattern_url_parameters.findall(url):
         parameters += parameter_template.format(
@@ -493,6 +509,7 @@ def get_api_spec_from_row(row, current_tag):
         "usecase": usecase,
         "scenario": scenario,
         "sensitive": sensitive,
+        "crudl_model": crudl_model,
     }
 
 
@@ -717,11 +734,11 @@ yaml_data = yaml.safe_load(yaml_output)
 def map_openapi_parameters_to_django_api(endpoint_parameters):
     for entry in endpoint_parameters:
         if entry[1] == {"type": "string"}:
-            yield entry[0], "str"
+            yield entry[0], "str", entry[2]
         elif entry[1] == {"type": "integer"}:
-            yield entry[0], "int"
+            yield entry[0], "int", entry[2]
         elif "$ref" in entry[1]:
-            yield entry[0], "schemas." + entry[1]["$ref"].split("/")[-1] + "Schema"
+            yield entry[0], "schemas." + entry[1]["$ref"].split("/")[-1] + "Schema", entry[2]
         else:
             raise RuntimeError(f"Does not understand {entry}")
 
@@ -739,17 +756,36 @@ def crud_schema_pk_argument(endpoint_parameters):
         return endpoint_parameters[0][0]
 
 
+def crud_schema_name_return_value(response_schema):
+    schema_type = response_schema.get("type")
+    # Responses of tuples/lists of schema objects
+    if schema_type == "array":
+        for ref in response_schema.get("items", {}).get("oneOf", []):
+            if "$ref" in ref:
+                yield ref["$ref"].split("/")[-1]
+    # if schema_type == "string":
+    #     yield "str"
+    if "$ref" in response_schema:
+        yield response_schema["$ref"].split("/")[-1]
+
+
+
 for api_url, endpoints in yaml_data["paths"].items():
 
     for method, endpoint in endpoints.items():
 
-        endpoint_return_values = list((x["name"], x["schema"]) for x in endpoint["parameters"])
-        endpoint_parameters = list((x["name"], x["schema"]) for x in endpoint["parameters"])
+        endpoint_return_values = endpoint.get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema")
+        endpoint_parameters = list((x["name"], x["schema"], x["required"]) for x in endpoint["parameters"])
         parameters = map_openapi_parameters_to_django_api(endpoint_parameters)
+
+        crud_schema = endpoint.get("x-specification-crudl-model")
 
         view_arguments = ""
         for parameter in parameters:
-            view_arguments += f" {parameter[0]}: {parameter[1]},"
+            if parameter[2]:
+                view_arguments += f" {parameter[0]}: {parameter[1]},"
+            else:
+                view_arguments += f" {parameter[0]}: {parameter[1]}=None,"
 
         # Trim last ","
         if view_arguments:
@@ -760,17 +796,29 @@ for api_url, endpoints in yaml_data["paths"].items():
         schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
         pk_arg = crud_schema_pk_argument(endpoint_parameters)
 
-        schema_name_return = crud_schema_name_return_value()
+        if endpoint_return_values:
+            schema_names_returned = list(crud_schema_name_return_value(endpoint_return_values))
 
         if method == "get":
-            if schema_argument:
-                django_api_output += django_api_get_object_template.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                    schema_name=schema_name,
-                    pk_arg=pk_arg,
-                )
+            if crud_schema:
+                if len(schema_names_returned) == 1:
+                    django_api_output += django_api_get_object_template.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                        schema_name=crud_schema,
+                        pk_arg=pk_arg,
+                    )
+                if len(schema_names_returned) == 2:
+                    django_api_output += django_api_get_object_template_2_response_objects.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                        schema_name=crud_schema,
+                        schema_name2=schema_names_returned[1],
+                        pk_arg=pk_arg,
+                    )
+
             else:
                 django_api_output += django_api_get_stub_template.format(
                     url=api_url,
@@ -778,13 +826,13 @@ for api_url, endpoints in yaml_data["paths"].items():
                     view_arguments=view_arguments,
                 )
         elif method == "post":
-            if schema_argument:
+            if crud_schema:
                 django_api_output += django_api_post_template.format(
                     url=api_url,
                     method=snake_case_method_name,
                     view_arguments=view_arguments,
                     schema_argument=schema_argument,
-                    schema_name=schema_name,
+                    schema_name=crud_schema,
                 )
             else:
                 django_api_output += django_api_post_template_empty_object.format(
@@ -802,13 +850,13 @@ for api_url, endpoints in yaml_data["paths"].items():
 
             )
         elif method == "delete":
-            if schema_argument:
+            if crud_schema:
                 django_api_output += django_api_delete_object_template.format(
                     url=api_url,
                     method=snake_case_method_name,
                     view_arguments=view_arguments,
                     pk_arg=pk_arg,
-                    schema_name=schema_name,
+                    schema_name=crud_schema,
                 )
             else:
                 django_api_output += django_api_delete_stub_template.format(

@@ -1,6 +1,14 @@
 
+# !!! This code is auto-generated, please do not modify
+#
 # Use the api object from the already-existing api with all
 # the views that override these auto-generated views
+from django.shortcuts import get_object_or_404
+
+# Dynamic fixtures
+# https://django-dynamic-fixture.readthedocs.io/en/latest/
+from ddf import G
+
 from .api import api
 
 # Import auto-generated schemas
@@ -18,43 +26,51 @@ def config_policy_create(request, policy: schemas.PolicySchema):
 
 @api.get("/config/policy/{policyId}/")
 def org_read_policy(request, policyId: str, policyFilter: schemas.PolicyFilterSchema):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Policy, pk=policyId)
+    mocked_instance = G(models.Revision)
+    object1 = schemas.PolicySchema.from_orm(db_instance)
+    object2 = schemas.PolicySchema.from_orm(mocked_instance)
+    return object1, object2
 
 @api.get("/config/policy/{policyId}/revisions/")
-def org_list_policy_revisions(request, policyId: str, offset: int, limit: int):
-    return "undefined"
-
+def org_list_policy_revisions(request, policyId: str, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Revision, pk=policyId)
+    return schemas.RevisionSchema.from_orm(db_instance)
 
 @api.put("/config/policy/{id}/")
 def org_update_policy(request, id: str, policy: schemas.PolicySchema):
     return "undefined"
 
 
-@api.delete("/config/policy/{id}/")
+@api.post("/config/policy/{id}/")
 def org_delete_policy(request, id: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Policy, pk=None)
+    db_instance.delete()
+    return {"success": True}
 
 @api.get("/config/policies/")
-def org_list_policy(request, policyFilter: schemas.PolicyFilterSchema, offset: int, limit: int):
-    return "undefined"
-
+def org_list_policy(request, policyFilter: schemas.PolicyFilterSchema, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Policy, pk=None)
+    return schemas.PolicySchema.from_orm(db_instance)
 
 @api.get("/config/agreement/{agreementId}/")
 def config_agreement_read(request, agreementId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Agreement, pk=agreementId)
+    mocked_instance = G(models.Revision)
+    object1 = schemas.AgreementSchema.from_orm(db_instance)
+    object2 = schemas.AgreementSchema.from_orm(mocked_instance)
+    return object1, object2
 
 @api.put("/config/agreement/{agreementId}/")
 def org_update_agreement(request, agreementId: str, agreement: schemas.AgreementSchema):
     return "undefined"
 
 
-@api.delete("/config/agreement/{agreementId}/")
+@api.post("/config/agreement/{agreementId}/")
 def org_delete_agreement(request, agreementId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Agreement, pk=agreementId)
+    db_instance.delete()
+    return {"success": True}
 
 @api.post("/config/agreement/")
 def org_create_agreement(request, agreement: schemas.AgreementSchema):
@@ -63,58 +79,68 @@ def org_create_agreement(request, agreement: schemas.AgreementSchema):
 
 
 @api.get("/config/agreements/")
-def org_list_agreement(request, agreementFilter: schemas.AgreementFilterSchema, offset: int, limit: int):
-    return "undefined"
-
+def org_list_agreement(request, agreementFilter: schemas.AgreementFilterSchema, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Agreement, pk=None)
+    return schemas.AgreementSchema.from_orm(db_instance)
 
 @api.post("/service/individual/")
 def org_individual_create(request, registryReference: schemas.RegistryReferenceSchema):
-    db_instance = models.RegistryReference.objects.create(**registryReference.dict())
-    return schemas.RegistryReferenceSchema.from_orm(db_instance)
+    db_instance = models.Individual.objects.create(**registryReference.dict())
+    return schemas.IndividualSchema.from_orm(db_instance)
 
 
 @api.get("/service/individual/{individualId}/")
 def org_individual_read(request, individualId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Individual, pk=individualId)
+    return schemas.IndividualSchema.from_orm(db_instance)
 
 @api.put("/service/individual/{individualId}/")
 def org_individual_update(request, individualId: str):
     return "undefined"
 
 
-@api.delete("/service/individual/{individualId}/")
+@api.post("/service/individual/{individualId}/")
 def org_individual_delete(request, individualId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Individual, pk=individualId)
+    db_instance.delete()
+    return {"success": True}
 
 @api.get("/service/individuals/")
-def org_individual_list(request, registryReference: schemas.RegistryReferenceSchema, offset: int, limit: int):
-    return "undefined"
-
+def org_individual_list(request, registryReference: schemas.RegistryReferenceSchema, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Individual, pk=None)
+    return schemas.IndividualSchema.from_orm(db_instance)
 
 @api.get("/service/agreement/{agreementId}/")
 def service_agreement_read(request, agreementId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Agreement, pk=agreementId)
+    mocked_instance = G(models.Revision)
+    object1 = schemas.AgreementSchema.from_orm(db_instance)
+    object2 = schemas.AgreementSchema.from_orm(mocked_instance)
+    return object1, object2
 
 @api.get("/service/policy/{policyId}/")
 def service_policy_read(request, policyId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.Policy, pk=policyId)
+    mocked_instance = G(models.Revision)
+    object1 = schemas.PolicySchema.from_orm(db_instance)
+    object2 = schemas.PolicySchema.from_orm(mocked_instance)
+    return object1, object2
 
 @api.get("/service/purpose/{purposeId}/")
 def service_agreement_purpose_read(request, purposeId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.AgreementPurpose, pk=purposeId)
+    mocked_instance = G(models.Revision)
+    object1 = schemas.AgreementPurposeSchema.from_orm(db_instance)
+    object2 = schemas.AgreementPurposeSchema.from_orm(mocked_instance)
+    return object1, object2
 
 @api.get("/service/agreement/{agreementId}/agreementdata/")
 def service_agreement_data_read(request, agreementId: str):
-    return "undefined"
-
+    db_instance = get_object_or_404(models.AgreementData, pk=agreementId)
+    return schemas.AgreementDataSchema.from_orm(db_instance)
 
 @api.get("/service/verification/agreements/")
-def service_verification_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema, offset: int, limit: int):
+def service_verification_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -124,7 +150,7 @@ def service_verification_agreement_consent_record_read(request, agreementId: str
 
 
 @api.get("/service/verification/consentrecords/")
-def service_verification_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema, offset: int, limit: int):
+def service_verification_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -147,8 +173,8 @@ def service_create_individual_consent_record_draft(request, individualId: str, a
 
 @api.post("/service/individual/record/consentrecord/")
 def service_create_individual_consent_record_and_signature(request, consentRecord: schemas.ConsentRecordSchema, signature: schemas.SignatureSchema):
-    db_instance = models.ConsentRecord.objects.create(**consentRecord.dict())
-    return schemas.ConsentRecordSchema.from_orm(db_instance)
+    db_instance = models.TBD.objects.create()
+    return schemas.TBDSchema.from_orm(db_instance)
 
 
 @api.put("/service/individual/record/consentrecord/{consentRecordId}/")
@@ -168,7 +194,7 @@ def service_update_individual_consent_record_signature(request, consentRecordId:
 
 
 @api.get("/service/individual/record/agreement/")
-def service_list_individual_record_list(request, offset: int, limit: int):
+def service_list_individual_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -178,14 +204,14 @@ def service_delete_all_records(request,):
 
 
 @api.get("/audit/trackers/")
-def audit_list_trackers(request, offset: int, limit: int):
+def audit_list_trackers(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
 @api.post("/audit/tracker/")
 def audit_create_tracker(request, auditTracker: schemas.AuditTrackerSchema):
-    db_instance = models.AuditTracker.objects.create(**auditTracker.dict())
-    return schemas.AuditTrackerSchema.from_orm(db_instance)
+    db_instance = models.TBD.objects.create()
+    return schemas.TBDSchema.from_orm(db_instance)
 
 
 @api.get("/audit/tracker/{trackerId}/")
@@ -204,7 +230,7 @@ def audit_delete_tracker(request, trackerId: str):
 
 
 @api.get("/audit/consentrecords/")
-def audit_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema, offset: int, limit: int):
+def audit_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -214,7 +240,7 @@ def audit_consent_record_read(request, consentRecordId: str, consentRecord: sche
 
 
 @api.get("/audit/agreements/")
-def audit_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema, offset: int, limit: int):
+def audit_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema, offset: int=None, limit: int=None):
     return "undefined"
 
 

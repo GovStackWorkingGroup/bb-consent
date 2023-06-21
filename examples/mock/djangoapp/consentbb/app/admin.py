@@ -1,4 +1,6 @@
 
+# !!! This code is auto-generated, please do not modify
+
 from django.contrib import admin
 from . import models
 

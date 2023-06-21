@@ -1,4 +1,6 @@
 
+# !!! This code is auto-generated, please do not modify
+
 from ninja import ModelSchema
 
 from . import models

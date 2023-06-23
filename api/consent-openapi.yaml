@@ -37,7 +37,7 @@ paths:
       description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
       parameters: 
         - in: query
-          name: Policy
+          name: policy
           description: "An object of type Policy"
           required: true
           schema:
@@ -46,6 +46,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: "A set consisting of the new Policy object created, together with the initial Revision object."
@@ -82,15 +83,16 @@ paths:
             type: string
 
         - in: query
-          name: PolicyFilter
+          name: policyFilter
           description: "An object of type PolicyFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/PolicyFilter'
 
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: ""
@@ -143,6 +145,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Revision"
       responses:
         '200':
           description: ""
@@ -175,7 +178,7 @@ paths:
             type: string
 
         - in: query
-          name: Policy
+          name: policy
           description: "An object of type Policy"
           required: true
           schema:
@@ -184,6 +187,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: ""
@@ -220,6 +224,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-004"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: ""
@@ -245,9 +250,9 @@ paths:
       description: "LIST - Fetches list of readable Policy objects"
       parameters: 
         - in: query
-          name: PolicyFilter
+          name: policyFilter
           description: "An object of type PolicyFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/PolicyFilter'
 
@@ -268,6 +273,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-001, UC-C-PIC-A-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: "A list of Policy objects readable for the current session's credentials."
@@ -305,6 +311,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -339,7 +346,7 @@ paths:
             type: string
 
         - in: query
-          name: Agreement
+          name: agreement
           description: "An object of type Agreement"
           required: true
           schema:
@@ -348,6 +355,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -384,6 +392,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-004"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -409,7 +418,7 @@ paths:
       description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
       parameters: 
         - in: query
-          name: Agreement
+          name: agreement
           description: "An object of type Agreement"
           required: true
           schema:
@@ -418,6 +427,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -447,9 +457,9 @@ paths:
       description: ""
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -470,6 +480,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -498,15 +509,16 @@ paths:
       description: "CREATE - Creates an Individual in the Consent system"
       parameters: 
         - in: query
-          name: RegistryReference
+          name: registryReference
           description: "An object of type RegistryReference"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/RegistryReference'
 
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -541,6 +553,7 @@ paths:
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -573,6 +586,7 @@ paths:
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -605,6 +619,7 @@ paths:
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -630,9 +645,9 @@ paths:
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
-          name: RegistryReference
+          name: registryReference
           description: "An object of type RegistryReference"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/RegistryReference'
 
@@ -653,6 +668,7 @@ paths:
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -687,6 +703,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
       responses:
         '200':
           description: ""
@@ -725,6 +742,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
       responses:
         '200':
           description: ""
@@ -763,6 +781,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "AgreementPurpose"
       responses:
         '200':
           description: ""
@@ -801,6 +820,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "AgreementData"
       responses:
         '200':
           description: ""
@@ -829,9 +849,9 @@ paths:
       description: "LIST - Fetch consent records for suplied AgreementFilter"
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -852,6 +872,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "1.1"
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -889,6 +910,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -918,9 +940,9 @@ paths:
       description: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
       parameters: 
         - in: query
-          name: ConsentRecordFilter
+          name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/ConsentRecordFilter'
 
@@ -941,6 +963,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "3.1, 1.2"
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -983,22 +1006,16 @@ paths:
             type: string
 
         - in: query
-          name: agreementId
-          description: "An object with id agreementId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
           name: revisionId
           description: "An object with id revisionId"
-          required: true
+          required: false
           schema:
             type: string
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1035,6 +1052,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1076,13 +1094,14 @@ paths:
         - in: query
           name: revisionId
           description: "An object with id revisionId"
-          required: true
+          required: false
           schema:
             type: string
 
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1112,14 +1131,14 @@ paths:
       description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
       parameters: 
         - in: query
-          name: ConsentRecord
+          name: consentRecord
           description: "An object of type ConsentRecord"
           required: true
           schema:
             $ref: '#/components/schemas/ConsentRecord'
 
         - in: query
-          name: Signature
+          name: signature
           description: "An object of type Signature"
           required: true
           schema:
@@ -1128,6 +1147,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1164,29 +1184,30 @@ paths:
             type: string
 
         - in: query
-          name: Individual
-          description: "An object of type Individual"
+          name: individualId
+          description: "An object with id individualId"
           required: true
           schema:
-            $ref: '#/components/schemas/Individual'
+            type: string
 
         - in: query
-          name: Agreement
-          description: "An object of type Agreement"
+          name: agreementId
+          description: "An object with id agreementId"
           required: true
           schema:
-            $ref: '#/components/schemas/Agreement'
+            type: string
 
         - in: query
-          name: Revision
-          description: "An object of type Revision"
-          required: true
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
           schema:
-            $ref: '#/components/schemas/Revision'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1225,6 +1246,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1255,7 +1277,7 @@ paths:
             type: string
 
         - in: query
-          name: Signature
+          name: signature
           description: "An object of type Signature"
           required: true
           schema:
@@ -1264,6 +1286,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1305,6 +1328,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1335,6 +1359,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1371,6 +1396,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1399,7 +1425,7 @@ paths:
       description: "CREATE - A new AuditTracker is set up"
       parameters: 
         - in: query
-          name: AuditTracker
+          name: auditTracker
           description: "An object of type AuditTracker"
           required: true
           schema:
@@ -1408,6 +1434,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1442,6 +1469,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1472,7 +1500,7 @@ paths:
             type: string
 
         - in: query
-          name: AuditTracker
+          name: auditTracker
           description: "An object of type AuditTracker"
           required: true
           schema:
@@ -1481,6 +1509,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1513,6 +1542,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1538,9 +1568,9 @@ paths:
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
         - in: query
-          name: ConsentRecordFilter
+          name: consentRecordFilter
           description: "An object of type ConsentRecordFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/ConsentRecordFilter'
 
@@ -1561,6 +1591,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1595,16 +1626,10 @@ paths:
           schema:
             type: string
 
-        - in: query
-          name: ConsentRecord
-          description: "An object of type ConsentRecord"
-          required: true
-          schema:
-            $ref: '#/components/schemas/ConsentRecord'
-
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1630,9 +1655,9 @@ paths:
       description: ""
       parameters: 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
@@ -1653,6 +1678,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1688,15 +1714,16 @@ paths:
             type: string
 
         - in: query
-          name: AgreementFilter
+          name: agreementFilter
           description: "An object of type AgreementFilter"
-          required: true
+          required: false
           schema:
             $ref: '#/components/schemas/AgreementFilter'
 
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
       responses:
         '200':
           description: ""
@@ -1706,6 +1733,52 @@ paths:
               schema:
                 $ref: '#/components/schemas/Agreement'
 
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /status/startup/:
+
+    get:
+      tags:
+        - status
+      summary: "READ"
+      operationId: "statusStartup"
+      description: "READ"
+      parameters: []
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: []
+
+
+  /status/readiness/:
+
+    get:
+      tags:
+        - status
+      summary: "READ"
+      operationId: "statusReadiness"
+      description: "READ"
+      parameters: []
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
         '400':
           description: bad input parameter
       security:
@@ -1740,6 +1813,12 @@ components:
           format: ""
           example: ""
           description: "External id type specifier. A string. For instance \"email\" or \"foundational id\". Can be used in later queries."
+
+        identity_provider_id:
+          type: string
+          format: ""
+          example: ""
+          description: "This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements."
 
 
     Agreement:
@@ -1840,7 +1919,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "TBD: categories of sensitivity from som ISO"
+          description: "categories of sensitivity"
 
         category:
           type: string
@@ -1964,7 +2043,7 @@ components:
       description: "A *generic* revision model captures the serialized contents of any shema's single row. This is then subject to 1) cryptographic signature and 2) auditing.\n\nAside from \"successor\" column, a revision should be considered locked."
       required:
            - id
-           - schema
+           - schema_name
            - object_id
            - serialized_snapshot
            - timestamp
@@ -1976,7 +2055,7 @@ components:
           example: ""
           description: ""
 
-        schema:
+        schema_name:
           type: string
           format: ""
           example: ""
@@ -2367,6 +2446,7 @@ components:
       description: "TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."
       required:
            - id
+           - event_name
       properties:
 
         id:
@@ -2380,6 +2460,58 @@ components:
           format: ""
           example: ""
           description: "What happened - create/update/delete"
+
+
+    StatusStartup:
+      type: object
+      description: "This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."
+      required:
+           - status
+      properties:
+
+        status:
+          type: string
+          format: ""
+          example: ""
+          description: "Possible values: OK, TIMEOUT, ERROR"
+
+        error_message:
+          type: string
+          format: ""
+          example: ""
+          description: "Description of failure"
+
+        waiting_for:
+          type: string
+          format: ""
+          example: ""
+          description: "When a timeout occurs, a list of pending operations may be shared"
+
+
+    StatusReadiness:
+      type: object
+      description: "This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."
+      required:
+           - status
+      properties:
+
+        status:
+          type: string
+          format: ""
+          example: ""
+          description: "Possible values: OK, WAITING, ERROR"
+
+        error_message:
+          type: string
+          format: ""
+          example: ""
+          description: "Description of failure"
+
+        waiting_for:
+          type: string
+          format: ""
+          example: ""
+          description: "When a timeout occurs, a list of pending operations may be shared"
 
 
 

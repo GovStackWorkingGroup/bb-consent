@@ -86,6 +86,10 @@ This file is written to closely reproduce the same environment that otherwise ru
 The intention is to help with shortcuts for local demos and development of the mock application and test suites.
 
 ```sh
+# Auto-generate all OpenAPI assets from CSV exports
+./dev.sh build-openapi-assets
+```
+
 # Build docker images
 ./dev.sh build
 

@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 
 # Dynamic fixtures
 # https://django-dynamic-fixture.readthedocs.io/en/latest/
-from ddf import G
+from django_dynamic_fixture import G
 
 from .api import api
 
@@ -29,8 +29,8 @@ def org_read_policy(request, policyId: str, policyFilter: schemas.PolicyFilterSc
     db_instance = get_object_or_404(models.Policy, pk=policyId)
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance)
-    object2 = schemas.PolicySchema.from_orm(mocked_instance)
-    return object1, object2
+    object2 = schemas.RevisionSchema.from_orm(mocked_instance)
+    return [object1, object2]
 
 @api.get("/config/policy/{policyId}/revisions/")
 def org_list_policy_revisions(request, policyId: str, offset: int=None, limit: int=None):
@@ -58,7 +58,7 @@ def config_agreement_read(request, agreementId: str):
     db_instance = get_object_or_404(models.Agreement, pk=agreementId)
     mocked_instance = G(models.Revision)
     object1 = schemas.AgreementSchema.from_orm(db_instance)
-    object2 = schemas.AgreementSchema.from_orm(mocked_instance)
+    object2 = schemas.RevisionSchema.from_orm(mocked_instance)
     return object1, object2
 
 @api.put("/config/agreement/{agreementId}/")
@@ -115,7 +115,7 @@ def service_agreement_read(request, agreementId: str):
     db_instance = get_object_or_404(models.Agreement, pk=agreementId)
     mocked_instance = G(models.Revision)
     object1 = schemas.AgreementSchema.from_orm(db_instance)
-    object2 = schemas.AgreementSchema.from_orm(mocked_instance)
+    object2 = schemas.RevisionSchema.from_orm(mocked_instance)
     return object1, object2
 
 @api.get("/service/policy/{policyId}/")
@@ -123,7 +123,7 @@ def service_policy_read(request, policyId: str):
     db_instance = get_object_or_404(models.Policy, pk=policyId)
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance)
-    object2 = schemas.PolicySchema.from_orm(mocked_instance)
+    object2 = schemas.RevisionSchema.from_orm(mocked_instance)
     return object1, object2
 
 @api.get("/service/purpose/{purposeId}/")
@@ -131,7 +131,7 @@ def service_agreement_purpose_read(request, purposeId: str):
     db_instance = get_object_or_404(models.AgreementPurpose, pk=purposeId)
     mocked_instance = G(models.Revision)
     object1 = schemas.AgreementPurposeSchema.from_orm(db_instance)
-    object2 = schemas.AgreementPurposeSchema.from_orm(mocked_instance)
+    object2 = schemas.RevisionSchema.from_orm(mocked_instance)
     return object1, object2
 
 @api.get("/service/agreement/{agreementId}/agreementdata/")

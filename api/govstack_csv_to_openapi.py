@@ -222,7 +222,7 @@ def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     mocked_instance = G(models.{schema_name2})
     object1 = schemas.{schema_name}Schema.from_orm(db_instance)
-    object2 = schemas.{schema_name}Schema.from_orm(mocked_instance)
+    object2 = schemas.{schema_name2}Schema.from_orm(mocked_instance)
     return object1, object2
 """
 

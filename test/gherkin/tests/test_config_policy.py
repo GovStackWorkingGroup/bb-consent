@@ -19,7 +19,7 @@ scenarios(
     "an organization admin user with access to read configuration",
     target_fixture="user",
 )
-def organization_admin(client):
+def given_organization_admin(client):
     # We don't do anything with users for now, we have no idea how to map them
     return object()
 
@@ -28,25 +28,32 @@ def organization_admin(client):
     "an Example Policy for Test Organization exists",
     target_fixture="example_policy"
 )
-def mcc_i_have_an_agreement(client, user):
-    response = client.post(
-        os.path.join(client.api_url, "service/policy/")
-    )
+def given_example_policy_for_test_organization(client, user):
+    data = {
+        "name": "Test data policy",
+        "jurisdiction": "EU",
+        "version": "1.0",
+        "url": "https://example.com",
+    }
+    url = client.api_url + "/config/policy/"
+    response = client.post(url, json=data)
     assert_response_code(response, 200)
-    policy = json.loads(response.content)
-    return policy
+    response_json = json.loads(response.content)
+    return response_json
 
 
 @when(
     "The User fetches Example Policy for Test Organization",
     target_fixture="example_policy"
 )
-def when_api_policy_call(client, user, example_policy):
+def when_api_policy_read(client, user, example_policy):
     response = client.get(
-        os.path.join(client.api_url, "service/policy/{}/".format(example_policy["id"]))
+        os.path.join(client.api_url, "config/policy/{}/".format(example_policy["id"]))
     )
     assert_response_code(response, 200)
-    policy = json.loads(response.content)
+
+    # A Policy + Revision pair is returned
+    policy, __ = json.loads(response.content)
     return policy
 
 

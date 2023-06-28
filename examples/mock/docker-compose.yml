@@ -3,10 +3,12 @@ version: '3'
 services:
   consent:
     image: consent_bb_mock_app
-    expose:
-      - 8000
+    ports:
+      - '8000:8000'
     networks:
-      - web
+      web:
+        aliases:
+          - consent
     build:
       context: ../../
       dockerfile: examples/mock/Dockerfile_app
@@ -20,8 +22,6 @@ services:
     environment:
       - SITE_ADDRESS=localhost
       - INTERNAL_SITE_ADDRESS=caddy.local
-    volumes:
-      - caddy:/data
     networks:
       web:
         aliases:
@@ -30,6 +30,7 @@ services:
       context: ../../
       dockerfile: examples/mock/Dockerfile_caddy
     volumes:
+      - caddy:/data
       - ./caddy:/etc/caddy
       - ./static-responses:/static-reponses
 

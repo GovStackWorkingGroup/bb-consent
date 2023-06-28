@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "agreement": 1,
+    "name": "Full name",
+    "sensitivity": "TBD",
+    "category": "PII",
+    "hash": "<hash value>"
+  },
+  {
+    "id": 2,
+    "agreement": 1,
+    "name": "Address",
+    "sensitivity": "TBD",
+    "category": "PII",
+    "hash": "<hash value>"
+  }
+]

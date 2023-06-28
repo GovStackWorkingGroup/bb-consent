@@ -1,5 +1,6 @@
-Feature: The Consent Building Block exists
+Feature: Ability to read the Consent Policy
 
+  @unit @positive
   Scenario: As the data controller for the Mother & Child Center, I can give an application read access to the Policy of an Agreement
       Given A URL of a Consent Building Block instance
       Given I have an Agreement for MCC Registration

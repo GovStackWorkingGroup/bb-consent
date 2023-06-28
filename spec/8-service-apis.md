@@ -60,6 +60,8 @@ The following is an automated rendition of our latest [OpenAPI YAML specificatio
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
 {% endswagger %}
 
+## 8.2 Service APIs
+
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/service/individual/" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
 {% endswagger %}
@@ -143,6 +145,8 @@ The following is an automated rendition of our latest [OpenAPI YAML specificatio
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/service/individual/record/" method="delete" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)
 {% endswagger %}
+
+## 8.3 Audit APIs
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml" path="/audit/trackers/" method="get" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/main/api/consent-openapi.yaml)

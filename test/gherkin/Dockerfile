@@ -8,7 +8,8 @@ COPY . /tests
 
 WORKDIR /tests/
 
-ENV CONSENTBB_API_HOST=caddy.local:443
+#ENV CONSENTBB_API_HOST=localhost:8080
+ENV CONSENTBB_API_HOST=localhost:8888
 ENV CONSENTBB_API_PATH=/api
 
-CMD pytest
+CMD pytest --cucumberjson=/data/results.json /tests

@@ -6,7 +6,7 @@ description: This section provides context for this Building Block.
 
 The Consent Building Block enables services for individuals to approve the use of their personal data by defining the principles, functions, and architecture of an information system. For organisations that process personal data​,​ it provides the ability to know the ​individual's will and legitimately process such personal data. The Consent Building Block is a process-oriented GovStack Building Block facilitating auditable bilateral agreements within a multi-agent environment that integrates with most other Building Blocks.
 
-This specification has used several available and recognised open standards below and legal frameworks (such as the [GDPR](https://gdpr.eu/)) for laying the groundwork for its approach to consent management.
+This specification has used several available and recognised open standards below and legal frameworks (such as the [GDPR](https://gdpr.eu/)) for laying the groundwork for its approach to consent.
 
 * [Kantara Initiative](https://kantarainitiative.org/download/7902/) - Consent Specification
 * [ISO 29184: 2020](https://www.iso.org/standard/70331.html): Online Privacy Notices and Consent
@@ -42,7 +42,7 @@ Lays out the pre-conditions needed for anyone to use the Consent Building Block.
 
 ## Consent Agreement Lifecycle
 
-The life cycle of consent management starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
+The life cycle of a consent agreement starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
 
 Consent Building Block deals with transparency on data usage in a given context. Thus privacy-by-design of the system's actors is often an excellent guiding principle for interpreting international, national, and organisational policies and governance principles to implement the functional consent framework. A tangible outcome from a Data Protection Impact Analysis (DPIA) is a structured approach that can deliver the input for the actual implementation of the Consent Building Block.
 

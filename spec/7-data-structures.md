@@ -28,23 +28,23 @@ For a configured Agreement, data elements requiring consent are individually spe
 
 <figure><img src="diagrams/Consent Mangement BB Extended resource relationship model.drawio.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
-* Individual changes Consent Record
-* Individual withdraws/revokes Consent Agreement
-* Consent Record expires
-* Consent Record expiry date changes
-* Organisation replaces Consent Agreement
-* Organisation replaces Data Policy
-* Individual gives access to citizen data, using a third-party UI (Consumer’s UI). Example: COVID passports
+* Individual changes Consent Record.
+* Individual withdraws/revokes Consent Agreement.
+* Consent Record expires.
+* Consent Record expiry date changes.
+* Organisation replaces Consent Agreement.
+* Organisation replaces Data Policy.
+* Individual gives access to citizen data, using a third-party user interface (Consumer’s user interface). Example: COVID passports.
 
-The following standards are applicable to data structures in the registration building block:
+The following standards are applicable to data structures in the Registration Building Block:
 
 * All dates should follow ISO 8601.
-* RFC 7159 - The JavaScript Object Notation (JSON)
-* OpenAPI Version 3.1.0
-* RESTful APIs follow TM Forum Specification: “REST API Design Guidelines Part 1” (requirement derived from GovStack Architecture and Nonfunctional Requirements)
+* RFC 7159 - The JavaScript Object Notation (JSON).
+* OpenAPI Version 3.1.0.
+* RESTful APIs follow TM Forum Specification: “REST API Design Guidelines Part 1” (requirement derived from GovStack Architecture and Nonfunctional Requirements).
 
-## 7.4 Data models
+## 7.2 Data models
 
-Data models are defined in [Appendix A: Data models](appendix-a-data-models.md#10-appendix-a-data-models). This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
+This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.
 
 The OpenAPI definition file is maintained in YAML format, and OpenAPI schemas may be interactively explored in the next section.

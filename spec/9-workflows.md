@@ -66,7 +66,7 @@ Application->+Workflow BB: Trigger registration workflow
 
 In more frequent situations, when the Individual is already provisioned in the System (post-registration), the consent workflow uses the existing ID tokens, and only the Consent Record is to be created. The following diagram shows how a generic post-registration use of consent works:
 
-#### Universal consent management flow post-registration (uses centralised ID)
+#### Universal consent flow post-registration (uses centralised ID)
 
 ```mermaid
 sequenceDiagram
@@ -78,8 +78,8 @@ note over Individual: The individual is signed in<br />to the application
 Individual->>+Application: Invoke a consent agreement workflow
 Application->>+Workflow BB: Triggers the consent agreement workflow
 
-Workflow BB->>+Consent Management BB: Fetch consent agreement
-Consent Management BB-->>-Workflow BB: Returns consent agreement
+Workflow BB->>+Consent BB: Fetch consent agreement
+Consent BB-->>-Workflow BB: Returns consent agreement
 Workflow BB-->>-Application: Returns consent agreement
 Application-->>-Individual: Shows consent agreement
 
@@ -87,8 +87,8 @@ note over Individual: The individual agrees/disagrees<br />to the consent agreem
 
 Individual->>+Application: Accepts/Rejects the consent agreement
 Application-->>+Workflow BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Workflow BB-->>+Consent Management BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Consent Management BB-->>-Workflow BB: Returns consent ID
+Workflow BB-->>+Consent BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
+Consent BB-->>-Workflow BB: Returns consent ID
 Workflow BB-->>-Application: Returns consent ID
 
 Application-->>-Individual: Accepts/Rejects the consent agreement
@@ -99,7 +99,7 @@ Application-->>-Individual: Accepts/Rejects the consent agreement
 <summary>Diagram source</summary>
 
 ```
-title Universal consent management flow post-registration (uses centralised ID)
+title Universal consent flow post-registration (uses centralised ID)
 
 actor Individual
 
@@ -112,8 +112,8 @@ end note
 Individual->+Application: Invoke a consent agreement workflow
 Application->+Workflow BB: Triggers the consent agreement workflow
 
-Workflow BB->+Consent Management BB: Fetch consent agreement
-Consent Management BB-->-Workflow BB: Returns consent agreement
+Workflow BB->+Consent BB: Fetch consent agreement
+Consent BB-->-Workflow BB: Returns consent agreement
 Workflow BB-->-Application: Returns consent agreement
 Application-->-Individual: Shows consent agreement
 
@@ -124,8 +124,8 @@ end note
 
 Individual->+Application: Accepts/Rejects the consent agreement
 Application-->+Workflow BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Workflow BB-->+Consent Management BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Consent Management BB-->-Workflow BB: Returns consent ID
+Workflow BB-->+Consent BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
+Consent BB-->-Workflow BB: Returns consent ID
 Workflow BB-->-Application: Returns consent ID
 
 Application-->-Individual: Accepts/Rejects the consent agreement
@@ -145,8 +145,8 @@ sequenceDiagram
 Application->>+Workflow BB: Triggers the consent verification workflow (consent agreement ID)
 note over Application: The Application is in the workflow<br />of processing personal data that<br />requires consent. 
 
-Workflow BB->>+Consent Management BB: Fetch consent ID (consent agreement ID, user ID)
-Consent Management BB-->>-Workflow BB: Returns consent record
+Workflow BB->>+Consent BB: Fetch consent ID (consent agreement ID, user ID)
+Consent BB-->>-Workflow BB: Returns consent record
 Workflow BB-->>-Application: Returns consent record
 
 note over Application: Application checks if the consent exists<br />and processes the data based on it

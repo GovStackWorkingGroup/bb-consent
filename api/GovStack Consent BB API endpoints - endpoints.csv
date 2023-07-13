@@ -1,26 +1,26 @@
 Endpoint slug,Type,Use case,Scenario,Arguments,Returns,Description,Data sensitivity,summary,API Label,responseOK,security,CRUDL model
 API tag: config,,,,,,,,,,,,
 CRUDL for Policy object,,,,,,,,,,,,
-/config/policy/,POST,UC-C-PIC-A-001,,Policy*,"Policy, Revision",CREATE - Creates a new Policy object and returns the new object and a PolicyRevision,FALSE,,configPolicyCreate,"A set consisting of the new Policy object created, together with the initial Revision object.",org,Policy
-/config/policy/{policyId}/,GET,UC-C-PIC-A-003,,PolicyFilter,"Policy, Revision","READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned.",FALSE,,orgReadPolicy,,org,Policy
-/config/policy/{policyId}/revisions/,GET,UC-C-PIC-A-003,,,Policy,LIST - returns the current Policy,FALSE,,orgListPolicyRevisions,,org,Revision
-/config/policy/{id}/,PUT,UC-C-PIC-A-002,,Policy*,"Policy, Revision","UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement.",FALSE,,orgUpdatePolicy,,org,Policy
-/config/policy/{id}/,DELETE,UC-C-PIC-A-004,,,Revision,"DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement.",FALSE,,orgDeletePolicy,,org,Policy
-/config/policies/,GET,"UC-C-PIC-A-001, UC-C-PIC-A-002",,PolicyFilter,Policy<List>,LIST - Fetches list of readable Policy objects,FALSE,Returns a list of readable Policy objects,orgListPolicy,A list of Policy objects readable for the current session's credentials.,admin,Policy
+/config/policy/,POST,UC-C-PIC-A-001,,Policy*,"Policy, Revision",CREATE - Creates a new Policy object and returns the new object and a PolicyRevision,FALSE,,configCreatePolicy,"A set consisting of the new Policy object created, together with the initial Revision object.",org,Policy
+/config/policy/{policyId}/,GET,UC-C-PIC-A-003,,PolicyFilter,"Policy, Revision","READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned.",FALSE,,configReadPolicy,,org,Policy
+/config/policy/{policyId}/revisions/,GET,UC-C-PIC-A-003,,,Policy,LIST - returns the current Policy,FALSE,,configListPolicyRevisions,,org,Revision
+/config/policy/{policyId}/,PUT,UC-C-PIC-A-002,,Policy*,"Policy, Revision","UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement.",FALSE,,configUpdatePolicy,,org,Policy
+/config/policy/{policyId}/,DELETE,UC-C-PIC-A-004,,,Revision,"DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement.",FALSE,,configDeletePolicy,,org,Policy
+/config/policies/,GET,"UC-C-PIC-A-001, UC-C-PIC-A-002",,PolicyFilter,Policy<List>,LIST - Fetches list of readable Policy objects,FALSE,Returns a list of readable Policy objects,configListPolicy,A list of Policy objects readable for the current session's credentials.,admin,Policy
 CRUDL for Agreement object,,,,,,,FALSE,,,,org,
-/config/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,configAgreementRead,,org,Agreement
-/config/agreement/,POST,UC-C-PIC-A-001,,Agreement*,"Agreement, Revision",CREATE - A new Agreement object is created and returned together with AgreementRevision,FALSE,,orgCreateAgreement,,org,Agreement
-/config/agreement/{agreementId}/,PUT,UC-C-PIC-A-002,,Agreement*,"Agreement, Revision",UPDATE - An existing Agreement object is created and returned together with AgreementRevision,FALSE,,orgUpdateAgreement,,org,Agreement
-/config/agreement/{agreementId}/,DELETE,UC-C-PIC-A-004,,,Revision,,FALSE,,orgDeleteAgreement,,org,Agreement
-/config/agreements/,GET,UC-C-PIC-A-003,,AgreementFilter,Agreement<List>,,FALSE,,orgListAgreement,,org,Agreement
+/config/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,configReadAgreement,,org,Agreement
+/config/agreement/,POST,UC-C-PIC-A-001,,Agreement*,"Agreement, Revision",CREATE - A new Agreement object is created and returned together with AgreementRevision,FALSE,,configCreateAgreement,,org,Agreement
+/config/agreement/{agreementId}/,PUT,UC-C-PIC-A-002,,Agreement*,"Agreement, Revision",UPDATE - An existing Agreement object is created and returned together with AgreementRevision,FALSE,,configUpdateAgreement,,org,Agreement
+/config/agreement/{agreementId}/,DELETE,UC-C-PIC-A-004,,,Revision,,FALSE,,configDeleteAgreement,,org,Agreement
+/config/agreements/,GET,UC-C-PIC-A-003,,AgreementFilter,Agreement<List>,,FALSE,,configListAgreement,,org,Agreement
 ,,,,,,,FALSE,,,,,
 API tag: service,,,,,,,,,,,,
 "CRUDL for ""Individual"" object",,,,,,,TRUE,,,,org,Individual
-/service/individual/,POST,,,RegistryReference,Individual,CREATE - Creates an Individual in the Consent system,TRUE,,orgIndividualCreate,,org,Individual
-/service/individual/{individualId}/,GET,,,,Individual,READ - Fetch an Individual in the Consent system,TRUE,,orgIndividualRead,,org,Individual
-/service/individual/{individualId}/,PUT,,,,Individual,UPDATE - Updates an Individual in the Consent system,TRUE,,orgIndividualUpdate,,org,Individual
-/service/individual/{individualId}/,DELETE,,,,Individual,DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects,TRUE,,orgIndividualDelete,,org,Individual
-/service/individuals/,GET,,,RegistryReference,Individual,LIST - lists individuals in the system,TRUE,,orgIndividualList,,org,Individual
+/service/individual/,POST,,,RegistryReference,Individual,CREATE - Creates an Individual in the Consent system,TRUE,,serviceIndividualCreate,,org,Individual
+/service/individual/{individualId}/,GET,,,,Individual,READ - Fetch an Individual in the Consent system,TRUE,,serviceIndividualRead,,org,Individual
+/service/individual/{individualId}/,PUT,,,,Individual,UPDATE - Updates an Individual in the Consent system,TRUE,,serviceIndividualUpdate,,org,Individual
+/service/individual/{individualId}/,DELETE,,,,Individual,DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects,TRUE,,serviceIndividualDelete,,org,Individual
+/service/individuals/,GET,,,RegistryReference,Individual,LIST - lists individuals in the system,TRUE,,serviceIndividualList,,org,Individual
 "Read operation for ""Agreement"" object",,,,,,,FALSE,,,,,
 /service/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceAgreementRead,,org,Agreement
 "Read operation for ""Policy"" object",,,,,,,FALSE,,,,,
@@ -64,7 +64,7 @@ API tag: status,,,,,,,,,,,,
 API tag: notification,,,,,,,,,,,,
 ,,,,,,,,,,,,
 API tag: callback,,,,,,,,,,,,
-/callback/registrybb/revision/{id}/,,,,RegistryReference*,,"For asynchronous flows, the Consent BB will require a callback from the Registry BB when saving and updating records on an Individual.",FALSE,,,,,
+/callback/registrybb/revision/{registryReferenceId}/,,,,RegistryReference*,,"For asynchronous flows, the Consent BB will require a callback from the Registry BB when saving and updating records on an Individual.",FALSE,,,,,
 ,,,,,,,,,,,,
 ,,,,,,,,,,,,
 Questions / notes,,,,,,,,,,,,

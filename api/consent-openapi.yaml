@@ -33,7 +33,7 @@ paths:
       tags:
         - config
       summary: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
-      operationId: "configPolicyCreate"
+      operationId: "configCreatePolicy"
       description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
       parameters: 
         - in: query
@@ -72,7 +72,7 @@ paths:
       tags:
         - config
       summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
-      operationId: "orgReadPolicy"
+      operationId: "configReadPolicy"
       description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
       parameters: 
         - in: path
@@ -112,13 +112,90 @@ paths:
         - OAuth2: [org]
 
 
+    put:
+      tags:
+        - config
+      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      operationId: "configUpdatePolicy"
+      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: policy
+          description: "An object of type Policy"
+          required: true
+          schema:
+            $ref: '#/components/schemas/Policy'
+
+      x-specification-usecase: "UC-C-PIC-A-002"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Policy'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+    delete:
+      tags:
+        - config
+      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      operationId: "configDeletePolicy"
+      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      parameters: 
+        - in: path
+          name: "policyId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: "UC-C-PIC-A-004"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Policy"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
   /config/policy/{policyId}/revisions/:
 
     get:
       tags:
         - config
       summary: "LIST - returns the current Policy"
-      operationId: "orgListPolicyRevisions"
+      operationId: "configListPolicyRevisions"
       description: "LIST - returns the current Policy"
       parameters: 
         - in: path
@@ -161,92 +238,13 @@ paths:
         - OAuth2: [org]
 
 
-  /config/policy/{id}/:
-
-    put:
-      tags:
-        - config
-      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
-      operationId: "orgUpdatePolicy"
-      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: policy
-          description: "An object of type Policy"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Policy'
-
-      x-specification-usecase: "UC-C-PIC-A-002"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Policy"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
-                    - $ref: '#/components/schemas/Revision'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-    delete:
-      tags:
-        - config
-      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
-      operationId: "orgDeletePolicy"
-      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
-      parameters: 
-        - in: path
-          name: "id"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: "UC-C-PIC-A-004"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Policy"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Revision'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
   /config/policies/:
 
     get:
       tags:
         - config
       summary: "Returns a list of readable Policy objects"
-      operationId: "orgListPolicy"
+      operationId: "configListPolicy"
       description: "LIST - Fetches list of readable Policy objects"
       parameters: 
         - in: query
@@ -298,7 +296,7 @@ paths:
       tags:
         - config
       summary: "READ - fetches the latest version of an Agreement"
-      operationId: "configAgreementRead"
+      operationId: "configReadAgreement"
       description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
@@ -335,7 +333,7 @@ paths:
       tags:
         - config
       summary: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
-      operationId: "orgUpdateAgreement"
+      operationId: "configUpdateAgreement"
       description: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
       parameters: 
         - in: path
@@ -379,7 +377,7 @@ paths:
       tags:
         - config
       summary: ""
-      operationId: "orgDeleteAgreement"
+      operationId: "configDeleteAgreement"
       description: ""
       parameters: 
         - in: path
@@ -414,7 +412,7 @@ paths:
       tags:
         - config
       summary: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
-      operationId: "orgCreateAgreement"
+      operationId: "configCreateAgreement"
       description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
       parameters: 
         - in: query
@@ -453,7 +451,7 @@ paths:
       tags:
         - config
       summary: ""
-      operationId: "orgListAgreement"
+      operationId: "configListAgreement"
       description: ""
       parameters: 
         - in: query
@@ -505,7 +503,7 @@ paths:
       tags:
         - service
       summary: "CREATE - Creates an Individual in the Consent system"
-      operationId: "orgIndividualCreate"
+      operationId: "serviceIndividualCreate"
       description: "CREATE - Creates an Individual in the Consent system"
       parameters: 
         - in: query
@@ -540,7 +538,7 @@ paths:
       tags:
         - service
       summary: "READ - Fetch an Individual in the Consent system"
-      operationId: "orgIndividualRead"
+      operationId: "serviceIndividualRead"
       description: "READ - Fetch an Individual in the Consent system"
       parameters: 
         - in: path
@@ -573,7 +571,7 @@ paths:
       tags:
         - service
       summary: "UPDATE - Updates an Individual in the Consent system"
-      operationId: "orgIndividualUpdate"
+      operationId: "serviceIndividualUpdate"
       description: "UPDATE - Updates an Individual in the Consent system"
       parameters: 
         - in: path
@@ -606,7 +604,7 @@ paths:
       tags:
         - service
       summary: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
-      operationId: "orgIndividualDelete"
+      operationId: "serviceIndividualDelete"
       description: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
       parameters: 
         - in: path
@@ -641,7 +639,7 @@ paths:
       tags:
         - service
       summary: "LIST - lists individuals in the system"
-      operationId: "orgIndividualList"
+      operationId: "serviceIndividualList"
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query

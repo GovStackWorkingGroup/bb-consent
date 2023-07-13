@@ -21,5 +21,11 @@ def when_api_basic_public_call(api_url, client):
 
 @then("I get some valid JSON data back")
 def json_data_is_valid(when_api_basic_public_call):
-    assert when_api_basic_public_call.status_code == 200
-    assert isinstance(json.loads(when_api_basic_public_call.content), dict)
+    if not when_api_basic_public_call.status_code == 200:
+        raise AssertionError(f"Got status code {when_api_basic_public_call.status_code}\n\nContent:\n{when_api_basic_public_call.content}")
+    response_data = json.loads(when_api_basic_public_call.content)
+    assert isinstance(response_data, list)
+    # This is the Policy object
+    assert isinstance(response_data[0], dict)
+    # This is the Revision object
+    assert isinstance(response_data[1], dict)

@@ -213,7 +213,8 @@ django_api_get_object_template = """
 @api.get("{url}")
 def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
-    return schemas.{schema_name}Schema.from_orm(db_instance)
+    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
+
 """
 
 django_api_get_object_template_2_response_objects = """
@@ -221,16 +222,17 @@ django_api_get_object_template_2_response_objects = """
 def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     mocked_instance = G(models.{schema_name2})
-    object1 = schemas.{schema_name}Schema.from_orm(db_instance)
-    object2 = schemas.{schema_name2}Schema.from_orm(mocked_instance)
-    return object1, object2
+    object1 = schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    object2 = schemas.{schema_name2}Schema.from_orm(mocked_instance).dict()
+    return [object1, object2]
+
 """
 
 django_api_post_template = """
 @api.post("{url}")
 def {method}(request,{view_arguments}):
     db_instance = models.{schema_name}.objects.create(**{schema_argument}.dict())
-    return schemas.{schema_name}Schema.from_orm(db_instance)
+    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
 """
 
@@ -239,7 +241,7 @@ django_api_post_template_empty_object = """
 @api.post("{url}")
 def {method}(request,{view_arguments}):
     db_instance = models.{schema_name}.objects.create()
-    return schemas.{schema_name}Schema.from_orm(db_instance)
+    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
 """
 
@@ -264,6 +266,7 @@ def {method}(request,{view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     db_instance.delete()
     return {{"success": True}}
+
 """
 
 

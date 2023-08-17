@@ -12,5 +12,22 @@
     "geographic_restriction": null,
     "storage_location": "Country Name"
   }
+},
+{
+  "model": "app.controller",
+  "pk": 1,
+  "fields": {
+    "name": "Ministry of Health",
+    "url": "https://www.example.com"
+  }
+},
+{
+  "model": "app.agreementpurpose",
+  "pk": 1,
+  "fields": {
+    "name": "Child registration",
+    "description": "To register a child for health care",
+    "hash": "e53c915d393b74d061cd3a56bb0be02b87d174b7"
+  }
 }
 ]

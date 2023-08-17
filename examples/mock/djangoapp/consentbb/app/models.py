@@ -50,6 +50,7 @@ class Agreement(models.Model):
         help_text="Data controller (may be omitted if no data involved)",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     policy = models.ForeignKey(
@@ -58,6 +59,7 @@ class Agreement(models.Model):
         help_text="Reference to the policy under which this Agreement shall be governed",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     purpose = models.ForeignKey(
@@ -66,6 +68,7 @@ class Agreement(models.Model):
         help_text="Purpose of data processing or purpose of consent. Displayed to the user.",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     lawful_basis = models.CharField(
@@ -98,6 +101,7 @@ class Agreement(models.Model):
         help_text="Signature of authorizing party of Agreement. Note: Signatures may be chained in case of multiple signatures.",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     active = models.BooleanField(
@@ -120,6 +124,7 @@ class Agreement(models.Model):
         help_text="WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     lifecycle = models.ForeignKey(
@@ -128,6 +133,7 @@ class Agreement(models.Model):
         help_text="WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
 
@@ -141,6 +147,7 @@ class AgreementData(models.Model):
         help_text="",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     name = models.CharField(
@@ -254,6 +261,7 @@ class ConsentRecord(models.Model):
         help_text="The Agreement to which consent has been given",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     agreement_revision = models.ForeignKey(
@@ -262,6 +270,7 @@ class ConsentRecord(models.Model):
         help_text="The Revision of the agreement which consent has been given to",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     individual = models.ForeignKey(
@@ -270,6 +279,7 @@ class ConsentRecord(models.Model):
         help_text="The Individual who has signed this consent record",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     opt_in = models.BooleanField(
@@ -293,6 +303,7 @@ class ConsentRecord(models.Model):
         help_text="A signature that hashes all the values of the consent record and has signed it with the key of the Invidiual, making it verifiable and tamper-proof. TBD: Relation to a Signature schema?",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
 
@@ -338,6 +349,7 @@ class Revision(models.Model):
         help_text="",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     authorized_by_other = models.CharField(
@@ -354,6 +366,7 @@ class Revision(models.Model):
         help_text="This revision is no longer the latest revision, refer to its successor.",
         on_delete=models.PROTECT,
         null=True,
+        blank=True,
     )
 
     predecessor_hash = models.CharField(

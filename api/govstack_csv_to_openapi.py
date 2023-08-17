@@ -378,6 +378,7 @@ django_model_foreignkey_template = """
         help_text="{description}",
         on_delete=models.PROTECT,
         null={not_required},
+        blank={not_required},
     )
 """
 

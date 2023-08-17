@@ -1,0 +1,16 @@
+[
+{
+  "model": "app.policy",
+  "pk": 1,
+  "fields": {
+    "name": "Ministry of Health Privacy Policy",
+    "version": "1.0",
+    "url": "https://example.com/policy/1.0",
+    "jurisdiction": "EU",
+    "industry_sector": null,
+    "data_retention_period_days": 365,
+    "geographic_restriction": null,
+    "storage_location": "Country Name"
+  }
+}
+]

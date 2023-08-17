@@ -52,6 +52,12 @@ fi
 
 cd ./examples/mock/
 
+if [ "$1" == "fixtures" ]
+then
+  docker-compose exec -it consent python manage.py dumpdata app --indent 2 > ./djangoapp/fixtures.json
+  exit 0
+fi
+
 if [ "$1" == "test" ]
 then
   docker-compose up -d

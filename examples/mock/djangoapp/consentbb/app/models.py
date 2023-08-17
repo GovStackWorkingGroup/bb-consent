@@ -78,7 +78,7 @@ class Agreement(models.Model):
 
     data_use = models.CharField(
         verbose_name="data_use",
-        help_text="null/data-source/data-using-service",
+        help_text="null/data_source/data_using_service",
         max_length=1024,
         null=True,
         blank=True,
@@ -90,14 +90,6 @@ class Agreement(models.Model):
         max_length=1024,
         null=False,
         blank=False,
-    )
-
-    lifecycle = models.ForeignKey(
-        "AgreementLifecycle",
-        verbose_name="lifecycle",
-        help_text="Current Lifecycle state of the Agreement",
-        on_delete=models.PROTECT,
-        null=True,
     )
 
     signature = models.ForeignKey(
@@ -120,6 +112,22 @@ class Agreement(models.Model):
         help_text="Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability.",
         null=True,
         blank=True,
+    )
+
+    compatible_with_version = models.ForeignKey(
+        "Agreement",
+        verbose_name="compatible_with_version",
+        help_text="WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.",
+        on_delete=models.PROTECT,
+        null=True,
+    )
+
+    lifecycle = models.ForeignKey(
+        "AgreementLifecycle",
+        verbose_name="lifecycle",
+        help_text="WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.",
+        on_delete=models.PROTECT,
+        null=True,
     )
 
 
@@ -161,7 +169,7 @@ class AgreementData(models.Model):
 
     hash = models.CharField(
         verbose_name="hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement.",
+        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",
         max_length=1024,
         null=False,
         blank=False,
@@ -294,7 +302,7 @@ class Revision(models.Model):
     
     schema_name = models.CharField(
         verbose_name="schema_name",
-        help_text="",
+        help_text="This was previously called \"schema\" but for technical reasons should be called \"schema_name\"",
         max_length=1024,
         null=False,
         blank=False,
@@ -362,92 +370,6 @@ class Revision(models.Model):
         max_length=1024,
         null=True,
         blank=True,
-    )
-
-
-
-class AgreementFilter(models.Model):
-    """Query filter for API endpoint listing Agreement objects"""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-
-
-class ConsentRecordFilter(models.Model):
-    """Query filter for API endpoint listing ConsentRecord objects"""
-    
-    opt_in = models.BooleanField(
-        verbose_name="opt_in",
-        help_text="",
-        null=False,
-        blank=False,
-    )
-
-    agreement = models.ForeignKey(
-        "Agreement",
-        verbose_name="agreement",
-        help_text="",
-        on_delete=models.PROTECT,
-        null=True,
-    )
-
-    agreement_revision = models.ForeignKey(
-        "Revision",
-        verbose_name="agreement_revision",
-        help_text="",
-        on_delete=models.PROTECT,
-        null=True,
-    )
-
-    individual = models.ForeignKey(
-        "Individual",
-        verbose_name="individual",
-        help_text="",
-        on_delete=models.PROTECT,
-        null=True,
-    )
-
-    functional_id = models.CharField(
-        verbose_name="functional_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    foundational_id = models.CharField(
-        verbose_name="foundational_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
-class PolicyFilter(models.Model):
-    """Query filter for API endpoint listing Policy objects"""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    revision = models.ForeignKey(
-        "Revision",
-        verbose_name="revision",
-        help_text="",
-        on_delete=models.PROTECT,
-        null=True,
     )
 
 
@@ -524,6 +446,14 @@ class Signature(models.Model):
         blank=False,
     )
 
+    verification_signed_as = models.CharField(
+        verbose_name="verification_signed_as",
+        help_text="DRAFT FIELD: Specifies the relationship between the authorizing signature and the invidual which the payload concerns. This is relevant for Consent Records. Possible values: \"individual\" / \"delegate\"",
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
+
     verification_jws_header = models.CharField(
         verbose_name="verification_jws_header",
         help_text="Alternative to the verification_method, verification_hash and verification_signature, give a JWS serialized object (RFC7515)",
@@ -592,7 +522,7 @@ class AgreementLifecycle(models.Model):
     
     name = models.CharField(
         verbose_name="name",
-        help_text="Definition / Preparation / Capture / Use / Proof",
+        help_text="Draft / Complete",
         max_length=1024,
         null=False,
         blank=False,
@@ -691,64 +621,6 @@ class AuditEventType(models.Model):
         max_length=1024,
         null=False,
         blank=False,
-    )
-
-
-
-class StatusStartup(models.Model):
-    """This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."""
-    
-    status = models.CharField(
-        verbose_name="status",
-        help_text="Possible values: OK, TIMEOUT, ERROR",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    error_message = models.CharField(
-        verbose_name="error_message",
-        help_text="Description of failure",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    waiting_for = models.CharField(
-        verbose_name="waiting_for",
-        help_text="When a timeout occurs, a list of pending operations may be shared",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
-class StatusReadiness(models.Model):
-    """This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."""
-    
-    status = models.CharField(
-        verbose_name="status",
-        help_text="Possible values: OK, WAITING, ERROR",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    error_message = models.CharField(
-        verbose_name="error_message",
-        help_text="Description of failure",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    waiting_for = models.CharField(
-        verbose_name="waiting_for",
-        help_text="When a timeout occurs, a list of pending operations may be shared",
-        max_length=1024,
-        null=True,
-        blank=True,
     )
 
 

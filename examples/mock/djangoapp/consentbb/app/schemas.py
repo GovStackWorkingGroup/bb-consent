@@ -2,6 +2,7 @@
 # !!! This code is auto-generated, please do not modify
 
 from ninja import ModelSchema
+from ninja import Schema
 
 from . import models
 
@@ -36,20 +37,32 @@ class RevisionSchema(ModelSchema):
         model = models.Revision
         model_fields = "__all__"
 
-class AgreementFilterSchema(ModelSchema):
-    class Config:
-        model = models.AgreementFilter
-        model_fields = "__all__"
+class AgreementFilterSchema(Schema):
 
-class ConsentRecordFilterSchema(ModelSchema):
-    class Config:
-        model = models.ConsentRecordFilter
-        model_fields = "__all__"
+    name: str
 
-class PolicyFilterSchema(ModelSchema):
-    class Config:
-        model = models.PolicyFilter
-        model_fields = "__all__"
+
+class ConsentRecordFilterSchema(Schema):
+
+    opt_in: bool
+
+    agreement: int
+
+    agreement_revision: int
+
+    individual: int
+
+    functional_id: str
+
+    foundational_id: str
+
+
+class PolicyFilterSchema(Schema):
+
+    name: str
+
+    revision: int
+
 
 class ControllerSchema(ModelSchema):
     class Config:
@@ -86,14 +99,22 @@ class AuditEventTypeSchema(ModelSchema):
         model = models.AuditEventType
         model_fields = "__all__"
 
-class StatusStartupSchema(ModelSchema):
-    class Config:
-        model = models.StatusStartup
-        model_fields = "__all__"
+class StatusStartupSchema(Schema):
 
-class StatusReadinessSchema(ModelSchema):
-    class Config:
-        model = models.StatusReadiness
-        model_fields = "__all__"
+    status: str
+
+    error_message: str
+
+    waiting_for: str
+
+
+class StatusReadinessSchema(Schema):
+
+    status: str
+
+    error_message: str
+
+    waiting_for: str
+
 
 

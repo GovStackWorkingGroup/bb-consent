@@ -1860,16 +1860,13 @@ components:
           type: string
           format: ""
           example: ""
-          description: "null/data-source/data-using-service"
+          description: "null/data_source/data_using_service"
 
         dpia:
           type: string
           format: ""
           example: ""
           description: "Data Protection Impact Assessment"
-
-        lifecycle:
-          $ref: '#/components/schemas/AgreementLifecycle'
 
         signature:
           $ref: '#/components/schemas/Signature'
@@ -1885,6 +1882,12 @@ components:
           format: ""
           example: ""
           description: "Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability."
+
+        compatible_with_version:
+          $ref: '#/components/schemas/Agreement'
+
+        lifecycle:
+          $ref: '#/components/schemas/AgreementLifecycle'
 
 
     AgreementData:
@@ -1929,7 +1932,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement."
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)"
 
 
     Policy:
@@ -2057,7 +2060,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "This was previously called \"schema\" but for technical reasons should be called \"schema_name\""
 
         object_id:
           type: string
@@ -2106,15 +2109,8 @@ components:
       type: object
       description: "Query filter for API endpoint listing Agreement objects"
       required:
-           - id
            - name
       properties:
-
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
 
         name:
           type: string
@@ -2127,15 +2123,8 @@ components:
       type: object
       description: "Query filter for API endpoint listing ConsentRecord objects"
       required:
-           - id
            - opt_in
       properties:
-
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
 
         opt_in:
           type: boolean
@@ -2169,15 +2158,8 @@ components:
       type: object
       description: "Query filter for API endpoint listing Policy objects"
       required:
-           - id
            - name
       properties:
-
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
 
         name:
           type: string
@@ -2272,6 +2254,12 @@ components:
           example: ""
           description: "Because an identifier's information may change over time, there is a need to store that information at the time of signing. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session."
 
+        verification_signed_as:
+          type: string
+          format: ""
+          example: ""
+          description: "DRAFT FIELD: Specifies the relationship between the authorizing signature and the invidual which the payload concerns. This is relevant for Consent Records. Possible values: \"individual\" / \"delegate\""
+
         verification_jws_header:
           type: string
           format: ""
@@ -2349,7 +2337,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Definition / Preparation / Capture / Use / Proof"
+          description: "Draft / Complete"
 
 
     RegistryReference:

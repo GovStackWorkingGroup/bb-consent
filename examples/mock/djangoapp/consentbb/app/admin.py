@@ -35,21 +35,6 @@ class RevisionAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.AgreementFilter)
-class AgreementFilterAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(models.ConsentRecordFilter)
-class ConsentRecordFilterAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(models.PolicyFilter)
-class PolicyFilterAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(models.Controller)
 class ControllerAdmin(admin.ModelAdmin):
     pass
@@ -82,16 +67,6 @@ class AuditTrackerAdmin(admin.ModelAdmin):
 
 @admin.register(models.AuditEventType)
 class AuditEventTypeAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(models.StatusStartup)
-class StatusStartupAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(models.StatusReadiness)
-class StatusReadinessAdmin(admin.ModelAdmin):
     pass
 
 

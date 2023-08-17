@@ -298,6 +298,7 @@ django_schema_template = """
 # !!! This code is auto-generated, please do not modify
 
 from ninja import ModelSchema
+from ninja import Schema
 
 from . import models
 
@@ -312,13 +313,6 @@ class {schema}(models.Model):
 """
 
 
-django_api_schema_template = """
-class {schema}Schema(ModelSchema):
-    class Config:
-        model = models.{schema}
-        model_fields = "__all__"
-"""
-
 schema_property_template = """
         {name}:
           type: {property_type}
@@ -326,6 +320,23 @@ schema_property_template = """
           example: "{example}"
           description: "{description}"
 """
+
+django_api_model_schema_template = """
+class {schema}Schema(ModelSchema):
+    class Config:
+        model = models.{schema}
+        model_fields = "__all__"
+"""
+
+django_api_schema_template = """
+class {schema}Schema(Schema):
+{schema_fields}
+"""
+
+django_api_schema_field_template = """
+    {field}: {type}
+"""
+
 
 django_model_charfield_template = """
     {name} = models.CharField(
@@ -607,11 +618,17 @@ schema_descriptions = {}
 
 schema_field_properties = {}
 
+schemas_not_in_db = []
+
 with open(schema_csv_file, newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
     for row in spamreader:
         if is_row_with_model_name(row):
-            current_model = row[0].split(": ")[-1]
+            schema_name = row[0].split(": ")[-1]
+            if schema_name.endswith("*"):
+                schema_name = schema_name[:-1]
+                schemas_not_in_db.append(schema_name)
+            current_model = schema_name
             schema_descriptions[current_model] = row[3].replace("\n", "\\n").replace("\"", "\\\"")
 
         if current_model:
@@ -682,6 +699,11 @@ def escape_string_for_django(str_unescaped):
 
 # Auto-generated Django model output
 for schema_name in schema_fields.keys():
+
+    # Skip other schemas, for instance HTTP query filters
+    if schema_name in schemas_not_in_db:
+        continue
+
     properties_output = ""
 
     required_fields = schema_field_names_required[schema_name]
@@ -716,14 +738,41 @@ for schema_name in schema_fields.keys():
 # Auto-generated django-ninja schema output
 django_schema_output = ""
 for schema_name in schema_fields.keys():
-    django_schema_output += django_api_schema_template.format(schema=schema_name)
-    # for field in schema_field_properties[schema_name]:
+
+    #    # Skip other schemas, for instance HTTP query filters
+    if schema_name in schemas_not_in_db:
+        schema_fields_output = ""
+        for field in schema_field_properties[schema_name]:
+            if not field["type"] in ("string", "boolean", "fk"):
+                raise Exception("Unhandled type {}".format(field["type"]))
+            field_type = ""
+            if field["type"] == "string":
+                field_type = "str"
+            if field["type"] == "boolean":
+                field_type = "bool"
+            if field["type"] == "fk":
+                field_type = "int"
+            schema_fields_output += django_api_schema_field_template.format(
+                field=field["name"],
+                type=field_type,
+            )
+        django_schema_output += django_api_schema_template.format(
+            schema=schema_name,
+            schema_fields=schema_fields_output,
+        )
+    else:
+        django_schema_output += django_api_model_schema_template.format(schema=schema_name)
+
 
 
 # Auto-generated Django admin output
 django_admin_output = ""
 
 for schema_name in schema_fields.keys():
+
+    # Skip other schemas, for instance HTTP query filters
+    if schema_name in schemas_not_in_db:
+        continue
 
     django_admin_output += django_model_admin_template.format(
         schema=schema_name,

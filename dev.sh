@@ -61,7 +61,9 @@ else
   echo "Running the consent BB mocking application."
   echo ""
   echo "By default, you can reach it on:"
-  echo "http://localhost:8080 or https://localhost:8888 (HTTPS)"
+  echo "http://localhost:8080"
+  echo "https://localhost:8888 (HTTPS)"
+  echo "http://localhost:8000 (Django mock application direct access)"
 
   docker-compose up --build
 fi

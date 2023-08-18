@@ -1036,6 +1036,56 @@ paths:
     get:
       tags:
         - service
+      summary: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
+      operationId: "serviceListIndividualRecordList"
+      description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
+      parameters: 
+        - in: path
+          name: "agreementId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-I-001"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+    get:
+      tags:
+        - service
       summary: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       operationId: "serviceReadIndividualRecordRead"
       description: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
@@ -1300,14 +1350,14 @@ paths:
         - OAuth2: [individual]
 
 
-  /service/individual/record/agreement/:
+  /service/individual/record/:
 
     get:
       tags:
         - service
-      summary: "LIST - Individual ID supplied as HTTP header."
+      summary: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
       operationId: "serviceListIndividualRecordList"
-      description: "LIST - Individual ID supplied as HTTP header."
+      description: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
       parameters: 
         - in: query
           name: "offset"
@@ -1344,8 +1394,6 @@ paths:
       security:
         - OAuth2: [individual]
 
-
-  /service/individual/record/:
 
     delete:
       tags:
@@ -1648,9 +1696,9 @@ paths:
     get:
       tags:
         - auditor
-      summary: ""
+      summary: "LIST - fetch all Agreements stored in the system."
       operationId: "auditAgreementList"
-      description: ""
+      description: "LIST - fetch all Agreements stored in the system."
       parameters: 
         - in: query
           name: agreementFilter
@@ -1700,9 +1748,9 @@ paths:
     get:
       tags:
         - auditor
-      summary: "READ"
+      summary: "READ - fetch a single Agreement."
       operationId: "auditReadRecord"
-      description: "READ"
+      description: "READ - fetch a single Agreement."
       parameters: 
         - in: path
           name: "agreementId"
@@ -1742,9 +1790,9 @@ paths:
     get:
       tags:
         - status
-      summary: "READ"
+      summary: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
       operationId: "statusStartup"
-      description: "READ"
+      description: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
       parameters: []
       x-specification-usecase: ""
       x-specification-scenario: ""
@@ -1765,9 +1813,9 @@ paths:
     get:
       tags:
         - status
-      summary: "READ"
+      summary: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
       operationId: "statusReadiness"
-      description: "READ"
+      description: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
       parameters: []
       x-specification-usecase: ""
       x-specification-scenario: ""
@@ -2316,7 +2364,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement."
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)"
 
 
     AgreementLifecycle:

@@ -80,8 +80,8 @@ revision,fk,Revision,,FALSE,FALSE,,,
 ,,,,,,,,
 Model: Controller,,,Details of a data controller.,,,ADA*,,
 id,string,,,TRUE,FALSE,,,
-name,string,,Name of data controller (may be omitted if no data involved),TRUE,FALSE,ADA,,
-url,string,,URL of data controller (may be omitted if no data involved),TRUE,FALSE,ADA,,
+name,string,,Name of data controller (may be omitted if no data involved),TRUE,FALSE,ADA,,Ministry of Health
+url,string,,URL of data controller (may be omitted if no data involved),TRUE,FALSE,ADA,,https://www.example.com
 ,,,,,,,,
 Model: Signature,,,"A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object.",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a Signature that is not yet stored in the database and only exist in transit.",TRUE,FALSE,,,
@@ -99,9 +99,9 @@ object_reference,string,,"A symmetric relation / back reference to the object_ty
 ,,,,,,,,
 Model: AgreementPurpose,,,TBD: Models the purpose of an agreement,,,ADA*,,
 id,string,,,TRUE,TRUE,,,
-name,string,,Name of purpose,TRUE,TRUE,ADA*,,
-description,string,,Description of purpose,TRUE,TRUE,ADA*,,
-hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement.",FALSE,FALSE,,,
+name,string,,Name of purpose,TRUE,TRUE,ADA*,,Child registration
+description,string,,Description of purpose,TRUE,TRUE,ADA*,,To register a child for health care
+hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",FALSE,FALSE,,,e53c915d393b74d061cd3a56bb0be02b87d174b7
 ,,,,,,,,
 Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,

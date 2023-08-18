@@ -272,16 +272,55 @@ def {method}(request,{view_arguments}):
 
 django_admin_template = """
 # !!! This code is auto-generated, please do not modify
+import json
+from pygments import highlight
+from pygments.lexers import JsonLexer
+from pygments.formatters import HtmlFormatter
 
+from django.core import serializers
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
+
 from . import models
+
+
+class BaseGovstackAdmin(admin.ModelAdmin):
+    readonly_fields = ('data_prettified',)
+
+    def data_prettified(self, instance):
+        \"""Function to display pretty version of our data""\"
+
+        # Convert the data to sorted, indented JSON
+        response = serializers.serialize('json', [instance, ], indent=2)
+        
+        # Strip the list
+        json_dict = json.loads(response)
+        response = json.dumps(json_dict[0], indent=2)
+        
+        # Just use the first object
+        response = response
+
+        # Get the Pygments formatter
+        formatter = HtmlFormatter(style='colorful')
+
+        # Highlight the data
+        response = highlight(response, JsonLexer(), formatter)
+
+        # Get the stylesheet
+        style = "<style>" + formatter.get_style_defs() + "</style><br>"
+
+        # Safe the output
+        return mark_safe(style + response)
+
+    data_prettified.short_description = 'Object as JSON'
 
 {admins}
 """
 
 django_model_admin_template = """
 @admin.register(models.{schema})
-class {schema}Admin(admin.ModelAdmin):
+class {schema}Admin(BaseGovstackAdmin):
     pass
 
 """

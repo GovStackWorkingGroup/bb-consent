@@ -522,7 +522,7 @@ class AgreementPurpose(models.Model):
 
     hash = models.CharField(
         verbose_name="hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement.",
+        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",
         max_length=1024,
         null=True,
         blank=True,

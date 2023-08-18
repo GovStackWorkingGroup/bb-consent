@@ -1946,7 +1946,7 @@ components:
            - name
            - sensitivity
            - category
-           - hash
+           - serialized_hash
       properties:
 
         id:
@@ -1976,11 +1976,11 @@ components:
           example: ""
           description: ""
 
-        hash:
+        serialized_hash:
           type: string
           format: ""
           example: ""
-          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)"
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)"
 
 
     Policy:
@@ -2095,6 +2095,7 @@ components:
            - schema_name
            - object_id
            - serialized_snapshot
+           - serialized_hash
            - timestamp
       properties:
 
@@ -2114,19 +2115,25 @@ components:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "The PK of the object that was serialized."
 
         serialized_snapshot:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Revisioned data (serialized as JSON)"
+
+        serialized_hash:
+          type: string
+          format: ""
+          example: ""
+          description: "Hash of serialized_snapshot (SHA-1)"
 
         timestamp:
           type: string
           format: ""
           example: ""
-          description: ""
+          description: "Timestamp of when revisioning happened"
 
         authorized_by_individual:
           $ref: '#/components/schemas/Individual'
@@ -2144,7 +2151,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Tamper-resistent artifact from previous record"
+          description: "Tamper-resistent artifact from previous record, copied from serialized_hash"
 
         predecessor_signature:
           type: string
@@ -2255,7 +2262,7 @@ components:
            - payload
            - signature
            - verification_method
-           - verification_hash
+           - verification_payload_hash
            - verification_signed_by
            - timestamp
       properties:
@@ -2276,7 +2283,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Signature (of payload), the format of the signature should be specified by either verification_method or verification_jws_header"
+          description: "Signature of payload hash, the format of the signature should be specified by either verification_method or verification_jws_header"
 
         verification_method:
           type: string
@@ -2284,7 +2291,7 @@ components:
           example: ""
           description: "A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary."
 
-        verification_hash:
+        verification_payload_hash:
           type: string
           format: ""
           example: ""
@@ -2360,11 +2367,11 @@ components:
           example: ""
           description: "Description of purpose"
 
-        hash:
+        serialized_hash:
           type: string
           format: ""
           example: ""
-          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)"
+          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)"
 
 
     AgreementLifecycle:

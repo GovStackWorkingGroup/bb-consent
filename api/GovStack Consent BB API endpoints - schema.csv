@@ -27,7 +27,7 @@ agreement,fk,Agreement,,TRUE,FALSE,ADA,,1
 name,string,,"Name of the attribute, for instance ""name"" or ""age""",TRUE,FALSE,ADA,,age
 sensitivity,string,,categories of sensitivity,TRUE,TRUE,GovStack,,personal data
 category,string,,,TRUE,FALSE,ADA,,age
-hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",TRUE,TRUE,GovStack,,197f45a1d453dafbe6e3878df80adecfc4a2d306
+serialized_hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",TRUE,TRUE,GovStack,,197f45a1d453dafbe6e3878df80adecfc4a2d306
 ,,,,,,,,
 Model: Policy,,,"A policy governs data and Agreement in the realm of an organisation that is refered to as ""data controller"" (GDPR) and owner of referencing Agreements.",,,ADA*,,
 id,string,,,TRUE,FALSE,,,1
@@ -54,13 +54,14 @@ Model: Revision,,,"A *generic* revision model captures the serialized contents o
 Aside from ""successor"" column, a revision should be considered locked.",,,GovStack,,
 id,string,,,TRUE,FALSE,,,
 schema_name,string,,"This was previously called ""schema"" but for technical reasons should be called ""schema_name""",TRUE,FALSE,GovStack,,
-object_id,string,,,TRUE,FALSE,GovStack,,
-serialized_snapshot,string,,,TRUE,FALSE,GovStack,,
-timestamp,string,,,TRUE,FALSE,GovStack,,
+object_id,string,,The PK of the object that was serialized.,TRUE,FALSE,GovStack,,
+serialized_snapshot,string,,Revisioned data (serialized as JSON),TRUE,FALSE,GovStack,,
+serialized_hash,string,,Hash of serialized_snapshot (SHA-1),TRUE,FALSE,GovStack,,
+timestamp,string,,Timestamp of when revisioning happened,TRUE,FALSE,GovStack,,
 authorized_by_individual,fk,Individual,,FALSE,TRUE,GovStack,,
 authorized_by_other,string,,Reference to an admin user that has created this revision,FALSE,TRUE,GovStack,,
 successor,fk,Revision,"This revision is no longer the latest revision, refer to its successor.",FALSE,FALSE,GovStack,,
-predecessor_hash,string,,Tamper-resistent artifact from previous record,FALSE,FALSE,GovStack,,
+predecessor_hash,string,,"Tamper-resistent artifact from previous record, copied from serialized_hash",FALSE,FALSE,GovStack,,
 predecessor_signature,string,,Tamper-resistent artifact from previous record (we don't know if the previous record was signed or not),FALSE,FALSE,GovStack,,
 ,,,,,,,,
 Model: AgreementFilter*,,,Query filter for API endpoint listing Agreement objects,,,,,
@@ -86,9 +87,9 @@ url,string,,URL of data controller (may be omitted if no data involved),TRUE,FAL
 Model: Signature,,,"A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object.",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a Signature that is not yet stored in the database and only exist in transit.",TRUE,FALSE,,,
 payload,string,,"The payload that is signed, constructed as a serialization of fields verification_method + verification_hash + verification_artifact + verification_signed_by + verification_jws_header. Serialized as a JSON dict.",TRUE,FALSE,,,
-signature,string,,"Signature (of payload), the format of the signature should be specified by either verification_method or verification_jws_header",TRUE,FALSE,GovStack,,
+signature,string,,"Signature of payload hash, the format of the signature should be specified by either verification_method or verification_jws_header",TRUE,FALSE,GovStack,,
 verification_method,string,,A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary.,TRUE,FALSE,GovStack,Kantara (Consent Receipt Collection Method),
-verification_hash,string,,Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those.,TRUE,FALSE,GovStack,,
+verification_payload_hash,string,,Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those.,TRUE,FALSE,GovStack,,
 verification_artifact,string,,"A verification artifact in the form of a scanned object, image, signature etc.",FALSE,TRUE,GovStack,,
 verification_signed_by,string,,"Because an identifier's information may change over time, there is a need to store that information at the time of signing. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session.",TRUE,TRUE,GovStack,,
 verification_signed_as,string,,"DRAFT FIELD: Specifies the relationship between the authorizing signature and the invidual which the payload concerns. This is relevant for Consent Records. Possible values: ""individual"" / ""delegate""",FALSE,TRUE,GovStack,,
@@ -101,7 +102,7 @@ Model: AgreementPurpose,,,TBD: Models the purpose of an agreement,,,ADA*,,
 id,string,,,TRUE,TRUE,,,
 name,string,,Name of purpose,TRUE,TRUE,ADA*,,Child registration
 description,string,,Description of purpose,TRUE,TRUE,ADA*,,To register a child for health care
-hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",FALSE,FALSE,,,e53c915d393b74d061cd3a56bb0be02b87d174b7
+serialized_hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",FALSE,FALSE,,,e53c915d393b74d061cd3a56bb0be02b87d174b7
 ,,,,,,,,
 Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,

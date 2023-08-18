@@ -174,9 +174,9 @@ class AgreementData(models.Model):
         blank=False,
     )
 
-    hash = models.CharField(
-        verbose_name="hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",
+    serialized_hash = models.CharField(
+        verbose_name="serialized_hash",
+        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",
         max_length=1024,
         null=False,
         blank=False,
@@ -321,7 +321,7 @@ class Revision(models.Model):
 
     object_id = models.CharField(
         verbose_name="object_id",
-        help_text="",
+        help_text="The PK of the object that was serialized.",
         max_length=1024,
         null=False,
         blank=False,
@@ -329,7 +329,15 @@ class Revision(models.Model):
 
     serialized_snapshot = models.CharField(
         verbose_name="serialized_snapshot",
-        help_text="",
+        help_text="Revisioned data (serialized as JSON)",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    serialized_hash = models.CharField(
+        verbose_name="serialized_hash",
+        help_text="Hash of serialized_snapshot (SHA-1)",
         max_length=1024,
         null=False,
         blank=False,
@@ -337,7 +345,7 @@ class Revision(models.Model):
 
     timestamp = models.CharField(
         verbose_name="timestamp",
-        help_text="",
+        help_text="Timestamp of when revisioning happened",
         max_length=1024,
         null=False,
         blank=False,
@@ -371,7 +379,7 @@ class Revision(models.Model):
 
     predecessor_hash = models.CharField(
         verbose_name="predecessor_hash",
-        help_text="Tamper-resistent artifact from previous record",
+        help_text="Tamper-resistent artifact from previous record, copied from serialized_hash",
         max_length=1024,
         null=True,
         blank=True,
@@ -421,7 +429,7 @@ class Signature(models.Model):
 
     signature = models.CharField(
         verbose_name="signature",
-        help_text="Signature (of payload), the format of the signature should be specified by either verification_method or verification_jws_header",
+        help_text="Signature of payload hash, the format of the signature should be specified by either verification_method or verification_jws_header",
         max_length=1024,
         null=False,
         blank=False,
@@ -435,8 +443,8 @@ class Signature(models.Model):
         blank=False,
     )
 
-    verification_hash = models.CharField(
-        verbose_name="verification_hash",
+    verification_payload_hash = models.CharField(
+        verbose_name="verification_payload_hash",
         help_text="Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those.",
         max_length=1024,
         null=False,
@@ -520,9 +528,9 @@ class AgreementPurpose(models.Model):
         blank=False,
     )
 
-    hash = models.CharField(
-        verbose_name="hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash to be included in the Signature of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(id + agreement + name + ...)",
+    serialized_hash = models.CharField(
+        verbose_name="serialized_hash",
+        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",
         max_length=1024,
         null=True,
         blank=True,

@@ -174,11 +174,29 @@ schema_template = """
     {schema}:
       type: {schema_type}
       description: "{description}"
+      x-not-in-database: {database}
       required:
 {required}
       properties:
 {properties}
 """
+
+
+schema_property_template = """
+        {name}:
+          type: {property_type}
+          format: "{format}"
+          example: "{example}"
+          description: "{description}"
+"""
+
+schema_property_fk_template = """
+        {name}:
+          $ref: '#/components/schemas/{fk_model}'
+          x-fk-model: "{fk_model}"
+          description: "{description}"
+"""
+
 
 django_api_template = """
 # !!! This code is auto-generated, please do not modify
@@ -352,14 +370,6 @@ class {schema}(models.Model):
 """
 
 
-schema_property_template = """
-        {name}:
-          type: {property_type}
-          format: "{format}"
-          example: "{example}"
-          description: "{description}"
-"""
-
 django_api_model_schema_template = """
 class {schema}Schema(ModelSchema):
     class Config:
@@ -403,11 +413,6 @@ django_model_booleanfield_template = """
         null={not_required},
         blank={not_required},
     )
-"""
-
-schema_property_fk_template = """
-        {name}:
-          $ref: '#/components/schemas/{fk_model}'
 """
 
 django_model_foreignkey_template = """
@@ -704,6 +709,7 @@ with open(schema_csv_file, newline='') as csvfile:
             schema_fields[current_model] += schema_property_fk_template.format(
                 name=row[0],
                 fk_model=row[2],
+                description=row[3],
             )
 
 
@@ -714,6 +720,7 @@ for schema_name, properties in schema_fields.items():
         schema=schema_name,
         description=schema_descriptions[schema_name],
         schema_type="object",
+        database=str(schema_name in schemas_not_in_db).lower(),
         properties=properties,
         required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
     )
@@ -723,244 +730,275 @@ for schema_name, properties in schema_fields.items():
         model_fields=", ".join("""<code style="font-family: monospace">{}</code>""".format(x) for x in schema_field_names[schema_name])
     )
 
-django_models_output = ""
 
-openapi_type_to_django_map = {
-    "string": django_model_charfield_template,
-    "fk": django_model_foreignkey_template,
-    "boolean": django_model_booleanfield_template,
-    "integer": django_model_integerfield_template,
-}
-
-
-def escape_string_for_django(str_unescaped):
-    return str_unescaped.replace("\"", "\\\"")
-
-
-# Auto-generated Django model output
-for schema_name in schema_fields.keys():
-
-    # Skip other schemas, for instance HTTP query filters
-    if schema_name in schemas_not_in_db:
-        continue
-
-    properties_output = ""
-
-    required_fields = schema_field_names_required[schema_name]
-    for field in schema_field_properties[schema_name]:
-        not_required = "True" if field["name"] not in required_fields else "False"
-        if field["name"] == "id":
-            # We skip ID fields, the mocking application can use Django's AutoField for this
-            # It's named 'id' as well.
-            continue
-        if field["type"] == "fk":
-            properties_output += django_model_foreignkey_template.format(
-                name=escape_string_for_django(field["name"]),
-                fk_model=field["fk_model"],
-                property_type=openapi_type_to_django_map[field["type"]],
-                description=escape_string_for_django(field["description"]),
-                not_required=not_required,
-            )
-        else:
-            properties_output += openapi_type_to_django_map[field["type"]].format(
-                name=escape_string_for_django(field["name"]),
-                description=escape_string_for_django(field["description"]),
-                not_required=not_required,
-            )
-
-    django_models_output += django_model_schema_template.format(
-        schema=schema_name,
-        description=schema_descriptions[schema_name],
-        fields=properties_output,
-    )
-
-
-# Auto-generated django-ninja schema output
-django_schema_output = ""
-for schema_name in schema_fields.keys():
-
-    #    # Skip other schemas, for instance HTTP query filters
-    if schema_name in schemas_not_in_db:
-        schema_fields_output = ""
-        for field in schema_field_properties[schema_name]:
-            if not field["type"] in ("string", "boolean", "fk"):
-                raise Exception("Unhandled type {}".format(field["type"]))
-            field_type = ""
-            if field["type"] == "string":
-                field_type = "str"
-            if field["type"] == "boolean":
-                field_type = "bool"
-            if field["type"] == "fk":
-                field_type = "int"
-            schema_fields_output += django_api_schema_field_template.format(
-                field=field["name"],
-                type=field_type,
-            )
-        django_schema_output += django_api_schema_template.format(
-            schema=schema_name,
-            schema_fields=schema_fields_output,
-        )
-    else:
-        django_schema_output += django_api_model_schema_template.format(schema=schema_name)
-
-
-
-# Auto-generated Django admin output
-django_admin_output = ""
-
-for schema_name in schema_fields.keys():
-
-    # Skip other schemas, for instance HTTP query filters
-    if schema_name in schemas_not_in_db:
-        continue
-
-    django_admin_output += django_model_admin_template.format(
-        schema=schema_name,
-    )
-
-
-django_api_output = ""
+#####################################
+# PROCESS OPENAPI YAML              #
+#####################################
 
 yaml_output = template.format(paths=output_paths, schemas=output_schemas, VERSION=VERSION)
 
-yaml_data = yaml.safe_load(yaml_output)
+
+def get_yaml():
+    return yaml.safe_load(yaml_output)
 
 
-def map_openapi_parameters_to_django_api(endpoint_parameters):
-    for entry in endpoint_parameters:
-        if entry[1] == {"type": "string"}:
-            yield entry[0], "str", entry[2]
-        elif entry[1] == {"type": "integer"}:
-            yield entry[0], "int", entry[2]
-        elif "$ref" in entry[1]:
-            yield entry[0], "schemas." + entry[1]["$ref"].split("/")[-1] + "Schema", entry[2]
-        else:
-            raise RuntimeError(f"Does not understand {entry}")
+def generate_django_models(yaml_data):
+    """
+    This function requires that the OpenAPI yaml has been written to disk.
+    """
 
+    django_models_output = ""
 
-def crud_schema_name_and_view_argument(endpoint_parameters):
-    for entry in endpoint_parameters:
-        if "$ref" in entry[1]:
-            return entry[0], entry[1]["$ref"].split("/")[-1]
-    return None, None
+    openapi_type_to_django_map = {
+        "string": django_model_charfield_template,
+        "fk": django_model_foreignkey_template,
+        "boolean": django_model_booleanfield_template,
+        "integer": django_model_integerfield_template,
+    }
 
+    def escape_string_for_django(str_unescaped):
+        return str_unescaped.replace("\"", "\\\"")
 
-def crud_schema_pk_argument(endpoint_parameters):
-    """Returns an argument that can be assumed to be primary key"""
-    if endpoint_parameters and endpoint_parameters[0][0].endswith("Id"):
-        return endpoint_parameters[0][0]
+    # Auto-generated Django model output
+    for schema_name, schema_fields in yaml_data["components"]["schemas"].items():
 
+        # Skip other schemas, for instance HTTP query filters
+        if schema_fields["x-not-in-database"]:
+            continue
 
-def crud_schema_name_return_value(response_schema):
-    schema_type = response_schema.get("type")
-    # Responses of tuples/lists of schema objects
-    if schema_type == "array":
-        for ref in response_schema.get("items", {}).get("oneOf", []):
-            if "$ref" in ref:
-                yield ref["$ref"].split("/")[-1]
-    # if schema_type == "string":
-    #     yield "str"
-    if "$ref" in response_schema:
-        yield response_schema["$ref"].split("/")[-1]
+        properties_output = ""
 
-
-
-for api_url, endpoints in yaml_data["paths"].items():
-
-    for method, endpoint in endpoints.items():
-
-        endpoint_return_values = endpoint.get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema")
-        endpoint_parameters = list((x["name"], x["schema"], x["required"]) for x in endpoint["parameters"])
-        parameters = map_openapi_parameters_to_django_api(endpoint_parameters)
-
-        crud_schema = endpoint.get("x-specification-crudl-model")
-
-        view_arguments = ""
-        for parameter in parameters:
-            if parameter[2]:
-                view_arguments += f" {parameter[0]}: {parameter[1]},"
-            else:
-                view_arguments += f" {parameter[0]}: {parameter[1]}=None,"
-
-        # Trim last ","
-        if view_arguments:
-            view_arguments = view_arguments[:-1]
-
-        snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
-
-        schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
-        pk_arg = crud_schema_pk_argument(endpoint_parameters)
-
-        if endpoint_return_values:
-            schema_names_returned = list(crud_schema_name_return_value(endpoint_return_values))
-
-        if method == "get":
-            if crud_schema:
-                if len(schema_names_returned) == 1:
-                    django_api_output += django_api_get_object_template.format(
-                        url=api_url,
-                        method=snake_case_method_name,
-                        view_arguments=view_arguments,
-                        schema_name=crud_schema,
-                        pk_arg=pk_arg,
-                    )
-                if len(schema_names_returned) == 2:
-                    django_api_output += django_api_get_object_template_2_response_objects.format(
-                        url=api_url,
-                        method=snake_case_method_name,
-                        view_arguments=view_arguments,
-                        schema_name=crud_schema,
-                        schema_name2=schema_names_returned[1],
-                        pk_arg=pk_arg,
-                    )
-
-            else:
-                django_api_output += django_api_get_stub_template.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                )
-        elif method == "post":
-            if crud_schema:
-                django_api_output += django_api_post_template.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                    schema_argument=schema_argument,
-                    schema_name=crud_schema,
+        required_fields = schema_fields["required"]
+        for field_name, field_properties in schema_fields["properties"].items():
+            not_required = "True" if field_name not in required_fields else "False"
+            if field_name == "id":
+                # We skip ID fields, the mocking application can use Django's AutoField for this
+                # It's named 'id' as well.
+                continue
+            if field_properties.get("x-fk-model", False):
+                properties_output += django_model_foreignkey_template.format(
+                    name=escape_string_for_django(field_name),
+                    fk_model=field_properties["x-fk-model"],
+                    property_type=openapi_type_to_django_map["fk"],
+                    description=escape_string_for_django(field_properties["description"]),
+                    not_required=not_required,
                 )
             else:
-                django_api_output += django_api_post_template_empty_object.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                    schema_name="TBD",
+                properties_output += openapi_type_to_django_map[field_properties["type"]].format(
+                    name=escape_string_for_django(field_name),
+                    description=escape_string_for_django(field_properties["description"]),
+                    not_required=not_required,
                 )
 
-        elif method == "put":
-            django_api_output += django_api_put_template.format(
-                url=api_url,
-                method=snake_case_method_name,
-                view_arguments=view_arguments,
+        django_models_output += django_model_schema_template.format(
+            schema=schema_name,
+            description=schema_descriptions[schema_name],
+            fields=properties_output,
+        )
 
+    return django_model_template.format(models=django_models_output)
+
+
+def generate_django_ninja_schemas(yaml_data):
+    """
+    This function requires that the OpenAPI yaml has been written to disk.
+    """
+
+    # Auto-generated django-ninja schema output
+    django_schema_output = ""
+    for schema_name, schema_fields in yaml_data["components"]["schemas"].items():
+
+        # Skip other schemas, for instance HTTP query filters
+        if schema_fields["x-not-in-database"]:
+            schema_fields_output = ""
+            for field in schema_field_properties[schema_name]:
+                if not field["type"] in ("string", "boolean", "fk"):
+                    raise Exception("Unhandled type {}".format(field["type"]))
+                field_type = ""
+                if field["type"] == "string":
+                    field_type = "str"
+                if field["type"] == "boolean":
+                    field_type = "bool"
+                if field["type"] == "fk":
+                    field_type = "int"
+                schema_fields_output += django_api_schema_field_template.format(
+                    field=field["name"],
+                    type=field_type,
+                )
+            django_schema_output += django_api_schema_template.format(
+                schema=schema_name,
+                schema_fields=schema_fields_output,
             )
-        elif method == "delete":
-            if crud_schema:
-                django_api_output += django_api_delete_object_template.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                    pk_arg=pk_arg,
-                    schema_name=crud_schema,
-                )
-            else:
-                django_api_output += django_api_delete_stub_template.format(
-                    url=api_url,
-                    method=snake_case_method_name,
-                    view_arguments=view_arguments,
-                )
+        else:
+            django_schema_output += django_api_model_schema_template.format(schema=schema_name)
 
-html_table_output = html_table_template.format(rows=django_models_output)
+    return django_schema_template.format(schemas=django_schema_output)
+
+
+def generate_django_admin(yaml_data):
+    """
+    This function requires that the OpenAPI yaml has been written to disk.
+    """
+
+    # Auto-generated Django admin output
+    django_admin_output = ""
+
+    for schema_name, schema_fields in yaml_data["components"]["schemas"].items():
+
+        # Skip other schemas, for instance HTTP query filters
+        if schema_fields["x-not-in-database"]:
+            continue
+
+        django_admin_output += django_model_admin_template.format(
+            schema=schema_name,
+        )
+
+    return django_admin_template.format(admins=django_admin_output)
+
+
+def generate_django_ninja_api(yaml_data):
+    """
+    This function requires that the OpenAPI yaml has been written to disk.
+    """
+
+    django_api_output = ""
+
+    def map_openapi_parameters_to_django_api(endpoint_parameters):
+        for entry in endpoint_parameters:
+            if entry[1] == {"type": "string"}:
+                yield entry[0], "str", entry[2]
+            elif entry[1] == {"type": "integer"}:
+                yield entry[0], "int", entry[2]
+            elif "$ref" in entry[1]:
+                yield entry[0], "schemas." + entry[1]["$ref"].split("/")[-1] + "Schema", entry[2]
+            else:
+                raise RuntimeError(f"Does not understand {entry}")
+
+
+    def crud_schema_name_and_view_argument(endpoint_parameters):
+        for entry in endpoint_parameters:
+            if "$ref" in entry[1]:
+                return entry[0], entry[1]["$ref"].split("/")[-1]
+        return None, None
+
+
+    def crud_schema_pk_argument(endpoint_parameters):
+        """Returns an argument that can be assumed to be primary key"""
+        if endpoint_parameters and endpoint_parameters[0][0].endswith("Id"):
+            return endpoint_parameters[0][0]
+
+
+    def crud_schema_name_return_value(response_schema):
+        schema_type = response_schema.get("type")
+        # Responses of tuples/lists of schema objects
+        if schema_type == "array":
+            for ref in response_schema.get("items", {}).get("oneOf", []):
+                if "$ref" in ref:
+                    yield ref["$ref"].split("/")[-1]
+        # if schema_type == "string":
+        #     yield "str"
+        if "$ref" in response_schema:
+            yield response_schema["$ref"].split("/")[-1]
+
+    for api_url, endpoints in yaml_data["paths"].items():
+
+        for method, endpoint in endpoints.items():
+
+            endpoint_return_values = endpoint.get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema")
+            endpoint_parameters = list((x["name"], x["schema"], x["required"]) for x in endpoint["parameters"])
+            parameters = map_openapi_parameters_to_django_api(endpoint_parameters)
+
+            crud_schema = endpoint.get("x-specification-crudl-model")
+
+            view_arguments = ""
+            for parameter in parameters:
+                if parameter[2]:
+                    view_arguments += f" {parameter[0]}: {parameter[1]},"
+                else:
+                    view_arguments += f" {parameter[0]}: {parameter[1]}=None,"
+
+            # Trim last ","
+            if view_arguments:
+                view_arguments = view_arguments[:-1]
+
+            snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
+
+            schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
+            pk_arg = crud_schema_pk_argument(endpoint_parameters)
+
+            if endpoint_return_values:
+                schema_names_returned = list(crud_schema_name_return_value(endpoint_return_values))
+
+            if method == "get":
+                if crud_schema:
+                    if len(schema_names_returned) == 1:
+                        django_api_output += django_api_get_object_template.format(
+                            url=api_url,
+                            method=snake_case_method_name,
+                            view_arguments=view_arguments,
+                            schema_name=crud_schema,
+                            pk_arg=pk_arg,
+                        )
+                    if len(schema_names_returned) == 2:
+                        django_api_output += django_api_get_object_template_2_response_objects.format(
+                            url=api_url,
+                            method=snake_case_method_name,
+                            view_arguments=view_arguments,
+                            schema_name=crud_schema,
+                            schema_name2=schema_names_returned[1],
+                            pk_arg=pk_arg,
+                        )
+
+                else:
+                    django_api_output += django_api_get_stub_template.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                    )
+            elif method == "post":
+                if crud_schema:
+                    django_api_output += django_api_post_template.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                        schema_argument=schema_argument,
+                        schema_name=crud_schema,
+                    )
+                else:
+                    django_api_output += django_api_post_template_empty_object.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                        schema_name="TBD",
+                    )
+
+            elif method == "put":
+                django_api_output += django_api_put_template.format(
+                    url=api_url,
+                    method=snake_case_method_name,
+                    view_arguments=view_arguments,
+
+                )
+            elif method == "delete":
+                if crud_schema:
+                    django_api_output += django_api_delete_object_template.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                        pk_arg=pk_arg,
+                        schema_name=crud_schema,
+                    )
+                else:
+                    django_api_output += django_api_delete_stub_template.format(
+                        url=api_url,
+                        method=snake_case_method_name,
+                        view_arguments=view_arguments,
+                    )
+
+    return django_api_template.format(endpoints=django_api_output, VERSION=VERSION)
+
+
+html_table_output = html_table_template.format(rows=html_table_rows_output)
 
 if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 
@@ -968,19 +1006,23 @@ if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-models":
 
-    print(django_model_template.format(models=django_models_output))
+    output = generate_django_models(get_yaml())
+    print(output)
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-ninja-schemas":
 
-    print(django_schema_template.format(schemas=django_schema_output))
+    output = generate_django_ninja_schemas(get_yaml())
+    print(output)
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
 
-    print(django_admin_template.format(admins=django_admin_output))
+    output = generate_django_admin(get_yaml())
+    print(output)
 
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
 
-    print(django_api_template.format(endpoints=django_api_output, VERSION=VERSION))
+    output = generate_django_ninja_api(get_yaml())
+    print(output)
 
 else:
     print(yaml_output)

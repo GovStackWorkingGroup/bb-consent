@@ -1838,6 +1838,7 @@ components:
     Individual:
       type: object
       description: "Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements."
+      x-not-in-database: false
       required:
            - id
       properties:
@@ -1870,6 +1871,7 @@ components:
     Agreement:
       type: object
       description: "An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord"
+      x-not-in-database: false
       required:
            - id
            - version
@@ -1891,12 +1893,18 @@ components:
 
         controller:
           $ref: '#/components/schemas/Controller'
+          x-fk-model: "Controller"
+          description: "Data controller (may be omitted if no data involved)"
 
         policy:
           $ref: '#/components/schemas/Policy'
+          x-fk-model: "Policy"
+          description: "Reference to the policy under which this Agreement shall be governed"
 
         purpose:
           $ref: '#/components/schemas/AgreementPurpose'
+          x-fk-model: "AgreementPurpose"
+          description: "Purpose of data processing or purpose of consent. Displayed to the user."
 
         lawful_basis:
           type: string
@@ -1918,6 +1926,8 @@ components:
 
         signature:
           $ref: '#/components/schemas/Signature'
+          x-fk-model: "Signature"
+          description: "Signature of authorizing party of Agreement. Note: Signatures may be chained in case of multiple signatures."
 
         active:
           type: boolean
@@ -1933,14 +1943,19 @@ components:
 
         compatible_with_version:
           $ref: '#/components/schemas/Agreement'
+          x-fk-model: "Agreement"
+          description: "WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement."
 
         lifecycle:
           $ref: '#/components/schemas/AgreementLifecycle'
+          x-fk-model: "AgreementLifecycle"
+          description: "WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records."
 
 
     AgreementData:
       type: object
       description: "Agreement data contains specifications of exactly what is collected."
+      x-not-in-database: false
       required:
            - id
            - name
@@ -1957,6 +1972,8 @@ components:
 
         agreement:
           $ref: '#/components/schemas/Agreement'
+          x-fk-model: "Agreement"
+          description: ""
 
         name:
           type: string
@@ -1986,6 +2003,7 @@ components:
     Policy:
       type: object
       description: "A policy governs data and Agreement in the realm of an organisation that is refered to as \"data controller\" (GDPR) and owner of referencing Agreements."
+      x-not-in-database: false
       required:
            - id
            - name
@@ -2051,6 +2069,7 @@ components:
     ConsentRecord:
       type: object
       description: "A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)"
+      x-not-in-database: false
       required:
            - id
            - state
@@ -2064,12 +2083,18 @@ components:
 
         agreement:
           $ref: '#/components/schemas/Agreement'
+          x-fk-model: "Agreement"
+          description: "The Agreement to which consent has been given"
 
         agreement_revision:
           $ref: '#/components/schemas/Revision'
+          x-fk-model: "Revision"
+          description: "The Revision of the agreement which consent has been given to"
 
         individual:
           $ref: '#/components/schemas/Individual'
+          x-fk-model: "Individual"
+          description: "The Individual who has signed this consent record"
 
         opt_in:
           type: boolean
@@ -2085,11 +2110,14 @@ components:
 
         signature:
           $ref: '#/components/schemas/Signature'
+          x-fk-model: "Signature"
+          description: "A signature that hashes all the values of the consent record and has signed it with the key of the Invidiual, making it verifiable and tamper-proof. TBD: Relation to a Signature schema?"
 
 
     Revision:
       type: object
       description: "A *generic* revision model captures the serialized contents of any shema's single row. This is then subject to 1) cryptographic signature and 2) auditing.\n\nAside from \"successor\" column, a revision should be considered locked."
+      x-not-in-database: false
       required:
            - id
            - schema_name
@@ -2137,6 +2165,8 @@ components:
 
         authorized_by_individual:
           $ref: '#/components/schemas/Individual'
+          x-fk-model: "Individual"
+          description: ""
 
         authorized_by_other:
           type: string
@@ -2146,6 +2176,8 @@ components:
 
         successor:
           $ref: '#/components/schemas/Revision'
+          x-fk-model: "Revision"
+          description: "This revision is no longer the latest revision, refer to its successor."
 
         predecessor_hash:
           type: string
@@ -2163,6 +2195,7 @@ components:
     AgreementFilter:
       type: object
       description: "Query filter for API endpoint listing Agreement objects"
+      x-not-in-database: true
       required:
            - name
       properties:
@@ -2177,6 +2210,7 @@ components:
     ConsentRecordFilter:
       type: object
       description: "Query filter for API endpoint listing ConsentRecord objects"
+      x-not-in-database: true
       required:
            - opt_in
       properties:
@@ -2189,12 +2223,18 @@ components:
 
         agreement:
           $ref: '#/components/schemas/Agreement'
+          x-fk-model: "Agreement"
+          description: ""
 
         agreement_revision:
           $ref: '#/components/schemas/Revision'
+          x-fk-model: "Revision"
+          description: ""
 
         individual:
           $ref: '#/components/schemas/Individual'
+          x-fk-model: "Individual"
+          description: ""
 
         functional_id:
           type: string
@@ -2212,6 +2252,7 @@ components:
     PolicyFilter:
       type: object
       description: "Query filter for API endpoint listing Policy objects"
+      x-not-in-database: true
       required:
            - name
       properties:
@@ -2224,11 +2265,14 @@ components:
 
         revision:
           $ref: '#/components/schemas/Revision'
+          x-fk-model: "Revision"
+          description: ""
 
 
     Controller:
       type: object
       description: "Details of a data controller."
+      x-not-in-database: false
       required:
            - id
            - name
@@ -2257,6 +2301,7 @@ components:
     Signature:
       type: object
       description: "A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object."
+      x-not-in-database: false
       required:
            - id
            - payload
@@ -2343,6 +2388,7 @@ components:
     AgreementPurpose:
       type: object
       description: "TBD: Models the purpose of an agreement"
+      x-not-in-database: false
       required:
            - id
            - name
@@ -2377,6 +2423,7 @@ components:
     AgreementLifecycle:
       type: object
       description: "TBD: Models the valid lifecycle states of an Agreement"
+      x-not-in-database: false
       required:
            - id
            - name
@@ -2398,6 +2445,7 @@ components:
     RegistryReference:
       type: object
       description: "TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"
+      x-not-in-database: false
       required:
            - id
       properties:
@@ -2424,6 +2472,7 @@ components:
     AuditTracker:
       type: object
       description: "TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service."
+      x-not-in-database: false
       required:
            - id
            - name
@@ -2485,6 +2534,7 @@ components:
     AuditEventType:
       type: object
       description: "TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."
+      x-not-in-database: false
       required:
            - id
            - event_name
@@ -2506,6 +2556,7 @@ components:
     StatusStartup:
       type: object
       description: "This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."
+      x-not-in-database: true
       required:
            - status
       properties:
@@ -2532,6 +2583,7 @@ components:
     StatusReadiness:
       type: object
       description: "This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."
+      x-not-in-database: true
       required:
            - status
       properties:

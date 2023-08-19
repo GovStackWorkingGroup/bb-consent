@@ -1306,7 +1306,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualRecordList"
+      operationId: "serviceListIndividualAgreementConsentRecordList"
       description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -1358,7 +1358,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualRecordList"
+      operationId: "serviceListIndividualConsentRecordList"
       description: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
       parameters: 
         - in: query

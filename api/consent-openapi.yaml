@@ -1036,56 +1036,6 @@ paths:
     get:
       tags:
         - service
-      summary: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualRecordList"
-      description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
-      parameters: 
-        - in: path
-          name: "agreementId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-I-001"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [individual]
-
-
-    get:
-      tags:
-        - service
       summary: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       operationId: "serviceReadIndividualRecordRead"
       description: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
@@ -1343,6 +1293,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Signature'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+  /service/individual/record/agreement/{agreementId}/all/:
+
+    get:
+      tags:
+        - service
+      summary: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
+      operationId: "serviceListIndividualRecordList"
+      description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
+      parameters: 
+        - in: path
+          name: "agreementId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-I-001"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter

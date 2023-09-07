@@ -36,13 +36,6 @@ For a configured Agreement, data elements requiring consent are individually spe
 * Organisation replaces Data Policy.
 * Individual gives access to citizen data, using a third-party user interface (Consumer’s user interface). Example: COVID passports.
 
-The following standards are applicable to data structures in the Registration Building Block:
-
-* All dates should follow ISO 8601.
-* RFC 7159 - The JavaScript Object Notation (JSON).
-* OpenAPI Version 3.1.0.
-* RESTful APIs follow TM Forum Specification: “REST API Design Guidelines Part 1” (requirement derived from GovStack Architecture and Nonfunctional Requirements).
-
 ## 7.2 Data models
 
 This specification is seen as a minimum requirement, all further implementations may add more structure but should not compromise the minimal integrity laid out. All property types are generic, and a concrete implementation may add further specificity to these models.

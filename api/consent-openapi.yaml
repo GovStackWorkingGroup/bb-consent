@@ -2309,6 +2309,7 @@ components:
            - payload
            - signature
            - verification_method
+           - verification_payload
            - verification_payload_hash
            - verification_signed_by
            - timestamp
@@ -2338,11 +2339,17 @@ components:
           example: ""
           description: "A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary."
 
+        verification_payload:
+          type: string
+          format: ""
+          example: ""
+          description: "Internally generated serialized version of the data referenced by object_type and object_reference - by extracting and serializing their data as JSON."
+
         verification_payload_hash:
           type: string
           format: ""
           example: ""
-          description: "Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those."
+          description: "Internally generated cryptographic hash of the value to be signed, i.e. the value of verification_payload"
 
         verification_artifact:
           type: string

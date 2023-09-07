@@ -1,5 +1,23 @@
 [
 {
+  "model": "app.agreement",
+  "pk": 1,
+  "fields": {
+    "version": "1.0",
+    "controller": 1,
+    "policy": 1,
+    "purpose": 1,
+    "lawful_basis": "consent",
+    "data_use": null,
+    "dpia": "DPIA by MoJ on \"user registration for health centers\", April 2nd 2023",
+    "signature": null,
+    "active": true,
+    "forgettable": false,
+    "compatible_with_version": null,
+    "lifecycle": 1
+  }
+},
+{
   "model": "app.policy",
   "pk": 1,
   "fields": {
@@ -27,7 +45,14 @@
   "fields": {
     "name": "Child registration",
     "description": "To register a child for health care",
-    "hash": "e53c915d393b74d061cd3a56bb0be02b87d174b7"
+    "serialized_hash": "e53c915d393b74d061cd3a56bb0be02b87d174b7"
+  }
+},
+{
+  "model": "app.agreementlifecycle",
+  "pk": 1,
+  "fields": {
+    "name": "Approved by legal department"
   }
 }
 ]

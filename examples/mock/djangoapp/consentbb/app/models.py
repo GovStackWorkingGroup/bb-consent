@@ -443,9 +443,17 @@ class Signature(models.Model):
         blank=False,
     )
 
+    verification_payload = models.CharField(
+        verbose_name="verification_payload",
+        help_text="Internally generated serialized version of the data referenced by object_type and object_reference - by extracting and serializing their data as JSON.",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
     verification_payload_hash = models.CharField(
         verbose_name="verification_payload_hash",
-        help_text="Internally generated cryptographic hash of the value to be signed. The hash is (re)produced from the object_type and object_reference - but from the serialized data of those.",
+        help_text="Internally generated cryptographic hash of the value to be signed, i.e. the value of verification_payload",
         max_length=1024,
         null=False,
         blank=False,

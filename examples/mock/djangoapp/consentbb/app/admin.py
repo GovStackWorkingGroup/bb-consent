@@ -1,6 +1,8 @@
 
 # !!! This code is auto-generated, please do not modify
 import json
+
+from hashlib import sha1
 from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
@@ -14,20 +16,16 @@ from . import models
 
 
 class BaseGovstackAdmin(admin.ModelAdmin):
-    readonly_fields = ('data_prettified',)
+    readonly_fields = ('serialized_snapshot', 'serialized_hash', "schema_name", "object_id")
 
-    def data_prettified(self, instance):
-        """Function to display pretty version of our data"""
+    def serialized_snapshot(self, instance):
 
         # Convert the data to sorted, indented JSON
         response = serializers.serialize('json', [instance, ], indent=2)
         
         # Strip the list
         json_dict = json.loads(response)
-        response = json.dumps(json_dict[0], indent=2)
-        
-        # Just use the first object
-        response = response
+        response = json.dumps(json_dict[0]["fields"], indent=2)
 
         # Get the Pygments formatter
         formatter = HtmlFormatter(style='colorful')
@@ -41,7 +39,35 @@ class BaseGovstackAdmin(admin.ModelAdmin):
         # Safe the output
         return mark_safe(style + response)
 
-    data_prettified.short_description = 'Object as JSON'
+    serialized_snapshot.short_description = 'Object as JSON artifact'
+
+    def serialized_hash(self, instance):
+        # Convert the data to sorted, indented JSON
+        response = serializers.serialize('json', [instance, ], indent=2)
+
+        # Strip the list
+        json_dict = json.loads(response)
+        response = json.dumps(json_dict[0]["fields"], indent=2)
+
+        hash_value = sha1(response.encode())
+        return hash_value.hexdigest()
+
+    serialized_hash.short_description = 'hash (SHA-1 of artifact)'
+
+    def schema_name(self, instance):
+        return instance._meta.model.__name__
+
+    schema_name.short_description = 'schema_name'
+
+    def object_id(self, instance):
+        return instance.pk
+
+    object_id.short_description = 'object_id'
+
+    def verification_method(self, instance):
+        return "sha1"
+
+    verification_method.short_description = 'Verification/hash type'
 
 
 @admin.register(models.Individual)

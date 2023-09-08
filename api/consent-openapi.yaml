@@ -2151,7 +2151,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "Revisioned data (serialized as JSON)"
+          description: "Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature."
 
         serialized_hash:
           type: string
@@ -2325,7 +2325,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "The payload that is signed, constructed as a serialization of fields verification_method + verification_hash + verification_artifact + verification_signed_by + verification_jws_header. Serialized as a JSON dict."
+          description: "The payload that is signed, constructed as a JSON serialization of fields {object_data: ..., verification_method: ..., verification_hash: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict."
 
         signature:
           type: string

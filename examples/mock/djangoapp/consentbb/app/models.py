@@ -329,7 +329,7 @@ class Revision(models.Model):
 
     serialized_snapshot = models.CharField(
         verbose_name="serialized_snapshot",
-        help_text="Revisioned data (serialized as JSON)",
+        help_text="Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature.",
         max_length=1024,
         null=False,
         blank=False,
@@ -421,7 +421,7 @@ class Signature(models.Model):
     
     payload = models.CharField(
         verbose_name="payload",
-        help_text="The payload that is signed, constructed as a serialization of fields verification_method + verification_hash + verification_artifact + verification_signed_by + verification_jws_header. Serialized as a JSON dict.",
+        help_text="The payload that is signed, constructed as a JSON serialization of fields {object_data: ..., verification_method: ..., verification_hash: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict.",
         max_length=1024,
         null=False,
         blank=False,

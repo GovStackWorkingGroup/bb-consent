@@ -16,7 +16,7 @@ from . import models
 
 
 class BaseGovstackAdmin(admin.ModelAdmin):
-    readonly_fields = ('serialized_snapshot', 'serialized_hash', "schema_name", "object_id")
+    readonly_fields = ('serialized_snapshot', 'serialized_hash',)
 
     def serialized_snapshot(self, instance):
 
@@ -53,21 +53,6 @@ class BaseGovstackAdmin(admin.ModelAdmin):
         return hash_value.hexdigest()
 
     serialized_hash.short_description = 'hash (SHA-1 of artifact)'
-
-    def schema_name(self, instance):
-        return instance._meta.model.__name__
-
-    schema_name.short_description = 'schema_name'
-
-    def object_id(self, instance):
-        return instance.pk
-
-    object_id.short_description = 'object_id'
-
-    def verification_method(self, instance):
-        return "sha1"
-
-    verification_method.short_description = 'Verification/hash type'
 
 
 @admin.register(models.Individual)

@@ -32,6 +32,38 @@
   }
 },
 {
+  "model": "app.revision",
+  "pk": 1,
+  "fields": {
+    "schema_name": "Agreement",
+    "object_id": "1",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": 1,\n    \"policy\": 1,\n    \"purpose\": 1,\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": null,\n    \"forgettable\": null,\n    \"compatible_with_version\": null,\n    \"lifecycle\": 2\n  },\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-08 12:42:33.221713+00:00\",\n  \"authorized_by_other\": \"Configuration admin user Jane\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "a392a7a87e8058b19f911de61f5f5c4eddbabdb8",
+    "timestamp": "2023-09-08 12:42:33.221713+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user Jane",
+    "successor": 2,
+    "predecessor_hash": null,
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 2,
+  "fields": {
+    "schema_name": "Agreement",
+    "object_id": "1",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": 1,\n    \"policy\": 1,\n    \"purpose\": 1,\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": 1\n  },\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-08 12:42:48.326551+00:00\",\n  \"authorized_by_other\": \"Configuration admin user Jane\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "7ab1352e5e0ac637b3401d84dc4530934a693d61",
+    "timestamp": "2023-09-08 12:42:48.326551+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user Jane",
+    "successor": null,
+    "predecessor_hash": "a392a7a87e8058b19f911de61f5f5c4eddbabdb8",
+    "predecessor_signature": null
+  }
+},
+{
   "model": "app.controller",
   "pk": 1,
   "fields": {
@@ -53,6 +85,13 @@
   "pk": 1,
   "fields": {
     "name": "Approved by legal department"
+  }
+},
+{
+  "model": "app.agreementlifecycle",
+  "pk": 2,
+  "fields": {
+    "name": "Draft"
   }
 }
 ]

@@ -421,7 +421,7 @@ class Signature(models.Model):
     
     payload = models.CharField(
         verbose_name="payload",
-        help_text="The payload that is signed, constructed as a JSON serialization of fields {object_data: ..., verification_method: ..., verification_hash: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict.",
+        help_text="The payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict.",
         max_length=1024,
         null=False,
         blank=False,

@@ -2325,7 +2325,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "The payload that is signed, constructed as a JSON serialization of fields {object_data: ..., verification_method: ..., verification_hash: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict."
+          description: "The payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict."
 
         signature:
           type: string

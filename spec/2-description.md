@@ -16,7 +16,7 @@ This specification has used several available and recognised open standards belo
 
 ## What Consent Is
 
-In the GovStack context, consent is understood as a voluntary declaration by an individual to approve the processing of their Personal data. It is one specific justification for personal data processing that is assumed to be required by legal or ethical conditions. It assumes that the person can decide on processing their personal data, managed in and by other GovStack Building Blocks, and also that the person is free to withdraw their consent at any time.
+In the GovStack context, consent is understood as a voluntary declaration by an individual to approve the processing of their Personal Data. It is one specific justification for personal data processing that is assumed to be required by legal or ethical conditions. It assumes that the person can decide on processing their personal data, managed in and by other GovStack Building Blocks, and also that the person is free to withdraw their consent at any time.
 
 Some examples of such consent are:
 

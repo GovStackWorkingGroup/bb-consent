@@ -273,6 +273,14 @@ class ConsentRecord(models.Model):
         blank=True,
     )
 
+    agreement_revision_hash = models.CharField(
+        verbose_name="agreement_revision_hash",
+        help_text="Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
     individual = models.ForeignKey(
         "Individual",
         verbose_name="individual",

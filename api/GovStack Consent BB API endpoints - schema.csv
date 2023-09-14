@@ -44,6 +44,7 @@ Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this b
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated.",TRUE,FALSE,,,1
 agreement,fk,Agreement,The Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
 agreement_revision,fk,Revision,The Revision of the agreement which consent has been given to,TRUE,FALSE,GovStack,,1
+agreement_revision_hash,string,,Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.,TRUE,FALSE,,,
 individual,fk,Individual,The Individual who has signed this consent record,TRUE,FALSE,GovStack,,1
 opt_in,boolean,,True: The individual has positively opted in. False: The individual has explicitly said no (or withdrawn a previous consent).,FALSE,FALSE,GovStack,,TRUE
 state,string,,The state field is used to record state changes after-the-fact. It is maintained by the Consent BB itself. Valid states: unsigned/pending more signatures/signed,TRUE,FALSE,GovStack,,signed

@@ -2074,6 +2074,7 @@ components:
       x-not-in-database: false
       required:
            - id
+           - agreement_revision_hash
            - state
       properties:
 
@@ -2092,6 +2093,12 @@ components:
           $ref: '#/components/schemas/Revision'
           x-fk-model: "Revision"
           description: "The Revision of the agreement which consent has been given to"
+
+        agreement_revision_hash:
+          type: string
+          format: ""
+          example: ""
+          description: "Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement."
 
         individual:
           $ref: '#/components/schemas/Individual'

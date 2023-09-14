@@ -82,9 +82,15 @@ def revision_any_instance(**kwargs):
 
 @receiver(post_save, sender=models.Agreement)
 def revision_agreements(sender, **kwargs):
-    revision_any_instance(authorized_by_other="Configuration admin user Jane", **kwargs)
+    revision_any_instance(authorized_by_other="Configuration admin user 'admin'", **kwargs)
 
 
-#@receiver(post_save, sender=models.Agreement)
-#def revision_policy(sender, **kwargs):
-#    revision_any_instance(authorized_by_other="Configuration admin user Jane", **kwargs)
+@receiver(post_save, sender=models.Policy)
+def revision_policy(sender, **kwargs):
+    revision_any_instance(authorized_by_other="Configuration admin user 'admin'", **kwargs)
+
+
+@receiver(post_save, sender=models.ConsentRecord)
+def revision_consent_record(sender, **kwargs):
+    instance = kwargs.get("instance")
+    revision_any_instance(authorized_by_individual=instance.individual.pk, **kwargs)

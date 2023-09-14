@@ -1,11 +1,20 @@
 [
 {
+  "model": "app.individual",
+  "pk": 1,
+  "fields": {
+    "external_id": "12345678",
+    "external_id_type": "foundational id",
+    "identity_provider_id": "1"
+  }
+},
+{
   "model": "app.agreement",
   "pk": 1,
   "fields": {
     "version": "1.0",
     "controller": 1,
-    "policy": 1,
+    "policy": 2,
     "purpose": 1,
     "lawful_basis": "consent",
     "data_use": null,
@@ -19,16 +28,28 @@
 },
 {
   "model": "app.policy",
-  "pk": 1,
+  "pk": 2,
   "fields": {
     "name": "Ministry of Health Privacy Policy",
-    "version": "1.0",
-    "url": "https://example.com/policy/1.0",
+    "version": "1.1",
+    "url": "https://example.com/policy/1.1",
     "jurisdiction": "EU",
     "industry_sector": null,
     "data_retention_period_days": 365,
-    "geographic_restriction": null,
-    "storage_location": "Country Name"
+    "geographic_restriction": "EU",
+    "storage_location": "EU"
+  }
+},
+{
+  "model": "app.consentrecord",
+  "pk": 1,
+  "fields": {
+    "agreement": 1,
+    "agreement_revision": 5,
+    "individual": 1,
+    "opt_in": true,
+    "state": "unsigned",
+    "signature": null
   }
 },
 {
@@ -58,8 +79,88 @@
     "timestamp": "2023-09-08 12:42:48.326551+00:00",
     "authorized_by_individual": null,
     "authorized_by_other": "Configuration admin user Jane",
-    "successor": null,
+    "successor": 3,
     "predecessor_hash": "a392a7a87e8058b19f911de61f5f5c4eddbabdb8",
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 3,
+  "fields": {
+    "schema_name": "Agreement",
+    "object_id": "1",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": 1,\n    \"policy\": null,\n    \"purpose\": 1,\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": 1\n  },\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-14 20:59:04.546848+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "5f3755045707cec0ec66485e7ca3148d6d194b66",
+    "timestamp": "2023-09-14 20:59:04.546848+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user 'admin'",
+    "successor": 5,
+    "predecessor_hash": "7ab1352e5e0ac637b3401d84dc4530934a693d61",
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 4,
+  "fields": {
+    "schema_name": "Policy",
+    "object_id": "2",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"name\": \"Ministry of Health Privacy Policy\",\n    \"version\": \"1.0\",\n    \"url\": \"https://example.com/policy/1.0\",\n    \"jurisdiction\": \"EU\",\n    \"industry_sector\": null,\n    \"data_retention_period_days\": 365,\n    \"geographic_restriction\": \"EU\",\n    \"storage_location\": \"EU\"\n  },\n  \"schema_name\": \"Policy\",\n  \"object_id\": 2,\n  \"timestamp\": \"2023-09-14 20:59:44.674260+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "d7b016edd9824752d0d2233a587f3277698345fc",
+    "timestamp": "2023-09-14 20:59:44.674260+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user 'admin'",
+    "successor": 6,
+    "predecessor_hash": null,
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 5,
+  "fields": {
+    "schema_name": "Agreement",
+    "object_id": "1",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": 1,\n    \"policy\": 2,\n    \"purpose\": 1,\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": 1\n  },\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-14 20:59:52.965302+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "dde57ed14c230efee66b60a8dfe897d438cbe46b",
+    "timestamp": "2023-09-14 20:59:52.965302+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user 'admin'",
+    "successor": null,
+    "predecessor_hash": "5f3755045707cec0ec66485e7ca3148d6d194b66",
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 6,
+  "fields": {
+    "schema_name": "Policy",
+    "object_id": "2",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"name\": \"Ministry of Health Privacy Policy\",\n    \"version\": \"1.1\",\n    \"url\": \"https://example.com/policy/1.1\",\n    \"jurisdiction\": \"EU\",\n    \"industry_sector\": null,\n    \"data_retention_period_days\": 365,\n    \"geographic_restriction\": \"EU\",\n    \"storage_location\": \"EU\"\n  },\n  \"schema_name\": \"Policy\",\n  \"object_id\": 2,\n  \"timestamp\": \"2023-09-14 21:00:04.016507+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null\n}",
+    "serialized_hash": "6e95c68b060d4c6f76dd535a88dba8e03b2d90be",
+    "timestamp": "2023-09-14 21:00:04.016507+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": "Configuration admin user 'admin'",
+    "successor": null,
+    "predecessor_hash": "d7b016edd9824752d0d2233a587f3277698345fc",
+    "predecessor_signature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 7,
+  "fields": {
+    "schema_name": "ConsentRecord",
+    "object_id": "1",
+    "serialized_snapshot": "{\n  \"object_data\": {\n    \"agreement\": 1,\n    \"agreement_revision\": 5,\n    \"individual\": 1,\n    \"opt_in\": true,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  },\n  \"schema_name\": \"ConsentRecord\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-14 21:05:00.987943+00:00\",\n  \"authorized_by_other\": null,\n  \"authorized_by_individual\": 1\n}",
+    "serialized_hash": "7fea370258cf72e4986def83d1dbfb6ab20b1055",
+    "timestamp": "2023-09-14 21:05:00.987943+00:00",
+    "authorized_by_individual": null,
+    "authorized_by_other": null,
+    "successor": null,
+    "predecessor_hash": null,
     "predecessor_signature": null
   }
 },

@@ -174,14 +174,6 @@ class AgreementData(models.Model):
         blank=False,
     )
 
-    serialized_hash = models.CharField(
-        verbose_name="serialized_hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
 
 
 class Policy(models.Model):

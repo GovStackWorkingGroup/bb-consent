@@ -27,7 +27,6 @@ agreement,fk,Agreement,,TRUE,FALSE,ADA,,1
 name,string,,"Name of the attribute, for instance ""name"" or ""age""",TRUE,FALSE,ADA,,age
 sensitivity,string,,categories of sensitivity,TRUE,TRUE,GovStack,,personal data
 category,string,,,TRUE,FALSE,ADA,,age
-serialized_hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",TRUE,TRUE,GovStack,,197f45a1d453dafbe6e3878df80adecfc4a2d306
 ,,,,,,,,
 Model: Policy,,,"A policy governs data and Agreement in the realm of an organisation that is refered to as ""data controller"" (GDPR) and owner of referencing Agreements.",,,ADA*,,
 id,string,,,TRUE,FALSE,,,1

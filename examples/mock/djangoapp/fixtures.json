@@ -33,8 +33,7 @@
     "agreement": null,
     "name": "age",
     "sensitivity": "PII",
-    "category": "personal data",
-    "serialized_hash": ""
+    "category": "personal data"
   }
 },
 {

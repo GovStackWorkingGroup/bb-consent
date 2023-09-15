@@ -97,7 +97,7 @@ jj45+U3gbHkSkBwO8tw=
 """.lstrip()
 
 
-def json_serialize(instance, **revision_fields):
+def json_serialize(instance, fk_relations_to_resolve, reverse_relations_to_resolve, **revision_fields):
     # Convert the instance data to sorted, indented JSON
 
     if instance:
@@ -106,6 +106,25 @@ def json_serialize(instance, **revision_fields):
         # Strip the list
         json_dict = json.loads(response)
         revision_fields["object_data"] = json_dict[0]["fields"]
+
+    # Serialize related fields that are listed to be resolved.
+    # Otherwise, it will be entered as an integer FK.
+    for field_key in fk_relations_to_resolve:
+        related_instance = getattr(instance, field_key)
+        instance_json = serializers.serialize('json', [related_instance, ], indent=2)
+
+        # Strip the list
+        json_dict = json.loads(instance_json)
+        revision_fields["object_data"][field_key] = json_dict[0]["fields"]
+
+    for related_name in reverse_relations_to_resolve:
+        revision_fields["object_data"][related_name] = []
+        related_manager = getattr(instance, related_name + "_set")
+
+        for related_instance in related_manager.all():
+            instance_json = serializers.serialize('json', [related_instance, ], indent=2)
+            json_dict = json.loads(instance_json)
+            revision_fields["object_data"][related_name].append(json_dict[0]["fields"])
 
     response = json.dumps(revision_fields, indent=2)
 
@@ -121,6 +140,8 @@ def revision_any_instance(**kwargs):
 
     created = kwargs.get("created", False)
     instance = kwargs.get("instance")
+    fk_fields_to_resolve = kwargs.get("fk_fields_to_resolve", [])
+    reverse_relations_to_resolve = kwargs.get("reverse_relations_to_resolve", [])
 
     schema_name = instance._meta.model.__name__
     object_id = instance.pk
@@ -133,6 +154,8 @@ def revision_any_instance(**kwargs):
     if instance:
         json_revision_data = json_serialize(
             instance,
+            fk_fields_to_resolve,
+            reverse_relations_to_resolve,
             schema_name=schema_name,
             object_id=object_id,
             timestamp=timestamp,
@@ -187,6 +210,8 @@ def create_signature_for_revision(revision):
 
     signature.payload = json_serialize(
         {},
+        [],
+        [],
         verification_method=signature.verification_method,
         timestamp=str(signature.timestamp),
         verification_artifact=signature.verification_artifact,
@@ -203,17 +228,35 @@ def create_signature_for_revision(revision):
 
 @receiver(post_save, sender=models.Agreement)
 def revision_agreements(sender, **kwargs):
-    revision_any_instance(authorized_by_other="Configuration admin user 'admin'", **kwargs)
+    # Disable signal during fixtures loading
+    if kwargs["raw"]:
+        return
+    revision_any_instance(
+        authorized_by_other="Configuration admin user 'admin'",
+        fk_fields_to_resolve=["purpose", "controller", "lifecycle"],
+        reverse_relations_to_resolve=["agreementdata"],
+        **kwargs)
 
 
 @receiver(post_save, sender=models.Policy)
 def revision_policy(sender, **kwargs):
+    # Disable signal during fixtures loading
+    if kwargs["raw"]:
+        return
     revision_any_instance(authorized_by_other="Configuration admin user 'admin'", **kwargs)
 
 
 @receiver(post_save, sender=models.ConsentRecord)
 def revision_consent_record(sender, **kwargs):
+    # Disable signal during fixtures loading
+    if kwargs["raw"]:
+        return
+
     instance = kwargs.get("instance")
-    revision = revision_any_instance(authorized_by_individual=instance.individual.pk, **kwargs)
+    revision = revision_any_instance(
+        authorized_by_individual=instance.individual.pk,
+        fk_fields_to_resolve=[],
+        **kwargs
+    )
 
     create_signature_for_revision(revision)

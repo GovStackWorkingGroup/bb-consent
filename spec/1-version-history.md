@@ -1,5 +1,7 @@
 ---
-description: The version history table describes major changes to the specification.
+description: >-
+  The version history table describes the major changes to the specifications
+  between published versions.
 ---
 
 # 1 Version History

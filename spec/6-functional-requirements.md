@@ -48,5 +48,3 @@ Within the scope of Consent Building Block version 1.0, the required components 
 **Notification Handler:** handles all notification configurations and notifications requested by different subscribers.
 
 **Administrative User Interface and Client Software Development Kit:** these are readily available components that can configure and use the services offered, making integration easy and low code.
-
-**RESTful APIs**: All APIs are exposed as RESTful APIs. These are categorised into Organisation APIs, Individual APIs, and Auditing APIs.

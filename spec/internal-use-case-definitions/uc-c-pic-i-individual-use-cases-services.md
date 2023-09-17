@@ -50,12 +50,6 @@ Diagram Source
 
 There are three alternatives possible for giving consent:
 
-* [Option A: Self-Registration to healthcare application](https://docs.google.com/document/d/1kdk8iaH2khX3gZ3\_0fevi510JWIL4hRWOr8Tjun6x6k/edit#heading=h.2s7g9pgnhcto)
-* [Option B: Assisted registration to healthcare application](https://docs.google.com/document/d/1kdk8iaH2khX3gZ3\_0fevi510JWIL4hRWOr8Tjun6x6k/edit#heading=h.ipk3ux3jhopv)
-* [Option C: Individual “holding” the data for registering to healthcare application](https://docs.google.com/document/d/1kdk8iaH2khX3gZ3\_0fevi510JWIL4hRWOr8Tjun6x6k/edit#heading=h.tid6m9pptzik)
-
-The above are detailed in the subsequent chapters.
-
 ### Option A: Self-Registration to healthcare application
 
 | ID                                                                                                                             | UC-C-PIC-I-002A                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -75,11 +69,40 @@ The above are detailed in the subsequent chapters.
 
 ### Sequence diagram
 
-![](https://lh6.googleusercontent.com/Xb2oovDlbsnsAMJXY7i7aIQb663Q67ZBgc4B6gw7wZqQ6GOJ18gMaKEeWTDpsKRx2a7m5TUOYFOoPOq8c7PAbVPe8gAHn1mNXdOJy4oKJor403rHbvzTjjin0ipADusKp87AfiQ-kEA1Kqxd2lMLWw)
+```mermaid
+sequenceDiagram
+title UC-C-PIC-I-002A: Consent - Postpartum and infant care (Give consent - Self registration)
 
-[Diagram source](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVUMtQy1QSUMtMDAyOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAlBikKCgphY3RvciBJbmRpdmlkdWFsCgoAAgotPitIZWFsdGgANgVhcHBsaWNhdGlvbjogSW52b2tlIG5ldyByZWdpc3RyABQFCgAaFi0tPi0AWQo6IFByb21wdCB0byBlbnRlciBwZXJzb25hbCBudW1iZXIAXSZFbnRlcnMAKxEAaxc-K1dvcmtmbG93IEJCOiBGZXRjaCBkYXRhIHcAEQcKbm90ZSByaWdodCBvZiAAJAsKICAgAIFrB3MgdGhlIG5lZWQgZm9yAIJBCCB0byBmAE0FACYFZGF0YSwAGwVlLmcuIGZyb20gcG9wdWwAgjgFAIIqB2VyCmVuZCBub3RlCgCBEAstPisAg0EITWFuYWdlbWVudACBKAsAaghhZ3JlABcFCgAaFS0tPi0AgWQNUmV0dXJucwAtEwBxDC0-LQCDWhgAJxoAg04mU2hvdwBsEwCCMQoAgwgFAIRYJwCFZQdzAIJwCWluZwCDSQUAgyZZAIQsBWVzAINVB0YAg1QIAIQWBQCDPyIAgzwmUmVjb3JkAIMaCmJ5AIRpBWkAhxMKAINWFj4rUgCGfgZ5AIVXBVNhAIdZCgCFRg8AGw0AiCkIc2F2ZWQAhn8FaXRhbnRseQoARAstLT4tAIR6F1N1Y2Nlc3MAhFonACYIAIRIJwBVCACIKycAgXoHAIZbBm9mAIkUBXVzZXIgcwCBHwZmdWwKCgo\&s=default)
+actor Individual
 
-[Editable version](https://www.websequencediagrams.com/?lz=dGl0bGUgVUMtQy1QSUMtSS0wMDJBOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAiCVNlbGYgcmVnaXN0cmF0aW9uKQoKCmFjdG9yIEluZGl2aWR1YWwKCgACCi0-K0hlYWx0aABKBWFwcGxpYwA0BTogSW52b2tlIG5ldwBFDQoAGhYtLT4tAFkKOiBQcm9tcHQgdG8gZW50ZXIgcGVyc29uYWwgbnVtYmVyAF0mRW50ZXJzACsRAGsXPitXb3JrZmxvdyBCQjogRmV0Y2ggZGF0YSB3ABEHCgpub3RlIHJpZ2h0IG9mIAAlCwogICAAgWwHcyB0aGUgbmVlZCBmb3IAglUJdG8gZgBOBQAmBWRhdGEsABsFZS5nLiBmcm9tIHBvcHVsAIJyBQCCfQdlcgplbmQgbm90ZQoKAIESCy0-KwCDVwhNYW5hZ2VtZW50AIEqCwCDSQhhZ3JlABcFCgAaFS0tPi0AgWYNUmV0dXJucwAtEwBxDC0-LQCDXBgAJxoAg1AmU2hvdwBsEwCCMgoAgwoFAIJ3EACFEAsgICAgSGVyZSwAgn8FaQCFKwkgY2FuIHByb3ZpZACFZgoAgy8FdmlhIG11bHRpcGxlIG1lYW5zOiBFLmcuIGJpb21ldHJpYyBJRCwgYQCDXAVub3RpZgCFWwcgdG8AVRB2aWEgU01TIGV0Yy4AhAwFAIQRBU9uY2UAhA4FdXNlcgCDDgZzADUIAIMZESwgYQCEGwZ1bmlxdQAtB0lEIGlzIGNyZWF0ZWQgd2l0aGluAIRgBQCGZhYuIACELAsAhwcmAIgnBwCBEwUAhSEFaW5nAIV3BQCFcjsAhg4eAIZaBWVzAIYCB0YAhgEIAIZDBQCFRkhSZWNvcmQAhUYKYnkAhAgPAIYBFz4rUgCJfgZ5AIgFBVNhAIobCgCHcw8AGw0AimsIc2F2ZWQAiS0FaXRhbnRseQoARAstLT4tAIcmF1N1Y2Nlc3MAhwYnACYIAIZ0JwBVCACKWScAgXoHAIkIBm9mAItCBQCFOwVzAIEfBmZ1bAoKCg\&s=default)
+Individual->+Primary application: Invoke new registration
+Primary application-->-Individual: Prompt to enter personal number
+Individual->+Primary application: Enters personal number
+Primary application->+Workflow BB: Fetch data workflow
+
+note right of Workflow BB: Invokes the need for consent to fetch <br/> data, for e.g. from population register
+
+Workflow BB->+Consent Management BB: Fetch consent agreement
+Consent Management BB-->-Workflow BB: Returns consent agreement
+Workflow BB-->-Primary application: Returns consent agreement
+Primary application-->-Individual: Shows consent agreement to fetch data 
+
+note right of Individual: Here, the individual can provide consent <br/> via multiple means: E.g. biometric ID, a <br/> notification to the individual via SMS etc.<br/> Once the user agrees to the consent agreement, a <br/> unique user ID is created within the Healthcare application. 
+
+Individual->+Primary application: Consents to fetching data
+Primary application->+Workflow BB: Fetch data workflow
+note right of Workflow BB: Fetches data, For e.g. <br/> from population register
+
+Workflow BB->+Consent Management BB: Records consent by the individual
+Consent Management BB->+Registry BB: Save consent
+note right of Registry BB: Consent saved persitantly
+Registry BB-->-Consent Management BB: Success
+Consent Management BB-->-Workflow BB: Success
+Workflow BB-->-Primary application: Success
+
+Primary application-->-Individual: Registration of new user successful
+
+```
 
 ### Option B: Assisted registration to healthcare application
 

@@ -94,45 +94,6 @@ Workflow BB-->>-Application: Returns consent ID
 Application-->>-Individual: Accepts/Rejects the consent agreement
 ```
 
-<details>
-
-<summary>Diagram source</summary>
-
-```
-title Universal consent flow post-registration (uses centralised ID)
-
-actor Individual
-
-note over Individual
-    The individual is signed in
-    to the application
-end note
-
-
-Individual->+Application: Invoke a consent agreement workflow
-Application->+Workflow BB: Triggers the consent agreement workflow
-
-Workflow BB->+Consent BB: Fetch consent agreement
-Consent BB-->-Workflow BB: Returns consent agreement
-Workflow BB-->-Application: Returns consent agreement
-Application-->-Individual: Shows consent agreement
-
-note over Individual
-    The individual agrees/disagrees 
-    to the consent agreement 
-end note
-
-Individual->+Application: Accepts/Rejects the consent agreement
-Application-->+Workflow BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Workflow BB-->+Consent BB: Records consent against the consent agreement (Foundation ID token, Application user ID)
-Consent BB-->-Workflow BB: Returns consent ID
-Workflow BB-->-Application: Returns consent ID
-
-Application-->-Individual: Accepts/Rejects the consent agreement
-```
-
-</details>
-
 ### 9.1.3 Consent Verification
 
 The third universal workflow is about verifying if a valid Consent Record exists or not for a given data processing event within a business process. This may be the immediate continuation of a consenting workflow by the same System that acquired the Consent Record or it may be used by a separate business process by a different Application or at a different moment in time. The same verification workflow may be also used for auditing purposes. The following diagram shows how a generic verification for valid Consent works:

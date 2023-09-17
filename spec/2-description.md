@@ -8,11 +8,11 @@ The Consent Building Block enables services for individuals to approve the use o
 
 This specification has used several available and recognised open standards below and legal frameworks (such as the [GDPR](https://gdpr.eu/)) for laying the groundwork for its approach to consent.
 
-* [Kantara Initiative](https://kantarainitiative.org/download/7902/) - Consent Specification
+* [Kantara Initiative](https://kantarainitiative.org/download/7902/): Consent Specification
 * [ISO 29184: 2020](https://www.iso.org/standard/70331.html): Online Privacy Notices and Consent
 * [ISO/IEC 29100:2011](https://www.iso.org/standard/45123.html): Privacy Framework
-* [ISO/TS 17975:2015](https://www.iso.org/standard/61186.html) Health informatics — Principles and data requirements for consent in the Collection, Use or Disclosure of personal health information
-* [ISO/IEC TS 27560](https://www.iso.org/standard/80392.html) — Consent record information structure (under development)
+* [ISO/TS 17975:2022](https://www.iso.org/standard/78395.html): Health informatics — Principles and data requirements for consent in the Collection, Use or Disclosure of personal health information
+* [ISO/IEC TS 27560:2023](https://www.iso.org/standard/80392.html): Privacy technologies — Consent record information structure&#x20;
 
 ## What Consent Is
 
@@ -54,9 +54,9 @@ As a result, the organisation responsible for the information system is the driv
 * The purpose of consent, processed data attributes
 * Signatures
 
-A consent agreement life-cycle has four main phases\[^2], as illustrated in the figure below:
+A consent agreement life-cycle has four main phases, as illustrated in the figure below:
 
-<figure><img src=".gitbook/assets/Consent Workflow.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/a2cb2359e">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/Consent Workflow.png" alt=""><figcaption><p><a href="images/consent-lifecycle.png">Diagram Source</a></p></figcaption></figure>
 
 **Definition**: In this phase, the organisation (a Data Provider or a Data Consumer) adopts and defines a Data Policy that applies to the industry or sector-specific data usage as a template. While this phase is considered a “black box” to the Consent Building Block, it is an essential reference point for configuration and compatibility checks in all following phases.
 
@@ -76,11 +76,35 @@ Consent Building Block enables interaction between three (3) distinct user categ
 
 Below is the graphical depiction of the actors and their interactions; a more detailed description of the Consent Building Block capabilities is provided in [Chapter 4 - Key Digital Functionalities](4-key-digital-functionalities.md).
 
-<figure><img src="images/consent-bb-actors-02.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
+```mermaid
+C4Context
+        Person(customerA, "Individual")
+        Person(customerB, "Data Processing Auditor")
+        
+        SystemDb(SystemAA, "Primary Organisation: a Data Provider")
+        SystemDb(SystemBB, "Secondary Organisation: a Data Consumer")
+        
+        Person(customerC, "Administrator")
 
-<figure><img src="images/consent-bb-actors-01.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
+      BiRel(customerA, SystemAA, "Sign Consent Agreement")
+      Rel(customerB, SystemAA, "Performs audit")
+      Rel(customerB, SystemBB, "Performs audit")
+      Rel(customerB, customerA, "Performs audit")
+      Rel(SystemAA, SystemBB, "Exchange Data")
+      Rel(customerC, SystemAA, "Prepare consent configuration")
 
-It is important to realise that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.
+
+      UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $arrowColor="blue",$offsetX="-")
+      UpdateRelStyle(customerB, SystemAA, $lineStyle="DashedLine",$offsetX="-10")
+      UpdateRelStyle(customerB, customerA, $lineStyle="DashedLine",$offsetX="-37", $offsetY="-15")
+      UpdateRelStyle(customerB, SystemBB, $lineStyle="DashedLine",$offsetX="-5")
+      UpdateRelStyle(SystemAA, SystemBB, $textColor="red", $lineColor="red", $offsetY="-12", $offsetX="-40")
+      UpdateRelStyle(customerC, SystemAA, $textColor="blue", $lineColor="blue", $arrowColor="blue",$offsetX="-90")
+
+      UpdateLayoutConfig($c4ShapeInRow="2")
+```
+
+It is important to realize that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.
 
 ###
 

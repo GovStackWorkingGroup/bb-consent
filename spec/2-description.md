@@ -112,14 +112,21 @@ It is important to realize that while the actors are defined via human roles, th
 
 The overall relationship diagram is shown below.
 
-![Diagram Source](images/consent-bb-relationships.png)
+```mermaid
+erDiagram
+CONSENT-BB }|..|| IDENTITY-BB : "verifies foundational ID"
+CONSENT-BB ||..|| INFORMATION-MEDIATOR-BB : "executes scheduled consent-based tasks"
+CONSENT-BB }|..|{ SCHEDULER-BB : "executes scheduled consent-based tasks"
+CONSENT-BB }|..|{ WORKFLOW-BB : "knows and orchestrates consent-based workflows"
+```
+
+
 
 The table below summarises the key relationships consumed during a consent transaction.
 
 | Building Block                      | Relationship description                                                                                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Identity Building Block             | It is assumed the Consent Building Block has already obtained requisite access tokens.                                                                       |
-| Digital Registries Building Block   | This is used to store any consent agreement, individual consent receipts etc.                                                                                |
 | Workflow Building Block             | Manages the workflow and rules associated with requiring or not requiring consent to use personal data.                                                      |
 | Scheduler Building Block            | Provides an engine for time-based triggers to various events of an automated business process, which might also require consent.                             |
 | Information Mediator Building Block | The information mediator Building Block provides a gateway for exchanging data related to consenting workflows; it also provides logs for auditing purposes. |

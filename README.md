@@ -103,10 +103,12 @@ Once you have the mock application up and running, you can now access several in
   this is a static endpoint that just returns a policy mock.
   The approach isn't in use, please make sure to notify the Consent BB working group if you need to include static mocks in a test.
 
-The docker compose environment has an HTTP proxy on ``localhost:8080`` and ``localhost:8888`` (HTTPS).
+To get a terminal prompt for the Django app container, run `docker-compose exec -it consent /bin/bash`.
+
+The docker compose environment has an HTTP proxy on `localhost:8080` and `localhost:8888` (HTTPS).
 The proxy serves static mocks, but for all dynamic mocks there is a mock application where all other requests are forwarded to.
 
-The mock application sits on ``http://localhost:8000`` (8000 is the default Django development port) and may be accessed directly in cases where you for instance need to see the raw traceback of an error that has occurred. You can access the Django Admin site with credentials ``admin:admin`` on http://localhost:8000/admin.
+The mock application sits on `http://localhost:8000` (8000 is the default Django development port) and may be accessed directly in cases where you for instance need to see the raw traceback of an error that has occurred. You can access the Django Admin site with credentials `admin:admin` on http://localhost:8000/admin.
 
 ### Running tests
 ```sh

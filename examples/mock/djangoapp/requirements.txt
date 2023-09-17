@@ -1,3 +1,10 @@
+# Django pinned to the version we last tested on
 django==4.1.7
+# The main API library
 django-ninja
+# For auto-generating fixtures in tests
 django_dynamic_fixture
+# For highlight JSON in the Django admin
+pygments
+# For Signatures
+PGPy

@@ -52,6 +52,12 @@ fi
 
 cd ./examples/mock/
 
+if [ "$1" == "fixtures" ]
+then
+  docker-compose exec -it consent python manage.py dumpdata app --indent 2 > ./djangoapp/fixtures.json
+  exit 0
+fi
+
 if [ "$1" == "test" ]
 then
   docker-compose up -d
@@ -61,7 +67,9 @@ else
   echo "Running the consent BB mocking application."
   echo ""
   echo "By default, you can reach it on:"
-  echo "http://localhost:8080 or https://localhost:8888 (HTTPS)"
+  echo "http://localhost:8080"
+  echo "https://localhost:8888 (HTTPS)"
+  echo "http://localhost:8000 (Django mock application direct access)"
 
   docker-compose up --build
 fi

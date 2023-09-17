@@ -207,8 +207,13 @@ def service_update_individual_consent_record_signature(request, consentRecordId:
     return "undefined"
 
 
-@api.get("/service/individual/record/agreement/")
-def service_list_individual_record_list(request, offset: int=None, limit: int=None):
+@api.get("/service/individual/record/agreement/{agreementId}/all/")
+def service_list_individual_agreement_consent_record_list(request, agreementId: str, offset: int=None, limit: int=None):
+    return "undefined"
+
+
+@api.get("/service/individual/record/")
+def service_list_individual_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 

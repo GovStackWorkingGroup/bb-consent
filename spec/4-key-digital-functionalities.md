@@ -6,7 +6,7 @@ description: >-
 
 # 4 Key Digital Functionalities
 
-The Consent Building Block enables organisations to enforce Data Policies that require signed consent by Individuals for the use of their personal data. Its key purpose is to allow individuals to view Consent Agreements and sign or withdraw their consent on what personal data is used and accessible to organisations. It also clarifies the Data Policy applied, such as the purpose, retention period, jurisdiction, third-party data sharing, etc.
+The Consent Building Block enables organisations to enforce Data Policies that require signed consent by Individuals for the use of their Personal Data. Its key purpose is to allow individuals to view Consent Agreements and sign or withdraw their consent on what Personal Data is used and accessible to organisations. It also clarifies the Data Policy applied, such as the purpose, retention period, jurisdiction, third-party data sharing, etc.
 
 The Consent Building Block implements the key functionalities described in the [consent management lifecycle](2-description.md#consent-agreement-lifecycle). It includes the ability to configure consent agreements by an organisation admin, present consent requests towards individuals, capture consents, enable queries if consent exists, or not, and enable independent audit of consents.
 
@@ -27,9 +27,9 @@ The main Administrator actions expected to perform via Consent Building Block ar
 * configuring Data Policies, requesting and signing Consent Agreements with Individuals;
 * viewing (reading, exporting) the Consent Agreements and relevant reports;
 * event-driven (opt-in or opt-out) subscription to (notifications of) changes in Consent Agreements;
-* logging and maintaining an auditable overview of all personal data transactions according to Consent Agreements as well as configuration versions.
+* logging and maintaining an auditable overview of all Personal Data transactions according to Consent Agreements as well as configuration versions.
 
-The table below summarises the key use cases identified for an organisation's Administrator. Organisations can be Data Consumers or Data Providers, i.e. the organisations legally delegated the responsibility for collecting consent for the systems handling personal data processing.
+The table below summarises the key use cases identified for an organisation's Administrator. Organisations can be Data Consumers or Data Providers, i.e. the organisations legally delegated the responsibility for collecting consent for the systems handling Personal Data processing.
 
 | **Consent use-cases**                                                                                                                                                          | **Link(s) to the UCS**                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -43,8 +43,8 @@ The table below summarises the key use cases identified for an organisation's Ad
 
 The capabilities for individuals that Consent Building Block supports are:
 
-* viewing and understanding Data Policies applying to their personal data processing;
-* agreeing and disagreeing with and toggling between the conditions of personal data use as described in the Consent Agreement;
+* viewing and understanding Data Policies applying to their Personal Data processing;
+* agreeing and disagreeing with and toggling between the conditions of Personal Data use as described in the Consent Agreement;
 * obtaining copies of their Consent Agreement(s);
 * delegating their consent rights (out-of-scope for current technical release).
 
@@ -54,7 +54,7 @@ The table below summarises the key use cases identified for the Individuals.
 
 | **Consent use-cases**                                                                                                                                                                                                        | **Link to the UCS**                                                                                                                                                                                |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| VIEW CONSENT - Here, the Individual views the Consent Agreement and the conditions for personal data processing (with adequate clarity for informed understanding). This includes obtaining copies of the consent agreement. | [UC-C-PIC-I-001](https://govstack.gitbook.io/bb-consent/v/consent-1.0/internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services#uc-c-pic-i-001-view-agreements)                       |
+| VIEW CONSENT - Here, the Individual views the Consent Agreement and the conditions for Personal Data processing (with adequate clarity for informed understanding). This includes obtaining copies of the consent agreement. | [UC-C-PIC-I-001](https://govstack.gitbook.io/bb-consent/v/consent-1.0/internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services#uc-c-pic-i-001-view-agreements)                       |
 | GIVE CONSENT - Here, the Individual signs a Consent Agreement during a data sharing workflow. Note that this can also happen offline without data sharing in place.                                                          | [UC-C-PIC-I-002](https://govstack.gitbook.io/bb-consent/v/consent-1.0/internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services#uc-c-pic-i-002-give-consent-to-fetching-data)         |
 | WITHDRAW CONSENT - Or update existing consent                                                                                                                                                                                | [UC-C-PIC-I-003](https://govstack.gitbook.io/bb-consent/v/consent-1.0/internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services#uc-c-pic-i-003-withdraw-or-update-existing-consent)   |
 | Consent agreement change notification                                                                                                                                                                                        | [UC-C-PIC-I-004](https://govstack.gitbook.io/bb-consent/v/consent-1.0/internal-use-case-definitions/uc-c-pic-i-individual-use-cases-services#uc-c-pic-i-004-consent-agreement-change-notification) |

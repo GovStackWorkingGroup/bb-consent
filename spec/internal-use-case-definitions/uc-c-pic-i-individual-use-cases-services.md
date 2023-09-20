@@ -42,10 +42,6 @@ description: >-
 | <p>Exceptions<br>(error situations)</p>                                                                                        | <ul><li><br></li></ul>                                                                                                                                                                                                                                                                                          |
 | <p>Related BBs<br>(working groups related to that particular use case)</p>                                                     | <ol><li>Identity BB (Required for acquiring authentication token)</li><li>Registries BB - stores the data agreement data,</li><li>Information Mediator BB - providing interfaces</li><li>Security BB - supervision</li></ol>                                                                                    |
 
-### Sequence diagram
-
-Diagram Source
-
 ## UC-C-PIC-I-002: Give consent to fetching data
 
 There are three alternatives possible for giving consent:
@@ -123,11 +119,38 @@ Primary application-->-Individual: Registration of new user successful
 
 ### Sequence diagram
 
-![](https://lh4.googleusercontent.com/EPl2pbjNgSG-gwYRNd7mYTgFC2LgUf7Nq87wWu3EmPCQGyuyp3GVfgS9vhuZ0TXTO54KasoMZZet0lnrMgCfIBRo5hnh1kkznFt0hV5KdthrSQGTkrnp8q12yC2wyMfU3HxcDSa6OfpzuxapHrp3bA)
+```mermaid
+sequenceDiagram
+title UC-C-PIC-I-002B: Consent - Postpartum and infant care (Give consent with data carried by the individual)
 
-[Diagram source](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVUMtQy1QSUMtMDAyOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAkB3dpdGggYXNzaXN0YW5jZSkKCgphY3RvciBIZWFsdGgALQVXb3JrZXIAEQdJbmRpdmlkdWFsCgoAExEtPisALQthcHBsaWNhdGlvbjogSW52b2tlIG5ldyByZWdpc3RyABQFADgMACULLS0-LQBxETogUHJvbXB0IHRvIGVudGVyIHBlcnNvbmFsIG51bWJlcgBkLUVudGVycwAnHACBBAw-K1dvcmtmbG93IEJCOiBGZXRjaCBkYXRhIHcAEQcKbm90ZSByaWdodCBvZgCCMAUAKAcKICAgAIF5B3MgdGhlIG5lZWQgZm9yAIJ9CXRvIGYATQUAJgVkYXRhLAAbBWUuZy4gZnJvbSBwb3B1bACCRgUAgjgHZXIKZW5kIG5vdGUKAIEQCy0-KwCDfghNYW5hZ2VtZW50AIEoCwCDcAhhZ3JlABcFCgAaFS0tPi0AgWQNUmV0dXJucwAtEwBxDACDKA4Ag3MNACcaAINoGgCEYgo6IFNob3cAgjMLdG8gb2J0YWluIGkAhQgJAIVMCQCFDQ0AMyEAggIRAIMFCgCDXAUKAINLDwCFdwsgICAgSGVyZSwAg1IFAH4MYW4gcHJvdmlkAIZhCgCEAgV2aWEgbXVsdGlwbGUgbWVhbnM6IEUuZy4gYmlvbWV0cmljIElELCBhAIQvBW5vdGlmAIY7ByB0bwBVEHZpYSBTTVMgZXRjLgCEAwoKCgoAhxoKAIZ2GwCIJgdzAIR0CWluZwCFTQUAhSpZAIYwBWVzAIVZB0YAhVgIAIYaBQCFQyIAhUAmUmVjb3JkAIUeCmJ5AIMMDwCFWRc-K1IAiRAGeQCHWwVTYQCKGgoAh0oPABsNAIpqCHNhdmVkAIkKBWl0YW50bHkKAEQLLS0-LQCGfhdTdWNjZXNzAIZeJwAmCACGTCcAVQgAijYuAIIBBwCIZgZvZgCLLQV1c2VyIHMAgSYGZnVsCgoK\&s=default)
+actor Healthcare Worker
+actor Individual
 
-[Editable version](https://www.websequencediagrams.com/?lz=dGl0bGUgVUMtQy1QSUMtSS0wMDJDOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAkB3dpdGggZGF0YSBjYXJyaWVkIGJ5IHRoZSBpbmRpdmlkdWFsKQoKYWN0b3IgSGVhbHRoAEAFV29ya2VyABEHSQAiCQoKABMRLT4rAC0LYXBwbGljYXRpb246IEludm9rZSBuZXcgcmVnaXN0cgAUBQA4DAAlCy0tPi0AcRE6IFByb21wdCB0byBlbnRlciBwZXJzb25hbCBudW1iZXIAZC1FbnRlcnMAJxwAgQQMPitXb3JrZmxvdyBCQjogRmV0YwCCRAd3ABEHCm5vdGUgcmlnaHQgb2YAgjAFACgHCiAgIACBeQdzAIJqBW5lZWQgZm9yAIMQCXRvIGYATQUAJgVkYXRhLAAbBWUuZy4gZnJvbSBwb3B1bACCRgUAgjgHZXIKZW5kIG5vdGUKAIEQCy0-KwCEEQhNYW5hZ2VtZW50AIEoCwCEAwhhZ3JlABcFCgAaFS0tPi0AgWQNUmV0dXJucwAtEwBxDACDKA4Ag3MNACcaAINoGgCEYgo6IFByZXNlbnQAgjYLdG8gb2J0YWluAIU0CwCFYgkAhRANADMkYQCCCRIAgw0KAIYvBQoAg1MPAIV\_CyAgICBIZXJlLACGPw8gY2FuIHByb3ZpZACGfAoARw8gICAgdXNpbmcgYSBwaHlzaWNhbCBvciBkaWdpdGFsAIcnCWQgKACECgVoZWxkIGluIGEAhHgHYWxsZXQpAIQDCgoKAIcZCgCGdRsAiDgHcwCEcwlpbmcAiBcFAIUpWQCGLwVlcwCFWAdGAIVXCACGGQUAhUIiAIU\_JlJlY29yZACFHQoAiU8RAIVYFz4rUgCJDwZ5AIdaBVNhAIosCgCHSQ8AGw0AinwIc2F2ZWQAiQkFaXRhbnRseQoARAstLT4tAIZ9F1N1Y2Nlc3MAhl0nACYIAIZLJwBVCACKNS4AggEHAIhlBm9mAIssBXVzZXIgcwCBJgZmdWwKCgo\&s=default)
+Healthcare Worker->>+Primary application: Invoke new registration
+Primary application-->>-Healthcare Worker: Prompt to enter personal number
+Healthcare Worker->>+Primary application: Enters personal number
+Primary application->>+Workflow BB: Fetch data workflow
+note right of Workflow BB: Invokes the need for consent to fetch <br/>data, for e.g. from population register
+Workflow BB->>+Consent Management BB: Fetch consent agreement
+Consent Management BB-->>-Workflow BB: Returns consent agreement
+Workflow BB-->>-Primary application: Returns consent agreement
+Primary application-->>-Individual: Presents the need to obtain individual consent <br/>Presents a consent agreement to fetch data 
+
+note right of Individual: Here, the individual can provide consent to fetch data <br/>using a physical or digital data card (e.g. held in a data wallet)
+
+Individual->>+Primary application: Consents to fetching data
+Primary application->>+Workflow BB: Fetch data workflow
+note right of Workflow BB: Fetches data, For e.g. <br/>from population register
+
+Workflow BB->>+Consent Management BB: Records consent by the individual
+Consent Management BB->>+Registry BB: Save consent
+note right of Registry BB: Consent saved persitantly
+Registry BB-->>-Consent Management BB: Success
+Consent Management BB-->>-Workflow BB: Success
+Workflow BB-->>-Primary application: Success
+
+Primary application-->>-Healthcare Worker: Registration of new user successful
+```
 
 ### Option C: Individual “holding” the data for registering to healthcare application
 
@@ -146,17 +169,42 @@ Primary application-->-Individual: Registration of new user successful
 | <p>Exceptions<br>(error situations)</p>                                                                                        | <p><br></p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | <p>Related BBs<br>(working groups related to that particular use case)</p>                                                     | Same as UC-C-PIC-I-002A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
-###
-
 ### Sequence diagram
 
 Note: Here, the sequence shows the case for assisted registration flow. The same applies also for self-registration.
 
-![](https://lh5.googleusercontent.com/nxb\_wJxbdCa6fQjL5XhKfVbBMByynzDt-pNzn6vAQObbdxa30sz25ehPfm1-gjL0LQO3punX0QT14sRLhoS6Vh2FtXhLvPsFKUhD1dFAoqmtVRvcBlPwdW3eQyJiZXZzt7MR8TRDDQB3a-T8by49lg)
+```mermaid
+sequenceDiagram
+title UC-C-PIC-I-002C: Consent - Postpartum and infant care (Give consent with data carried by the individual)
 
-[Diagram source](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVUMtQy1QSUMtMDAyOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAkB3dpdGggYXNzaXN0YW5jZSkKCgphY3RvciBIZWFsdGgALQVXb3JrZXIAEQdJbmRpdmlkdWFsCgoAExEtPisALQthcHBsaWNhdGlvbjogSW52b2tlIG5ldyByZWdpc3RyABQFADgMACULLS0-LQBxETogUHJvbXB0IHRvIGVudGVyIHBlcnNvbmFsIG51bWJlcgBkLUVudGVycwAnHACBBAw-K1dvcmtmbG93IEJCOiBGZXRjaCBkYXRhIHcAEQcKbm90ZSByaWdodCBvZgCCMAUAKAcKICAgAIF5B3MgdGhlIG5lZWQgZm9yAIJ9CXRvIGYATQUAJgVkYXRhLAAbBWUuZy4gZnJvbSBwb3B1bACCRgUAgjgHZXIKZW5kIG5vdGUKAIEQCy0-KwCDfghNYW5hZ2VtZW50AIEoCwCDcAhhZ3JlABcFCgAaFS0tPi0AgWQNUmV0dXJucwAtEwBxDACDKA4Ag3MNACcaAINoGgCEYgo6IFByZXNlbnQAgjYLdG8gb2J0YWluIGkAhQsJAIVPCQCFEA0AMyRhAIIJEgCDDQoAg2QFCgCDUw8AhX8LICAgIEhlcmUsAINaBQCBAwxhbiBwcm92aWQAhmkKAEcPICAgIHVzaW5nIGEgcGh5c2ljYWwgb3IgZGlnaXRhbACEXwZjYXJkICgAhAoFaGVsZCBpbiBhAIR4B2FsbGV0KQCEAwoKCgCHGQoAhnUbAIglB3MAhHMJaW5nAIVMBQCFKVkAhi8FZXMAhVgHRgCFVwgAhhkFAIVCIgCFPyZSZWNvcmQAhR0KYnkAgwMPAIVYFz4rUgCJDwZ5AIdaBVNhAIoZCgCHSQ8AGw0AimkIc2F2ZWQAiQkFaXRhbnRseQoARAstLT4tAIZ9F1N1Y2Nlc3MAhl0nACYIAIZLJwBVCACKNS4AggEHAIhlBm9mAIssBXVzZXIgcwCBJgZmdWwKCgo\&s=default)
+actor Healthcare Worker
+actor Individual
 
-[Editable version](https://www.websequencediagrams.com/?lz=dGl0bGUgVUMtQy1QSUMtSS0wMDJDOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKEdpdmUgYwAkB3dpdGggZGF0YSBjYXJyaWVkIGJ5IHRoZSBpbmRpdmlkdWFsKQoKYWN0b3IgSGVhbHRoAEAFV29ya2VyABEHSQAiCQoKABMRLT4rAC0LYXBwbGljYXRpb246IEludm9rZSBuZXcgcmVnaXN0cgAUBQA4DAAlCy0tPi0AcRE6IFByb21wdCB0byBlbnRlciBwZXJzb25hbCBudW1iZXIAZC1FbnRlcnMAJxwAgQQMPitXb3JrZmxvdyBCQjogRmV0YwCCRAd3ABEHCm5vdGUgcmlnaHQgb2YAgjAFACgHCiAgIACBeQdzAIJqBW5lZWQgZm9yAIMQCXRvIGYATQUAJgVkYXRhLAAbBWUuZy4gZnJvbSBwb3B1bACCRgUAgjgHZXIKZW5kIG5vdGUKAIEQCy0-KwCEEQhNYW5hZ2VtZW50AIEoCwCEAwhhZ3JlABcFCgAaFS0tPi0AgWQNUmV0dXJucwAtEwBxDACDKA4Ag3MNACcaAINoGgCEYgo6IFByZXNlbnQAgjYLdG8gb2J0YWluAIU0CwCFYgkAhRANADMkYQCCCRIAgw0KAIYvBQoAg1MPAIV\_CyAgICBIZXJlLACGPw8gY2FuIHByb3ZpZACGfAoARw8gICAgdXNpbmcgYSBwaHlzaWNhbCBvciBkaWdpdGFsAIcnCWQgKACECgVoZWxkIGluIGEAhHgHYWxsZXQpAIQDCgoKAIcZCgCGdRsAiDgHcwCEcwlpbmcAiBcFAIUpWQCGLwVlcwCFWAdGAIVXCACGGQUAhUIiAIU\_JlJlY29yZACFHQoAiU8RAIVYFz4rUgCJDwZ5AIdaBVNhAIosCgCHSQ8AGw0AinwIc2F2ZWQAiQkFaXRhbnRseQoARAstLT4tAIZ9F1N1Y2Nlc3MAhl0nACYIAIZLJwBVCACKNS4AggEHAIhlBm9mAIssBXVzZXIgcwCBJgZmdWwKCgo\&s=default)
+Healthcare Worker->>+Primary application: Invoke new registration
+Primary application-->>-Healthcare Worker: Prompt to enter personal number
+Healthcare Worker->>+Primary application: Enters personal number
+Primary application->>+Workflow BB: Fetch data workflow
+note right of Workflow BB: Invokes the need for consent to fetch <br/>data, for e.g. from population register
+Workflow BB->>+Consent Management BB: Fetch consent agreement
+Consent Management BB-->>-Workflow BB: Returns consent agreement
+Workflow BB-->>-Primary application: Returns consent agreement
+Primary application-->>-Individual: Presents the need to obtain individual consent <br/>Presents a consent agreement to fetch data 
+
+note right of Individual: Here, the individual can provide consent to fetch data <br/>using a physical or digital data card (e.g. held in a data wallet)
+
+Individual->>+Primary application: Consents to fetching data
+Primary application->>+Workflow BB: Fetch data workflow
+note right of Workflow BB: Fetches data, For e.g. <br/>from population register
+
+Workflow BB->>+Consent Management BB: Records consent by the individual
+Consent Management BB->>+Registry BB: Save consent
+note right of Registry BB: Consent saved persitantly
+Registry BB-->>-Consent Management BB: Success
+Consent Management BB-->>-Workflow BB: Success
+Workflow BB-->>-Primary application: Success
+
+Primary application-->>-Healthcare Worker: Registration of new user successful
+```
 
 ## UC-C-PIC-I-003: Withdraw or update existing consent
 
@@ -177,9 +225,27 @@ Note: Here, the sequence shows the case for assisted registration flow. The same
 
 ### Sequence diagram
 
-![](https://lh3.googleusercontent.com/V\_kIv-3\_coTOLP-FHqvhR0P0LpvK0fO1AIijXS8yEFJf6rQTXZXNUZ0YEiY3sug6Kwr3ZnPz7I-ORD9ptbxTTLf8VBmRWaYI7ezGVfGjj4fxcawqKhA5OYldLQoKcFeM3UNNbLDV2ogLlyCSkvlzuY4)
+```mermaid
+sequenceDiagram
+title UC-C-PIC-I-003: Consent update flow
 
-[Diagram Source](https://www.websequencediagrams.com/?png=msc2041685806)
+actor Individual
+
+Note right of Individual: The individual is signed <br/>into the Application 
+Individual ->>+Primary application: Invoke a consent update/withdraw workflow
+Primary application->>+Workflow BB: Triggers the consent update/withdraw workflow
+Workflow BB->>+Consent BB: (GET) service/verification/consentrecords/{agreement-id, individual-id}
+Consent BB-->>-Workflow BB: object: consentRecord, Revision
+Workflow BB-->>-Primary application: Returns consent record
+Primary application-->>-Individual: shows consent agreement
+Note left of Primary application: The individual reviews Consent Agreement. <br/> Updates/withdraws Consent (signature) 
+Individual ->>+Primary application: Updates/withdrawas the Consent Agreement
+Primary application->>+Workflow BB: Triggers consent agreement signing
+Workflow BB->>+Consent BB: (PUT) service/record/{individual-id}/consentRecord/{consentRecord-id}
+Consent BB-->>-Workflow BB: object: consentRecord, Revision
+Workflow BB-->>-Primary application: Returns updated/withdrawn Agreement
+Primary application-->>-Individual: shows updated/withdrawn consent agreement
+```
 
 ## UC-C-PIC-I-004: Consent agreement change notification
 
@@ -195,7 +261,7 @@ Note: Here, the sequence shows the case for assisted registration flow. The same
 | <p>Alternative Course<br>(links to other use cases in case there are different ways how to solve the same use case)</p>        | <ol><li>Withdraw or update consent failure scenarios</li><li>Connection error scenarios</li></ol>                                                                                                                                                                                                                   |
 | Data output                                                                                                                    | NA                                                                                                                                                                                                                                                                                                                  |
 | Post-Conditions (the success criteria)                                                                                         | <ol><li>The individual is able to view consent agreements that are signed or to be signed.</li><li>The individual is able to withdraw consent or update existing consents.</li></ol>                                                                                                                                |
-| <p>Exceptions<br>(error situations)</p>                                                                                        | <ul><li><br></li></ul>                                                                                                                                                                                                                                                                                              |
+| <p>Exceptions<br>(error situations)</p>                                                                                        | <p><br></p>                                                                                                                                                                                                                                                                                                         |
 | <p>Related BBs<br>(working groups related to that particular use case)</p>                                                     | <ol><li>Identity BB (Required for acquiring authentication token)</li><li>Registries BB - stores the data agreement data,</li><li>Information Mediator BB - providing interfaces</li><li>Security BB - supervision</li></ol>                                                                                        |
 
 ### Sequence diagram

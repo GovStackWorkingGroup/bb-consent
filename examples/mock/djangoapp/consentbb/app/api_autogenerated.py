@@ -130,7 +130,7 @@ def service_agreement_read(request, agreementId: str):
 
 
 @api.get("/service/policy/{policyId}/")
-def service_policy_read(request, policyId: str):
+def service_policy_read(request, policyId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.Policy, pk=policyId)
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance).dict()
@@ -139,7 +139,7 @@ def service_policy_read(request, policyId: str):
 
 
 @api.get("/service/purpose/{purposeId}/")
-def service_agreement_purpose_read(request, purposeId: str):
+def service_agreement_purpose_read(request, purposeId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.AgreementPurpose, pk=purposeId)
     mocked_instance = G(models.Revision)
     object1 = schemas.AgreementPurposeSchema.from_orm(db_instance).dict()
@@ -148,7 +148,7 @@ def service_agreement_purpose_read(request, purposeId: str):
 
 
 @api.get("/service/agreement/{agreementId}/agreementdata/")
-def service_agreement_data_read(request, agreementId: str):
+def service_agreement_data_read(request, agreementId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.AgreementData, pk=agreementId)
     return schemas.AgreementDataSchema.from_orm(db_instance).dict()
 

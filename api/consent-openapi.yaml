@@ -726,14 +726,21 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - fetches the latest version of a Policy"
+      summary: "READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement"
       operationId: "servicePolicyRead"
-      description: "READ - fetches the latest version of a Policy"
+      description: "READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement"
       parameters: 
         - in: path
           name: "policyId"
           description: "Unique ID of an object"
           required: true
+          schema:
+            type: string
+
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
           schema:
             type: string
 
@@ -765,14 +772,21 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - fetches the latest version of an AgreementPurpose"
+      summary: "READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement"
       operationId: "serviceAgreementPurposeRead"
-      description: "READ - fetches the latest version of an AgreementPurpose"
+      description: "READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement"
       parameters: 
         - in: path
           name: "purposeId"
           description: "Unique ID of an object"
           required: true
+          schema:
+            type: string
+
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
           schema:
             type: string
 
@@ -804,14 +818,21 @@ paths:
     get:
       tags:
         - service
-      summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
       operationId: "serviceAgreementDataRead"
-      description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement"
+      description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
       parameters: 
         - in: path
           name: "agreementId"
           description: "Unique ID of an object"
           required: true
+          schema:
+            type: string
+
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
           schema:
             type: string
 
@@ -2147,11 +2168,17 @@ components:
           example: ""
           description: "The PK of the object that was serialized."
 
+        signed_without_object_id:
+          type: boolean
+          format: ""
+          example: ""
+          description: "Indicates that object_id was left blank in serialized_snapshot when calculating serialized_hash. object_id may be subsequently filled in."
+
         serialized_snapshot:
           type: string
           format: ""
           example: ""
-          description: "Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature."
+          description: "Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., signed_without_object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature."
 
         serialized_hash:
           type: string
@@ -2325,7 +2352,7 @@ components:
           type: string
           format: ""
           example: ""
-          description: "The payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict."
+          description: "The final payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., signed_without_object_reference: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict. If the signature is generated before anything is stored in the database (and has a PK), then the object_reference should be omitted from the payload but filled in afterwards."
 
         signature:
           type: string
@@ -2380,6 +2407,12 @@ components:
           format: ""
           example: ""
           description: "Timestamp of signature, currently this field isn't part of the payload so it's not tamper-proof."
+
+        signed_without_object_reference:
+          type: boolean
+          format: ""
+          example: ""
+          description: "Indicates that object_reference was left blank in the serialized version that was signed."
 
         object_type:
           type: string

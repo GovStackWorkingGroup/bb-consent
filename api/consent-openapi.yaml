@@ -35,14 +35,7 @@ paths:
       summary: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
       operationId: "configCreatePolicy"
       description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
-      parameters: 
-        - in: query
-          name: policy
-          description: "An object of type Policy"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Policy'
-
+      parameters: []
       x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
@@ -65,6 +58,22 @@ paths:
       security:
         - OAuth2: [org]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policy:
+                  $ref: '#/components/schemas/Policy'
+                  description: An object of type Policy
+
+              required:
+                - policy
+
+
+
+
 
   /config/policy/{policyId}/:
 
@@ -83,11 +92,11 @@ paths:
             type: string
 
         - in: query
-          name: policyFilter
-          description: "An object of type PolicyFilter"
+          name: revisionId
+          description: "An object with id revisionId"
           required: false
           schema:
-            $ref: '#/components/schemas/PolicyFilter'
+            type: string
 
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
@@ -112,6 +121,7 @@ paths:
         - OAuth2: [org]
 
 
+
     put:
       tags:
         - config
@@ -125,13 +135,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: policy
-          description: "An object of type Policy"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Policy'
 
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
@@ -154,6 +157,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policy:
+                  $ref: '#/components/schemas/Policy'
+                  description: An object of type Policy
+
+              required:
+                - policy
+
+
+
 
 
     delete:
@@ -187,6 +206,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
 
 
   /config/policy/{policyId}/revisions/:
@@ -238,6 +258,7 @@ paths:
         - OAuth2: [org]
 
 
+
   /config/policies/:
 
     get:
@@ -248,11 +269,11 @@ paths:
       description: "LIST - Fetches list of readable Policy objects"
       parameters: 
         - in: query
-          name: policyFilter
-          description: "An object of type PolicyFilter"
+          name: revisionId
+          description: "An object with id revisionId"
           required: false
           schema:
-            $ref: '#/components/schemas/PolicyFilter'
+            type: string
 
         - in: query
           name: "offset"
@@ -288,6 +309,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [admin]
+
 
 
   /config/agreement/{agreementId}/:
@@ -329,6 +351,7 @@ paths:
         - OAuth2: [org]
 
 
+
     put:
       tags:
         - config
@@ -342,13 +365,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: agreement
-          description: "An object of type Agreement"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Agreement'
 
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
@@ -371,6 +387,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agreement:
+                  $ref: '#/components/schemas/Agreement'
+                  description: An object of type Agreement
+
+              required:
+                - agreement
+
+
+
 
 
     delete:
@@ -406,6 +438,7 @@ paths:
         - OAuth2: [org]
 
 
+
   /config/agreement/:
 
     post:
@@ -414,14 +447,7 @@ paths:
       summary: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
       operationId: "configCreateAgreement"
       description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
-      parameters: 
-        - in: query
-          name: agreement
-          description: "An object of type Agreement"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Agreement'
-
+      parameters: []
       x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
@@ -444,23 +470,32 @@ paths:
       security:
         - OAuth2: [org]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agreement:
+                  $ref: '#/components/schemas/Agreement'
+                  description: An object of type Agreement
+
+              required:
+                - agreement
+
+
+
+
 
   /config/agreements/:
 
     get:
       tags:
         - config
-      summary: ""
+      summary: "LIST - fetch all Agreements"
       operationId: "configListAgreement"
-      description: ""
+      description: "LIST - fetch all Agreements"
       parameters: 
-        - in: query
-          name: agreementFilter
-          description: "An object of type AgreementFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/AgreementFilter'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -497,6 +532,66 @@ paths:
         - OAuth2: [org]
 
 
+
+    post:
+      tags:
+        - config
+      summary: "LIST - fetch Agreements matching AgreementFilter"
+      operationId: "configListAgreementFilter"
+      description: "LIST - fetch Agreements matching AgreementFilter"
+      parameters: 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Agreement"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Agreement'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agreementFilter:
+                  $ref: '#/components/schemas/AgreementFilter'
+                  description: An object of type AgreementFilter
+
+              required:
+                - agreementFilter
+
+
+
+
+
   /service/individual/:
 
     post:
@@ -505,14 +600,7 @@ paths:
       summary: "CREATE - Creates an Individual in the Consent system"
       operationId: "serviceIndividualCreate"
       description: "CREATE - Creates an Individual in the Consent system"
-      parameters: 
-        - in: query
-          name: registryReference
-          description: "An object of type RegistryReference"
-          required: false
-          schema:
-            $ref: '#/components/schemas/RegistryReference'
-
+      parameters: []
       x-specification-usecase: ""
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
@@ -530,6 +618,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                individual:
+                  $ref: '#/components/schemas/Individual'
+                  description: An object of type Individual
+
+              required:
+                - individual
+
+
+
 
 
   /service/individual/{individualId}/:
@@ -567,6 +671,7 @@ paths:
         - OAuth2: [org]
 
 
+
     put:
       tags:
         - service
@@ -598,6 +703,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                individual:
+                  $ref: '#/components/schemas/Individual'
+                  description: An object of type Individual
+
+              required:
+                - individual
+
+
+
 
 
     delete:
@@ -633,6 +754,7 @@ paths:
         - OAuth2: [org]
 
 
+
   /service/individuals/:
 
     get:
@@ -642,13 +764,6 @@ paths:
       operationId: "serviceIndividualList"
       description: "LIST - lists individuals in the system"
       parameters: 
-        - in: query
-          name: registryReference
-          description: "An object of type RegistryReference"
-          required: false
-          schema:
-            $ref: '#/components/schemas/RegistryReference'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -674,12 +789,75 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+
+
+    post:
+      tags:
+        - service
+      summary: "LIST - lists individuals in the system"
+      operationId: "serviceIndividualListFilter"
+      description: "LIST - lists individuals in the system"
+      parameters: 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Individual'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                individualFilter:
+                  $ref: '#/components/schemas/IndividualFilter'
+                  description: An object of type IndividualFilter
+
+              required:
+                - individualFilter
+
+
+
 
 
   /service/agreement/{agreementId}/:
@@ -719,6 +897,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
 
 
   /service/policy/{policyId}/:
@@ -767,6 +946,7 @@ paths:
         - OAuth2: [org]
 
 
+
   /service/purpose/{purposeId}/:
 
     get:
@@ -811,6 +991,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
 
 
   /service/agreement/{agreementId}/agreementdata/:
@@ -858,22 +1039,16 @@ paths:
         - OAuth2: [org]
 
 
+
   /service/verification/agreements/:
 
     get:
       tags:
         - service
-      summary: "LIST - Fetch consent records for suplied AgreementFilter"
+      summary: "LIST - Fetch consent records"
       operationId: "serviceVerificationAgreementList"
-      description: "LIST - Fetch consent records for suplied AgreementFilter"
+      description: "LIST - Fetch consent records"
       parameters: 
-        - in: query
-          name: agreementFilter
-          description: "An object of type AgreementFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/AgreementFilter'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -908,6 +1083,66 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [consumer]
+
+
+
+    post:
+      tags:
+        - service
+      summary: "LIST - Fetch consent records for supplied AgreementFilter"
+      operationId: "serviceVerificationAgreementListFilter"
+      description: "LIST - Fetch consent records for supplied AgreementFilter"
+      parameters: 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: "1.1"
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [consumer]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agreementFilter:
+                  $ref: '#/components/schemas/AgreementFilter'
+                  description: An object of type AgreementFilter
+
+              required:
+                - agreementFilter
+
+
+
 
 
   /service/verification/agreement/{agreementId}/:
@@ -949,22 +1184,16 @@ paths:
         - OAuth2: [consumer]
 
 
+
   /service/verification/consentrecords/:
 
-    get:
+    post:
       tags:
         - service
-      summary: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
+      summary: "LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists."
       operationId: "serviceVerificationConsentRecordList"
-      description: "LIST - Fetch consent records (latest revision). For a given Agreement and Individual, query if consent exists"
+      description: "LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists."
       parameters: 
-        - in: query
-          name: consentRecordFilter
-          description: "An object of type ConsentRecordFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/ConsentRecordFilter'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -999,6 +1228,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [consumer]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentRecordFilter:
+                  $ref: '#/components/schemas/ConsentRecordFilter'
+                  description: An object of type ConsentRecordFilter
+
+              required:
+                - consentRecordFilter
+
+
+
 
 
   /service/individual/record/agreement/{agreementId}/:
@@ -1054,6 +1299,7 @@ paths:
         - OAuth2: [individual]
 
 
+
     get:
       tags:
         - service
@@ -1085,6 +1331,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [individual]
+
 
 
   /service/individual/record/consentrecord/draft/:
@@ -1140,6 +1387,7 @@ paths:
         - OAuth2: [individual]
 
 
+
   /service/individual/record/consentrecord/:
 
     post:
@@ -1148,21 +1396,7 @@ paths:
       summary: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
       operationId: "serviceCreateIndividualConsentRecordAndSignature"
       description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
-      parameters: 
-        - in: query
-          name: consentRecord
-          description: "An object of type ConsentRecord"
-          required: true
-          schema:
-            $ref: '#/components/schemas/ConsentRecord'
-
-        - in: query
-          name: signature
-          description: "An object of type Signature"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Signature'
-
+      parameters: []
       x-specification-usecase: "UC-C-PIC-I-002"
       x-specification-scenario: "1.2"
       x-specification-pii-or-sensitive: "True"
@@ -1178,12 +1412,35 @@ paths:
                 items:
                   oneOf:
                     - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Revision'
                     - $ref: '#/components/schemas/Signature'
 
         '400':
           description: bad input parameter
       security:
         - OAuth2: [individual]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentRecord:
+                  $ref: '#/components/schemas/ConsentRecord'
+                  description: An object of type ConsentRecord
+
+                signature:
+                  $ref: '#/components/schemas/Signature'
+                  description: An object of type Signature
+
+              required:
+                - consentRecord
+
+                - signature
+
+
+
 
 
   /service/individual/record/consentrecord/{consentRecordId}/:
@@ -1246,6 +1503,7 @@ paths:
         - OAuth2: [individual]
 
 
+
   /service/individual/record/consentrecord/{consentRecordId}/signature/:
 
     post:
@@ -1281,6 +1539,7 @@ paths:
         - OAuth2: [individual]
 
 
+
     put:
       tags:
         - service
@@ -1294,13 +1553,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: signature
-          description: "An object of type Signature"
-          required: true
-          schema:
-            $ref: '#/components/schemas/Signature'
 
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
@@ -1319,6 +1571,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [individual]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/Signature'
+                  description: An object of type Signature
+
+              required:
+                - signature
+
+
+
 
 
   /service/individual/record/agreement/{agreementId}/all/:
@@ -1373,6 +1641,7 @@ paths:
         - OAuth2: [individual]
 
 
+
   /service/individual/record/:
 
     get:
@@ -1418,6 +1687,7 @@ paths:
         - OAuth2: [individual]
 
 
+
     delete:
       tags:
         - service
@@ -1437,6 +1707,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [individual]
+
 
 
   /audit/trackers/:
@@ -1484,6 +1755,7 @@ paths:
         - OAuth2: []
 
 
+
   /audit/tracker/:
 
     post:
@@ -1492,14 +1764,7 @@ paths:
       summary: "CREATE - A new AuditTracker is set up"
       operationId: "auditCreateTracker"
       description: "CREATE - A new AuditTracker is set up"
-      parameters: 
-        - in: query
-          name: auditTracker
-          description: "An object of type AuditTracker"
-          required: true
-          schema:
-            $ref: '#/components/schemas/AuditTracker'
-
+      parameters: []
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
@@ -1517,6 +1782,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auditTracker:
+                  $ref: '#/components/schemas/AuditTracker'
+                  description: An object of type AuditTracker
+
+              required:
+                - auditTracker
+
+
+
 
 
   /audit/tracker/{trackerId}/:
@@ -1554,6 +1835,7 @@ paths:
         - OAuth2: []
 
 
+
     put:
       tags:
         - auditor
@@ -1567,13 +1849,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: auditTracker
-          description: "An object of type AuditTracker"
-          required: true
-          schema:
-            $ref: '#/components/schemas/AuditTracker'
 
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-002"
       x-specification-scenario: ""
@@ -1592,6 +1867,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auditTracker:
+                  $ref: '#/components/schemas/AuditTracker'
+                  description: An object of type AuditTracker
+
+              required:
+                - auditTracker
+
+
+
 
 
     delete:
@@ -1627,22 +1918,16 @@ paths:
         - OAuth2: []
 
 
+
   /audit/consentrecords/:
 
-    get:
+    post:
       tags:
         - auditor
       summary: "LIST - fetch ConsentRecord objects"
       operationId: "auditConsentRecordList"
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
-        - in: query
-          name: consentRecordFilter
-          description: "An object of type ConsentRecordFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/ConsentRecordFilter'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -1677,6 +1962,22 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentRecordFilter:
+                  $ref: '#/components/schemas/ConsentRecordFilter'
+                  description: An object of type ConsentRecordFilter
+
+              required:
+                - consentRecordFilter
+
+
+
 
 
   /audit/consentrecord/{consentRecordId}/:
@@ -1714,22 +2015,16 @@ paths:
         - OAuth2: []
 
 
+
   /audit/agreements/:
 
-    get:
+    post:
       tags:
         - auditor
       summary: "LIST - fetch all Agreements stored in the system."
       operationId: "auditAgreementList"
       description: "LIST - fetch all Agreements stored in the system."
       parameters: 
-        - in: query
-          name: agreementFilter
-          description: "An object of type AgreementFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/AgreementFilter'
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -1765,6 +2060,22 @@ paths:
       security:
         - OAuth2: []
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                agreementFilter:
+                  $ref: '#/components/schemas/AgreementFilter'
+                  description: An object of type AgreementFilter
+
+              required:
+                - agreementFilter
+
+
+
+
 
   /audit/agreement/{agreementId}/:
 
@@ -1781,13 +2092,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: agreementFilter
-          description: "An object of type AgreementFilter"
-          required: false
-          schema:
-            $ref: '#/components/schemas/AgreementFilter'
 
       x-specification-usecase: "UC-C-PIC-AT-001, UC-C-PIC-AT-003"
       x-specification-scenario: ""
@@ -1806,6 +2110,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
+
 
 
   /status/startup/:
@@ -1829,6 +2134,7 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
+
 
 
   /status/readiness/:
@@ -1855,6 +2161,7 @@ paths:
 
 
 
+
 components:
   schemas:
 
@@ -1862,6 +2169,7 @@ components:
       type: object
       description: "Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements."
       x-not-in-database: false
+
       required:
            - id
       properties:
@@ -1895,6 +2203,7 @@ components:
       type: object
       description: "An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord"
       x-not-in-database: false
+
       required:
            - id
            - version
@@ -1979,6 +2288,7 @@ components:
       type: object
       description: "Agreement data contains specifications of exactly what is collected."
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2020,6 +2330,7 @@ components:
       type: object
       description: "A policy governs data and Agreement in the realm of an organisation that is refered to as \"data controller\" (GDPR) and owner of referencing Agreements."
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2086,6 +2397,7 @@ components:
       type: object
       description: "A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)"
       x-not-in-database: false
+
       required:
            - id
            - agreement_revision_hash
@@ -2141,6 +2453,7 @@ components:
       type: object
       description: "A *generic* revision model captures the serialized contents of any shema's single row. This is then subject to 1) cryptographic signature and 2) auditing.\n\nAside from \"successor\" column, a revision should be considered locked."
       x-not-in-database: false
+
       required:
            - id
            - schema_name
@@ -2225,6 +2538,7 @@ components:
       type: object
       description: "Query filter for API endpoint listing Agreement objects"
       x-not-in-database: true
+
       required:
            - name
       properties:
@@ -2240,6 +2554,7 @@ components:
       type: object
       description: "Query filter for API endpoint listing ConsentRecord objects"
       x-not-in-database: true
+
       required:
            - opt_in
       properties:
@@ -2278,30 +2593,11 @@ components:
           description: ""
 
 
-    PolicyFilter:
-      type: object
-      description: "Query filter for API endpoint listing Policy objects"
-      x-not-in-database: true
-      required:
-           - name
-      properties:
-
-        name:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-        revision:
-          $ref: '#/components/schemas/Revision'
-          x-fk-model: "Revision"
-          description: ""
-
-
     Controller:
       type: object
       description: "Details of a data controller."
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2331,6 +2627,7 @@ components:
       type: object
       description: "A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object."
       x-not-in-database: false
+
       required:
            - id
            - payload
@@ -2431,6 +2728,7 @@ components:
       type: object
       description: "TBD: Models the purpose of an agreement"
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2466,6 +2764,7 @@ components:
       type: object
       description: "TBD: Models the valid lifecycle states of an Agreement"
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2484,19 +2783,12 @@ components:
           description: "Draft / Complete"
 
 
-    RegistryReference:
+    IndividualFilter:
       type: object
       description: "TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"
-      x-not-in-database: false
-      required:
-           - id
-      properties:
+      x-not-in-database: true
 
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
+      properties:
 
         foundational_id:
           type: string
@@ -2515,6 +2807,7 @@ components:
       type: object
       description: "TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service."
       x-not-in-database: false
+
       required:
            - id
            - name
@@ -2577,6 +2870,7 @@ components:
       type: object
       description: "TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."
       x-not-in-database: false
+
       required:
            - id
            - event_name
@@ -2599,6 +2893,7 @@ components:
       type: object
       description: "This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."
       x-not-in-database: true
+
       required:
            - status
       properties:
@@ -2626,6 +2921,7 @@ components:
       type: object
       description: "This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."
       x-not-in-database: true
+
       required:
            - status
       properties:

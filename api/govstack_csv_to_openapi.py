@@ -108,6 +108,7 @@ path_spec_template = """
           description: bad input parameter
       security:
         - OAuth2: [{security}]
+{request_body}
 """
 
 responseOK_template_single_object = """
@@ -129,15 +130,28 @@ responseOK_template_objects = """
 responseOK_template_object = """
                     - $ref: '#/components/schemas/{schema}'"""
 
-path_spec_template_post = path_spec_template + """
+request_body_template = """
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/{request_parameter}'
-        description: Insert manually
+              type: object
+              properties:{request_body_parameters}{request_body_parameters_required}
 """
 
+request_body_parameters_required_header_template = """
+              required:{request_body_parameters_required}
+"""
+
+request_body_parameter_template = """
+                {name}:
+                  $ref: '#/components/schemas/{schema_model}'
+                  description: {description}
+"""
+
+request_body_parameters_required_template = """
+                - {name}
+"""
 
 # See: https://swagger.io/docs/specification/describing-parameters/
 parameter_template = """
@@ -175,7 +189,6 @@ schema_template = """
       type: {schema_type}
       description: "{description}"
       x-not-in-database: {database}
-      required:
 {required}
       properties:
 {properties}
@@ -480,6 +493,8 @@ def get_api_spec_from_row(row, current_tag):
     # See: https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines
     summary = row[8].replace("\n", "\\n").replace("\"", "\\\"") or description
     parameters = ""
+    request_body_parameters = ""
+    request_body_parameters_required = ""
 
     pattern_url_parameters = re.compile("{(\w+)}")
 
@@ -517,13 +532,15 @@ def get_api_spec_from_row(row, current_tag):
                 description="An object with id {}".format(query_parameter_cleaned),
             )
         else:
-            parameters += parameter_template_schema.format(
-                where="query",
+            request_body_parameters += request_body_parameter_template.format(
                 name=first_lowercase(query_parameter_cleaned),
-                required="true" if query_parameter_required else "false",
                 schema_model=query_parameter_cleaned,
                 description="An object of type {}".format(query_parameter_cleaned),
             )
+            if query_parameter_required:
+                request_body_parameters_required += request_body_parameters_required_template.format(
+                    name=first_lowercase(query_parameter_cleaned),
+                )
 
     if "List" in operation_id:
         parameters += parameter_template.format(
@@ -567,6 +584,18 @@ def get_api_spec_from_row(row, current_tag):
             objects=response_ok_objects_schemas_to_insert
         )
 
+    request_body = ""
+    if request_body_parameters:
+        request_body_parameters_required_final = ""
+        if request_body_parameters_required:
+            request_body_parameters_required_final = request_body_parameters_required_header_template.format(
+                request_body_parameters_required=request_body_parameters_required
+            )
+        request_body = request_body_template.format(
+            request_body_parameters=request_body_parameters,
+            request_body_parameters_required=request_body_parameters_required_final,
+        )
+
     return {
         "url": url,
         "tag": current_tag,
@@ -583,6 +612,7 @@ def get_api_spec_from_row(row, current_tag):
         "scenario": scenario,
         "sensitive": sensitive,
         "crudl_model": crudl_model,
+        "request_body": request_body,
     }
 
 
@@ -727,13 +757,21 @@ with open(schema_csv_file, newline='') as csvfile:
 html_table_rows_output = ""
 
 for schema_name, properties in schema_fields.items():
+
+    if schema_field_names_required[schema_name]:
+        required = "\n      required:\n{required}".format(
+            required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
+        )
+    else:
+        required = ""
+
     output_schemas += schema_template.format(
         schema=schema_name,
         description=schema_descriptions[schema_name],
         schema_type="object",
         database=str(schema_name in schemas_not_in_db).lower(),
         properties=properties,
-        required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
+        required=required,
     )
     html_table_rows_output += html_table_rows_template.format(
         model_name="""<code style="font-family: monospace; white-space: nowrap">{}</code>""".format(schema_name),

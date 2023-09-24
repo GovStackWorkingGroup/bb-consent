@@ -93,6 +93,9 @@ The intention is to help with shortcuts for local demos and development of the m
 
 # Launch docker-compose mock application
 ./dev.sh
+
+# Output API spec markdown for GitBook
+./dev.sh gitbook-api-spec
 ```
 
 Once you have the mock application up and running, you can now access several interesting endpoints:

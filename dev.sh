@@ -39,6 +39,23 @@ then
 
 fi
 
+if [ "$1" == "gitbook-api-spec" ]
+then
+
+  ./api/govstack_csv_to_openapi.py \
+    "api/GovStack Consent BB API endpoints - endpoints.csv" \
+    "api/GovStack Consent BB API endpoints - schema.csv" \
+    > "api/consent-openapi.yaml"
+
+  ./api/govstack_csv_to_openapi.py \
+    "api/GovStack Consent BB API endpoints - endpoints.csv" \
+    "api/GovStack Consent BB API endpoints - schema.csv" \
+    --gitbook-api-spec
+
+  exit
+
+fi
+
 if [ "$1" == "build" ]
 then
   cd ./test/gherkin/

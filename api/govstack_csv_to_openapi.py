@@ -49,18 +49,14 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: org
+  - name: config
     description: Secured operations available to organization API integration
-  - name: dataconsumer
-    description: Secured operations for data consumers and applications to verify consent
-  - name: individual
-    description: Individual operations
+  - name: service
+    description: Secured operations for individuals, data consumers and applications to record and verify consent
   - name: auditor
     description: Operations for external auditing systems to query detailed data from the system and subscribe to notifications.
   - name: notification
     description: Subscribe/unsubscribe notifications for data processors, consumers and frontend systems for individuals.
-  - name: callback
-    description: Callback API for other Building Blocks, especially relevant for asynchronous processes.
 paths:
 {paths}
 

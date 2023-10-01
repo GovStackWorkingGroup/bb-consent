@@ -49,18 +49,14 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: org
+  - name: config
     description: Secured operations available to organization API integration
-  - name: dataconsumer
-    description: Secured operations for data consumers and applications to verify consent
-  - name: individual
-    description: Individual operations
+  - name: service
+    description: Secured operations for individuals, data consumers and applications to record and verify consent
   - name: auditor
     description: Operations for external auditing systems to query detailed data from the system and subscribe to notifications.
   - name: notification
     description: Subscribe/unsubscribe notifications for data processors, consumers and frontend systems for individuals.
-  - name: callback
-    description: Callback API for other Building Blocks, especially relevant for asynchronous processes.
 paths:
 {paths}
 
@@ -1047,6 +1043,64 @@ def generate_django_ninja_api(yaml_data):
     return django_api_template.format(endpoints=django_api_output, VERSION=VERSION)
 
 
+
+def generate_gitbook_api_spec(yaml_data):
+    """
+    Generates .md data for GitBook
+    """
+
+    gitbook_output = ""
+
+    output_by_spec = {
+        "config": [],
+        "service": [],
+        "audit": [],
+        "notification": [],
+        "status": [],
+    }
+
+    for api_url, endpoints in yaml_data["paths"].items():
+
+        for method, endpoint in endpoints.items():
+            section = api_url.split("/")[1]
+            if not section in output_by_spec:
+                raise Exception(section)
+            output_by_spec[section].append(
+                """
+{{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml" path="{url}" method="{method}" %}}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml)
+{{% endswagger %}}""".format(
+                    url=api_url,
+                    method=method,
+                    version=VERSION
+                )
+            )
+
+    print("""
+
+# 8.1 API specification
+
+The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/{version}/api).
+""".format(version=VERSION))
+
+    print("""
+## 8.1.1 Config APIs""")
+
+    for output in output_by_spec["config"]:
+        print(output)
+
+    print("""
+## 8.1.2 Service APIs""")
+
+    for output in output_by_spec["service"]:
+        print(output)
+
+    print("""
+## 8.1.3 Audit APIs""")
+
+    for output in output_by_spec["audit"]:
+        print(output)
+
 html_table_output = html_table_template.format(rows=html_table_rows_output)
 
 if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
@@ -1071,6 +1125,11 @@ elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
 
     output = generate_django_ninja_api(get_yaml())
+    print(output)
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--gitbook-api-spec":
+
+    output = generate_gitbook_api_spec(get_yaml())
     print(output)
 
 else:

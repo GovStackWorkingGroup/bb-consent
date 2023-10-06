@@ -4,7 +4,7 @@ version: 2.1
 setup: true
 
 orbs:
-  test-harness: govstack-working-group/testutils@dev:alpha
+  test-harness: govstack-working-group/testutils@dev:1.0.5
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

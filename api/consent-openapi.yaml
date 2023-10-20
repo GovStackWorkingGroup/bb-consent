@@ -943,53 +943,6 @@ paths:
 
 
 
-  /service/purpose/{purposeId}/:
-
-    get:
-      tags:
-        - service
-      summary: "READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement"
-      operationId: "serviceAgreementPurposeRead"
-      description: "READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement"
-      parameters: 
-        - in: path
-          name: "purposeId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
-          schema:
-            type: string
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "AgreementPurpose"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/AgreementPurpose'
-                    - $ref: '#/components/schemas/Revision'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-
   /service/agreement/{agreementId}/agreementdata/:
 
     get:
@@ -2203,6 +2156,7 @@ components:
       required:
            - id
            - version
+           - purpose
            - lawful_basis
            - dpia
       properties:
@@ -2230,8 +2184,9 @@ components:
           description: "Reference to the policy under which this Agreement shall be governed"
 
         purpose:
-          $ref: '#/components/schemas/AgreementPurpose'
-          x-fk-model: "AgreementPurpose"
+          type: string
+          format: ""
+          example: ""
           description: "Purpose of data processing or purpose of consent. Displayed to the user."
 
         lawful_basis:
@@ -2718,42 +2673,6 @@ components:
           format: ""
           example: ""
           description: "A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)"
-
-
-    AgreementPurpose:
-      type: object
-      description: "TBD: Models the purpose of an agreement"
-      x-not-in-database: false
-
-      required:
-           - id
-           - name
-           - description
-      properties:
-
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-        name:
-          type: string
-          format: ""
-          example: ""
-          description: "Name of purpose"
-
-        description:
-          type: string
-          format: ""
-          example: ""
-          description: "Description of purpose"
-
-        serialized_hash:
-          type: string
-          format: ""
-          example: ""
-          description: "In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)"
 
 
     AgreementLifecycle:

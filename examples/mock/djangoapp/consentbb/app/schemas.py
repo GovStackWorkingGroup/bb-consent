@@ -67,11 +67,6 @@ class SignatureSchema(ModelSchema):
         model = models.Signature
         model_fields = "__all__"
 
-class AgreementPurposeSchema(ModelSchema):
-    class Config:
-        model = models.AgreementPurpose
-        model_fields = "__all__"
-
 class AgreementLifecycleSchema(ModelSchema):
     class Config:
         model = models.AgreementLifecycle

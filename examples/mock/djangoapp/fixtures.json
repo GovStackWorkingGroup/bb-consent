@@ -15,7 +15,7 @@
     "version": "1.1",
     "controller": 1,
     "policy": 1,
-    "purpose": 1,
+    "purpose": "To register a child for health care",
     "lawful_basis": "consent",
     "data_use": null,
     "dpia": "Example Impact Assessment from Government Authority",
@@ -85,7 +85,7 @@
   "fields": {
     "schema_name": "Agreement",
     "object_id": "1",
-    "serialized_snapshot": "{\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-15 12:03:17.528098+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null,\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://www.example.com\"\n    },\n    \"policy\": 1,\n    \"purpose\": {\n      \"name\": \"Child registration\",\n      \"description\": \"To register a child for health care\",\n      \"serialized_hash\": null\n    },\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"Example Impact Assessment from Government Authority\",\n    \"signature\": null,\n    \"active\": false,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": {\n      \"name\": \"Draft\"\n    },\n    \"agreementdata\": []\n  }\n}",
+    "serialized_snapshot": "{\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-15 12:03:17.528098+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null,\n  \"object_data\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://www.example.com\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"To register a child for health care\",\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"Example Impact Assessment from Government Authority\",\n    \"signature\": null,\n    \"active\": false,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": {\n      \"name\": \"Draft\"\n    },\n    \"agreementdata\": []\n  }\n}",
     "serialized_hash": "c6af9414ff2b0c1a14972dea34babb38a77385fe",
     "timestamp": "2023-09-15 12:03:17.528098+00:00",
     "authorized_by_individual": null,
@@ -101,7 +101,7 @@
   "fields": {
     "schema_name": "Agreement",
     "object_id": "1",
-    "serialized_snapshot": "{\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-15 12:03:28.873463+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null,\n  \"object_data\": {\n    \"version\": \"1.1\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://www.example.com\"\n    },\n    \"policy\": 1,\n    \"purpose\": {\n      \"name\": \"Child registration\",\n      \"description\": \"To register a child for health care\",\n      \"serialized_hash\": null\n    },\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"Example Impact Assessment from Government Authority\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": {\n      \"name\": \"Complete\"\n    },\n    \"agreementdata\": []\n  }\n}",
+    "serialized_snapshot": "{\n  \"schema_name\": \"Agreement\",\n  \"object_id\": 1,\n  \"timestamp\": \"2023-09-15 12:03:28.873463+00:00\",\n  \"authorized_by_other\": \"Configuration admin user 'admin'\",\n  \"authorized_by_individual\": null,\n  \"object_data\": {\n    \"version\": \"1.1\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://www.example.com\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"To register a child for health care\",\n    \"lawful_basis\": \"consent\",\n    \"data_use\": null,\n    \"dpia\": \"Example Impact Assessment from Government Authority\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": false,\n    \"compatible_with_version\": null,\n    \"lifecycle\": {\n      \"name\": \"Complete\"\n    },\n    \"agreementdata\": []\n  }\n}",
     "serialized_hash": "c22dc9c3ff016adbc8cea1490493a315268b852a",
     "timestamp": "2023-09-15 12:03:28.873463+00:00",
     "authorized_by_individual": null,
@@ -185,15 +185,6 @@
     "timestamp": "2023-09-15 12:04:32.431300+00:00",
     "object_type": "Revision",
     "object_reference": "5"
-  }
-},
-{
-  "model": "app.agreementpurpose",
-  "pk": 1,
-  "fields": {
-    "name": "Child registration",
-    "description": "To register a child for health care",
-    "serialized_hash": null
   }
 },
 {

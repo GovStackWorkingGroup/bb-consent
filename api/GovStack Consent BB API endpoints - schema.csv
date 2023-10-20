@@ -11,7 +11,7 @@ id,string,,,TRUE,FALSE,,,1
 version,string,,The version of this specification to which a receipt conforms,TRUE,FALSE,ADA,,1.0
 controller,fk,Controller,Data controller (may be omitted if no data involved),FALSE,FALSE,ADA,,1
 policy,fk,Policy,Reference to the policy under which this Agreement shall be governed,TRUE,FALSE,ADA,,1
-purpose,fk,AgreementPurpose,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,1
+purpose,string,,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,1
 lawful_basis,string,,Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
 data_use,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
 dpia,string,,Data Protection Impact Assessment,TRUE,FALSE,ADA,,Example Impact Assessment from Government Authority
@@ -96,12 +96,6 @@ timestamp,string,,"Timestamp of signature, currently this field isn't part of th
 signed_without_object_reference,boolean,,Indicates that object_reference was left blank in the serialized version that was signed.,FALSE,FALSE,GovStack,,
 object_type,string,,"Name of the schema model that object_reference points to. Values: ""signature"" or ""revision""",FALSE,TRUE,GovStack,,
 object_reference,string,,"A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",FALSE,TRUE,GovStack,,
-,,,,,,,,
-Model: AgreementPurpose,,,TBD: Models the purpose of an agreement,,,ADA*,,
-id,string,,,TRUE,TRUE,,,
-name,string,,Name of purpose,TRUE,TRUE,ADA*,,Child registration
-description,string,,Description of purpose,TRUE,TRUE,ADA*,,To register a child for health care
-serialized_hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",FALSE,FALSE,,,e53c915d393b74d061cd3a56bb0be02b87d174b7
 ,,,,,,,,
 Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,

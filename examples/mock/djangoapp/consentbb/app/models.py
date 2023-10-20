@@ -62,13 +62,12 @@ class Agreement(models.Model):
         blank=True,
     )
 
-    purpose = models.ForeignKey(
-        "AgreementPurpose",
+    purpose = models.CharField(
         verbose_name="purpose",
         help_text="Purpose of data processing or purpose of consent. Displayed to the user.",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
+        max_length=1024,
+        null=False,
+        blank=False,
     )
 
     lawful_basis = models.CharField(
@@ -524,35 +523,6 @@ class Signature(models.Model):
     object_reference = models.CharField(
         verbose_name="object_reference",
         help_text="A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
-class AgreementPurpose(models.Model):
-    """TBD: Models the purpose of an agreement"""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="Name of purpose",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    description = models.CharField(
-        verbose_name="description",
-        help_text="Description of purpose",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    serialized_hash = models.CharField(
-        verbose_name="serialized_hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",
         max_length=1024,
         null=True,
         blank=True,

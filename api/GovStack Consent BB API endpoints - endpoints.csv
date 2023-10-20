@@ -27,8 +27,6 @@ API tag: service,,,,,,,,,,,,
 /service/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceAgreementRead,,org,Agreement
 "Read operation for ""Policy"" object",,,,,,,FALSE,,,,,
 /service/policy/{policyId}/,GET,UC-C-PIC-A-003,,revisionId,"Policy, Revision",READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement,FALSE,,servicePolicyRead,,org,Policy
-"Read operation for ""Purpose"" object",,,,,,,FALSE,,,,,
-/service/purpose/{purposeId}/,GET,UC-C-PIC-A-003,,revisionId,"AgreementPurpose, Revision",READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement,FALSE,,serviceAgreementPurposeRead,,org,AgreementPurpose
 "List operation for ""AgreementData"" object",,,,,,,FALSE,,,,,
 /service/agreement/{agreementId}/agreementdata/,GET,UC-C-PIC-A-003,,revisionId,AgreementData<List>,READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement,FALSE,,serviceAgreementDataRead,,org,AgreementData
 Verification mechanisms,,,,,,,FALSE,,,,,

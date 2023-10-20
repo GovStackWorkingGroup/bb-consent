@@ -1036,7 +1036,6 @@ def generate_django_ninja_api(yaml_data):
                     url=api_url,
                     method=snake_case_method_name,
                     view_arguments=view_arguments,
-
                 )
             elif method == "delete":
                 if crud_schema:

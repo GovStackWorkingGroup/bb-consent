@@ -327,9 +327,16 @@ class Revision(models.Model):
         blank=False,
     )
 
+    signed_without_object_id = models.BooleanField(
+        verbose_name="signed_without_object_id",
+        help_text="Indicates that object_id was left blank in serialized_snapshot when calculating serialized_hash. object_id may be subsequently filled in.",
+        null=True,
+        blank=True,
+    )
+
     serialized_snapshot = models.CharField(
         verbose_name="serialized_snapshot",
-        help_text="Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature.",
+        help_text="Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., signed_without_object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature.",
         max_length=1024,
         null=False,
         blank=False,
@@ -421,7 +428,7 @@ class Signature(models.Model):
     
     payload = models.CharField(
         verbose_name="payload",
-        help_text="The payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict.",
+        help_text="The final payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., signed_without_object_reference: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict. If the signature is generated before anything is stored in the database (and has a PK), then the object_reference should be omitted from the payload but filled in afterwards.",
         max_length=1024,
         null=False,
         blank=False,
@@ -497,6 +504,13 @@ class Signature(models.Model):
         max_length=1024,
         null=False,
         blank=False,
+    )
+
+    signed_without_object_reference = models.BooleanField(
+        verbose_name="signed_without_object_reference",
+        help_text="Indicates that object_reference was left blank in the serialized version that was signed.",
+        null=True,
+        blank=True,
     )
 
     object_type = models.CharField(

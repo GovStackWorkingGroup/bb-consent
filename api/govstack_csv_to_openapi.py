@@ -49,18 +49,14 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: org
+  - name: config
     description: Secured operations available to organization API integration
-  - name: dataconsumer
-    description: Secured operations for data consumers and applications to verify consent
-  - name: individual
-    description: Individual operations
+  - name: service
+    description: Secured operations for individuals, data consumers and applications to record and verify consent
   - name: auditor
     description: Operations for external auditing systems to query detailed data from the system and subscribe to notifications.
   - name: notification
     description: Subscribe/unsubscribe notifications for data processors, consumers and frontend systems for individuals.
-  - name: callback
-    description: Callback API for other Building Blocks, especially relevant for asynchronous processes.
 paths:
 {paths}
 
@@ -108,6 +104,7 @@ path_spec_template = """
           description: bad input parameter
       security:
         - OAuth2: [{security}]
+{request_body}
 """
 
 responseOK_template_single_object = """
@@ -129,15 +126,28 @@ responseOK_template_objects = """
 responseOK_template_object = """
                     - $ref: '#/components/schemas/{schema}'"""
 
-path_spec_template_post = path_spec_template + """
+request_body_template = """
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/{request_parameter}'
-        description: Insert manually
+              type: object
+              properties:{request_body_parameters}{request_body_parameters_required}
 """
 
+request_body_parameters_required_header_template = """
+              required:{request_body_parameters_required}
+"""
+
+request_body_parameter_template = """
+                {name}:
+                  $ref: '#/components/schemas/{schema_model}'
+                  description: {description}
+"""
+
+request_body_parameters_required_template = """
+                - {name}
+"""
 
 # See: https://swagger.io/docs/specification/describing-parameters/
 parameter_template = """
@@ -175,7 +185,6 @@ schema_template = """
       type: {schema_type}
       description: "{description}"
       x-not-in-database: {database}
-      required:
 {required}
       properties:
 {properties}
@@ -480,6 +489,8 @@ def get_api_spec_from_row(row, current_tag):
     # See: https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines
     summary = row[8].replace("\n", "\\n").replace("\"", "\\\"") or description
     parameters = ""
+    request_body_parameters = ""
+    request_body_parameters_required = ""
 
     pattern_url_parameters = re.compile("{(\w+)}")
 
@@ -517,13 +528,15 @@ def get_api_spec_from_row(row, current_tag):
                 description="An object with id {}".format(query_parameter_cleaned),
             )
         else:
-            parameters += parameter_template_schema.format(
-                where="query",
+            request_body_parameters += request_body_parameter_template.format(
                 name=first_lowercase(query_parameter_cleaned),
-                required="true" if query_parameter_required else "false",
                 schema_model=query_parameter_cleaned,
                 description="An object of type {}".format(query_parameter_cleaned),
             )
+            if query_parameter_required:
+                request_body_parameters_required += request_body_parameters_required_template.format(
+                    name=first_lowercase(query_parameter_cleaned),
+                )
 
     if "List" in operation_id:
         parameters += parameter_template.format(
@@ -567,6 +580,18 @@ def get_api_spec_from_row(row, current_tag):
             objects=response_ok_objects_schemas_to_insert
         )
 
+    request_body = ""
+    if request_body_parameters:
+        request_body_parameters_required_final = ""
+        if request_body_parameters_required:
+            request_body_parameters_required_final = request_body_parameters_required_header_template.format(
+                request_body_parameters_required=request_body_parameters_required
+            )
+        request_body = request_body_template.format(
+            request_body_parameters=request_body_parameters,
+            request_body_parameters_required=request_body_parameters_required_final,
+        )
+
     return {
         "url": url,
         "tag": current_tag,
@@ -583,6 +608,7 @@ def get_api_spec_from_row(row, current_tag):
         "scenario": scenario,
         "sensitive": sensitive,
         "crudl_model": crudl_model,
+        "request_body": request_body,
     }
 
 
@@ -727,13 +753,21 @@ with open(schema_csv_file, newline='') as csvfile:
 html_table_rows_output = ""
 
 for schema_name, properties in schema_fields.items():
+
+    if schema_field_names_required[schema_name]:
+        required = "\n      required:\n{required}".format(
+            required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
+        )
+    else:
+        required = ""
+
     output_schemas += schema_template.format(
         schema=schema_name,
         description=schema_descriptions[schema_name],
         schema_type="object",
         database=str(schema_name in schemas_not_in_db).lower(),
         properties=properties,
-        required="\n".join("           - {}".format(name) for name in schema_field_names_required[schema_name])
+        required=required,
     )
     html_table_rows_output += html_table_rows_template.format(
         model_name="""<code style="font-family: monospace; white-space: nowrap">{}</code>""".format(schema_name),
@@ -1009,6 +1043,64 @@ def generate_django_ninja_api(yaml_data):
     return django_api_template.format(endpoints=django_api_output, VERSION=VERSION)
 
 
+
+def generate_gitbook_api_spec(yaml_data):
+    """
+    Generates .md data for GitBook
+    """
+
+    gitbook_output = ""
+
+    output_by_spec = {
+        "config": [],
+        "service": [],
+        "audit": [],
+        "notification": [],
+        "status": [],
+    }
+
+    for api_url, endpoints in yaml_data["paths"].items():
+
+        for method, endpoint in endpoints.items():
+            section = api_url.split("/")[1]
+            if not section in output_by_spec:
+                raise Exception(section)
+            output_by_spec[section].append(
+                """
+{{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml" path="{url}" method="{method}" %}}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/{version}/api/consent-openapi.yaml)
+{{% endswagger %}}""".format(
+                    url=api_url,
+                    method=method,
+                    version=VERSION
+                )
+            )
+
+    print("""
+
+# 8.1 API specification
+
+The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/{version}/api).
+""".format(version=VERSION))
+
+    print("""
+## 8.1.1 Config APIs""")
+
+    for output in output_by_spec["config"]:
+        print(output)
+
+    print("""
+## 8.1.2 Service APIs""")
+
+    for output in output_by_spec["service"]:
+        print(output)
+
+    print("""
+## 8.1.3 Audit APIs""")
+
+    for output in output_by_spec["audit"]:
+        print(output)
+
 html_table_output = html_table_template.format(rows=html_table_rows_output)
 
 if len(sys.argv) > 3 and sys.argv[3].strip() == "--html-table":
@@ -1033,6 +1125,11 @@ elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-admin":
 elif len(sys.argv) > 3 and sys.argv[3].strip() == "--django-api":
 
     output = generate_django_ninja_api(get_yaml())
+    print(output)
+
+elif len(sys.argv) > 3 and sys.argv[3].strip() == "--gitbook-api-spec":
+
+    output = generate_gitbook_api_spec(get_yaml())
     print(output)
 
 else:

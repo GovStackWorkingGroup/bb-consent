@@ -47,13 +47,22 @@ Postpartum and infant care (Configuration CREATE)
 
 ### Sequence diagram
 
-<figure><img src="https://lh6.googleusercontent.com/rx5FypRNN6urIidElfCeeklNDJPxcz8EbP2bSqslvf4HpChC1bnioz4c35y3Sj3XkEUsq-Saq8EkGeSPAqkSxtp1YzlueiC9ucuXcsG-huwR-0336tmht20D7Hq6I3njNZ1IiVeauWkW0waA87dBYg" alt=""><figcaption></figcaption></figure>
+The following sequence diagrams details the role of the Independent Authority and the DPIA (Data Protection Impact Assessment) as the document upon which the postpartum infant care program can rely to parametrise the healthcare application for interacting with the Consent BB.
 
-[Diagram source](https://www.websequencediagrams.com/files/render?link=uKuPezFhfn7wVAdr5Mbg6PwpZ6lr9uE7gmY7kzfnzhOMb7AyNnKv79pJZL3pq9aN)
+```mermaid
+sequenceDiagram
+title UC-C-PIC-001: Create new Agreement
 
-The following sequence diagrams details the role of the Independent Authority and the DPIA (Data Protection Impact Assessment) as the document upon which the postpartum infant care program can rely to parametrise the healthcare application for interacting with the consent management BB.
-
-<figure><img src="https://lh5.googleusercontent.com/AK1vJOZoljR2EfRr_z9ND9hGWvUlYwz_P_snucAPNUFIYClM30uF_tL_dkKxPTU7a4G-2vtQZ30bAq7uRGaxhpRncOdjiKbNtqrP3_USVi7IlCm97T0SoRT-Y8V-wTkIkjGp_5NqAw4araxvQgZehA" alt=""><figcaption></figcaption></figure>
+Primary application -->>+Consent BB: Create new Agreement
+Consent BB->>+PPIC Program: CheckDPIA
+PPIC Program->>+PPIC Program: check request legitimacy
+Note right of PPIC Program: DPO, Auditors, a legitimate authority <br/>in the PPLC program jurisdiction
+PPIC Program->>+Independent Authority: getLastApprovedDPIA
+Independent Authority->>+PPIC Program: returnLastApprovedDPIA
+PPIC Program->>+Consent BB: getLastApprovedDPIA
+Consent BB->>+Consent BB: createAgreementWithLastDPIA
+Consent BB-->-Primary application: New Agreement <br/>created successfully
+```
 
 [Diagram Source](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVUMtQy1QSUMtMDAxOiBDcmVhdGUgbmV3IGFncmVtZW50CgpBY3RvciBIZWFsdGhjYXJlIGFwcGxpY2F0aW9uCgABFi0-Q29uc2VudCBNYW5hZwBEBSBCQjpjAFIOAFsGABYVLT5QUElDIFByb2dyYW06IGNoZWNrRFBJQQoADAwtPisAFBMgcmVxdWVzdCBsZWdpdGltYWN5Cm5vdGUgb3ZlciBJbmRlcGVuZGVudCBBdXRob3JpdHk6IERQTyxBdWRpdG9ycywgYQAzCXRlIGEAHgggaW4gdGhlIFBQTEMgcACBFQYganVyaXNkaWMAggoFAIEODwBVF2dldExhc3RBcHByb3ZlZACBUgUAgQIVLT4tAIF5DnJldHVybgAsEQCCBg4tAIJnFgAlGACCaRcrAC8XAIM-BkEAgzcIV2l0aExhc3QALxwtAIQnFjogTgCDfQwAUwdkIHN1Y2Nlc3NmdWxseQoKCg\&s=default)
 
@@ -78,9 +87,32 @@ Postpartum and infant care (Configuration UPDATE)
 
 ### Sequence diagram
 
-<figure><img src="https://lh4.googleusercontent.com/WupcaLDRoa0kNg5SC_Yo5n4wV4L5VGnUReVrSuOSX2Qi225cYA01SryXe0w7UbF_aou4tDpNmW-adBTHEnXKxYirKCDiNq7AY1VskRAU_UCkTIW6Dvg7jm51wsjJRK8r4VF0tNMgrTE0Eb0C0NxaPw" alt=""><figcaption></figcaption></figure>
+```mermaid
+sequenceDiagram
+title UC-C-PIC-001: Consent - Postpartum and infant care (Configuration UPDATE)
 
-[Diagram source](https://www.websequencediagrams.com/?lz=dGl0bGUgVUMtQy1QSUMtMDAxOiBDb25zZW50IC0gUG9zdHBhcnR1bSBhbmQgaW5mYW50IGNhcmUgKENvbmZpZ3VyYXRpb24gVVBEQVRFKQoKCmFjdG9yIEFwcGxpYwAWBmFkbWluCgoAAhEtPitIZWFsdGgATAVhACgKOiBJbnZva2UgVXBkYXRlIEV4aXN0aW5nIEFncmVlbWVudAoKbm90ZSByaWdodCBvZgBcEyAgICBQcmVjb25kaXRpb25zOiBUaGUgRGF0YSBTb3VyY2UgAB8FYW5kAA8GVXNpbmcgU2VydmljZSBoYXMgYWdyZWVkACEGdG8gc2hhcmUgZGF0YS4AWQUAXgVOb3RlOiBUaGlzIHMANAdpcyBhbHJlYWR5IHByb3Zpc2lvbmVkAIEMBW91dHNpZGUgb2YgdGhlAIJgCU1hbmFnAIFTBSBCQgBSCwCBIRBwdXRzADQFcmVxdWlyACwGAFMGbiBhbnkAgTUUaW4AgTQFaW5nIHRoZWlyAIFwBmRhdGEsIHdoZXRoZXIgYSBjAINsB2lzIG5lZWRlZCBldGMAgVwLQWxsIGNob2ljZXMgZG9uZSBieQCBPQUAg1YFIACDOgUAgW0GAIJzBXZlcmlmaWVkIGJ5IGxlZ2FsIGFkdmlzb3J5CmVuZCBub3RlCgoAg2UWIC0tPisAggMVOiBDaGFuZ2VzIHRvAIN-CwCCLxUtPitSZWdpc3RyeQA1BVNhdmVzIGEgbmV3IHJlAIMNBgCEMw8AIw0AhF8JIFIAJwcgc2F2ZWQgcGVyc2lzdGVudGx5CgBYCy0tPi0AgR8XU3VjY2VzcwCBEhctPi0AhWwYUmVzdWx0c1xuKElEIG9mAIE4BQCFDgUAhCQFAIE\_CCxcbkV4cGlyZWQAgz0IKQCCRBctLT4tAIcGETogRGlzcGxheXMgcgBqBgCHFRMAhw4bQ2hvb3NlIGFjAIZfBSBmb3IgcHJldmlvdXMAhE0IAHUaAINRGACBQg8gLSBzAIQxB2lmAIhOB1xuAIILBwCFMggAhgwHZACCTxlXb3JrZmxvdwCERgVQcm9jZXNzIGUAWw9saXN0CgAfCy0tPgCEdhdqb2Igc3RhcnQAWBsAiUYYAIFQEGJlaW5nIHAAgQ4GZWQAgwE\_\&s=default&)
+
+actor Application admin
+
+Application admin->+Healthcare application: Invoke Update Existing Agreement
+note right of Application admin: Preconditions: The Data Source <br/>and Data Using Service <br/>has agreed to share data. <br/> Note: This service is already <br/>provisioned outside <br/>of the Consent Management BB.
+
+Healthcare application -->+Consent BB: Changes to Agreement
+Consent BB->+Registry BB: Saves a new revision
+note right of Registry BB: Agreement Revision saved persistently
+Registry BB-->-Consent BB: Success
+Consent BB-->-Healthcare application: Results\n(ID of new agreement revision,\nExpired consent)
+Healthcare application-->-Application admin: Displays results
+Application admin-->+Healthcare application: Choose actions for previous consent
+Healthcare application-->+Consent BB: Expired consent - send notification\nof new consent required
+Consent BB-->Workflow BB: Process expired consent list
+Workflow BB-->Consent BB: job started
+Consent BB-->Healthcare application: Expired consent being processed
+Healthcare application-->-Application admin: Displays results
+
+```
+
+
 
 ## UC-C-PIC-A-003: Postpartum and infant care (Configuration READ)
 

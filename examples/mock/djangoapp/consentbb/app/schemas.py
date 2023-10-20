@@ -57,13 +57,6 @@ class ConsentRecordFilterSchema(Schema):
     foundational_id: str
 
 
-class PolicyFilterSchema(Schema):
-
-    name: str
-
-    revision: int
-
-
 class ControllerSchema(ModelSchema):
     class Config:
         model = models.Controller
@@ -84,10 +77,12 @@ class AgreementLifecycleSchema(ModelSchema):
         model = models.AgreementLifecycle
         model_fields = "__all__"
 
-class RegistryReferenceSchema(ModelSchema):
-    class Config:
-        model = models.RegistryReference
-        model_fields = "__all__"
+class IndividualFilterSchema(Schema):
+
+    foundational_id: str
+
+    functional_id: str
+
 
 class AuditTrackerSchema(ModelSchema):
     class Config:

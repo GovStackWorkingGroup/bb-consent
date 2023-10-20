@@ -105,11 +105,6 @@ class AgreementLifecycleAdmin(BaseGovstackAdmin):
     pass
 
 
-@admin.register(models.RegistryReference)
-class RegistryReferenceAdmin(BaseGovstackAdmin):
-    pass
-
-
 @admin.register(models.AuditTracker)
 class AuditTrackerAdmin(BaseGovstackAdmin):
     pass

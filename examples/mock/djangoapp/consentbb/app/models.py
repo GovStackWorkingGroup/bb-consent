@@ -573,27 +573,6 @@ class AgreementLifecycle(models.Model):
 
 
 
-class RegistryReference(models.Model):
-    """TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"""
-    
-    foundational_id = models.CharField(
-        verbose_name="foundational_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    functional_id = models.CharField(
-        verbose_name="functional_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
 class AuditTracker(models.Model):
     """TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service."""
     

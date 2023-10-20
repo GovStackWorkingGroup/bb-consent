@@ -79,11 +79,6 @@ class IndividualFilterSchema(Schema):
     functional_id: str
 
 
-class AuditTrackerSchema(ModelSchema):
-    class Config:
-        model = models.AuditTracker
-        model_fields = "__all__"
-
 class AuditEventTypeSchema(ModelSchema):
     class Config:
         model = models.AuditEventType

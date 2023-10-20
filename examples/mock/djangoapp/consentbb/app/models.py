@@ -543,67 +543,6 @@ class AgreementLifecycle(models.Model):
 
 
 
-class AuditTracker(models.Model):
-    """TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service."""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="Name of the auditing system",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    public_key = models.CharField(
-        verbose_name="public_key",
-        help_text="The auditing system's public key for encrypting data sent to callback functions",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_agreement = models.CharField(
-        verbose_name="callback_agreement",
-        help_text="A URL receiving a callback with the Agreement object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_consent_record = models.CharField(
-        verbose_name="callback_consent_record",
-        help_text="A URL receiving a callback with the ConsentRecord object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_policy = models.CharField(
-        verbose_name="callback_policy",
-        help_text="A URL receiving a callback with the Policy object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_revision_table_hash = models.CharField(
-        verbose_name="callback_revision_table_hash",
-        help_text="A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the revision table.",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    callback_signature_table_hash = models.CharField(
-        verbose_name="callback_signature_table_hash",
-        help_text="A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the signature table.",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
 class AuditEventType(models.Model):
     """TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."""
     

@@ -238,32 +238,6 @@ def service_delete_all_records(request,):
     return "undefined"
 
 
-@api.get("/audit/trackers/")
-def audit_list_trackers(request, offset: int=None, limit: int=None):
-    return "undefined"
-
-
-@api.post("/audit/tracker/")
-def audit_create_tracker(request,):
-    db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
-
-
-@api.get("/audit/tracker/{trackerId}/")
-def audit_read_tracker(request, trackerId: str):
-    return "undefined"
-
-
-@api.put("/audit/tracker/{trackerId}/")
-def audit_update_tracker(request, trackerId: str, auditTracker: schemas.Schema):
-    return "undefined"
-
-
-@api.delete("/audit/tracker/{trackerId}/")
-def audit_delete_tracker(request, trackerId: str):
-    return "undefined"
-
-
 @api.post("/audit/consentrecords/")
 def audit_consent_record_list(request, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()

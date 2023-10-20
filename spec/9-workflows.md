@@ -12,7 +12,7 @@ This section lists workflows that this Building Block must support. Other workfl
 
 The Workflow Building Block triggers the need for consent as part of the general business flow. The assumption is that a consenting process never exists outside of a purposeful comprehensive business process. Hence, it is important to define and control the data processing activities as part of a holistic data service.
 
-This section lays out key universal consent workflows that can be re-used within the various use cases ([see Workflow Building Block](https://govstack.gitbook.io/bb-workflow/v/workflow-1.0/)). This enforces the best practices for organisations to adhere to personal data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries Building Block in the sequence for simplicity. It will store all persistent consent data.
+This section lays out key universal consent workflows that can be re-used within the various use cases ([see Workflow Building Block](https://govstack.gitbook.io/bb-workflow/v/workflow-1.0/)). This enforces the best practices for organisations to adhere to Personal Data processing standards in any given context and jurisdiction. In these sequences, we have removed the Digital Registries Building Block in the sequence for simplicity. It will store all persistent consent data.
 
 ## 9.2 Universal workflow: Recording consent at initial registration (pre-registration)
 
@@ -236,7 +236,7 @@ TODO
 sequenceDiagram
 
 Application->>+Workflow BB: Triggers the consent verification workflow (consent agreement ID)
-note over Application: The Application is in the workflow<br />of processing personal data that<br />requires consent. 
+note over Application: The Application is in the workflow<br />of processing Personal Data that<br />requires consent. 
 
 Workflow BB->>+Consent BB: Fetch consent ID (consent agreement ID, user ID)
 Consent BB-->>-Workflow BB: Returns consent record

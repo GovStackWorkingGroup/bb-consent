@@ -4,7 +4,7 @@ description: This section provides context for this Building Block.
 
 # 2 Description
 
-The Consent Building Block enables services for individuals to approve the use of their Personal Data by defining the principles, functions, and architecture of an information system. For organisations that process Personal Data,​ it provides the ability to know the ​individual's will and legitimately process such Personal Data. The Consent Building Block is a process-oriented GovStack Building Block facilitating auditable bilateral agreements within a multi-agent environment that integrates with most other Building Blocks.
+The Consent Building Block enables services for individuals to approve the use of their Personal Data by defining the principles, functions, and architecture of an information system. For organisations that process Personal Data​,​ it provides the ability to know the ​individual's will and legitimately process such Personal Data. The Consent Building Block is a process-oriented GovStack Building Block facilitating auditable bilateral agreements within a multi-agent environment that integrates with most other Building Blocks.
 
 This specification has used several available and recognised open standards below and legal frameworks (such as the [GDPR](https://gdpr.eu/)) for laying the groundwork for its approach to consent.
 

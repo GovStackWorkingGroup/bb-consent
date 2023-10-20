@@ -38,7 +38,7 @@ Lays out the pre-conditions needed for anyone to use the Consent Building Block.
 1. Data Disclosure Agreements between organisations are already in place. For example, a healthcare organisation has already got the required authorisation to use the citizen data registry.
 2. To link a Consent Agreement with the specific Individual, Consent Building Block assumes the authentication and authorization to be handled in a trusted manner outside of it (see below).
 3. Within the early scope of the Consent Building Block, the act of delegating is kept outside the scope of the Consent Building Block. It is assumed that the authorisation to act on behalf of someone else is already resolved.
-4. It is the organization's (a Data Provider or a Data Consumer) obligation to manage and implement internal policies toward its employees relating to their responsibilities for Personal data processing integrity, specifying it in the employment contract or by other means.
+4. It is the organization's (a Data Provider or a Data Consumer) obligation to manage and implement internal policies toward its employees relating to their responsibilities for Personal Data processing integrity, specifying it in the employment contract or by other means.
 
 ## Consent Agreement Lifecycle
 

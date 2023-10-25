@@ -62,13 +62,12 @@ class Agreement(models.Model):
         blank=True,
     )
 
-    purpose = models.ForeignKey(
-        "AgreementPurpose",
+    purpose = models.CharField(
         verbose_name="purpose",
         help_text="Purpose of data processing or purpose of consent. Displayed to the user.",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
+        max_length=1024,
+        null=False,
+        blank=False,
     )
 
     lawful_basis = models.CharField(
@@ -531,35 +530,6 @@ class Signature(models.Model):
 
 
 
-class AgreementPurpose(models.Model):
-    """TBD: Models the purpose of an agreement"""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="Name of purpose",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    description = models.CharField(
-        verbose_name="description",
-        help_text="Description of purpose",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    serialized_hash = models.CharField(
-        verbose_name="serialized_hash",
-        help_text="In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
 class AgreementLifecycle(models.Model):
     """TBD: Models the valid lifecycle states of an Agreement"""
     
@@ -569,88 +539,6 @@ class AgreementLifecycle(models.Model):
         max_length=1024,
         null=False,
         blank=False,
-    )
-
-
-
-class RegistryReference(models.Model):
-    """TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"""
-    
-    foundational_id = models.CharField(
-        verbose_name="foundational_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    functional_id = models.CharField(
-        verbose_name="functional_id",
-        help_text="",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-
-
-class AuditTracker(models.Model):
-    """TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service."""
-    
-    name = models.CharField(
-        verbose_name="name",
-        help_text="Name of the auditing system",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    public_key = models.CharField(
-        verbose_name="public_key",
-        help_text="The auditing system's public key for encrypting data sent to callback functions",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_agreement = models.CharField(
-        verbose_name="callback_agreement",
-        help_text="A URL receiving a callback with the Agreement object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_consent_record = models.CharField(
-        verbose_name="callback_consent_record",
-        help_text="A URL receiving a callback with the ConsentRecord object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_policy = models.CharField(
-        verbose_name="callback_policy",
-        help_text="A URL receiving a callback with the Policy object + Revision + AuditEventType",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-    callback_revision_table_hash = models.CharField(
-        verbose_name="callback_revision_table_hash",
-        help_text="A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the revision table.",
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    callback_signature_table_hash = models.CharField(
-        verbose_name="callback_signature_table_hash",
-        help_text="A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the signature table.",
-        max_length=1024,
-        null=True,
-        blank=True,
     )
 
 

@@ -27,8 +27,6 @@ API tag: service,,,,,,,,,,,,
 /service/agreement/{agreementId}/,GET,UC-C-PIC-A-003,,,"Agreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceAgreementRead,,org,Agreement
 "Read operation for ""Policy"" object",,,,,,,FALSE,,,,,
 /service/policy/{policyId}/,GET,UC-C-PIC-A-003,,revisionId,"Policy, Revision",READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement,FALSE,,servicePolicyRead,,org,Policy
-"Read operation for ""Purpose"" object",,,,,,,FALSE,,,,,
-/service/purpose/{purposeId}/,GET,UC-C-PIC-A-003,,revisionId,"AgreementPurpose, Revision",READ - fetches the latest version of an AgreementPurpose and the presented revisionId of that Agreement,FALSE,,serviceAgreementPurposeRead,,org,AgreementPurpose
 "List operation for ""AgreementData"" object",,,,,,,FALSE,,,,,
 /service/agreement/{agreementId}/agreementdata/,GET,UC-C-PIC-A-003,,revisionId,AgreementData<List>,READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement,FALSE,,serviceAgreementDataRead,,org,AgreementData
 Verification mechanisms,,,,,,,FALSE,,,,,
@@ -49,11 +47,6 @@ Recording consent (giving/withdrawing),,,,,,All services need to specify the Ind
 /service/individual/record/,DELETE,UC-C-PIC-I-003,,,,"DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a ""forgettable"" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header.",TRUE,,serviceDeleteAllRecords,,individual,
 ,,,,,,,,,,,,
 API tag: auditor,,,,,,,,,,,,
-/audit/trackers/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker<List>,LIST - show available AuditTracker objects,,,auditListTrackers,,,
-/audit/tracker/,POST,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker*,AuditTracker,CREATE - A new AuditTracker is set up,,,auditCreateTracker,,,
-/audit/tracker/{trackerId}/,GET,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,READ - get the details of an AuditTracker,,,auditReadTracker,,,
-/audit/tracker/{trackerId}/,PUT,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,AuditTracker*,AuditTracker,UPDATE - get the details of an AuditTracker,,,auditUpdateTracker,,,
-/audit/tracker/{trackerId}/,DELETE,"UC-C-PIC-AT-001, UC-C-PIC-AT-002",,,AuditTracker,DELETE - removes an AuditTracker,,,auditDeleteTracker,,,
 /audit/consentrecords/,POST,UC-C-PIC-AT-003,,ConsentRecordFilter*,ConsentRecord<List>,LIST - fetch ConsentRecord objects,,,auditConsentRecordList,,,
 /audit/consentrecord/{consentRecordId}/,GET,,,,ConsentRecord,READ,,,auditConsentRecordRead,,,
 /audit/agreements/,POST,"UC-C-PIC-AT-001, UC-C-PIC-AT-003",,AgreementFilter*,Agreement<List>,LIST - fetch all Agreements stored in the system.,,,auditAgreementList,,,
@@ -76,3 +69,4 @@ Questions / notes,,,,,,,,,,,,
 List filters and pagination,,,,,,,,,,,,
 "Should we have CRUD for ""Individual""?",,,,,,,,,,,,
 TODO,,,,,,,,,,,,
+Stop mixing query parameters and request body parameters in the same column,,,,,,,,,,,,

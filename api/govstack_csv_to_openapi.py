@@ -226,6 +226,12 @@ from . import schemas
 # Import auto-generated models
 from . import models
 
+# Please note this little magic detail of django-ninja:
+#
+# Django Ninja will recognize that the function parameters that match path parameters should be taken from the path,
+# and that function parameters that are declared with Schema should be taken from the request body.
+# https://django-ninja.dev/guides/input/body/
+
 {endpoints}
 """
 
@@ -919,21 +925,27 @@ def generate_django_ninja_api(yaml_data):
             else:
                 raise RuntimeError(f"Does not understand {entry}")
 
+    def get_crud_schema_argument_name(endpoint):
+        # The first named argument of the requestBody
+        # is the schema argument name
+        try:
+            schema_argument_name = next(
+                iter(
+                    endpoint["requestBody"]["content"]["application/json"]["schema"]["properties"].keys()
+                )
+            )
+            return schema_argument_name
+        except KeyError:
+            return None
 
-    def crud_schema_name_and_view_argument(endpoint_parameters):
-        for entry in endpoint_parameters:
-            if "$ref" in entry[1]:
-                return entry[0], entry[1]["$ref"].split("/")[-1]
-        return None, None
 
-
-    def crud_schema_pk_argument(endpoint_parameters):
+    def get_crud_schema_pk_argument(endpoint_parameters):
         """Returns an argument that can be assumed to be primary key"""
         if endpoint_parameters and endpoint_parameters[0][0].endswith("Id"):
             return endpoint_parameters[0][0]
 
 
-    def crud_schema_name_return_value(response_schema):
+    def get_crud_schema_name_return_value(response_schema):
         schema_type = response_schema.get("type")
         # Responses of tuples/lists of schema objects
         if schema_type == "array":
@@ -968,11 +980,11 @@ def generate_django_ninja_api(yaml_data):
 
             snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
 
-            schema_argument, schema_name = crud_schema_name_and_view_argument(endpoint_parameters)
-            pk_arg = crud_schema_pk_argument(endpoint_parameters)
+            crud_schema_argument_name = get_crud_schema_argument_name(endpoint)
+            pk_arg = get_crud_schema_pk_argument(endpoint_parameters)
 
             if endpoint_return_values:
-                schema_names_returned = list(crud_schema_name_return_value(endpoint_return_values))
+                schema_names_returned = list(get_crud_schema_name_return_value(endpoint_return_values))
 
             if method == "get":
                 if crud_schema:
@@ -1002,11 +1014,12 @@ def generate_django_ninja_api(yaml_data):
                     )
             elif method == "post":
                 if crud_schema:
+                    view_arguments += f" {crud_schema_argument_name}: schemas.{crud_schema}Schema"
                     django_api_output += django_api_post_template.format(
                         url=api_url,
                         method=snake_case_method_name,
                         view_arguments=view_arguments,
-                        schema_argument=schema_argument,
+                        schema_argument=crud_schema_argument_name,
                         schema_name=crud_schema,
                     )
                 else:
@@ -1018,11 +1031,11 @@ def generate_django_ninja_api(yaml_data):
                     )
 
             elif method == "put":
+                view_arguments += f", {crud_schema_argument_name}: schemas.{crud_schema}Schema"
                 django_api_output += django_api_put_template.format(
                     url=api_url,
                     method=snake_case_method_name,
                     view_arguments=view_arguments,
-
                 )
             elif method == "delete":
                 if crud_schema:

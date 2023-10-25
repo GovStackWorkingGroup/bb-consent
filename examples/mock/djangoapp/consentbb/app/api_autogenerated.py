@@ -17,6 +17,12 @@ from . import schemas
 # Import auto-generated models
 from . import models
 
+# Please note this little magic detail of django-ninja:
+#
+# Django Ninja will recognize that the function parameters that match path parameters should be taken from the path,
+# and that function parameters that are declared with Schema should be taken from the request body.
+# https://django-ninja.dev/guides/input/body/
+
 
 @api.post("/config/policy/")
 def config_create_policy(request, policy: schemas.PolicySchema):
@@ -25,7 +31,7 @@ def config_create_policy(request, policy: schemas.PolicySchema):
 
 
 @api.get("/config/policy/{policyId}/")
-def config_read_policy(request, policyId: str, policyFilter: schemas.PolicyFilterSchema=None):
+def config_read_policy(request, policyId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.Policy, pk=policyId)
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance).dict()
@@ -52,8 +58,8 @@ def config_list_policy_revisions(request, policyId: str, offset: int=None, limit
 
 
 @api.get("/config/policies/")
-def config_list_policy(request, policyFilter: schemas.PolicyFilterSchema=None, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.Policy, pk=None)
+def config_list_policy(request, revisionId: str=None, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Policy, pk=revisionId)
     return schemas.PolicySchema.from_orm(db_instance).dict()
 
 
@@ -85,14 +91,20 @@ def config_create_agreement(request, agreement: schemas.AgreementSchema):
 
 
 @api.get("/config/agreements/")
-def config_list_agreement(request, agreementFilter: schemas.AgreementFilterSchema=None, offset: int=None, limit: int=None):
+def config_list_agreement(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Agreement, pk=None)
     return schemas.AgreementSchema.from_orm(db_instance).dict()
 
 
+@api.post("/config/agreements/")
+def config_list_agreement_filter(request, offset: int=None, limit: int=None agreementFilter: schemas.AgreementSchema):
+    db_instance = models.Agreement.objects.create(**agreementFilter.dict())
+    return schemas.AgreementSchema.from_orm(db_instance).dict()
+
+
 @api.post("/service/individual/")
-def service_individual_create(request, registryReference: schemas.RegistryReferenceSchema=None):
-    db_instance = models.Individual.objects.create(**registryReference.dict())
+def service_individual_create(request, individual: schemas.IndividualSchema):
+    db_instance = models.Individual.objects.create(**individual.dict())
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
@@ -103,7 +115,7 @@ def service_individual_read(request, individualId: str):
 
 
 @api.put("/service/individual/{individualId}/")
-def service_individual_update(request, individualId: str):
+def service_individual_update(request, individualId: str, individual: schemas.IndividualSchema):
     return "undefined"
 
 
@@ -115,8 +127,14 @@ def service_individual_delete(request, individualId: str):
 
 
 @api.get("/service/individuals/")
-def service_individual_list(request, registryReference: schemas.RegistryReferenceSchema=None, offset: int=None, limit: int=None):
+def service_individual_list(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Individual, pk=None)
+    return schemas.IndividualSchema.from_orm(db_instance).dict()
+
+
+@api.post("/service/individuals/")
+def service_individual_list_filter(request, offset: int=None, limit: int=None individualFilter: schemas.IndividualSchema):
+    db_instance = models.Individual.objects.create(**individualFilter.dict())
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
@@ -138,15 +156,6 @@ def service_policy_read(request, policyId: str, revisionId: str=None):
     return [object1, object2]
 
 
-@api.get("/service/purpose/{purposeId}/")
-def service_agreement_purpose_read(request, purposeId: str, revisionId: str=None):
-    db_instance = get_object_or_404(models.AgreementPurpose, pk=purposeId)
-    mocked_instance = G(models.Revision)
-    object1 = schemas.AgreementPurposeSchema.from_orm(db_instance).dict()
-    object2 = schemas.RevisionSchema.from_orm(mocked_instance).dict()
-    return [object1, object2]
-
-
 @api.get("/service/agreement/{agreementId}/agreementdata/")
 def service_agreement_data_read(request, agreementId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.AgreementData, pk=agreementId)
@@ -154,8 +163,14 @@ def service_agreement_data_read(request, agreementId: str, revisionId: str=None)
 
 
 @api.get("/service/verification/agreements/")
-def service_verification_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema=None, offset: int=None, limit: int=None):
+def service_verification_agreement_list(request, offset: int=None, limit: int=None):
     return "undefined"
+
+
+@api.post("/service/verification/agreements/")
+def service_verification_agreement_list_filter(request, offset: int=None, limit: int=None):
+    db_instance = models.TBD.objects.create()
+    return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
 @api.get("/service/verification/agreement/{agreementId}/")
@@ -163,9 +178,10 @@ def service_verification_agreement_consent_record_read(request, agreementId: str
     return "undefined"
 
 
-@api.get("/service/verification/consentrecords/")
-def service_verification_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema=None, offset: int=None, limit: int=None):
-    return "undefined"
+@api.post("/service/verification/consentrecords/")
+def service_verification_consent_record_list(request, offset: int=None, limit: int=None):
+    db_instance = models.TBD.objects.create()
+    return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
 @api.post("/service/individual/record/agreement/{agreementId}/")
@@ -186,13 +202,13 @@ def service_create_individual_consent_record_draft(request, individualId: str, a
 
 
 @api.post("/service/individual/record/consentrecord/")
-def service_create_individual_consent_record_and_signature(request, consentRecord: schemas.ConsentRecordSchema, signature: schemas.SignatureSchema):
+def service_create_individual_consent_record_and_signature(request,):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
 @api.put("/service/individual/record/consentrecord/{consentRecordId}/")
-def service_update_individual_consent_record(request, consentRecordId: str, individualId: str, agreementId: str, revisionId: str=None):
+def service_update_individual_consent_record(request, consentRecordId: str, individualId: str, agreementId: str, revisionId: str=None, None: schemas.Schema):
     return "undefined"
 
 
@@ -203,7 +219,7 @@ def service_create_individual_consent_record_signature(request, consentRecordId:
 
 
 @api.put("/service/individual/record/consentrecord/{consentRecordId}/signature/")
-def service_update_individual_consent_record_signature(request, consentRecordId: str, signature: schemas.SignatureSchema):
+def service_update_individual_consent_record_signature(request, consentRecordId: str, signature: schemas.Schema):
     return "undefined"
 
 
@@ -222,35 +238,10 @@ def service_delete_all_records(request,):
     return "undefined"
 
 
-@api.get("/audit/trackers/")
-def audit_list_trackers(request, offset: int=None, limit: int=None):
-    return "undefined"
-
-
-@api.post("/audit/tracker/")
-def audit_create_tracker(request, auditTracker: schemas.AuditTrackerSchema):
+@api.post("/audit/consentrecords/")
+def audit_consent_record_list(request, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
-
-
-@api.get("/audit/tracker/{trackerId}/")
-def audit_read_tracker(request, trackerId: str):
-    return "undefined"
-
-
-@api.put("/audit/tracker/{trackerId}/")
-def audit_update_tracker(request, trackerId: str, auditTracker: schemas.AuditTrackerSchema):
-    return "undefined"
-
-
-@api.delete("/audit/tracker/{trackerId}/")
-def audit_delete_tracker(request, trackerId: str):
-    return "undefined"
-
-
-@api.get("/audit/consentrecords/")
-def audit_consent_record_list(request, consentRecordFilter: schemas.ConsentRecordFilterSchema=None, offset: int=None, limit: int=None):
-    return "undefined"
 
 
 @api.get("/audit/consentrecord/{consentRecordId}/")
@@ -258,13 +249,14 @@ def audit_consent_record_read(request, consentRecordId: str):
     return "undefined"
 
 
-@api.get("/audit/agreements/")
-def audit_agreement_list(request, agreementFilter: schemas.AgreementFilterSchema=None, offset: int=None, limit: int=None):
-    return "undefined"
+@api.post("/audit/agreements/")
+def audit_agreement_list(request, offset: int=None, limit: int=None):
+    db_instance = models.TBD.objects.create()
+    return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
 @api.get("/audit/agreement/{agreementId}/")
-def audit_read_record(request, agreementId: str, agreementFilter: schemas.AgreementFilterSchema=None):
+def audit_read_record(request, agreementId: str):
     return "undefined"
 
 

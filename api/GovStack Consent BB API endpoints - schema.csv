@@ -11,7 +11,7 @@ id,string,,,TRUE,FALSE,,,1
 version,string,,The version of this specification to which a receipt conforms,TRUE,FALSE,ADA,,1.0
 controller,fk,Controller,Data controller (may be omitted if no data involved),FALSE,FALSE,ADA,,1
 policy,fk,Policy,Reference to the policy under which this Agreement shall be governed,TRUE,FALSE,ADA,,1
-purpose,fk,AgreementPurpose,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,1
+purpose,string,,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,Example purpose of data usage
 lawful_basis,string,,Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
 data_use,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
 dpia,string,,Data Protection Impact Assessment,TRUE,FALSE,ADA,,Example Impact Assessment from Government Authority
@@ -97,12 +97,6 @@ signed_without_object_reference,boolean,,Indicates that object_reference was lef
 object_type,string,,"Name of the schema model that object_reference points to. Values: ""signature"" or ""revision""",FALSE,TRUE,GovStack,,
 object_reference,string,,"A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",FALSE,TRUE,GovStack,,
 ,,,,,,,,
-Model: AgreementPurpose,,,TBD: Models the purpose of an agreement,,,ADA*,,
-id,string,,,TRUE,TRUE,,,
-name,string,,Name of purpose,TRUE,TRUE,ADA*,,Child registration
-description,string,,Description of purpose,TRUE,TRUE,ADA*,,To register a child for health care
-serialized_hash,string,,"In order to sign an Agreement, this relation needs to have a cryptopgraphic hash of the JSON serialized data to be included in the Signature payload of the Agreement. Hashes are collected as the hex representation of the SHA-1 sum of all UTF8 encoded string versions of the JSON representation of data. SHA1(json_serialized_data)",FALSE,FALSE,,,e53c915d393b74d061cd3a56bb0be02b87d174b7
-,,,,,,,,
 Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,
 name,string,,Draft / Complete,TRUE,TRUE,,,
@@ -110,16 +104,6 @@ name,string,,Draft / Complete,TRUE,TRUE,,,
 Model: IndividualFilter*,,,"TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system",,,,,
 foundational_id,string,,,FALSE,FALSE,,,
 functional_id,string,,,FALSE,FALSE,,,
-,,,,,,,,
-Model: AuditTracker,,,TBD: An external tracker receiving information from the system that can be subject to external auditing and verification of correct behavior. This is one of several notification/monitor/subscription patterns that may be more suitable for an encrypted Pub/Sub service.,,,GovStack,,
-id,string,,,TRUE,TRUE,,,
-name,string,,Name of the auditing system,TRUE,TRUE,,,
-public_key,string,,The auditing system's public key for encrypting data sent to callback functions,TRUE,TRUE,GovStack,,
-callback_agreement,string,,A URL receiving a callback with the Agreement object + Revision + AuditEventType,TRUE,TRUE,GovStack,,
-callback_consent_record,string,,A URL receiving a callback with the ConsentRecord object + Revision + AuditEventType,TRUE,TRUE,GovStack,,
-callback_policy,string,,A URL receiving a callback with the Policy object + Revision + AuditEventType,TRUE,TRUE,GovStack,,
-callback_revision_table_hash,string,,"A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the revision table.",FALSE,TRUE,MOSIP,,
-callback_signature_table_hash,string,,"A URL receiving a callback with <string> + AuditEventType. Periodically, the system can publish the hash of the signature table.",FALSE,TRUE,MOSIP,,
 ,,,,,,,,
 Model: AuditEventType,,,"TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code.",,,,,
 id,string,,,TRUE,TRUE,,,

@@ -37,26 +37,6 @@ class RevisionSchema(ModelSchema):
         model = models.Revision
         model_fields = "__all__"
 
-class AgreementFilterSchema(Schema):
-
-    name: str
-
-
-class ConsentRecordFilterSchema(Schema):
-
-    opt_in: bool
-
-    agreement: int
-
-    agreement_revision: int
-
-    individual: int
-
-    functional_id: str
-
-    foundational_id: str
-
-
 class ControllerSchema(ModelSchema):
     class Config:
         model = models.Controller
@@ -71,35 +51,5 @@ class AgreementLifecycleSchema(ModelSchema):
     class Config:
         model = models.AgreementLifecycle
         model_fields = "__all__"
-
-class IndividualFilterSchema(Schema):
-
-    foundational_id: str
-
-    functional_id: str
-
-
-class AuditEventTypeSchema(ModelSchema):
-    class Config:
-        model = models.AuditEventType
-        model_fields = "__all__"
-
-class StatusStartupSchema(Schema):
-
-    status: str
-
-    error_message: str
-
-    waiting_for: str
-
-
-class StatusReadinessSchema(Schema):
-
-    status: str
-
-    error_message: str
-
-    waiting_for: str
-
 
 

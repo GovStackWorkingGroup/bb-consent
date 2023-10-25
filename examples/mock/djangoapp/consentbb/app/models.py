@@ -543,17 +543,4 @@ class AgreementLifecycle(models.Model):
 
 
 
-class AuditEventType(models.Model):
-    """TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."""
-    
-    event_name = models.CharField(
-        verbose_name="event_name",
-        help_text="What happened - create/update/delete",
-        max_length=1024,
-        null=False,
-        blank=False,
-    )
-
-
-
 

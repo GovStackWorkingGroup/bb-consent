@@ -100,9 +100,4 @@ class AgreementLifecycleAdmin(BaseGovstackAdmin):
     pass
 
 
-@admin.register(models.AuditEventType)
-class AuditEventTypeAdmin(BaseGovstackAdmin):
-    pass
-
-
 

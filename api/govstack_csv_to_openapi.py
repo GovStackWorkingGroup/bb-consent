@@ -489,11 +489,11 @@ def get_api_spec_from_row(row, current_tag):
     url = row[0]
     method = row[1].lower()
 
-    description = row[6].replace("\n", "\\n").replace("\"", "\\\"")
+    description = row[7].replace("\n", "\\n").replace("\"", "\\\"")
     
-    # YAML quotation friendlyness: Use \n as newline characters
+    # YAML quotation friendliness: Use \n as newline characters
     # See: https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines
-    summary = row[8].replace("\n", "\\n").replace("\"", "\\\"") or description
+    summary = row[9].replace("\n", "\\n").replace("\"", "\\\"") or description
     parameters = ""
     request_body_parameters = ""
     request_body_parameters_required = ""
@@ -506,12 +506,12 @@ def get_api_spec_from_row(row, current_tag):
     # Identifier of specification scenario
     scenario = row[3].replace("\n", "\\n").replace("\"", "\\\"") or ""
 
-    sensitive = row[7] == "TRUE"
+    sensitive = row[8] == "TRUE"
 
-    operation_id = row[9]
-    response_ok = row[10]
-    security = row[11]
-    crudl_model = row[12]
+    operation_id = row[10]
+    response_ok = row[11]
+    security = row[12]
+    crudl_model = row[13]
 
     for parameter in pattern_url_parameters.findall(url):
         parameters += parameter_template.format(
@@ -561,7 +561,7 @@ def get_api_spec_from_row(row, current_tag):
         )
     
     response_ok_objects = ""
-    objects_to_return = list(filter(lambda x: bool(x), row[5].split(", ")))
+    objects_to_return = list(filter(lambda x: bool(x), row[6].split(", ")))
     
     # Single object
     if len(objects_to_return) == 1:

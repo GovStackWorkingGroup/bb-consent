@@ -105,7 +105,7 @@ def json_serialize(instance, fk_relations_to_resolve, reverse_relations_to_resol
 
         # Strip the list
         json_dict = json.loads(response)
-        revision_fields["object_data"] = json_dict[0]["fields"]
+        revision_fields["objectData"] = json_dict[0]["fields"]
 
     # Serialize related fields that are listed to be resolved.
     # Otherwise, it will be entered as an integer FK.
@@ -115,16 +115,16 @@ def json_serialize(instance, fk_relations_to_resolve, reverse_relations_to_resol
 
         # Strip the list
         json_dict = json.loads(instance_json)
-        revision_fields["object_data"][field_key] = json_dict[0]["fields"]
+        revision_fields["objectData"][field_key] = json_dict[0]["fields"]
 
     for related_name in reverse_relations_to_resolve:
-        revision_fields["object_data"][related_name] = []
+        revision_fields["objectData"][related_name] = []
         related_manager = getattr(instance, related_name + "_set")
 
         for related_instance in related_manager.all():
             instance_json = serializers.serialize('json', [related_instance, ], indent=2)
             json_dict = json.loads(instance_json)
-            revision_fields["object_data"][related_name].append(json_dict[0]["fields"])
+            revision_fields["objectData"][related_name].append(json_dict[0]["fields"])
 
     response = json.dumps(revision_fields, indent=2)
 
@@ -146,8 +146,8 @@ def revision_any_instance(**kwargs):
     schema_name = instance._meta.model.__name__
     object_id = instance.pk
     timestamp = str(timezone.now())
-    authorized_by_other = kwargs.get("authorized_by_other", None)
-    authorized_by_individual = kwargs.get("authorized_by_individual", None)
+    authorized_by_other = kwargs.get("authorizedByOther", None)
+    authorized_by_individual = kwargs.get("authorizedByIndividual", None)
 
     predecessor_hash = None
 
@@ -156,11 +156,11 @@ def revision_any_instance(**kwargs):
             instance,
             fk_fields_to_resolve,
             reverse_relations_to_resolve,
-            schema_name=schema_name,
-            object_id=object_id,
+            schemaName=schema_name,
+            objectId=object_id,
             timestamp=timestamp,
-            authorized_by_other=authorized_by_other,
-            authorized_by_individual=authorized_by_individual,
+            authorizedByOther=authorized_by_other,
+            authorizedByIndividual=authorized_by_individual,
         )
     else:
         json_revision_data = ""
@@ -168,20 +168,20 @@ def revision_any_instance(**kwargs):
 
     if not created:
         predecessor = models.Revision.objects.get(
-            schema_name=schema_name,
-            object_id=object_id,
+            schemaName=schema_name,
+            objectId=object_id,
             successor=None
         )
-        predecessor_hash = predecessor.serialized_hash
+        predecessor_hash = predecessor.serializedHash
 
     new_revision = models.Revision.objects.create(
-        serialized_snapshot=json_revision_data,
-        serialized_hash=serialized_hash,
-        schema_name=schema_name,
-        object_id=object_id,
+        serializedSnapshot=json_revision_data,
+        serializedHash=serialized_hash,
+        schemaName=schema_name,
+        objectId=object_id,
         timestamp=timestamp,
-        authorized_by_other=authorized_by_other,
-        predecessor_hash=predecessor_hash
+        authorizedByOther=authorized_by_other,
+        predecessorHash=predecessor_hash
     )
 
     if not created:
@@ -197,28 +197,28 @@ def create_signature_for_revision(revision):
     private_key = pgpy.PGPKey()
     private_key.parse(pgp_example_private)
 
-    signature.verification_method = "pgp"
+    signature.verificationMethod = "pgp"
     signature.timestamp = timezone.now()
-    signature.verification_artifact = ""
-    signature.verification_signed_by = private_key.fingerprint  # PGP fingerprint
-    signature.verification_signed_as = "individual"
-    signature.object_type = "Revision"
-    signature.object_reference = revision.pk
+    signature.verificationArtifact = ""
+    signature.verificationSignedBy = private_key.fingerprint  # PGP fingerprint
+    signature.verificationSignedAs = "individual"
+    signature.objectType = "Revision"
+    signature.objectReference = revision.pk
 
-    signature.verification_payload = revision.serialized_snapshot
-    signature.verification_payload_hash = revision.serialized_hash
+    signature.verificationPayload = revision.serializedSnapshot
+    signature.verificationPayloadHash = revision.serializedHash
 
     signature.payload = json_serialize(
         {},
         [],
         [],
-        verification_method=signature.verification_method,
+        verificationMethod=signature.verificationMethod,
         timestamp=str(signature.timestamp),
-        verification_artifact=signature.verification_artifact,
-        verification_signed_by=signature.verification_signed_by,
-        verification_signed_as=signature.verification_signed_as,
-        object_type=signature.object_type,
-        object_reference=signature.object_reference,
+        verificationArtifact=signature.verificationArtifact,
+        verificationSignedBy=signature.verificationSignedBy,
+        verificationSignedAs=signature.verificationSignedAs,
+        objectType=signature.objectType,
+        objectReference=signature.objectReference,
     )
 
     signature.signature = private_key.sign(signature.payload)
@@ -232,8 +232,8 @@ def revision_agreements(sender, **kwargs):
     if kwargs["raw"]:
         return
     revision_any_instance(
-        authorized_by_other="Configuration admin user 'admin'",
-        fk_fields_to_resolve=["purpose", "controller", "lifecycle"],
+        authorizedByOther="Configuration admin user 'admin'",
+        fk_fields_to_resolve=["controller", "lifecycle"],
         reverse_relations_to_resolve=["agreementdata"],
         **kwargs)
 
@@ -243,7 +243,7 @@ def revision_policy(sender, **kwargs):
     # Disable signal during fixtures loading
     if kwargs["raw"]:
         return
-    revision_any_instance(authorized_by_other="Configuration admin user 'admin'", **kwargs)
+    revision_any_instance(authorizedByOther="Configuration admin user 'admin'", **kwargs)
 
 
 @receiver(post_save, sender=models.ConsentRecord)
@@ -254,7 +254,7 @@ def revision_consent_record(sender, **kwargs):
 
     instance = kwargs.get("instance")
     revision = revision_any_instance(
-        authorized_by_individual=instance.individual.pk,
+        authorizedByIndividual=instance.individual.pk,
         fk_fields_to_resolve=[],
         **kwargs
     )

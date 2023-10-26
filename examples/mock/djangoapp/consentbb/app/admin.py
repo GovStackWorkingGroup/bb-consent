@@ -16,9 +16,9 @@ from . import models
 
 
 class BaseGovstackAdmin(admin.ModelAdmin):
-    readonly_fields = ('serialized_snapshot', 'serialized_hash',)
+    readonly_fields = ('serializedSnapshot', 'serializedHash',)
 
-    def serialized_snapshot(self, instance):
+    def serializedSnapshot(self, instance):
 
         # Convert the data to sorted, indented JSON
         response = serializers.serialize('json', [instance, ], indent=2)
@@ -39,9 +39,9 @@ class BaseGovstackAdmin(admin.ModelAdmin):
         # Safe the output
         return mark_safe(style + response)
 
-    serialized_snapshot.short_description = 'Object as JSON artifact'
+    serializedSnapshot.short_description = 'Object as JSON artifact'
 
-    def serialized_hash(self, instance):
+    def serializedHash(self, instance):
         # Convert the data to sorted, indented JSON
         response = serializers.serialize('json', [instance, ], indent=2)
 
@@ -52,7 +52,7 @@ class BaseGovstackAdmin(admin.ModelAdmin):
         hash_value = sha1(response.encode())
         return hash_value.hexdigest()
 
-    serialized_hash.short_description = 'hash (SHA-1 of artifact)'
+    serializedHash.short_description = 'hash (SHA-1 of artifact)'
 
 
 @admin.register(models.Individual)

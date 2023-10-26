@@ -1451,9 +1451,9 @@ paths:
     put:
       tags:
         - service
-      summary: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      summary: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
       operationId: "serviceUpdateIndividualConsentRecord"
-      description: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      description: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1462,31 +1462,10 @@ paths:
           schema:
             type: string
 
-        - in: query
-          name: individualId
-          description: "An object with id individualId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: agreementId
-          description: "An object with id agreementId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
-          schema:
-            type: string
-
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "ConsentRecord"
       responses:
         '200':
           description: ""
@@ -1505,6 +1484,21 @@ paths:
       security:
         - OAuth2: [individual]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentRecord:
+                  $ref: '#/components/schemas/ConsentRecord'
+                  description: An object of type ConsentRecord
+
+              required:
+                - consentRecord
+
+
+
 
 
   /service/individual/record/consent-record/{consentRecordId}/signature/:
@@ -1512,9 +1506,9 @@ paths:
     post:
       tags:
         - service
-      summary: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      summary: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
       operationId: "serviceCreateIndividualConsentRecordSignature"
-      description: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      description: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1526,7 +1520,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "Signature"
       responses:
         '200':
           description: ""
@@ -1541,14 +1535,29 @@ paths:
       security:
         - OAuth2: [individual]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/Signature'
+                  description: An object of type Signature
+
+              required:
+                - signature
+
+
+
 
 
     put:
       tags:
         - service
-      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
       operationId: "serviceUpdateIndividualConsentRecordSignature"
-      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1560,7 +1569,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "Signature"
       responses:
         '200':
           description: ""
@@ -1625,7 +1634,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "ConsentRecord"
       responses:
         '200':
           description: ""

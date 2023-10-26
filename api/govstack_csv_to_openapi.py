@@ -967,16 +967,12 @@ def generate_django_ninja_api(yaml_data):
 
             crud_schema = endpoint.get("x-specification-crudl-model")
 
-            view_arguments = ""
+            view_arguments = []
             for parameter in parameters:
                 if parameter[2]:
-                    view_arguments += f" {parameter[0]}: {parameter[1]},"
+                    view_arguments.append(f"{parameter[0]}: {parameter[1]}")
                 else:
-                    view_arguments += f" {parameter[0]}: {parameter[1]}=None,"
-
-            # Trim last ","
-            if view_arguments:
-                view_arguments = view_arguments[:-1]
+                    view_arguments.append(f"{parameter[0]}: {parameter[1]}=None")
 
             snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
 
@@ -992,7 +988,7 @@ def generate_django_ninja_api(yaml_data):
                         django_api_output += django_api_get_object_template.format(
                             url=api_url,
                             method=snake_case_method_name,
-                            view_arguments=view_arguments,
+                            view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
                             pk_arg=pk_arg,
                         )
@@ -1000,7 +996,7 @@ def generate_django_ninja_api(yaml_data):
                         django_api_output += django_api_get_object_template_2_response_objects.format(
                             url=api_url,
                             method=snake_case_method_name,
-                            view_arguments=view_arguments,
+                            view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
                             schema_name2=schema_names_returned[1],
                             pk_arg=pk_arg,
@@ -1010,15 +1006,15 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_get_stub_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                     )
             elif method == "post":
                 if crud_schema:
-                    view_arguments += f" {crud_schema_argument_name}: schemas.{crud_schema}Schema"
+                    view_arguments.append(f"{crud_schema_argument_name}: schemas.{crud_schema}Schema")
                     django_api_output += django_api_post_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         schema_argument=crud_schema_argument_name,
                         schema_name=crud_schema,
                     )
@@ -1026,23 +1022,23 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_post_template_empty_object.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         schema_name="TBD",
                     )
 
             elif method == "put":
-                view_arguments += f", {crud_schema_argument_name}: schemas.{crud_schema}Schema"
+                view_arguments.append(f"{crud_schema_argument_name}: schemas.{crud_schema}Schema")
                 django_api_output += django_api_put_template.format(
                     url=api_url,
                     method=snake_case_method_name,
-                    view_arguments=view_arguments,
+                    view_arguments=", ".join(view_arguments),
                 )
             elif method == "delete":
                 if crud_schema:
                     django_api_output += django_api_delete_object_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         pk_arg=pk_arg,
                         schema_name=crud_schema,
                     )
@@ -1050,7 +1046,7 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_delete_stub_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                     )
 
     return django_api_template.format(endpoints=django_api_output, VERSION=VERSION)

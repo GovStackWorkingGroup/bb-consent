@@ -91,7 +91,7 @@ def config_create_agreement(request,agreement: schemas.AgreementSchema):
 
 
 @api.get("/config/agreements/")
-def config_list_agreement(request,offset: int=None, limit: int=None):
+def config_list_agreement(request,filterAgreementName: str=None, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Agreement, pk=None)
     return schemas.AgreementSchema.from_orm(db_instance).dict()
 
@@ -162,12 +162,12 @@ def service_agreement_data_read(request,agreementId: str, revisionId: str=None):
 
 
 @api.get("/service/verification/agreements/")
-def service_verification_agreement_list(request,offset: int=None, limit: int=None):
+def service_verification_agreement_list(request,filterAgreementName: str=None, offset: int=None, limit: int=None):
     return "undefined"
 
 
 @api.get("/service/verification/consentrecords/")
-def service_verification_consent_record_list(request,filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+def service_verification_consent_record_list(request,filterOptIn: str=None, filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -232,7 +232,7 @@ def service_delete_all_records(request,):
 
 
 @api.get("/audit/consentrecords/")
-def audit_consent_record_list(request,filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+def audit_consent_record_list(request,filterOptIn: str=None, filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -242,7 +242,7 @@ def audit_consent_record_read(request,consentRecordId: str):
 
 
 @api.post("/audit/agreements/")
-def audit_agreement_list(request,offset: int=None, limit: int=None):
+def audit_agreement_list(request,filterAgreementName: str=None, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 

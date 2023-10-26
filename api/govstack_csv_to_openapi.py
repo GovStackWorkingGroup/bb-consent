@@ -526,23 +526,25 @@ def get_api_spec_from_row(row, current_tag):
         # A * at the end of a query argument means "required"
         query_parameter_required = query_parameter.endswith("*")
         query_parameter_cleaned = query_parameter.rstrip("*")
-        if query_parameter_cleaned.endswith("Id"):
-            parameters += parameter_template_objectid.format(
-                where="query",
-                name=first_lowercase(query_parameter_cleaned),
-                required="true" if query_parameter_required else "false",
-                description="An object with id {}".format(query_parameter_cleaned),
+        parameters += parameter_template_objectid.format(
+            where="query",
+            name=first_lowercase(query_parameter_cleaned),
+            required="true" if query_parameter_required else "false",
+            description="An object with id {}".format(query_parameter_cleaned),
+        )
+    for query_parameter in filter(lambda x: bool(x), row[5].split(", ")):
+        # A * at the end of a query argument means "required"
+        request_parameter_required = query_parameter.endswith("*")
+        request_parameter_cleaned = query_parameter.rstrip("*")
+        request_body_parameters += request_body_parameter_template.format(
+            name=first_lowercase(request_parameter_cleaned),
+            schema_model=request_parameter_cleaned,
+            description="An object of type {}".format(request_parameter_cleaned),
+        )
+        if request_parameter_required:
+            request_body_parameters_required += request_body_parameters_required_template.format(
+                name=first_lowercase(request_parameter_cleaned),
             )
-        else:
-            request_body_parameters += request_body_parameter_template.format(
-                name=first_lowercase(query_parameter_cleaned),
-                schema_model=query_parameter_cleaned,
-                description="An object of type {}".format(query_parameter_cleaned),
-            )
-            if query_parameter_required:
-                request_body_parameters_required += request_body_parameters_required_template.format(
-                    name=first_lowercase(query_parameter_cleaned),
-                )
 
     if "List" in operation_id:
         parameters += parameter_template.format(

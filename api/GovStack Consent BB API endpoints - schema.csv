@@ -1,9 +1,9 @@
 Name (*=not a DB schema),Type,FK,Description,Required,Flagged for further discussion,Originating spec / analysis,ISO mapping,Example 1 (CSV)
 Model: Individual,,,"Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements.",,,GovStack,,
 id,string,,The unique ID of an Individual row.,TRUE,FALSE,,,1
-external_id,string,,"Reference to another foundational/functional ID, which is likely PII",FALSE,TRUE,GovStack,,PN-19800101-1234
-external_id_type,string,,"External id type specifier. A string. For instance ""email"" or ""foundational id"". Can be used in later queries.",FALSE,TRUE,GovStack,,foundational_id
-identity_provider_id,string,,"This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements.",FALSE,TRUE,GovStack,,3677de00-9115-4677-8642-b3d05c5e2e14
+externalId,string,,"Reference to another foundational/functional ID, which is likely PII",FALSE,TRUE,GovStack,,PN-19800101-1234
+externalIdType,string,,"External id type specifier. A string. For instance ""email"" or ""foundational id"". Can be used in later queries.",FALSE,TRUE,GovStack,,foundationalId
+identityProviderId,string,,"This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements.",FALSE,TRUE,GovStack,,3677de00-9115-4677-8642-b3d05c5e2e14
 ,,,,,,,,
 ,,,,,,,,
 Model: Agreement,,,An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord,,,ADA,,
@@ -12,13 +12,13 @@ version,string,,The version of this specification to which a receipt conforms,TR
 controller,fk,Controller,Data controller (may be omitted if no data involved),FALSE,FALSE,ADA,,1
 policy,fk,Policy,Reference to the policy under which this Agreement shall be governed,TRUE,FALSE,ADA,,1
 purpose,string,,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,Example purpose of data usage
-lawful_basis,string,,Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
-data_use,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
+lawfulBasis,string,,Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
+dataUse,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
 dpia,string,,Data Protection Impact Assessment,TRUE,FALSE,ADA,,Example Impact Assessment from Government Authority
 signature,fk,Signature,Signature of authorizing party of Agreement. Note: Signatures may be chained in case of multiple signatures.,FALSE,TRUE,GovStack,,
 active,boolean,,Agreement is active and new ConsentRecords can be created.,FALSE,FALSE,GovStack,,TRUE
 forgettable,boolean,,"Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability.",FALSE,TRUE,GovStack,,TRUE
-compatible_with_version,fk,Agreement,WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.,FALSE,FALSE,GovStack,,1
+compatibleWithVersion,fk,Agreement,WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.,FALSE,FALSE,GovStack,,1
 lifecycle,fk,AgreementLifecycle,WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.,FALSE,FALSE,GovStack,,
 ,,,,,,,,
 Model: AgreementData,,,Agreement data contains specifications of exactly what is collected.,,,ADA*,,
@@ -34,18 +34,18 @@ name,string,,Name of the policy,TRUE,FALSE,ADA,,Ministry of Health Privacy Polic
 version,string,,Version of the policy,TRUE,FALSE,ADA,,1.0
 url,string,,"Permanent URL at which this very version of the Policy can be read, should not be allowed to change over time.",TRUE,FALSE,ADA,,https://example.com/policy/1.0
 jurisdiction,string,,,FALSE,FALSE,ADA,,EU
-industry_sector,string,,,FALSE,FALSE,ADA,,
-data_retention_period_days,integer,,,FALSE,FALSE,ADA,,365
-geographic_restriction,string,,,FALSE,FALSE,ADA,,
-storage_location,string,,,FALSE,FALSE,ADA,,Country Name
+industrySector,string,,,FALSE,FALSE,ADA,,
+dataRetentionPeriodDays,integer,,,FALSE,FALSE,ADA,,365
+geographicRestriction,string,,,FALSE,FALSE,ADA,,
+storageLocation,string,,,FALSE,FALSE,ADA,,Country Name
 ,,,,,,,,
-Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreement_revision, individual)",,,GovStack,,
+Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreementRevision, individual)",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated.",TRUE,FALSE,,,1
 agreement,fk,Agreement,The Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
-agreement_revision,fk,Revision,The Revision of the agreement which consent has been given to,TRUE,FALSE,GovStack,,1
-agreement_revision_hash,string,,Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.,TRUE,FALSE,GovStack,,
+agreementRevision,fk,Revision,The Revision of the agreement which consent has been given to,TRUE,FALSE,GovStack,,1
+agreementRevisionHash,string,,Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.,TRUE,FALSE,GovStack,,
 individual,fk,Individual,The Individual who has signed this consent record,TRUE,FALSE,GovStack,,1
-opt_in,boolean,,True: The individual has positively opted in. False: The individual has explicitly said no (or withdrawn a previous consent).,FALSE,FALSE,GovStack,,TRUE
+optIn,boolean,,True: The individual has positively opted in. False: The individual has explicitly said no (or withdrawn a previous consent).,FALSE,FALSE,GovStack,,TRUE
 state,string,,The state field is used to record state changes after-the-fact. It is maintained by the Consent BB itself. Valid states: unsigned/pending more signatures/signed,TRUE,FALSE,GovStack,,signed
 signature,fk,Signature,"A signature that hashes all the values of the consent record and has signed it with the key of the Invidiual, making it verifiable and tamper-proof. TBD: Relation to a Signature schema?",TRUE,TRUE,GovStack,,1
 ,,,,,,,,
@@ -53,17 +53,17 @@ Model: Revision,,,"A *generic* revision model captures the serialized contents o
 
 Aside from ""successor"" column, a revision should be considered locked.",,,GovStack,,
 id,string,,,TRUE,FALSE,,,
-schema_name,string,,"This was previously called ""schema"" but for technical reasons should be called ""schema_name""",TRUE,FALSE,GovStack,,
-object_id,string,,The PK of the object that was serialized.,TRUE,FALSE,GovStack,,
-signed_without_object_id,boolean,,Indicates that object_id was left blank in serialized_snapshot when calculating serialized_hash. object_id may be subsequently filled in.,FALSE,TRUE,GovStack,,
-serialized_snapshot,string,,"Revisioned data (serialized as JSON) as a dict {object_data: {...}, schema_name: ..., object_id: ..., signed_without_object_id: ..., timestamp: ..., authorized_by_individual: ..., authorized_by_other: ...}. It contains all the fields of the schema except id, successor, predessor_hash and predecessor_signature.",TRUE,FALSE,GovStack,,
-serialized_hash,string,,Hash of serialized_snapshot (SHA-1),TRUE,FALSE,GovStack,,
+schemaName,string,,"This was previously called ""schema"" but for technical reasons should be called ""schemaName""",TRUE,FALSE,GovStack,,
+objectId,string,,The PK of the object that was serialized.,TRUE,FALSE,GovStack,,
+signedWithoutObjectId,boolean,,Indicates that objectId was left blank in serializedSnapshot when calculating serializedHash. objectId may be subsequently filled in.,FALSE,TRUE,GovStack,,
+serializedSnapshot,string,,"Revisioned data (serialized as JSON) as a dict {objectData: {...}, schemaName: ..., objectId: ..., signedWithoutObjectId: ..., timestamp: ..., authorizedByIndividual: ..., authorizedByOther: ...}. It contains all the fields of the schema except id, successor, predessorHash and predecessorSignature.",TRUE,FALSE,GovStack,,
+serializedHash,string,,Hash of serializedSnapshot (SHA-1),TRUE,FALSE,GovStack,,
 timestamp,string,,Timestamp of when revisioning happened,TRUE,FALSE,GovStack,,
-authorized_by_individual,fk,Individual,,FALSE,TRUE,GovStack,,
-authorized_by_other,string,,Reference to an admin user that has created this revision,FALSE,TRUE,GovStack,,
+authorizedByIndividual,fk,Individual,,FALSE,TRUE,GovStack,,
+authorizedByOther,string,,Reference to an admin user that has created this revision,FALSE,TRUE,GovStack,,
 successor,fk,Revision,"This revision is no longer the latest revision, refer to its successor.",FALSE,FALSE,GovStack,,
-predecessor_hash,string,,"Tamper-resistent artifact from previous record, copied from serialized_hash",FALSE,FALSE,GovStack,,
-predecessor_signature,string,,Tamper-resistent artifact from previous record (we don't know if the previous record was signed or not),FALSE,FALSE,GovStack,,
+predecessorHash,string,,"Tamper-resistent artifact from previous record, copied from serializedHash",FALSE,FALSE,GovStack,,
+predecessorSignature,string,,Tamper-resistent artifact from previous record (we don't know if the previous record was signed or not),FALSE,FALSE,GovStack,,
 ,,,,,,,,
 Model: Controller,,,Details of a data controller.,,,ADA*,,
 id,string,,,TRUE,FALSE,,,
@@ -72,19 +72,19 @@ url,string,,URL of data controller (may be omitted if no data involved),TRUE,FAL
 ,,,,,,,,
 Model: Signature,,,"A generic signature contains a cryptographic hash of some value, together with a signature created by some private key in another system. Required signing methods: Revision object or another Signature object.",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a Signature that is not yet stored in the database and only exist in transit.",TRUE,FALSE,,,
-payload,string,,"The final payload that is signed, constructed as a JSON serialization of fields {verificiation_payload: ..., verification_payload_hash: ..., verification_method: ..., verification_artifact: ..., verification_signed_by: ..., verification_jws_header, timestamp: ..., signed_without_object_reference: ..., object_type: ..., object_reference: ...}. Serialized as a JSON dict. If the signature is generated before anything is stored in the database (and has a PK), then the object_reference should be omitted from the payload but filled in afterwards.",TRUE,FALSE,GovStack,,
-signature,string,,"Signature of payload hash, the format of the signature should be specified by either verification_method or verification_jws_header",TRUE,FALSE,GovStack,,
-verification_method,string,,A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary.,TRUE,FALSE,GovStack,Kantara (Consent Receipt Collection Method),
-verification_payload,string,,Internally generated serialized version of the data referenced by object_type and object_reference - by extracting and serializing their data as JSON.,TRUE,FALSE,GovStack,,
-verification_payload_hash,string,,"Internally generated cryptographic hash of the value to be signed, i.e. the value of verification_payload",TRUE,FALSE,GovStack,,
-verification_artifact,string,,"A verification artifact in the form of a scanned object, image, signature etc.",FALSE,TRUE,GovStack,,
-verification_signed_by,string,,"Because an identifier's information may change over time, there is a need to store that information at the time of signing. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session.",TRUE,TRUE,GovStack,,
-verification_signed_as,string,,"DRAFT FIELD: Specifies the relationship between the authorizing signature and the invidual which the payload concerns. This is relevant for Consent Records. Possible values: ""individual"" / ""delegate""",FALSE,TRUE,GovStack,,
-verification_jws_header,string,,"Alternative to the verification_method, verification_hash and verification_signature, give a JWS serialized object (RFC7515)",FALSE,TRUE,GovStack,,
+payload,string,,"The final payload that is signed, constructed as a JSON serialization of fields {verificiationPayload: ..., verificationPayloadHash: ..., verificationMethod: ..., verificationArtifact: ..., verificationSignedBy: ..., verificationJwsHeader, timestamp: ..., signedWithoutObjectReference: ..., objectType: ..., objectReference: ...}. Serialized as a JSON dict. If the signature is generated before anything is stored in the database (and has a PK), then the objectReference should be omitted from the payload but filled in afterwards.",TRUE,FALSE,GovStack,,
+signature,string,,"Signature of payload hash, the format of the signature should be specified by either verificationMethod or verificationJwsHeader",TRUE,FALSE,GovStack,,
+verificationMethod,string,,A well-known string denoting which method is used. Valid values: <TBD>. We might expand this with a relation to which verification methods that are supported. There may be a minimal set of supported methods necessary.,TRUE,FALSE,GovStack,Kantara (Consent Receipt Collection Method),
+verificationPayload,string,,Internally generated serialized version of the data referenced by objectType and objectReference - by extracting and serializing their data as JSON.,TRUE,FALSE,GovStack,,
+verificationPayloadHash,string,,"Internally generated cryptographic hash of the value to be signed, i.e. the value of verificationPayload",TRUE,FALSE,GovStack,,
+verificationArtifact,string,,"A verification artifact in the form of a scanned object, image, signature etc.",FALSE,TRUE,GovStack,,
+verificationSignedBy,string,,"Because an identifier's information may change over time, there is a need to store that information at the time of signing. In case of a cryptographic signature, this field should contain some identifier for looking up or verifying the public key of the signing party. In case of a non-cryptographic signature, this field could contain a natural individual's names, personal number, email addresses - store a snapshot that binds to the signature at the time of signing. In case of a cryptographic signature, this may be the fingerprint of the individual's public key or in some cases, a token from the user's ID session.",TRUE,TRUE,GovStack,,
+verificationSignedAs,string,,"DRAFT FIELD: Specifies the relationship between the authorizing signature and the invidual which the payload concerns. This is relevant for Consent Records. Possible values: ""individual"" / ""delegate""",FALSE,TRUE,GovStack,,
+verificationJwsHeader,string,,"Alternative to the verificationMethod, verificationHash and verificationSignature, give a JWS serialized object (RFC7515)",FALSE,TRUE,GovStack,,
 timestamp,string,,"Timestamp of signature, currently this field isn't part of the payload so it's not tamper-proof.",TRUE,TRUE,GovStack,,
-signed_without_object_reference,boolean,,Indicates that object_reference was left blank in the serialized version that was signed.,FALSE,FALSE,GovStack,,
-object_type,string,,"Name of the schema model that object_reference points to. Values: ""signature"" or ""revision""",FALSE,TRUE,GovStack,,
-object_reference,string,,"A symmetric relation / back reference to the object_type that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",FALSE,TRUE,GovStack,,
+signedWithoutObjectReference,boolean,,Indicates that objectReference was left blank in the serialized version that was signed.,FALSE,FALSE,GovStack,,
+objectType,string,,"Name of the schema model that objectReference points to. Values: ""signature"" or ""revision""",FALSE,TRUE,GovStack,,
+objectReference,string,,"A symmetric relation / back reference to the objectType that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",FALSE,TRUE,GovStack,,
 ,,,,,,,,
 Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,

@@ -91,15 +91,27 @@ def config_create_agreement(request, agreement: schemas.AgreementSchema):
 
 
 @api.get("/config/agreements/")
-def config_list_agreement(request, offset: int=None, limit: int=None):
+def config_list_agreement(request, filterAgreementName: str=None, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Agreement, pk=None)
     return schemas.AgreementSchema.from_orm(db_instance).dict()
 
 
-@api.post("/config/agreements/")
-def config_list_agreement_filter(request, offset: int=None, limit: int=None agreementFilter: schemas.AgreementSchema):
-    db_instance = models.Agreement.objects.create(**agreementFilter.dict())
-    return schemas.AgreementSchema.from_orm(db_instance).dict()
+@api.post("/config/individual/")
+def service_individual_create(request, individual: schemas.IndividualSchema):
+    db_instance = models.Individual.objects.create(**individual.dict())
+    return schemas.IndividualSchema.from_orm(db_instance).dict()
+
+
+@api.get("/config/individual/{individualId}/")
+def service_individual_read(request, individualId: str):
+    db_instance = get_object_or_404(models.Individual, pk=individualId)
+    return schemas.IndividualSchema.from_orm(db_instance).dict()
+
+
+@api.get("/config/individuals/")
+def service_individual_list(request, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Individual, pk=filterFunctionalId)
+    return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
 @api.post("/service/individual/")
@@ -119,22 +131,9 @@ def service_individual_update(request, individualId: str, individual: schemas.In
     return "undefined"
 
 
-@api.post("/service/individual/{individualId}/")
-def service_individual_delete(request, individualId: str):
-    db_instance = get_object_or_404(models.Individual, pk=individualId)
-    db_instance.delete()
-    return {"success": True}
-
-
 @api.get("/service/individuals/")
-def service_individual_list(request, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.Individual, pk=None)
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
-
-
-@api.post("/service/individuals/")
-def service_individual_list_filter(request, offset: int=None, limit: int=None individualFilter: schemas.IndividualSchema):
-    db_instance = models.Individual.objects.create(**individualFilter.dict())
+def service_individual_list(request, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Individual, pk=filterFunctionalId)
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
@@ -163,25 +162,18 @@ def service_agreement_data_read(request, agreementId: str, revisionId: str=None)
 
 
 @api.get("/service/verification/agreements/")
-def service_verification_agreement_list(request, offset: int=None, limit: int=None):
+def service_verification_agreement_list(request, filterAgreementName: str=None, offset: int=None, limit: int=None):
     return "undefined"
 
 
-@api.post("/service/verification/agreements/")
-def service_verification_agreement_list_filter(request, offset: int=None, limit: int=None):
-    db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
-
-
-@api.get("/service/verification/agreement/{agreementId}/")
-def service_verification_agreement_consent_record_read(request, agreementId: str):
+@api.get("/service/verification/consentrecords/")
+def service_verification_consent_record_list(request, filterOptIn: str=None, filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
     return "undefined"
 
 
-@api.post("/service/verification/consentrecords/")
-def service_verification_consent_record_list(request, offset: int=None, limit: int=None):
-    db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+@api.get("/service/verification/consentrecord/{consentRecordId}")
+def service_verification_consent_record_list(request, consentRecordId: str, offset: int=None, limit: int=None):
+    return "undefined"
 
 
 @api.post("/service/individual/record/agreement/{agreementId}/")
@@ -195,53 +187,53 @@ def service_read_individual_record_read(request, agreementId: str):
     return "undefined"
 
 
-@api.post("/service/individual/record/consentrecord/draft/")
+@api.post("/service/individual/record/consent-record/draft/")
 def service_create_individual_consent_record_draft(request, individualId: str, agreementId: str, revisionId: str=None):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
-@api.post("/service/individual/record/consentrecord/")
-def service_create_individual_consent_record_and_signature(request,):
+@api.post("/service/individual/record/consent-record/")
+def service_create_individual_consent_record_and_signature(request, ):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
-@api.put("/service/individual/record/consentrecord/{consentRecordId}/")
-def service_update_individual_consent_record(request, consentRecordId: str, individualId: str, agreementId: str, revisionId: str=None, None: schemas.Schema):
+@api.get("/service/individual/record/consent-record/")
+def service_list_individual_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
-@api.post("/service/individual/record/consentrecord/{consentRecordId}/signature/")
-def service_create_individual_consent_record_signature(request, consentRecordId: str):
-    db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+@api.put("/service/individual/record/consent-record/{consentRecordId}/")
+def service_update_individual_consent_record(request, consentRecordId: str, consentRecord: schemas.ConsentRecordSchema):
+    return "undefined"
 
 
-@api.put("/service/individual/record/consentrecord/{consentRecordId}/signature/")
-def service_update_individual_consent_record_signature(request, consentRecordId: str, signature: schemas.Schema):
+@api.post("/service/individual/record/consent-record/{consentRecordId}/signature/")
+def service_create_individual_consent_record_signature(request, consentRecordId: str, signature: schemas.SignatureSchema):
+    db_instance = models.Signature.objects.create(**signature.dict())
+    return schemas.SignatureSchema.from_orm(db_instance).dict()
+
+
+@api.put("/service/individual/record/consent-record/{consentRecordId}/signature/")
+def service_update_individual_consent_record_signature(request, consentRecordId: str, signature: schemas.SignatureSchema):
     return "undefined"
 
 
 @api.get("/service/individual/record/agreement/{agreementId}/all/")
 def service_list_individual_agreement_consent_record_list(request, agreementId: str, offset: int=None, limit: int=None):
-    return "undefined"
-
-
-@api.get("/service/individual/record/")
-def service_list_individual_consent_record_list(request, offset: int=None, limit: int=None):
-    return "undefined"
+    db_instance = get_object_or_404(models.ConsentRecord, pk=agreementId)
+    return schemas.ConsentRecordSchema.from_orm(db_instance).dict()
 
 
 @api.delete("/service/individual/record/")
-def service_delete_all_records(request,):
+def service_delete_all_records(request, ):
     return "undefined"
 
 
-@api.post("/audit/consentrecords/")
-def audit_consent_record_list(request, offset: int=None, limit: int=None):
-    db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+@api.get("/audit/consentrecords/")
+def audit_consent_record_list(request, filterOptIn: str=None, filterAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+    return "undefined"
 
 
 @api.get("/audit/consentrecord/{consentRecordId}/")
@@ -250,23 +242,13 @@ def audit_consent_record_read(request, consentRecordId: str):
 
 
 @api.post("/audit/agreements/")
-def audit_agreement_list(request, offset: int=None, limit: int=None):
+def audit_agreement_list(request, filterAgreementName: str=None, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 
 
 @api.get("/audit/agreement/{agreementId}/")
 def audit_read_record(request, agreementId: str):
-    return "undefined"
-
-
-@api.get("/status/startup/")
-def status_startup(request,):
-    return "undefined"
-
-
-@api.get("/status/readiness/")
-def status_readiness(request,):
     return "undefined"
 
 

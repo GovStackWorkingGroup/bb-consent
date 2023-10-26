@@ -493,6 +493,13 @@ paths:
       description: "LIST - fetch all Agreements"
       parameters: 
         - in: query
+          name: filterAgreementName
+          description: "An object with id filterAgreementName"
+          required: false
+          schema:
+            type: string
+
+        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -529,31 +536,19 @@ paths:
 
 
 
+  /config/individual/:
+
     post:
       tags:
         - config
-      summary: "LIST - fetch Agreements matching AgreementFilter"
-      operationId: "configListAgreementFilter"
-      description: "LIST - fetch Agreements matching AgreementFilter"
-      parameters: 
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
+      summary: "CREATE - Creates an Individual in the Consent system"
+      operationId: "serviceIndividualCreate"
+      description: "CREATE - Creates an Individual in the Consent system"
+      parameters: []
+      x-specification-usecase: ""
       x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
       responses:
         '200':
           description: ""
@@ -561,10 +556,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -577,14 +569,110 @@ paths:
             schema:
               type: object
               properties:
-                agreementFilter:
-                  $ref: '#/components/schemas/AgreementFilter'
-                  description: An object of type AgreementFilter
+                individual:
+                  $ref: '#/components/schemas/Individual'
+                  description: An object of type Individual
 
               required:
-                - agreementFilter
+                - individual
 
 
+
+
+
+  /config/individual/{individualId}/:
+
+    get:
+      tags:
+        - config
+      summary: "READ - Fetch an Individual in the Consent system"
+      operationId: "serviceIndividualRead"
+      description: "READ - Fetch an Individual in the Consent system"
+      parameters: 
+        - in: path
+          name: "individualId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Individual'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
+
+
+
+  /config/individuals/:
+
+    get:
+      tags:
+        - config
+      summary: "LIST - lists individuals in the system"
+      operationId: "serviceIndividualList"
+      description: "LIST - lists individuals in the system"
+      parameters: 
+        - in: query
+          name: filterFunctionalId
+          description: "An object with id filterFunctionalId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterFoundationalId
+          description: "An object with id filterFoundationalId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: "Individual"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Individual'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [org]
 
 
 
@@ -717,40 +805,6 @@ paths:
 
 
 
-    delete:
-      tags:
-        - service
-      summary: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
-      operationId: "serviceIndividualDelete"
-      description: "DELETE - entirely removes an individual from the system and cascades necessary actions to related ConsentRecord objects"
-      parameters: 
-        - in: path
-          name: "individualId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: "Individual"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Individual'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-
   /service/individuals/:
 
     get:
@@ -761,49 +815,19 @@ paths:
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
+          name: filterFunctionalId
+          description: "An object with id filterFunctionalId"
           required: false
           schema:
-            type: integer
+            type: string
 
         - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
+          name: filterFoundationalId
+          description: "An object with id filterFoundationalId"
           required: false
           schema:
-            type: integer
+            type: string
 
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: "Individual"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Individual'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-
-    post:
-      tags:
-        - service
-      summary: "LIST - lists individuals in the system"
-      operationId: "serviceIndividualListFilter"
-      description: "LIST - lists individuals in the system"
-      parameters: 
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -838,21 +862,6 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                individualFilter:
-                  $ref: '#/components/schemas/IndividualFilter'
-                  description: An object of type IndividualFilter
-
-              required:
-                - individualFilter
-
-
 
 
 
@@ -994,124 +1003,33 @@ paths:
     get:
       tags:
         - service
-      summary: "LIST - Fetch consent records"
+      summary: "LIST - Fetch "
       operationId: "serviceVerificationAgreementList"
-      description: "LIST - Fetch consent records"
+      description: "LIST - Fetch "
       parameters: 
         - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
+          name: filterAgreementName
+          description: "An object with id filterAgreementName"
           required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: "1.1"
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [consumer]
-
-
-
-    post:
-      tags:
-        - service
-      summary: "LIST - Fetch consent records for supplied AgreementFilter"
-      operationId: "serviceVerificationAgreementListFilter"
-      description: "LIST - Fetch consent records for supplied AgreementFilter"
-      parameters: 
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: "1.1"
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [consumer]
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                agreementFilter:
-                  $ref: '#/components/schemas/AgreementFilter'
-                  description: An object of type AgreementFilter
-
-              required:
-                - agreementFilter
-
-
-
-
-
-  /service/verification/agreement/{agreementId}/:
-
-    get:
-      tags:
-        - service
-      summary: "READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header."
-      operationId: "serviceVerificationAgreementConsentRecordRead"
-      description: "READ - Fetch a specific Consent Record (latest revision). Individual ID supplied as HTTP header."
-      parameters: 
-        - in: path
-          name: "agreementId"
-          description: "Unique ID of an object"
-          required: true
           schema:
             type: string
 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
       x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: "1.2"
+      x-specification-scenario: "1.1"
       x-specification-pii-or-sensitive: "False"
       x-specification-crudl-model: ""
       responses:
@@ -1124,8 +1042,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Revision'
+                    - $ref: '#/components/schemas/Agreement'
 
         '400':
           description: bad input parameter
@@ -1136,13 +1053,55 @@ paths:
 
   /service/verification/consentrecords/:
 
-    post:
+    get:
       tags:
         - service
       summary: "LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists."
       operationId: "serviceVerificationConsentRecordList"
       description: "LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists."
       parameters: 
+        - in: query
+          name: filterOptIn
+          description: "An object with id filterOptIn"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterAgreementId
+          description: "An object with id filterAgreementId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterAgreementRevisionId
+          description: "An object with id filterAgreementRevisionId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterIndividualId
+          description: "An object with id filterIndividualId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterFunctionalId
+          description: "An object with id filterFunctionalId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterFoundationalId
+          description: "An object with id filterFoundationalId"
+          required: false
+          schema:
+            type: string
+
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -1178,20 +1137,59 @@ paths:
       security:
         - OAuth2: [consumer]
 
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                consentRecordFilter:
-                  $ref: '#/components/schemas/ConsentRecordFilter'
-                  description: An object of type ConsentRecordFilter
-
-              required:
-                - consentRecordFilter
 
 
+  /service/verification/consentrecord/{consentRecordId}:
+
+    get:
+      tags:
+        - service
+      summary: "READ - Reads a consent record by its ID."
+      operationId: "serviceVerificationConsentRecordList"
+      description: "READ - Reads a consent record by its ID."
+      parameters: 
+        - in: path
+          name: "consentRecordId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-A-003"
+      x-specification-scenario: "3.1, 1.2"
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+                    - $ref: '#/components/schemas/Revision'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [consumer]
 
 
 
@@ -1283,7 +1281,7 @@ paths:
 
 
 
-  /service/individual/record/consentrecord/draft/:
+  /service/individual/record/consent-record/draft/:
 
     post:
       tags:
@@ -1337,7 +1335,7 @@ paths:
 
 
 
-  /service/individual/record/consentrecord/:
+  /service/individual/record/consent-record/:
 
     post:
       tags:
@@ -1392,14 +1390,58 @@ paths:
 
 
 
-  /service/individual/record/consentrecord/{consentRecordId}/:
+    get:
+      tags:
+        - service
+      summary: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
+      operationId: "serviceListIndividualConsentRecordList"
+      description: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
+      parameters: 
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: "UC-C-PIC-I-001"
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "True"
+      x-specification-crudl-model: ""
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/ConsentRecord'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [individual]
+
+
+
+  /service/individual/record/consent-record/{consentRecordId}/:
 
     put:
       tags:
         - service
-      summary: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      summary: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
       operationId: "serviceUpdateIndividualConsentRecord"
-      description: "UPDATE* - Update a particular Consent Record. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature."
+      description: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1408,31 +1450,10 @@ paths:
           schema:
             type: string
 
-        - in: query
-          name: individualId
-          description: "An object with id individualId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: agreementId
-          description: "An object with id agreementId"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
-          schema:
-            type: string
-
       x-specification-usecase: "UC-C-PIC-I-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "ConsentRecord"
       responses:
         '200':
           description: ""
@@ -1451,16 +1472,31 @@ paths:
       security:
         - OAuth2: [individual]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consentRecord:
+                  $ref: '#/components/schemas/ConsentRecord'
+                  description: An object of type ConsentRecord
+
+              required:
+                - consentRecord
 
 
-  /service/individual/record/consentrecord/{consentRecordId}/signature/:
+
+
+
+  /service/individual/record/consent-record/{consentRecordId}/signature/:
 
     post:
       tags:
         - service
-      summary: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      summary: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
       operationId: "serviceCreateIndividualConsentRecordSignature"
-      description: "CREATE - Creates and returns a blank Signature object for the Consent Record."
+      description: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1472,7 +1508,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "Signature"
       responses:
         '200':
           description: ""
@@ -1487,14 +1523,29 @@ paths:
       security:
         - OAuth2: [individual]
 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/Signature'
+                  description: An object of type Signature
+
+              required:
+                - signature
+
+
+
 
 
     put:
       tags:
         - service
-      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
       operationId: "serviceUpdateIndividualConsentRecordSignature"
-      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state."
+      description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
       parameters: 
         - in: path
           name: "consentRecordId"
@@ -1506,7 +1557,7 @@ paths:
       x-specification-usecase: "UC-Post-Partum-001-Registration_PostPartum_and_InfantCare"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "Signature"
       responses:
         '200':
           description: ""
@@ -1571,7 +1622,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-I-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
+      x-specification-crudl-model: "ConsentRecord"
       responses:
         '200':
           description: ""
@@ -1592,50 +1643,6 @@ paths:
 
 
   /service/individual/record/:
-
-    get:
-      tags:
-        - service
-      summary: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualConsentRecordList"
-      description: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
-      parameters: 
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-I-001"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "True"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [individual]
-
-
 
     delete:
       tags:
@@ -1661,13 +1668,55 @@ paths:
 
   /audit/consentrecords/:
 
-    post:
+    get:
       tags:
         - auditor
       summary: "LIST - fetch ConsentRecord objects"
       operationId: "auditConsentRecordList"
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
+        - in: query
+          name: filterOptIn
+          description: "An object with id filterOptIn"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterAgreementId
+          description: "An object with id filterAgreementId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterAgreementRevisionId
+          description: "An object with id filterAgreementRevisionId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterIndividualId
+          description: "An object with id filterIndividualId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterFunctionalId
+          description: "An object with id filterFunctionalId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: filterFoundationalId
+          description: "An object with id filterFoundationalId"
+          required: false
+          schema:
+            type: string
+
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -1702,21 +1751,6 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: []
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                consentRecordFilter:
-                  $ref: '#/components/schemas/ConsentRecordFilter'
-                  description: An object of type ConsentRecordFilter
-
-              required:
-                - consentRecordFilter
-
-
 
 
 
@@ -1766,6 +1800,13 @@ paths:
       description: "LIST - fetch all Agreements stored in the system."
       parameters: 
         - in: query
+          name: filterAgreementName
+          description: "An object with id filterAgreementName"
+          required: false
+          schema:
+            type: string
+
+        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -1800,21 +1841,6 @@ paths:
       security:
         - OAuth2: []
 
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                agreementFilter:
-                  $ref: '#/components/schemas/AgreementFilter'
-                  description: An object of type AgreementFilter
-
-              required:
-                - agreementFilter
-
-
-
 
 
   /audit/agreement/{agreementId}/:
@@ -1846,54 +1872,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Agreement'
 
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: []
-
-
-
-  /status/startup/:
-
-    get:
-      tags:
-        - status
-      summary: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
-      operationId: "statusStartup"
-      description: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
-      parameters: []
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: []
-
-
-
-  /status/readiness/:
-
-    get:
-      tags:
-        - status
-      summary: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
-      operationId: "statusReadiness"
-      description: "DRAFT: This endpoint relates to a proposal for generic liveness/readiness API endpoints for building blocks"
-      parameters: []
-      x-specification-usecase: ""
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: ""
-      responses:
-        '200':
-          description: ""
-            
         '400':
           description: bad input parameter
       security:
@@ -2276,65 +2254,6 @@ components:
           description: "Tamper-resistent artifact from previous record (we don't know if the previous record was signed or not)"
 
 
-    AgreementFilter:
-      type: object
-      description: "Query filter for API endpoint listing Agreement objects"
-      x-not-in-database: true
-
-      required:
-           - name
-      properties:
-
-        name:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-
-    ConsentRecordFilter:
-      type: object
-      description: "Query filter for API endpoint listing ConsentRecord objects"
-      x-not-in-database: true
-
-      required:
-           - opt_in
-      properties:
-
-        opt_in:
-          type: boolean
-          format: ""
-          example: ""
-          description: ""
-
-        agreement:
-          $ref: '#/components/schemas/Agreement'
-          x-fk-model: "Agreement"
-          description: ""
-
-        agreement_revision:
-          $ref: '#/components/schemas/Revision'
-          x-fk-model: "Revision"
-          description: ""
-
-        individual:
-          $ref: '#/components/schemas/Individual'
-          x-fk-model: "Individual"
-          description: ""
-
-        functional_id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-        foundational_id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-
     Controller:
       type: object
       description: "Details of a data controller."
@@ -2487,105 +2406,6 @@ components:
           format: ""
           example: ""
           description: "Draft / Complete"
-
-
-    IndividualFilter:
-      type: object
-      description: "TBD: When creating an Invidiual, we need some input that refers to a functional or foundational ID in an external system"
-      x-not-in-database: true
-
-      properties:
-
-        foundational_id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-        functional_id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-
-    AuditEventType:
-      type: object
-      description: "TBD: Model for the possible events pertaining a change to an object subject to auditing. This model is not necessarily a database-backed model, but part of application code."
-      x-not-in-database: false
-
-      required:
-           - id
-           - event_name
-      properties:
-
-        id:
-          type: string
-          format: ""
-          example: ""
-          description: ""
-
-        event_name:
-          type: string
-          format: ""
-          example: ""
-          description: "What happened - create/update/delete"
-
-
-    StatusStartup:
-      type: object
-      description: "This model is not stored in a database. It describes the status of the Building Block while starting up. API should not be public. This call is blocking until the system is ready, a timeout occurs or an error is detected."
-      x-not-in-database: true
-
-      required:
-           - status
-      properties:
-
-        status:
-          type: string
-          format: ""
-          example: ""
-          description: "Possible values: OK, TIMEOUT, ERROR"
-
-        error_message:
-          type: string
-          format: ""
-          example: ""
-          description: "Description of failure"
-
-        waiting_for:
-          type: string
-          format: ""
-          example: ""
-          description: "When a timeout occurs, a list of pending operations may be shared"
-
-
-    StatusReadiness:
-      type: object
-      description: "This model is not stored in a database. It describes the status of the Building Block while running. Returns immediately. API should not be public."
-      x-not-in-database: true
-
-      required:
-           - status
-      properties:
-
-        status:
-          type: string
-          format: ""
-          example: ""
-          description: "Possible values: OK, WAITING, ERROR"
-
-        error_message:
-          type: string
-          format: ""
-          example: ""
-          description: "Description of failure"
-
-        waiting_for:
-          type: string
-          format: ""
-          example: ""
-          description: "When a timeout occurs, a list of pending operations may be shared"
 
 
 

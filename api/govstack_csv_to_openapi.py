@@ -237,14 +237,14 @@ from . import models
 
 django_api_get_stub_template = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_get_object_template = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -252,7 +252,7 @@ def {method}(request,{view_arguments}):
 
 django_api_get_object_template_2_response_objects = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     mocked_instance = G(models.{schema_name2})
     object1 = schemas.{schema_name}Schema.from_orm(db_instance).dict()
@@ -263,7 +263,7 @@ def {method}(request,{view_arguments}):
 
 django_api_post_template = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create(**{schema_argument}.dict())
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -272,7 +272,7 @@ def {method}(request,{view_arguments}):
 
 django_api_post_template_empty_object = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create()
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -281,21 +281,21 @@ def {method}(request,{view_arguments}):
 
 django_api_put_template = """
 @api.put("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_delete_stub_template = """
 @api.delete("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_delete_object_template = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     db_instance.delete()
     return {{"success": True}}
@@ -489,11 +489,11 @@ def get_api_spec_from_row(row, current_tag):
     url = row[0]
     method = row[1].lower()
 
-    description = row[6].replace("\n", "\\n").replace("\"", "\\\"")
+    description = row[7].replace("\n", "\\n").replace("\"", "\\\"")
     
-    # YAML quotation friendlyness: Use \n as newline characters
+    # YAML quotation friendliness: Use \n as newline characters
     # See: https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines
-    summary = row[8].replace("\n", "\\n").replace("\"", "\\\"") or description
+    summary = row[9].replace("\n", "\\n").replace("\"", "\\\"") or description
     parameters = ""
     request_body_parameters = ""
     request_body_parameters_required = ""
@@ -506,12 +506,12 @@ def get_api_spec_from_row(row, current_tag):
     # Identifier of specification scenario
     scenario = row[3].replace("\n", "\\n").replace("\"", "\\\"") or ""
 
-    sensitive = row[7] == "TRUE"
+    sensitive = row[8] == "TRUE"
 
-    operation_id = row[9]
-    response_ok = row[10]
-    security = row[11]
-    crudl_model = row[12]
+    operation_id = row[10]
+    response_ok = row[11]
+    security = row[12]
+    crudl_model = row[13]
 
     for parameter in pattern_url_parameters.findall(url):
         parameters += parameter_template.format(
@@ -526,23 +526,25 @@ def get_api_spec_from_row(row, current_tag):
         # A * at the end of a query argument means "required"
         query_parameter_required = query_parameter.endswith("*")
         query_parameter_cleaned = query_parameter.rstrip("*")
-        if query_parameter_cleaned.endswith("Id"):
-            parameters += parameter_template_objectid.format(
-                where="query",
-                name=first_lowercase(query_parameter_cleaned),
-                required="true" if query_parameter_required else "false",
-                description="An object with id {}".format(query_parameter_cleaned),
+        parameters += parameter_template_objectid.format(
+            where="query",
+            name=first_lowercase(query_parameter_cleaned),
+            required="true" if query_parameter_required else "false",
+            description="An object with id {}".format(query_parameter_cleaned),
+        )
+    for query_parameter in filter(lambda x: bool(x), row[5].split(", ")):
+        # A * at the end of a query argument means "required"
+        request_parameter_required = query_parameter.endswith("*")
+        request_parameter_cleaned = query_parameter.rstrip("*")
+        request_body_parameters += request_body_parameter_template.format(
+            name=first_lowercase(request_parameter_cleaned),
+            schema_model=request_parameter_cleaned,
+            description="An object of type {}".format(request_parameter_cleaned),
+        )
+        if request_parameter_required:
+            request_body_parameters_required += request_body_parameters_required_template.format(
+                name=first_lowercase(request_parameter_cleaned),
             )
-        else:
-            request_body_parameters += request_body_parameter_template.format(
-                name=first_lowercase(query_parameter_cleaned),
-                schema_model=query_parameter_cleaned,
-                description="An object of type {}".format(query_parameter_cleaned),
-            )
-            if query_parameter_required:
-                request_body_parameters_required += request_body_parameters_required_template.format(
-                    name=first_lowercase(query_parameter_cleaned),
-                )
 
     if "List" in operation_id:
         parameters += parameter_template.format(
@@ -561,7 +563,7 @@ def get_api_spec_from_row(row, current_tag):
         )
     
     response_ok_objects = ""
-    objects_to_return = list(filter(lambda x: bool(x), row[5].split(", ")))
+    objects_to_return = list(filter(lambda x: bool(x), row[6].split(", ")))
     
     # Single object
     if len(objects_to_return) == 1:
@@ -967,16 +969,12 @@ def generate_django_ninja_api(yaml_data):
 
             crud_schema = endpoint.get("x-specification-crudl-model")
 
-            view_arguments = ""
+            view_arguments = []
             for parameter in parameters:
                 if parameter[2]:
-                    view_arguments += f" {parameter[0]}: {parameter[1]},"
+                    view_arguments.append(f"{parameter[0]}: {parameter[1]}")
                 else:
-                    view_arguments += f" {parameter[0]}: {parameter[1]}=None,"
-
-            # Trim last ","
-            if view_arguments:
-                view_arguments = view_arguments[:-1]
+                    view_arguments.append(f"{parameter[0]}: {parameter[1]}=None")
 
             snake_case_method_name = re.sub(r'(?<!^)(?=[A-Z])', '_', endpoint["operationId"]).lower()
 
@@ -992,7 +990,7 @@ def generate_django_ninja_api(yaml_data):
                         django_api_output += django_api_get_object_template.format(
                             url=api_url,
                             method=snake_case_method_name,
-                            view_arguments=view_arguments,
+                            view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
                             pk_arg=pk_arg,
                         )
@@ -1000,7 +998,7 @@ def generate_django_ninja_api(yaml_data):
                         django_api_output += django_api_get_object_template_2_response_objects.format(
                             url=api_url,
                             method=snake_case_method_name,
-                            view_arguments=view_arguments,
+                            view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
                             schema_name2=schema_names_returned[1],
                             pk_arg=pk_arg,
@@ -1010,15 +1008,15 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_get_stub_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                     )
             elif method == "post":
                 if crud_schema:
-                    view_arguments += f" {crud_schema_argument_name}: schemas.{crud_schema}Schema"
+                    view_arguments.append(f"{crud_schema_argument_name}: schemas.{crud_schema}Schema")
                     django_api_output += django_api_post_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         schema_argument=crud_schema_argument_name,
                         schema_name=crud_schema,
                     )
@@ -1026,23 +1024,23 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_post_template_empty_object.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         schema_name="TBD",
                     )
 
             elif method == "put":
-                view_arguments += f", {crud_schema_argument_name}: schemas.{crud_schema}Schema"
+                view_arguments.append(f"{crud_schema_argument_name}: schemas.{crud_schema}Schema")
                 django_api_output += django_api_put_template.format(
                     url=api_url,
                     method=snake_case_method_name,
-                    view_arguments=view_arguments,
+                    view_arguments=", ".join(view_arguments),
                 )
             elif method == "delete":
                 if crud_schema:
                     django_api_output += django_api_delete_object_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                         pk_arg=pk_arg,
                         schema_name=crud_schema,
                     )
@@ -1050,7 +1048,7 @@ def generate_django_ninja_api(yaml_data):
                     django_api_output += django_api_delete_stub_template.format(
                         url=api_url,
                         method=snake_case_method_name,
-                        view_arguments=view_arguments,
+                        view_arguments=", ".join(view_arguments),
                     )
 
     return django_api_template.format(endpoints=django_api_output, VERSION=VERSION)

@@ -237,14 +237,14 @@ from . import models
 
 django_api_get_stub_template = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_get_object_template = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -252,7 +252,7 @@ def {method}(request,{view_arguments}):
 
 django_api_get_object_template_2_response_objects = """
 @api.get("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     mocked_instance = G(models.{schema_name2})
     object1 = schemas.{schema_name}Schema.from_orm(db_instance).dict()
@@ -263,7 +263,7 @@ def {method}(request,{view_arguments}):
 
 django_api_post_template = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create(**{schema_argument}.dict())
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -272,7 +272,7 @@ def {method}(request,{view_arguments}):
 
 django_api_post_template_empty_object = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create()
     return schemas.{schema_name}Schema.from_orm(db_instance).dict()
 
@@ -281,21 +281,21 @@ def {method}(request,{view_arguments}):
 
 django_api_put_template = """
 @api.put("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_delete_stub_template = """
 @api.delete("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     return "undefined"
 
 """
 
 django_api_delete_object_template = """
 @api.post("{url}")
-def {method}(request,{view_arguments}):
+def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
     db_instance.delete()
     return {{"success": True}}

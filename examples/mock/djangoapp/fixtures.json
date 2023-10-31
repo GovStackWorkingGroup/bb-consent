@@ -1,2 +1,201 @@
 [
+{
+  "model": "app.individual",
+  "pk": 1,
+  "fields": {
+    "externalId": "12345678",
+    "externalIdType": "foundational id",
+    "identityProviderId": "IDBB"
+  }
+},
+{
+  "model": "app.dataagreement",
+  "pk": 1,
+  "fields": {
+    "version": "1.0",
+    "controller": 1,
+    "policy": 1,
+    "purpose": "Registration in Health App",
+    "lawfulBasis": "Consent",
+    "dataUse": "data_source",
+    "dpia": "DPIA by MoJ on \"user registration for health centers\", April 2nd 2023",
+    "active": true,
+    "forgettable": null,
+    "compatibleWithVersion": null,
+    "lifecycle": 2,
+    "signature": null
+  }
+},
+{
+  "model": "app.policy",
+  "pk": 1,
+  "fields": {
+    "name": "Ministry of Health Privacy Policy",
+    "version": "1.0",
+    "url": "https://example.com/policy/1.0",
+    "jurisdiction": "EU",
+    "industrySector": "Public",
+    "dataRetentionPeriodDays": 365,
+    "geographicRestriction": "EU",
+    "storageLocation": "EU"
+  }
+},
+{
+  "model": "app.consentrecord",
+  "pk": 1,
+  "fields": {
+    "dataAgreement": 1,
+    "dataAgreementRevision": 3,
+    "dataAgreementRevisionHash": "ea133b454bc66600f6b05e8fa87d3d8ff72ad334",
+    "individual": 1,
+    "optIn": null,
+    "state": "signed",
+    "signature": 1
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 1,
+  "fields": {
+    "schemaName": "Policy",
+    "objectId": "1",
+    "signedWithoutObjectId": null,
+    "serializedSnapshot": "{\n  \"schemaName\": \"Policy\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:52:26.991893+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"name\": \"Ministry of Health Privacy Policy\",\n    \"version\": \"1.0\",\n    \"url\": \"https://example.com/policy/1.0\",\n    \"jurisdiction\": \"EU\",\n    \"industrySector\": \"Public\",\n    \"dataRetentionPeriodDays\": 365,\n    \"geographicRestriction\": \"EU\",\n    \"storageLocation\": \"EU\"\n  }\n}",
+    "serializedHash": "498282a1fc1a0b1515920beb5acbf5b50d8e6daa",
+    "timestamp": "2023-10-31 21:52:26.991893+00:00",
+    "authorizedByIndividual": null,
+    "authorizedByOther": "Configuration admin user 'admin'",
+    "successor": null,
+    "predecessorHash": null,
+    "predecessorSignature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 2,
+  "fields": {
+    "schemaName": "DataAgreement",
+    "objectId": "1",
+    "signedWithoutObjectId": null,
+    "serializedSnapshot": "{\n  \"schemaName\": \"DataAgreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:53:36.871583+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"active\": false,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Draft\"\n    },\n    \"signature\": null,\n    \"dataagreementattribute\": []\n  }\n}",
+    "serializedHash": "795491d47f4fc1b32e0daf8b21ed1fb3b61697d2",
+    "timestamp": "2023-10-31 21:53:36.871583+00:00",
+    "authorizedByIndividual": null,
+    "authorizedByOther": "Configuration admin user 'admin'",
+    "successor": 3,
+    "predecessorHash": null,
+    "predecessorSignature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 3,
+  "fields": {
+    "schemaName": "DataAgreement",
+    "objectId": "1",
+    "signedWithoutObjectId": null,
+    "serializedSnapshot": "{\n  \"schemaName\": \"DataAgreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:53:59.411517+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"active\": true,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Complete\"\n    },\n    \"signature\": null,\n    \"dataagreementattribute\": []\n  }\n}",
+    "serializedHash": "ea133b454bc66600f6b05e8fa87d3d8ff72ad334",
+    "timestamp": "2023-10-31 21:53:59.411517+00:00",
+    "authorizedByIndividual": null,
+    "authorizedByOther": "Configuration admin user 'admin'",
+    "successor": null,
+    "predecessorHash": "795491d47f4fc1b32e0daf8b21ed1fb3b61697d2",
+    "predecessorSignature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 4,
+  "fields": {
+    "schemaName": "ConsentRecord",
+    "objectId": "1",
+    "signedWithoutObjectId": null,
+    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:02.910254+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
+    "serializedHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
+    "timestamp": "2023-10-31 21:55:02.910254+00:00",
+    "authorizedByIndividual": null,
+    "authorizedByOther": null,
+    "successor": 5,
+    "predecessorHash": null,
+    "predecessorSignature": null
+  }
+},
+{
+  "model": "app.revision",
+  "pk": 5,
+  "fields": {
+    "schemaName": "ConsentRecord",
+    "objectId": "1",
+    "signedWithoutObjectId": null,
+    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:12.904646+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
+    "serializedHash": "cfe1c2c63c981a2411e2b05fc8923733ce9b679a",
+    "timestamp": "2023-10-31 21:55:12.904646+00:00",
+    "authorizedByIndividual": null,
+    "authorizedByOther": null,
+    "successor": null,
+    "predecessorHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
+    "predecessorSignature": null
+  }
+},
+{
+  "model": "app.controller",
+  "pk": 1,
+  "fields": {
+    "name": "Ministry of Health",
+    "url": "https://example.com/"
+  }
+},
+{
+  "model": "app.signature",
+  "pk": 1,
+  "fields": {
+    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-31 21:55:02.917984+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 4\n}",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlQXe2FiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmgjV0gwAkgRpBTuWy4KQCM64uDpZMvENVZsVEtMeLxDRzyHPU0H24qjDhwjx/rOg\nUWSynvaMxHtdYgqmRNhsEtrfPpeHClAYZezKfjaiQXQOXvpBEiolKBwHlE+pkJcA\nh80/DDORtu6ipYxLXsY9Wy2TYXvSuqeM+pjZ9P+dut4Zy2qHkPKr88JCDcxY5A2T\nBcsu4y++Rmgo23BWd0E4+QQ31Esm0i0k5jBde8xDzCJPXos0TNisrjothQ26l7YO\nM13YVEkgTZLceEkYsMvFTmqUtIlO1BP8BoSJLltU1LEfed2rJ2RXbwxHA6UeQNs0\n7+axf1/32mK4KWePoitRodzGdjHsESbdbZYoKYHxA62a0Ng2eMUJe2MvxhoMJI1V\nAz+AtQnSxpPeK5ggOlM85aa6QZXuOI4iP14NN4ec0uGDjpxYfznIDKfTCnRXkz+E\nQ/9WyZF5dU+FFEed6FIxYAb8kN2ynb3mgM17LTYf3Rdz6NCAkUDFAGNmqjSGz7PV\nG7v1wrU0\n=IAUr\n-----END PGP SIGNATURE-----\n",
+    "verificationMethod": "pgp",
+    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:02.910254+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
+    "verificationPayloadHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
+    "verificationArtifact": "",
+    "verificationSignedBy": "528419E5FA07B763D38224AA3EAC2988E1579A08",
+    "verificationSignedAs": "individual",
+    "verificationJwsHeader": null,
+    "timestamp": "2023-10-31 21:55:02.917984+00:00",
+    "signedWithoutObjectReference": null,
+    "objectType": "Revision",
+    "objectReference": "4"
+  }
+},
+{
+  "model": "app.signature",
+  "pk": 2,
+  "fields": {
+    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-31 21:55:12.917958+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 5\n}",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlQXfAFiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmgiggAwArFnH+vPX7mRs1bOWuvXbqCk63k9MToeklq+SwZELUwTdWWKdeuwbNUHN\nzhtYxCMbhgxA0/2mTdj9eIl4SfmJ2XfGp5mw1/0GcfNYEnq7u3HUd/hIwa/YmlSN\nKnybT0k2+MNaFfereSYKXe4BAZPCDbW1gYLaSXDQFGyU1wMLBug9shcGDFL86cLU\nVzD/V7Xb0IYYBxB1IlMLVXsJ9gNA1b1AeCXy7Z0WteDtlHLe1hz9xxzgKax9smCT\nBP/0LLHMdEHLrDivWVjgSjvrPDe+Bowtr455v4iX6oXsmBKP1/KutxoHjeAljWYy\njmLXKeQgqRSpqFXrU6sdP166fotXnasjOyYZTDk3BZnc+WwPfD8mXE+Jt2Tov1qd\npOTk751rvQmnAI0VibEj1P7FFZn+SkOJrpqderHoMPcoZCmUMyF0cjywHJu0d3RN\nwpZeFnMY4wjcb2Q1GcdVFn6nXcGRSlIvPThrCgD5WHQDnr2iKXwsjX0OnNCaFqeI\neGA74usy\n=QvBD\n-----END PGP SIGNATURE-----\n",
+    "verificationMethod": "pgp",
+    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:12.904646+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
+    "verificationPayloadHash": "cfe1c2c63c981a2411e2b05fc8923733ce9b679a",
+    "verificationArtifact": "",
+    "verificationSignedBy": "528419E5FA07B763D38224AA3EAC2988E1579A08",
+    "verificationSignedAs": "individual",
+    "verificationJwsHeader": null,
+    "timestamp": "2023-10-31 21:55:12.917958+00:00",
+    "signedWithoutObjectReference": null,
+    "objectType": "Revision",
+    "objectReference": "5"
+  }
+},
+{
+  "model": "app.dataagreementlifecycle",
+  "pk": 1,
+  "fields": {
+    "name": "Draft"
+  }
+},
+{
+  "model": "app.dataagreementlifecycle",
+  "pk": 2,
+  "fields": {
+    "name": "Complete"
+  }
+}
 ]

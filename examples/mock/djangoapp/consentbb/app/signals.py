@@ -226,15 +226,15 @@ def create_signature_for_revision(revision):
     signature.save()
 
 
-@receiver(post_save, sender=models.Agreement)
-def revision_agreements(sender, **kwargs):
+@receiver(post_save, sender=models.DataAgreement)
+def revision_data_agreements(sender, **kwargs):
     # Disable signal during fixtures loading
     if kwargs["raw"]:
         return
     revision_any_instance(
         authorizedByOther="Configuration admin user 'admin'",
         fk_fields_to_resolve=["controller", "lifecycle"],
-        reverse_relations_to_resolve=["agreementdata"],
+        reverse_relations_to_resolve=["dataagreementattribute"],
         **kwargs)
 
 

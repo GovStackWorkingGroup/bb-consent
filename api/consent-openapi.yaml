@@ -76,9 +76,9 @@ paths:
     get:
       tags:
         - config
-      summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
+      summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
       operationId: "configReadPolicy"
-      description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revision_id, then this specific revision is returned."
+      description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
       parameters: 
         - in: path
           name: "policyId"
@@ -121,9 +121,9 @@ paths:
     put:
       tags:
         - config
-      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy must not affect existing active references in DataAgreement, the new Revision should be specified for Agreement."
       operationId: "configUpdatePolicy"
-      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy does not affect existing references in Agreement, the new revision should be specified for Agreement."
+      description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy must not affect existing active references in DataAgreement, the new Revision should be specified for Agreement."
       parameters: 
         - in: path
           name: "policyId"
@@ -174,9 +174,9 @@ paths:
     delete:
       tags:
         - config
-      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
       operationId: "configDeletePolicy"
-      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active Agreement."
+      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
       parameters: 
         - in: path
           name: "policyId"
@@ -308,7 +308,7 @@ paths:
 
 
 
-  /config/agreement/{agreementId}/:
+  /config/data-agreement/{dataAgreementId}/:
 
     get:
       tags:
@@ -318,7 +318,7 @@ paths:
       description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -327,7 +327,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -338,7 +338,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
                     - $ref: '#/components/schemas/Revision'
 
         '400':
@@ -351,12 +351,12 @@ paths:
     put:
       tags:
         - config
-      summary: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
+      summary: "UPDATE - An existing DataAgreement object is created and returned together with a new Revision"
       operationId: "configUpdateAgreement"
-      description: "UPDATE - An existing Agreement object is created and returned together with AgreementRevision"
+      description: "UPDATE - An existing DataAgreement object is created and returned together with a new Revision"
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -365,7 +365,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-002"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -376,7 +376,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
                     - $ref: '#/components/schemas/Revision'
 
         '400':
@@ -390,12 +390,12 @@ paths:
             schema:
               type: object
               properties:
-                agreement:
-                  $ref: '#/components/schemas/Agreement'
-                  description: An object of type Agreement
+                dataAgreement:
+                  $ref: '#/components/schemas/DataAgreement'
+                  description: An object of type DataAgreement
 
               required:
-                - agreement
+                - dataAgreement
 
 
 
@@ -409,7 +409,7 @@ paths:
       description: ""
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -418,7 +418,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-004"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -435,19 +435,19 @@ paths:
 
 
 
-  /config/agreement/:
+  /config/data-agreement/:
 
     post:
       tags:
         - config
-      summary: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
+      summary: "CREATE - A new DataAgreement object is created and returned together with a Revision"
       operationId: "configCreateAgreement"
-      description: "CREATE - A new Agreement object is created and returned together with AgreementRevision"
+      description: "CREATE - A new DataAgreement object is created and returned together with a Revision"
       parameters: []
       x-specification-usecase: "UC-C-PIC-A-001"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -458,7 +458,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
                     - $ref: '#/components/schemas/Revision'
 
         '400':
@@ -472,29 +472,29 @@ paths:
             schema:
               type: object
               properties:
-                agreement:
-                  $ref: '#/components/schemas/Agreement'
-                  description: An object of type Agreement
+                dataAgreement:
+                  $ref: '#/components/schemas/DataAgreement'
+                  description: An object of type DataAgreement
 
               required:
-                - agreement
+                - dataAgreement
 
 
 
 
 
-  /config/agreements/:
+  /config/data-agreements/:
 
     get:
       tags:
         - config
-      summary: "LIST - fetch all Agreements"
+      summary: "LIST - fetch all DataAgreements"
       operationId: "configListAgreement"
-      description: "LIST - fetch all Agreements"
+      description: "LIST - fetch all DataAgreements"
       parameters: 
         - in: query
-          name: filterAgreementName
-          description: "An object with id filterAgreementName"
+          name: filterDataAgreementName
+          description: "An object with id filterDataAgreementName"
           required: false
           schema:
             type: string
@@ -516,7 +516,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -527,7 +527,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -865,7 +865,7 @@ paths:
 
 
 
-  /service/agreement/{agreementId}/:
+  /service/data-agreement/{dataAgreementId}/:
 
     get:
       tags:
@@ -875,7 +875,7 @@ paths:
       description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -884,7 +884,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "Agreement"
+      x-specification-crudl-model: "DataAgreement"
       responses:
         '200':
           description: ""
@@ -895,7 +895,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
                     - $ref: '#/components/schemas/Revision'
 
         '400':
@@ -952,7 +952,7 @@ paths:
 
 
 
-  /service/agreement/{agreementId}/agreementdata/:
+  /service/data-agreement/{datadataAgreementId}/attributes/:
 
     get:
       tags:
@@ -962,7 +962,7 @@ paths:
       description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "datadataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -978,7 +978,7 @@ paths:
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: ""
       x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "AgreementData"
+      x-specification-crudl-model: "DataAgreementAttribute"
       responses:
         '200':
           description: ""
@@ -989,7 +989,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/AgreementData'
+                    - $ref: '#/components/schemas/DataAgreementAttribute'
 
         '400':
           description: bad input parameter
@@ -998,7 +998,7 @@ paths:
 
 
 
-  /service/verification/agreements/:
+  /service/verification/data-agreements/:
 
     get:
       tags:
@@ -1008,8 +1008,8 @@ paths:
       description: "LIST - Fetch "
       parameters: 
         - in: query
-          name: filterAgreementName
-          description: "An object with id filterAgreementName"
+          name: filterDataAgreementName
+          description: "An object with id filterDataAgreementName"
           required: false
           schema:
             type: string
@@ -1042,7 +1042,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -1068,15 +1068,15 @@ paths:
             type: string
 
         - in: query
-          name: filterAgreementId
-          description: "An object with id filterAgreementId"
+          name: filterDataAgreementId
+          description: "An object with id filterDataAgreementId"
           required: false
           schema:
             type: string
 
         - in: query
-          name: filterAgreementRevisionId
-          description: "An object with id filterAgreementRevisionId"
+          name: filterDataAgreementRevisionId
+          description: "An object with id filterDataAgreementRevisionId"
           required: false
           schema:
             type: string
@@ -1193,7 +1193,7 @@ paths:
 
 
 
-  /service/individual/record/agreement/{agreementId}/:
+  /service/individual/record/data-agreement/{dataAgreementId}/:
 
     post:
       tags:
@@ -1203,7 +1203,7 @@ paths:
       description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1255,7 +1255,7 @@ paths:
       description: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1286,9 +1286,9 @@ paths:
     post:
       tags:
         - service
-      summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given dataAgreementId."
       operationId: "serviceCreateIndividualConsentRecordDraft"
-      description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given agreementId."
+      description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given dataAgreementId."
       parameters: 
         - in: query
           name: individualId
@@ -1298,8 +1298,8 @@ paths:
             type: string
 
         - in: query
-          name: agreementId
-          description: "An object with id agreementId"
+          name: dataAgreementId
+          description: "An object with id dataAgreementId"
           required: true
           schema:
             type: string
@@ -1589,7 +1589,7 @@ paths:
 
 
 
-  /service/individual/record/agreement/{agreementId}/all/:
+  /service/individual/record/data-agreement/{dataAgreementId}/all/:
 
     get:
       tags:
@@ -1599,7 +1599,7 @@ paths:
       description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1683,8 +1683,8 @@ paths:
             type: string
 
         - in: query
-          name: filterAgreementId
-          description: "An object with id filterAgreementId"
+          name: filterdataAgreementId
+          description: "An object with id filterdataAgreementId"
           required: false
           schema:
             type: string
@@ -1790,7 +1790,7 @@ paths:
 
 
 
-  /audit/agreements/:
+  /audit/data-agreements/:
 
     post:
       tags:
@@ -1800,8 +1800,8 @@ paths:
       description: "LIST - fetch all Agreements stored in the system."
       parameters: 
         - in: query
-          name: filterAgreementName
-          description: "An object with id filterAgreementName"
+          name: filterDataAgreementName
+          description: "An object with id filterDataAgreementName"
           required: false
           schema:
             type: string
@@ -1834,7 +1834,7 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '#/components/schemas/Agreement'
+                    - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -1843,7 +1843,7 @@ paths:
 
 
 
-  /audit/agreement/{agreementId}/:
+  /audit/data-agreement/{dataAgreementId}/:
 
     get:
       tags:
@@ -1853,7 +1853,7 @@ paths:
       description: "READ - fetch a single Agreement."
       parameters: 
         - in: path
-          name: "agreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:
@@ -1870,7 +1870,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Agreement'
+                $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter

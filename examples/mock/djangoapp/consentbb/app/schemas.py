@@ -12,14 +12,14 @@ class IndividualSchema(ModelSchema):
         model = models.Individual
         model_fields = "__all__"
 
-class AgreementSchema(ModelSchema):
+class DataAgreementSchema(ModelSchema):
     class Config:
-        model = models.Agreement
+        model = models.DataAgreement
         model_fields = "__all__"
 
-class AgreementDataSchema(ModelSchema):
+class DataAgreementAttributeSchema(ModelSchema):
     class Config:
-        model = models.AgreementData
+        model = models.DataAgreementAttribute
         model_fields = "__all__"
 
 class PolicySchema(ModelSchema):
@@ -47,9 +47,9 @@ class SignatureSchema(ModelSchema):
         model = models.Signature
         model_fields = "__all__"
 
-class AgreementLifecycleSchema(ModelSchema):
+class DataAgreementLifecycleSchema(ModelSchema):
     class Config:
-        model = models.AgreementLifecycle
+        model = models.DataAgreementLifecycle
         model_fields = "__all__"
 
 

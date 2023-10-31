@@ -60,13 +60,13 @@ class IndividualAdmin(BaseGovstackAdmin):
     pass
 
 
-@admin.register(models.Agreement)
-class AgreementAdmin(BaseGovstackAdmin):
+@admin.register(models.DataAgreement)
+class DataAgreementAdmin(BaseGovstackAdmin):
     pass
 
 
-@admin.register(models.AgreementData)
-class AgreementDataAdmin(BaseGovstackAdmin):
+@admin.register(models.DataAgreementAttribute)
+class DataAgreementAttributeAdmin(BaseGovstackAdmin):
     pass
 
 
@@ -95,8 +95,8 @@ class SignatureAdmin(BaseGovstackAdmin):
     pass
 
 
-@admin.register(models.AgreementLifecycle)
-class AgreementLifecycleAdmin(BaseGovstackAdmin):
+@admin.register(models.DataAgreementLifecycle)
+class DataAgreementLifecycleAdmin(BaseGovstackAdmin):
     pass
 
 

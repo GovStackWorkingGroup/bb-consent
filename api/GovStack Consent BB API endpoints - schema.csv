@@ -1,34 +1,34 @@
 Name (*=not a DB schema),Type,FK,Description,Required,Flagged for further discussion,Originating spec / analysis,ISO mapping,Example 1 (CSV)
-Model: Individual,,,"Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements.",,,GovStack,,
+Model: Individual,,,"Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent records.",,,GovStack,,
 id,string,,The unique ID of an Individual row.,TRUE,FALSE,,,1
 externalId,string,,"Reference to another foundational/functional ID, which is likely PII",FALSE,TRUE,GovStack,,PN-19800101-1234
 externalIdType,string,,"External id type specifier. A string. For instance ""email"" or ""foundational id"". Can be used in later queries.",FALSE,TRUE,GovStack,,foundationalId
 identityProviderId,string,,"This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements.",FALSE,TRUE,GovStack,,3677de00-9115-4677-8642-b3d05c5e2e14
 ,,,,,,,,
 ,,,,,,,,
-Model: Agreement,,,An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord,,,ADA,,
+Model: DataAgreement,,,"A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases.",,,ADA,,
 id,string,,,TRUE,FALSE,,,1
 version,string,,The version of this specification to which a receipt conforms,TRUE,FALSE,ADA,,1.0
 controller,fk,Controller,Data controller (may be omitted if no data involved),FALSE,FALSE,ADA,,1
-policy,fk,Policy,Reference to the policy under which this Agreement shall be governed,TRUE,FALSE,ADA,,1
+policy,fk,Policy,Reference to the policy under which this Data Agreement shall be governed,TRUE,FALSE,ADA,,1
 purpose,string,,Purpose of data processing or purpose of consent. Displayed to the user.,TRUE,FALSE,ADA,,Example purpose of data usage
-lawfulBasis,string,,Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
+lawfulBasis,string,,Lawful basis of the Data Agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
 dataUse,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
 dpia,string,,Data Protection Impact Assessment,TRUE,FALSE,ADA,,Example Impact Assessment from Government Authority
-signature,fk,Signature,Signature of authorizing party of Agreement. Note: Signatures may be chained in case of multiple signatures.,FALSE,TRUE,GovStack,,
-active,boolean,,Agreement is active and new ConsentRecords can be created.,FALSE,FALSE,GovStack,,TRUE
+signature,fk,Signature,Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures.,FALSE,TRUE,GovStack,,
+active,boolean,,Data Agreement is active and new Consent Records can be created.,FALSE,FALSE,GovStack,,TRUE
 forgettable,boolean,,"Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability.",FALSE,TRUE,GovStack,,TRUE
-compatibleWithVersion,fk,Agreement,WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.,FALSE,FALSE,GovStack,,1
-lifecycle,fk,AgreementLifecycle,WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.,FALSE,FALSE,GovStack,,
+compatibleWithVersion,fk,DataAgreement,WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Data Agreement.,FALSE,FALSE,GovStack,,1
+lifecycle,fk,DataAgreementLifecycle,WIP: Current Lifecycle state of the Data Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.,FALSE,FALSE,GovStack,,
 ,,,,,,,,
-Model: AgreementData,,,Agreement data contains specifications of exactly what is collected.,,,ADA*,,
+Model: DataAgreementAttribute,,,A Data Agreement Attribute contains specifications of exactly what is data collected and used.,,,ADA*,,
 id,string,,,TRUE,FALSE,,,1
-agreement,fk,Agreement,,TRUE,FALSE,ADA,,1
+dataAgreement,fk,DataAgreement,,TRUE,FALSE,ADA,,1
 name,string,,"Name of the attribute, for instance ""name"" or ""age""",TRUE,FALSE,ADA,,age
 sensitivity,string,,categories of sensitivity,TRUE,TRUE,GovStack,,personal data
 category,string,,,TRUE,FALSE,ADA,,age
 ,,,,,,,,
-Model: Policy,,,"A policy governs data and Agreement in the realm of an organisation that is refered to as ""data controller"" (GDPR) and owner of referencing Agreements.",,,ADA*,,
+Model: Policy,,,"A policy governs Data Agreements in the realm of an organisation that is often referred to as ""data controller"" (GDPR) and owner of referencing Data Agreements.",,,ADA*,,
 id,string,,,TRUE,FALSE,,,1
 name,string,,Name of the policy,TRUE,FALSE,ADA,,Ministry of Health Privacy Policy
 version,string,,Version of the policy,TRUE,FALSE,ADA,,1.0
@@ -39,11 +39,11 @@ dataRetentionPeriodDays,integer,,,FALSE,FALSE,ADA,,365
 geographicRestriction,string,,,FALSE,FALSE,ADA,,
 storageLocation,string,,,FALSE,FALSE,ADA,,Country Name
 ,,,,,,,,
-Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreementRevision, individual)",,,GovStack,,
+Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this building block's specification) to a single Data Agreement. There must be a UNIQUE constraint on (dataAgreementRevision, individual)",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated.",TRUE,FALSE,,,1
-agreement,fk,Agreement,The Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
-agreementRevision,fk,Revision,The Revision of the agreement which consent has been given to,TRUE,FALSE,GovStack,,1
-agreementRevisionHash,string,,Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.,TRUE,FALSE,GovStack,,
+dataAgreement,fk,dataAgreement,The Data Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
+dataAgreementRevision,fk,Revision,The Revision object of the Data Agreement which consent has been given to.,TRUE,FALSE,GovStack,,1
+dataAgreementRevisionHash,string,,Copy of the Revision's hash. The hash is the included in the signature and ensures against tampering with the original Data Agreement.,TRUE,FALSE,GovStack,,
 individual,fk,Individual,The Individual who has signed this consent record,TRUE,FALSE,GovStack,,1
 optIn,boolean,,True: The individual has positively opted in. False: The individual has explicitly said no (or withdrawn a previous consent).,FALSE,FALSE,GovStack,,TRUE
 state,string,,The state field is used to record state changes after-the-fact. It is maintained by the Consent BB itself. Valid states: unsigned/pending more signatures/signed,TRUE,FALSE,GovStack,,signed
@@ -84,8 +84,8 @@ verificationJwsHeader,string,,"Alternative to the verificationMethod, verificati
 timestamp,string,,"Timestamp of signature, currently this field isn't part of the payload so it's not tamper-proof.",TRUE,TRUE,GovStack,,
 signedWithoutObjectReference,boolean,,Indicates that objectReference was left blank in the serialized version that was signed.,FALSE,FALSE,GovStack,,
 objectType,string,,"Name of the schema model that objectReference points to. Values: ""signature"" or ""revision""",FALSE,TRUE,GovStack,,
-objectReference,string,,"A symmetric relation / back reference to the objectType that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",FALSE,TRUE,GovStack,,
+objectReference,string,,"A symmetric relation / back reference to the objectType that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a Consent Record, a Data Agreement, Policy etc)",FALSE,TRUE,GovStack,,
 ,,,,,,,,
-Model: AgreementLifecycle,,,TBD: Models the valid lifecycle states of an Agreement,,,GovStack/ADA,,
+Model: DataAgreementLifecycle,,,TBD: Models the valid lifecycle states of a Data Agreement,,,GovStack/ADA,,
 id,string,,,TRUE,TRUE,,,
 name,string,,Draft / Complete,TRUE,TRUE,,,

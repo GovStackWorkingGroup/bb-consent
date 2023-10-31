@@ -155,9 +155,9 @@ def service_policy_read(request, policyId: str, revisionId: str=None):
     return [object1, object2]
 
 
-@api.get("/service/data-agreement/{datadataAgreementId}/attributes/")
-def service_agreement_data_read(request, datadataAgreementId: str, revisionId: str=None):
-    db_instance = get_object_or_404(models.DataAgreementAttribute, pk=datadataAgreementId)
+@api.get("/service/data-agreement/{dataAgreementId}/attributes/")
+def service_agreement_data_read(request, dataAgreementId: str, revisionId: str=None):
+    db_instance = get_object_or_404(models.DataAgreementAttribute, pk=dataAgreementId)
     return schemas.DataAgreementAttributeSchema.from_orm(db_instance).dict()
 
 

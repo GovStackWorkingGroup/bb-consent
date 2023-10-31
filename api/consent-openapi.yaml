@@ -952,7 +952,7 @@ paths:
 
 
 
-  /service/data-agreement/{datadataAgreementId}/attributes/:
+  /service/data-agreement/{dataAgreementId}/attributes/:
 
     get:
       tags:
@@ -962,7 +962,7 @@ paths:
       description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
       parameters: 
         - in: path
-          name: "datadataAgreementId"
+          name: "dataAgreementId"
           description: "Unique ID of an object"
           required: true
           schema:

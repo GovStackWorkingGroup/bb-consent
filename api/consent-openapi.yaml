@@ -1919,7 +1919,7 @@ components:
 
     DataAgreement:
       type: object
-      description: "A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases."
+      description: "A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases. Notice that when creating a serialized snapshop for revisioning a Data Agreement, all related objects have to be serialized and included."
       x-not-in-database: false
 
       required:
@@ -1976,11 +1976,6 @@ components:
           example: ""
           description: "Data Protection Impact Assessment"
 
-        signature:
-          $ref: '#/components/schemas/Signature'
-          x-fk-model: "Signature"
-          description: "Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures."
-
         active:
           type: boolean
           format: ""
@@ -2002,6 +1997,11 @@ components:
           $ref: '#/components/schemas/DataAgreementLifecycle'
           x-fk-model: "DataAgreementLifecycle"
           description: "WIP: Current Lifecycle state of the Data Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records."
+
+        signature:
+          $ref: '#/components/schemas/Signature'
+          x-fk-model: "Signature"
+          description: "Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures. In cases where there are several chained signatures, this relation serves as a shortcut to the last signature in the chain."
 
 
     DataAgreementAttribute:

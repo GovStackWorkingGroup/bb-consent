@@ -34,7 +34,7 @@ class Individual(models.Model):
 
 
 class DataAgreement(models.Model):
-    """A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases."""
+    """A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases. Notice that when creating a serialized snapshop for revisioning a Data Agreement, all related objects have to be serialized and included."""
     
     version = models.CharField(
         verbose_name="version",
@@ -94,15 +94,6 @@ class DataAgreement(models.Model):
         blank=False,
     )
 
-    signature = models.ForeignKey(
-        "Signature",
-        verbose_name="signature",
-        help_text="Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures.",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
     active = models.BooleanField(
         verbose_name="active",
         help_text="Data Agreement is active and new Consent Records can be created.",
@@ -130,6 +121,15 @@ class DataAgreement(models.Model):
         "DataAgreementLifecycle",
         verbose_name="lifecycle",
         help_text="WIP: Current Lifecycle state of the Data Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    signature = models.ForeignKey(
+        "Signature",
+        verbose_name="signature",
+        help_text="Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures. In cases where there are several chained signatures, this relation serves as a shortcut to the last signature in the chain.",
         on_delete=models.PROTECT,
         null=True,
         blank=True,

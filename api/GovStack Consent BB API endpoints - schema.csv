@@ -6,7 +6,7 @@ externalIdType,string,,"External id type specifier. A string. For instance ""ema
 identityProviderId,string,,"This could be an FK, but for now we do not have a mapping of identity providers. IDBB may have more requirements.",FALSE,TRUE,GovStack,,3677de00-9115-4677-8642-b3d05c5e2e14
 ,,,,,,,,
 ,,,,,,,,
-Model: DataAgreement,,,"A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases.",,,ADA,,
+Model: DataAgreement,,,"A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases. Notice that when creating a serialized snapshop for revisioning a Data Agreement, all related objects have to be serialized and included.",,,ADA,,
 id,string,,,TRUE,FALSE,,,1
 version,string,,The version of this specification to which a receipt conforms,TRUE,FALSE,ADA,,1.0
 controller,fk,Controller,Data controller (may be omitted if no data involved),FALSE,FALSE,ADA,,1
@@ -15,11 +15,11 @@ purpose,string,,Purpose of data processing or purpose of consent. Displayed to t
 lawfulBasis,string,,Lawful basis of the Data Agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest,TRUE,FALSE,ADA,,consent
 dataUse,string,,null/data_source/data_using_service,FALSE,FALSE,ADA,,data_source
 dpia,string,,Data Protection Impact Assessment,TRUE,FALSE,ADA,,Example Impact Assessment from Government Authority
-signature,fk,Signature,Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures.,FALSE,TRUE,GovStack,,
 active,boolean,,Data Agreement is active and new Consent Records can be created.,FALSE,FALSE,GovStack,,TRUE
 forgettable,boolean,,"Consent Record may be deleted when consent is withdrawn, as its existence is not necessary for auditability.",FALSE,TRUE,GovStack,,TRUE
 compatibleWithVersion,fk,DataAgreement,WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Data Agreement.,FALSE,FALSE,GovStack,,1
 lifecycle,fk,DataAgreementLifecycle,WIP: Current Lifecycle state of the Data Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.,FALSE,FALSE,GovStack,,
+signature,fk,Signature,"Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures. In cases where there are several chained signatures, this relation serves as a shortcut to the last signature in the chain.",FALSE,TRUE,GovStack,,
 ,,,,,,,,
 Model: DataAgreementAttribute,,,A Data Agreement Attribute contains specifications of exactly what is data collected and used.,,,ADA*,,
 id,string,,,TRUE,FALSE,,,1

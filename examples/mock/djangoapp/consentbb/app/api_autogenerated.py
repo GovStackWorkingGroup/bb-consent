@@ -91,7 +91,7 @@ def config_data_agreement_create(request, dataAgreement: schemas.DataAgreementSc
 
 
 @api.get("/config/data-agreements/")
-def config_data_agreement_list(request, filterDataAgreementName: str=None, offset: int=None, limit: int=None):
+def config_data_agreement_list(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.DataAgreement, pk=None)
     return schemas.DataAgreementSchema.from_orm(db_instance).dict()
 
@@ -109,8 +109,8 @@ def config_individual_read(request, individualId: str):
 
 
 @api.get("/config/individuals/")
-def config_individual_list(request, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.Individual, pk=filterFunctionalId)
+def config_individual_list(request, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Individual, pk=None)
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
@@ -132,8 +132,8 @@ def service_individual_update(request, individualId: str, individual: schemas.In
 
 
 @api.get("/service/individuals/")
-def service_individual_list(request, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.Individual, pk=filterFunctionalId)
+def service_individual_list(request, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Individual, pk=None)
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
@@ -156,12 +156,12 @@ def service_policy_read(request, policyId: str, revisionId: str=None):
 
 
 @api.get("/service/verification/data-agreements/")
-def service_verification_data_agreement_list(request, filterDataAgreementName: str=None, offset: int=None, limit: int=None):
+def service_verification_data_agreement_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
 @api.get("/service/verification/consentrecords/")
-def service_verification_consent_record_list(request, filterOptIn: str=None, filterDataAgreementId: str=None, filterDataAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+def service_verification_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -226,7 +226,7 @@ def service_individual_consent_record_delete_all(request, ):
 
 
 @api.get("/audit/consentrecords/")
-def audit_consent_record_list(request, filterOptIn: str=None, filterdataAgreementId: str=None, filterAgreementRevisionId: str=None, filterIndividualId: str=None, filterFunctionalId: str=None, filterFoundationalId: str=None, offset: int=None, limit: int=None):
+def audit_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
@@ -236,7 +236,7 @@ def audit_consent_record_read(request, consentRecordId: str):
 
 
 @api.post("/audit/data-agreements/")
-def audit_data_agreement_list(request, filterDataAgreementName: str=None, offset: int=None, limit: int=None):
+def audit_data_agreement_list(request, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()
     return schemas.TBDSchema.from_orm(db_instance).dict()
 

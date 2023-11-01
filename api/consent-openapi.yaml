@@ -493,13 +493,6 @@ paths:
       description: "LIST - fetch all DataAgreements"
       parameters: 
         - in: query
-          name: filterDataAgreementName
-          description: "An object with id filterDataAgreementName"
-          required: false
-          schema:
-            type: string
-
-        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -625,20 +618,6 @@ paths:
       operationId: "configIndividualList"
       description: "LIST - lists individuals in the system"
       parameters: 
-        - in: query
-          name: filterFunctionalId
-          description: "An object with id filterFunctionalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFoundationalId
-          description: "An object with id filterFoundationalId"
-          required: false
-          schema:
-            type: string
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -815,20 +794,6 @@ paths:
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
-          name: filterFunctionalId
-          description: "An object with id filterFunctionalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFoundationalId
-          description: "An object with id filterFoundationalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -962,13 +927,6 @@ paths:
       description: "LIST - Fetch "
       parameters: 
         - in: query
-          name: filterDataAgreementName
-          description: "An object with id filterDataAgreementName"
-          required: false
-          schema:
-            type: string
-
-        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -1014,48 +972,6 @@ paths:
       operationId: "serviceVerificationConsentRecordList"
       description: "LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists."
       parameters: 
-        - in: query
-          name: filterOptIn
-          description: "An object with id filterOptIn"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterDataAgreementId
-          description: "An object with id filterDataAgreementId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterDataAgreementRevisionId
-          description: "An object with id filterDataAgreementRevisionId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterIndividualId
-          description: "An object with id filterIndividualId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFunctionalId
-          description: "An object with id filterFunctionalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFoundationalId
-          description: "An object with id filterFoundationalId"
-          required: false
-          schema:
-            type: string
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
@@ -1616,48 +1532,6 @@ paths:
       description: "LIST - fetch ConsentRecord objects"
       parameters: 
         - in: query
-          name: filterOptIn
-          description: "An object with id filterOptIn"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterdataAgreementId
-          description: "An object with id filterdataAgreementId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterAgreementRevisionId
-          description: "An object with id filterAgreementRevisionId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterIndividualId
-          description: "An object with id filterIndividualId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFunctionalId
-          description: "An object with id filterFunctionalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
-          name: filterFoundationalId
-          description: "An object with id filterFoundationalId"
-          required: false
-          schema:
-            type: string
-
-        - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
           required: false
@@ -1739,13 +1613,6 @@ paths:
       operationId: "auditDataAgreementList"
       description: "LIST - fetch all Agreements stored in the system."
       parameters: 
-        - in: query
-          name: filterDataAgreementName
-          description: "An object with id filterDataAgreementName"
-          required: false
-          schema:
-            type: string
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"

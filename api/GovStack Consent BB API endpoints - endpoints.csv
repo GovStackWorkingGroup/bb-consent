@@ -28,8 +28,6 @@ API tag: service,,,,,,,,,,,,,
 /service/data-agreement/{dataAgreementId}/,GET,UC-C-PIC-A-003,,,,"DataAgreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceDataAgreementRead,,org,DataAgreement
 "Read operation for ""Policy"" object",,,,,,,,FALSE,,,,,
 /service/policy/{policyId}/,GET,UC-C-PIC-A-003,,revisionId,,"Policy, Revision",READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement,FALSE,,servicePolicyRead,,org,Policy
-"List operation for ""DataAgreementAttribute"" object",,,,,,,,FALSE,,,,,
-/service/data-agreement/{dataAgreementId}/attributes/,GET,UC-C-PIC-A-003,,revisionId,,DataAgreementAttribute<List>,READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement,FALSE,,serviceDataAgreementDataRead,,org,DataAgreementAttribute
 Verification mechanisms,,,,,,,,FALSE,,,,,
 /service/verification/data-agreements/,GET,UC-C-PIC-A-003,1.1,filterDataAgreementName,,DataAgreement<List>,LIST - Fetch ,FALSE,,serviceVerificationDataAgreementList,,consumer,
 /service/verification/consentrecords/,GET,UC-C-PIC-A-003,"3.1, 1.2","filterOptIn, filterDataAgreementId, filterDataAgreementRevisionId, filterIndividualId, filterFunctionalId, filterFoundationalId",,ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists.",TRUE,,serviceVerificationConsentRecordList,,consumer,

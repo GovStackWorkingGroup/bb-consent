@@ -952,52 +952,6 @@ paths:
 
 
 
-  /service/data-agreement/{dataAgreementId}/attributes/:
-
-    get:
-      tags:
-        - service
-      summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
-      operationId: "serviceDataAgreementDataRead"
-      description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
-      parameters: 
-        - in: path
-          name: "dataAgreementId"
-          description: "Unique ID of an object"
-          required: true
-          schema:
-            type: string
-
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
-          schema:
-            type: string
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "DataAgreementAttribute"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreementAttribute'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-
   /service/verification/data-agreements/:
 
     get:

@@ -41,7 +41,7 @@ storageLocation,string,,,FALSE,FALSE,ADA,,Country Name
 ,,,,,,,,
 Model: ConsentRecord,,,"A Consent Record expresses consent (as defined in this building block's specification) to a single Data Agreement. There must be a UNIQUE constraint on (dataAgreementRevision, individual)",,,GovStack,,
 id,string,,"Objects may be passed back by some API endpoints without an id (PK), denoting that they are a ""draft"", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated.",TRUE,FALSE,,,1
-dataAgreement,fk,dataAgreement,The Data Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
+dataAgreement,fk,DataAgreement,The Data Agreement to which consent has been given,TRUE,FALSE,GovStack,,1
 dataAgreementRevision,fk,Revision,The Revision object of the Data Agreement which consent has been given to.,TRUE,FALSE,GovStack,,1
 dataAgreementRevisionHash,string,,Copy of the Revision's hash. The hash is the included in the signature and ensures against tampering with the original Data Agreement.,TRUE,FALSE,GovStack,,
 individual,fk,Individual,The Individual who has signed this consent record,TRUE,FALSE,GovStack,,1

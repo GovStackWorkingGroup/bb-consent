@@ -247,7 +247,7 @@ class ConsentRecord(models.Model):
     """A Consent Record expresses consent (as defined in this building block's specification) to a single Data Agreement. There must be a UNIQUE constraint on (dataAgreementRevision, individual)"""
     
     dataAgreement = models.ForeignKey(
-        "dataAgreement",
+        "DataAgreement",
         verbose_name="dataAgreement",
         help_text="The Data Agreement to which consent has been given",
         on_delete=models.PROTECT,

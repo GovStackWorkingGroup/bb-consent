@@ -29,7 +29,7 @@ paths:
       tags:
         - config
       summary: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
-      operationId: "configCreatePolicy"
+      operationId: "configPolicyCreate"
       description: "CREATE - Creates a new Policy object and returns the new object and a PolicyRevision"
       parameters: []
       x-specification-usecase: "UC-C-PIC-A-001"
@@ -77,7 +77,7 @@ paths:
       tags:
         - config
       summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
-      operationId: "configReadPolicy"
+      operationId: "configPolicyRead"
       description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
       parameters: 
         - in: path
@@ -122,7 +122,7 @@ paths:
       tags:
         - config
       summary: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy must not affect existing active references in DataAgreement, the new Revision should be specified for Agreement."
-      operationId: "configUpdatePolicy"
+      operationId: "configPolicyUpdate"
       description: "UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy must not affect existing active references in DataAgreement, the new Revision should be specified for Agreement."
       parameters: 
         - in: path
@@ -175,7 +175,7 @@ paths:
       tags:
         - config
       summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
-      operationId: "configDeletePolicy"
+      operationId: "configPolicyDelete"
       description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
       parameters: 
         - in: path
@@ -211,7 +211,7 @@ paths:
       tags:
         - config
       summary: "LIST - returns the current Policy"
-      operationId: "configListPolicyRevisions"
+      operationId: "configPolicyRevisionsList"
       description: "LIST - returns the current Policy"
       parameters: 
         - in: path
@@ -261,7 +261,7 @@ paths:
       tags:
         - config
       summary: "Returns a list of readable Policy objects"
-      operationId: "configListPolicy"
+      operationId: "configPolicyList"
       description: "LIST - Fetches list of readable Policy objects"
       parameters: 
         - in: query
@@ -314,7 +314,7 @@ paths:
       tags:
         - config
       summary: "READ - fetches the latest version of an Agreement"
-      operationId: "configReadAgreement"
+      operationId: "configDataAgreementRead"
       description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
@@ -352,7 +352,7 @@ paths:
       tags:
         - config
       summary: "UPDATE - An existing DataAgreement object is created and returned together with a new Revision"
-      operationId: "configUpdateAgreement"
+      operationId: "configDataAgreementUpdate"
       description: "UPDATE - An existing DataAgreement object is created and returned together with a new Revision"
       parameters: 
         - in: path
@@ -405,7 +405,7 @@ paths:
       tags:
         - config
       summary: ""
-      operationId: "configDeleteAgreement"
+      operationId: "configDataAgreementDelete"
       description: ""
       parameters: 
         - in: path
@@ -441,7 +441,7 @@ paths:
       tags:
         - config
       summary: "CREATE - A new DataAgreement object is created and returned together with a Revision"
-      operationId: "configCreateAgreement"
+      operationId: "configDataAgreementCreate"
       description: "CREATE - A new DataAgreement object is created and returned together with a Revision"
       parameters: []
       x-specification-usecase: "UC-C-PIC-A-001"
@@ -489,7 +489,7 @@ paths:
       tags:
         - config
       summary: "LIST - fetch all DataAgreements"
-      operationId: "configListAgreement"
+      operationId: "configDataAgreementList"
       description: "LIST - fetch all DataAgreements"
       parameters: 
         - in: query
@@ -542,7 +542,7 @@ paths:
       tags:
         - config
       summary: "CREATE - Creates an Individual in the Consent system"
-      operationId: "serviceIndividualCreate"
+      operationId: "configIndividualCreate"
       description: "CREATE - Creates an Individual in the Consent system"
       parameters: []
       x-specification-usecase: ""
@@ -586,7 +586,7 @@ paths:
       tags:
         - config
       summary: "READ - Fetch an Individual in the Consent system"
-      operationId: "serviceIndividualRead"
+      operationId: "configIndividualRead"
       description: "READ - Fetch an Individual in the Consent system"
       parameters: 
         - in: path
@@ -622,7 +622,7 @@ paths:
       tags:
         - config
       summary: "LIST - lists individuals in the system"
-      operationId: "serviceIndividualList"
+      operationId: "configIndividualList"
       description: "LIST - lists individuals in the system"
       parameters: 
         - in: query
@@ -871,7 +871,7 @@ paths:
       tags:
         - service
       summary: "READ - fetches the latest version of an Agreement"
-      operationId: "serviceAgreementRead"
+      operationId: "serviceDataAgreementRead"
       description: "READ - fetches the latest version of an Agreement"
       parameters: 
         - in: path
@@ -958,7 +958,7 @@ paths:
       tags:
         - service
       summary: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
-      operationId: "serviceAgreementDataRead"
+      operationId: "serviceDataAgreementDataRead"
       description: "READ - fetches a list of latest versions of AgreementData associated with an Agreement and the presented revisionId of that Agreement"
       parameters: 
         - in: path
@@ -1004,7 +1004,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetch "
-      operationId: "serviceVerificationAgreementList"
+      operationId: "serviceVerificationDataAgreementList"
       description: "LIST - Fetch "
       parameters: 
         - in: query
@@ -1145,7 +1145,7 @@ paths:
       tags:
         - service
       summary: "READ - Reads a consent record by its ID."
-      operationId: "serviceVerificationConsentRecordList"
+      operationId: "serviceVerificationConsentRecordRead"
       description: "READ - Reads a consent record by its ID."
       parameters: 
         - in: path
@@ -1154,20 +1154,6 @@ paths:
           required: true
           schema:
             type: string
-
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
 
       x-specification-usecase: "UC-C-PIC-A-003"
       x-specification-scenario: "3.1, 1.2"
@@ -1199,7 +1185,7 @@ paths:
       tags:
         - service
       summary: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceCreateIndividualConsentRecord"
+      operationId: "serviceIndividualConsentRecordCreate"
       description: "CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -1251,7 +1237,7 @@ paths:
       tags:
         - service
       summary: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
-      operationId: "serviceReadIndividualRecordRead"
+      operationId: "serviceIndividualConsentRecordRead"
       description: "READ - Individual ID supplied as HTTP header. Fetches the current ConsentRecord for an Agreement. There should be one unambiguous ConsentRecord for an Individual and an Agreement."
       parameters: 
         - in: path
@@ -1287,7 +1273,7 @@ paths:
       tags:
         - service
       summary: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given dataAgreementId."
-      operationId: "serviceCreateIndividualConsentRecordDraft"
+      operationId: "serviceIndividualConsentRecordDraftCreate"
       description: "CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given dataAgreementId."
       parameters: 
         - in: query
@@ -1341,7 +1327,7 @@ paths:
       tags:
         - service
       summary: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
-      operationId: "serviceCreateIndividualConsentRecordAndSignature"
+      operationId: "serviceIndividualConsentRecordSignatureCreate"
       description: "CREATE - Creates a paired ConsentRecord and Signature object. Returns the same objects with the PK defined."
       parameters: []
       x-specification-usecase: "UC-C-PIC-I-002"
@@ -1394,7 +1380,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualConsentRecordList"
+      operationId: "serviceIndividualConsentRecordList"
       description: "LIST - Fetches all current unambiguous consent records stored for Individual ID. Individual ID supplied as HTTP header."
       parameters: 
         - in: query
@@ -1440,7 +1426,7 @@ paths:
       tags:
         - service
       summary: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
-      operationId: "serviceUpdateIndividualConsentRecord"
+      operationId: "serviceIndividualConsentRecordUpdate"
       description: "UPDATE* - Update a particular Consent Record, generating a new Revision object. Individual ID supplied as HTTP header. Note that updating a signed Consent Record invalidates its signature. Field set subject to update is restricted."
       parameters: 
         - in: path
@@ -1495,7 +1481,7 @@ paths:
       tags:
         - service
       summary: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
-      operationId: "serviceCreateIndividualConsentRecordSignature"
+      operationId: "serviceIndividualSignatureCreate"
       description: "CREATE - Creates and returns a Signature object for the Consent Record with a payload ready for signing. Signature object fieldset is restricted."
       parameters: 
         - in: path
@@ -1544,7 +1530,7 @@ paths:
       tags:
         - service
       summary: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
-      operationId: "serviceUpdateIndividualConsentRecordSignature"
+      operationId: "serviceIndividualSignatureUpdate"
       description: "UPDATE - Updates a Signature object for a Consent Record. This is used to add a signature to an existing unsigned Signature object. Consent BB is responsible for updating the Consent Record state. Signature object fieldset is restricted."
       parameters: 
         - in: path
@@ -1595,7 +1581,7 @@ paths:
       tags:
         - service
       summary: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
-      operationId: "serviceListIndividualAgreementConsentRecordList"
+      operationId: "serviceIndividualDataAgreementConsentRecordList"
       description: "LIST - Fetches all consent records given to a particular agreement. Individual ID supplied as HTTP header."
       parameters: 
         - in: path
@@ -1648,7 +1634,7 @@ paths:
       tags:
         - service
       summary: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
-      operationId: "serviceDeleteAllRecords"
+      operationId: "serviceIndividualConsentRecordDeleteAll"
       description: "DELETE - Cascading delete operation for Right To Be Forgotten, deletes all Consent Records that shall not be retained and have a \"forgettable\" Agreement. May also delete an unsigned Consent Record, for instance in cases where the user exits the signing process. Individual ID supplied as HTTP header."
       parameters: []
       x-specification-usecase: "UC-C-PIC-I-003"
@@ -1796,7 +1782,7 @@ paths:
       tags:
         - auditor
       summary: "LIST - fetch all Agreements stored in the system."
-      operationId: "auditAgreementList"
+      operationId: "auditDataAgreementList"
       description: "LIST - fetch all Agreements stored in the system."
       parameters: 
         - in: query
@@ -1849,7 +1835,7 @@ paths:
       tags:
         - auditor
       summary: "READ - fetch a single Agreement."
-      operationId: "auditReadRecord"
+      operationId: "auditDataAgreementRead"
       description: "READ - fetch a single Agreement."
       parameters: 
         - in: path
@@ -2131,8 +2117,8 @@ components:
           description: "Objects may be passed back by some API endpoints without an id (PK), denoting that they are a \"draft\", i.e. a ConsentRecord that is not yet stored in the database and only exist in transit. Draft ConsentRecords do not have a Revision, but if paired up with a Signature, a valid Revision should be generated."
 
         dataAgreement:
-          $ref: '#/components/schemas/dataAgreement'
-          x-fk-model: "dataAgreement"
+          $ref: '#/components/schemas/DataAgreement'
+          x-fk-model: "DataAgreement"
           description: "The Data Agreement to which consent has been given"
 
         dataAgreementRevision:

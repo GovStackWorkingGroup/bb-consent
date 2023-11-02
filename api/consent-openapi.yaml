@@ -43,11 +43,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  policy:
+                    $ref: '#/components/schemas/Policy'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -105,11 +106,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  policy:
+                    $ref: '#/components/schemas/Policy'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -143,11 +145,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  policy:
+                    $ref: '#/components/schemas/Policy'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -196,7 +199,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -246,7 +252,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Policy'
+                type: object
+                properties:
+                  policy:
+                    $ref: '#/components/schemas/Policy'
 
         '400':
           description: bad input parameter
@@ -296,10 +305,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
+                type: object
+                properties:
+                  policies:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Policy'
 
         '400':
           description: bad input parameter
@@ -335,11 +347,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  dataAgreement:
+                    $ref: '#/components/schemas/DataAgreement'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -373,11 +386,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  dataAgreement:
+                    $ref: '#/components/schemas/DataAgreement'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -426,7 +440,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -455,11 +472,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  dataAgreement:
+                    $ref: '#/components/schemas/DataAgreement'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -517,10 +535,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
+                type: object
+                properties:
+                  dataAgreement:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -549,7 +570,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individual:
+                    $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -600,7 +624,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individual:
+                    $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -643,10 +670,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individuals:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -675,7 +705,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                type: object
+                properties:
+                  webhook:
+                    $ref: '#/components/schemas/Webhook'
 
         '400':
           description: bad input parameter
@@ -733,7 +766,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                type: object
+                properties:
+                  webhook:
+                    $ref: '#/components/schemas/Webhook'
 
         '400':
           description: bad input parameter
@@ -767,7 +803,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Webhook'
+                type: object
+                properties:
+                  webhook:
+                    $ref: '#/components/schemas/Webhook'
 
         '400':
           description: bad input parameter
@@ -861,10 +900,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Webhook'
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Webhook'
 
         '400':
           description: bad input parameter
@@ -893,7 +935,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individual:
+                    $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -944,7 +989,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individual:
+                    $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -978,7 +1026,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individual:
+                    $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -1036,10 +1087,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Individual'
+                type: object
+                properties:
+                  individuals:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Individual'
 
         '400':
           description: bad input parameter
@@ -1075,11 +1129,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  dataAgreement:
+                    $ref: '#/components/schemas/DataAgreement'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -1122,11 +1177,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/Policy'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  policy:
+                    $ref: '#/components/schemas/Policy'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -1169,10 +1225,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
+                type: object
+                properties:
+                  dataAgreements:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -1215,10 +1274,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecords:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1254,11 +1316,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -1308,11 +1371,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -1346,7 +1410,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1396,11 +1463,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Signature'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
+                  signature:
+                    $ref: '#/components/schemas/Signature'
 
         '400':
           description: bad input parameter
@@ -1429,12 +1497,14 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Revision'
-                    - $ref: '#/components/schemas/Signature'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
+                  signature:
+                    $ref: '#/components/schemas/Signature'
 
         '400':
           description: bad input parameter
@@ -1496,10 +1566,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecords:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1535,11 +1608,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
-                    - $ref: '#/components/schemas/Revision'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
+                  revision:
+                    $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -1590,7 +1664,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Signature'
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/Signature'
 
         '400':
           description: bad input parameter
@@ -1639,7 +1716,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Signature'
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/Signature'
 
         '400':
           description: bad input parameter
@@ -1704,10 +1784,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecords:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1774,10 +1857,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecords:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1813,7 +1899,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConsentRecord'
+                type: object
+                properties:
+                  consentRecord:
+                    $ref: '#/components/schemas/ConsentRecord'
 
         '400':
           description: bad input parameter
@@ -1856,10 +1945,13 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/DataAgreement'
+                type: object
+                properties:
+                  dataAgreements:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter
@@ -1895,7 +1987,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataAgreement'
+                type: object
+                properties:
+                  dataAgreement:
+                    $ref: '#/components/schemas/DataAgreement'
 
         '400':
           description: bad input parameter

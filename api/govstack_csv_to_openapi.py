@@ -107,24 +107,25 @@ path_spec_template = """
 {request_body}
 """
 
-responseOK_template_single_object = """
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/{schema}'
-"""
-
 
 responseOK_template_objects = """
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:{objects}
+                type: object
+                properties:{objects}
 """
 responseOK_template_object = """
-                    - $ref: '#/components/schemas/{schema}'"""
+                  {name}:
+                    $ref: '#/components/schemas/{schema}'"""
+
+responseOK_template_array_object = """
+                  {name}:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/{schema}'"""
+
 
 request_body_template = """
       requestBody:
@@ -246,7 +247,9 @@ django_api_get_object_template = """
 @api.get("{url}")
 def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
-    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    return {{
+        "{object_name}": schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    }}
 
 """
 
@@ -257,7 +260,10 @@ def {method}(request, {view_arguments}):
     mocked_instance = G(models.{schema_name2})
     object1 = schemas.{schema_name}Schema.from_orm(db_instance).dict()
     object2 = schemas.{schema_name2}Schema.from_orm(mocked_instance).dict()
-    return [object1, object2]
+    return {{
+        "{object1_name}": object1,
+        "{object2_name}": object2,
+    }}
 
 """
 
@@ -265,7 +271,9 @@ django_api_post_template = """
 @api.post("{url}")
 def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create(**{schema_argument}.dict())
-    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    return {{
+        "{object_name}": schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    }}
 
 """
 
@@ -274,7 +282,9 @@ django_api_post_template_empty_object = """
 @api.post("{url}")
 def {method}(request, {view_arguments}):
     db_instance = models.{schema_name}.objects.create()
-    return schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    return {{
+        "{object_name}": schemas.{schema_name}Schema.from_orm(db_instance).dict()
+    }}
 
 """
 
@@ -294,6 +304,7 @@ def {method}(request, {view_arguments}):
 """
 
 django_api_delete_object_template = """
+# TODO: This is not a correct return value according to API spec
 @api.post("{url}")
 def {method}(request, {view_arguments}):
     db_instance = get_object_or_404(models.{schema_name}, pk={pk_arg})
@@ -566,24 +577,32 @@ def get_api_spec_from_row(row, current_tag):
     objects_to_return = list(filter(lambda x: bool(x), row[6].split(", ")))
     
     # Single object
-    if len(objects_to_return) == 1:
-        if objects_to_return[0].endswith("<List>"):
-            object_name = objects_to_return[0].replace("<List>", "")
-            response_ok_objects = responseOK_template_objects.format(
-                objects=responseOK_template_object.format(schema=object_name)
-            )
-        else:
-            response_ok_objects = responseOK_template_single_object.format(
-                schema=objects_to_return[0]
-            )
-    elif len(objects_to_return) > 1:
+    if len(objects_to_return) > 0:
+        
         response_ok_objects_schemas_to_insert = ""
+
         for return_object in objects_to_return:
+            
+            name_split = return_object.split(":")
+            
+            if len(name_split) > 1:
+                name, return_object = name_split
+            else:
+                name = return_object[0].lower() + return_object[1:]
+                
             if return_object.endswith("<List>"):
-                sys.stderr.write("Found an array inside an array, which is not supported, so just removing the fact that the nested object was meant as an array.")
-            # We don't support arrays inside arrays currently
-            return_object = return_object.replace("<List>", "")
-            response_ok_objects_schemas_to_insert += responseOK_template_object.format(schema=return_object)
+                return_object = return_object.replace("<List>", "")
+                name = name.replace("<List>", "")
+                response_ok_objects_schemas_to_insert += responseOK_template_array_object.format(
+                    schema=return_object,
+                    name=name
+                )
+            else:
+                response_ok_objects_schemas_to_insert += responseOK_template_object.format(
+                    schema=return_object,
+                    name=name
+                )
+        
         response_ok_objects = responseOK_template_objects.format(
             objects=response_ok_objects_schemas_to_insert
         )
@@ -949,15 +968,18 @@ def generate_django_ninja_api(yaml_data):
 
     def get_crud_schema_name_return_value(response_schema):
         schema_type = response_schema.get("type")
-        # Responses of tuples/lists of schema objects
-        if schema_type == "array":
-            for ref in response_schema.get("items", {}).get("oneOf", []):
-                if "$ref" in ref:
-                    yield ref["$ref"].split("/")[-1]
-        # if schema_type == "string":
-        #     yield "str"
-        if "$ref" in response_schema:
-            yield response_schema["$ref"].split("/")[-1]
+        if not schema_type == "object":
+            raise Exception("Does not compute")
+
+        for property_name, property_schema in response_schema["properties"].items():
+            if "$ref" in property_schema:
+                yield property_name, property_schema["$ref"].split("/")[-1]
+
+            elif property_schema.get("type") == "array":
+                for ref in property_schema.get("items", {}).get("oneOf", []):
+                    if "$ref" in ref:
+                        yield property_name, ref["$ref"].split("/")[-1]
+
 
     for api_url, endpoints in yaml_data["paths"].items():
 
@@ -993,6 +1015,7 @@ def generate_django_ninja_api(yaml_data):
                             view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
                             pk_arg=pk_arg,
+                            object_name=schema_names_returned[0][0],
                         )
                     if len(schema_names_returned) == 2:
                         django_api_output += django_api_get_object_template_2_response_objects.format(
@@ -1000,7 +1023,9 @@ def generate_django_ninja_api(yaml_data):
                             method=snake_case_method_name,
                             view_arguments=", ".join(view_arguments),
                             schema_name=crud_schema,
-                            schema_name2=schema_names_returned[1],
+                            schema_name2=schema_names_returned[1][1],
+                            object1_name=schema_names_returned[0][0],
+                            object2_name=schema_names_returned[1][0],
                             pk_arg=pk_arg,
                         )
 
@@ -1019,6 +1044,7 @@ def generate_django_ninja_api(yaml_data):
                         view_arguments=", ".join(view_arguments),
                         schema_argument=crud_schema_argument_name,
                         schema_name=crud_schema,
+                        object_name=schema_names_returned[0][0],
                     )
                 else:
                     django_api_output += django_api_post_template_empty_object.format(
@@ -1026,6 +1052,7 @@ def generate_django_ninja_api(yaml_data):
                         method=snake_case_method_name,
                         view_arguments=", ".join(view_arguments),
                         schema_name="TBD",
+                        object_name=schema_names_returned[0][0],
                     )
 
             elif method == "put":
@@ -1034,6 +1061,7 @@ def generate_django_ninja_api(yaml_data):
                     url=api_url,
                     method=snake_case_method_name,
                     view_arguments=", ".join(view_arguments),
+                    object_name=schema_names_returned[0][0],
                 )
             elif method == "delete":
                 if crud_schema:

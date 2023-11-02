@@ -27,7 +27,9 @@ from . import models
 @api.post("/config/policy/")
 def config_policy_create(request, policy: schemas.PolicySchema):
     db_instance = models.Policy.objects.create(**policy.dict())
-    return schemas.PolicySchema.from_orm(db_instance).dict()
+    return {
+        "policy": schemas.PolicySchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/policy/{policyId}/")
@@ -36,7 +38,10 @@ def config_policy_read(request, policyId: str, revisionId: str=None):
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance).dict()
     object2 = schemas.RevisionSchema.from_orm(mocked_instance).dict()
-    return [object1, object2]
+    return {
+        "policy": object1,
+        "revision": object2,
+    }
 
 
 @api.put("/config/policy/{policyId}/")
@@ -44,6 +49,7 @@ def config_policy_update(request, policyId: str, policy: schemas.PolicySchema):
     return "undefined"
 
 
+# TODO: This is not a correct return value according to API spec
 @api.post("/config/policy/{policyId}/")
 def config_policy_delete(request, policyId: str):
     db_instance = get_object_or_404(models.Policy, pk=policyId)
@@ -54,13 +60,17 @@ def config_policy_delete(request, policyId: str):
 @api.get("/config/policy/{policyId}/revisions/")
 def config_policy_revisions_list(request, policyId: str, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Revision, pk=policyId)
-    return schemas.RevisionSchema.from_orm(db_instance).dict()
+    return {
+        "policy": schemas.RevisionSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/policies/")
 def config_policy_list(request, revisionId: str=None, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Policy, pk=revisionId)
-    return schemas.PolicySchema.from_orm(db_instance).dict()
+    return {
+        "policies": schemas.PolicySchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/data-agreement/{dataAgreementId}/")
@@ -69,7 +79,10 @@ def config_data_agreement_read(request, dataAgreementId: str):
     mocked_instance = G(models.Revision)
     object1 = schemas.DataAgreementSchema.from_orm(db_instance).dict()
     object2 = schemas.RevisionSchema.from_orm(mocked_instance).dict()
-    return [object1, object2]
+    return {
+        "dataAgreement": object1,
+        "revision": object2,
+    }
 
 
 @api.put("/config/data-agreement/{dataAgreementId}/")
@@ -77,6 +90,7 @@ def config_data_agreement_update(request, dataAgreementId: str, dataAgreement: s
     return "undefined"
 
 
+# TODO: This is not a correct return value according to API spec
 @api.post("/config/data-agreement/{dataAgreementId}/")
 def config_data_agreement_delete(request, dataAgreementId: str):
     db_instance = get_object_or_404(models.DataAgreement, pk=dataAgreementId)
@@ -87,43 +101,57 @@ def config_data_agreement_delete(request, dataAgreementId: str):
 @api.post("/config/data-agreement/")
 def config_data_agreement_create(request, dataAgreement: schemas.DataAgreementSchema):
     db_instance = models.DataAgreement.objects.create(**dataAgreement.dict())
-    return schemas.DataAgreementSchema.from_orm(db_instance).dict()
+    return {
+        "dataAgreement": schemas.DataAgreementSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/data-agreements/")
 def config_data_agreement_list(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.DataAgreement, pk=None)
-    return schemas.DataAgreementSchema.from_orm(db_instance).dict()
+    return {
+        "dataAgreement": schemas.DataAgreementSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.post("/config/individual/")
 def config_individual_create(request, individual: schemas.IndividualSchema):
     db_instance = models.Individual.objects.create(**individual.dict())
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individual": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/individual/{individualId}/")
 def config_individual_read(request, individualId: str):
     db_instance = get_object_or_404(models.Individual, pk=individualId)
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individual": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/individuals/")
 def config_individual_list(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Individual, pk=None)
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individuals": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.post("/config/webhook/")
 def config_webhook_create(request, webhook: schemas.WebhookSchema):
     db_instance = models.Webhook.objects.create(**webhook.dict())
-    return schemas.WebhookSchema.from_orm(db_instance).dict()
+    return {
+        "webhook": schemas.WebhookSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/config/webhook/{webhookId}/")
 def config_webhook_read(request, webhookId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.Webhook, pk=webhookId)
-    return schemas.WebhookSchema.from_orm(db_instance).dict()
+    return {
+        "webhook": schemas.WebhookSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.put("/config/webhook/{webhookId}/")
@@ -131,6 +159,7 @@ def config_webhook_update(request, webhookId: str, webhook: schemas.WebhookSchem
     return "undefined"
 
 
+# TODO: This is not a correct return value according to API spec
 @api.post("/config/webhook/{webhookId}/")
 def config_webhook_delete(request, webhookId: str):
     db_instance = get_object_or_404(models.Webhook, pk=webhookId)
@@ -141,19 +170,25 @@ def config_webhook_delete(request, webhookId: str):
 @api.get("/config/webhooks/")
 def config_webhook_list(request, revisionId: str=None, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Webhook, pk=revisionId)
-    return schemas.WebhookSchema.from_orm(db_instance).dict()
+    return {
+        "webhooks": schemas.WebhookSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.post("/service/individual/")
 def service_individual_create(request, individual: schemas.IndividualSchema):
     db_instance = models.Individual.objects.create(**individual.dict())
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individual": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/service/individual/{individualId}/")
 def service_individual_read(request, individualId: str):
     db_instance = get_object_or_404(models.Individual, pk=individualId)
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individual": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.put("/service/individual/{individualId}/")
@@ -164,7 +199,9 @@ def service_individual_update(request, individualId: str, individual: schemas.In
 @api.get("/service/individuals/")
 def service_individual_list(request, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Individual, pk=None)
-    return schemas.IndividualSchema.from_orm(db_instance).dict()
+    return {
+        "individuals": schemas.IndividualSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/service/data-agreement/{dataAgreementId}/")
@@ -173,7 +210,10 @@ def service_data_agreement_read(request, dataAgreementId: str):
     mocked_instance = G(models.Revision)
     object1 = schemas.DataAgreementSchema.from_orm(db_instance).dict()
     object2 = schemas.RevisionSchema.from_orm(mocked_instance).dict()
-    return [object1, object2]
+    return {
+        "dataAgreement": object1,
+        "revision": object2,
+    }
 
 
 @api.get("/service/policy/{policyId}/")
@@ -182,7 +222,10 @@ def service_policy_read(request, policyId: str, revisionId: str=None):
     mocked_instance = G(models.Revision)
     object1 = schemas.PolicySchema.from_orm(db_instance).dict()
     object2 = schemas.RevisionSchema.from_orm(mocked_instance).dict()
-    return [object1, object2]
+    return {
+        "policy": object1,
+        "revision": object2,
+    }
 
 
 @api.get("/service/verification/data-agreements/")
@@ -203,7 +246,9 @@ def service_verification_consent_record_read(request, consentRecordId: str):
 @api.post("/service/individual/record/data-agreement/{dataAgreementId}/")
 def service_individual_consent_record_create(request, dataAgreementId: str, individualId: str, revisionId: str=None):
     db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+    return {
+        "consentRecord": schemas.TBDSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/service/individual/record/data-agreement/{dataAgreementId}/")
@@ -214,13 +259,17 @@ def service_individual_consent_record_read(request, dataAgreementId: str):
 @api.post("/service/individual/record/consent-record/draft/")
 def service_individual_consent_record_draft_create(request, individualId: str, dataAgreementId: str, revisionId: str=None):
     db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+    return {
+        "consentRecord": schemas.TBDSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.post("/service/individual/record/consent-record/")
 def service_individual_consent_record_signature_create(request, ):
     db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+    return {
+        "consentRecord": schemas.TBDSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/service/individual/record/consent-record/")
@@ -236,7 +285,9 @@ def service_individual_consent_record_update(request, consentRecordId: str, cons
 @api.post("/service/individual/record/consent-record/{consentRecordId}/signature/")
 def service_individual_signature_create(request, consentRecordId: str, signature: schemas.SignatureSchema):
     db_instance = models.Signature.objects.create(**signature.dict())
-    return schemas.SignatureSchema.from_orm(db_instance).dict()
+    return {
+        "signature": schemas.SignatureSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.put("/service/individual/record/consent-record/{consentRecordId}/signature/")
@@ -247,7 +298,9 @@ def service_individual_signature_update(request, consentRecordId: str, signature
 @api.get("/service/individual/record/data-agreement/{dataAgreementId}/all/")
 def service_individual_data_agreement_consent_record_list(request, dataAgreementId: str, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.ConsentRecord, pk=dataAgreementId)
-    return schemas.ConsentRecordSchema.from_orm(db_instance).dict()
+    return {
+        "consentRecords": schemas.ConsentRecordSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.delete("/service/individual/record/")
@@ -268,7 +321,9 @@ def audit_consent_record_read(request, consentRecordId: str):
 @api.post("/audit/data-agreements/")
 def audit_data_agreement_list(request, offset: int=None, limit: int=None):
     db_instance = models.TBD.objects.create()
-    return schemas.TBDSchema.from_orm(db_instance).dict()
+    return {
+        "dataAgreements": schemas.TBDSchema.from_orm(db_instance).dict()
+    }
 
 
 @api.get("/audit/data-agreement/{dataAgreementId}/")

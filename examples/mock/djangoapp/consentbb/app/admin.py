@@ -100,4 +100,19 @@ class DataAgreementLifecycleAdmin(BaseGovstackAdmin):
     pass
 
 
+@admin.register(models.Webhook)
+class WebhookAdmin(BaseGovstackAdmin):
+    pass
+
+
+@admin.register(models.WebhookEvent)
+class WebhookEventAdmin(BaseGovstackAdmin):
+    pass
+
+
+@admin.register(models.WebhookEventSubscription)
+class WebhookEventSubscriptionAdmin(BaseGovstackAdmin):
+    pass
+
+
 

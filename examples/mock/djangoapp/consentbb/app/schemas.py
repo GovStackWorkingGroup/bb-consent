@@ -52,4 +52,19 @@ class DataAgreementLifecycleSchema(ModelSchema):
         model = models.DataAgreementLifecycle
         model_fields = "__all__"
 
+class WebhookSchema(ModelSchema):
+    class Config:
+        model = models.Webhook
+        model_fields = "__all__"
+
+class WebhookEventSchema(ModelSchema):
+    class Config:
+        model = models.WebhookEvent
+        model_fields = "__all__"
+
+class WebhookEventSubscriptionSchema(ModelSchema):
+    class Config:
+        model = models.WebhookEventSubscription
+        model_fields = "__all__"
+
 

@@ -114,6 +114,36 @@ def config_individual_list(request, offset: int=None, limit: int=None):
     return schemas.IndividualSchema.from_orm(db_instance).dict()
 
 
+@api.post("/config/webhook/")
+def config_webhook_create(request, webhook: schemas.WebhookSchema):
+    db_instance = models.Webhook.objects.create(**webhook.dict())
+    return schemas.WebhookSchema.from_orm(db_instance).dict()
+
+
+@api.get("/config/webhook/{webhookId}/")
+def config_webhook_read(request, webhookId: str, revisionId: str=None):
+    db_instance = get_object_or_404(models.Webhook, pk=webhookId)
+    return schemas.WebhookSchema.from_orm(db_instance).dict()
+
+
+@api.put("/config/webhook/{webhookId}/")
+def config_webhook_update(request, webhookId: str, webhook: schemas.WebhookSchema):
+    return "undefined"
+
+
+@api.post("/config/webhook/{webhookId}/")
+def config_webhook_delete(request, webhookId: str):
+    db_instance = get_object_or_404(models.Webhook, pk=webhookId)
+    db_instance.delete()
+    return {"success": True}
+
+
+@api.get("/config/webhooks/")
+def config_webhook_list(request, revisionId: str=None, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Webhook, pk=revisionId)
+    return schemas.WebhookSchema.from_orm(db_instance).dict()
+
+
 @api.post("/service/individual/")
 def service_individual_create(request, individual: schemas.IndividualSchema):
     db_instance = models.Individual.objects.create(**individual.dict())

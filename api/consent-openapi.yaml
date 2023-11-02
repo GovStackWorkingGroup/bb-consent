@@ -76,9 +76,9 @@ paths:
     get:
       tags:
         - config
-      summary: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
+      summary: "READ - get a Policy object + latest Revisio"
       operationId: "configPolicyRead"
-      description: "READ - get a Policy object + latest Revision. If a PolicyFilter is supplied and contains a revisionId, then this specific revision is returned."
+      description: "READ - get a Policy object + latest Revisio"
       parameters: 
         - in: path
           name: "policyId"
@@ -174,9 +174,9 @@ paths:
     delete:
       tags:
         - config
-      summary: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
+      summary: "DELETE - Deletes an existing Policy object, returning a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
       operationId: "configPolicyDelete"
-      description: "DELETE - Deletes an existing Policy object, returning the updated version and a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
+      description: "DELETE - Deletes an existing Policy object, returning a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement."
       parameters: 
         - in: path
           name: "policyId"
@@ -652,6 +652,224 @@ paths:
           description: bad input parameter
       security:
         - OAuth2: [org]
+
+
+
+  /config/webhook/:
+
+    post:
+      tags:
+        - config
+      summary: "CREATE - Creates a new Webhook object and returns the new object"
+      operationId: "configWebhookCreate"
+      description: "CREATE - Creates a new Webhook object and returns the new object"
+      parameters: []
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Webhook"
+      responses:
+        '200':
+          description: "A set consisting of the new Webhook object created, together with the initial Revision object."
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [admin]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                webhook:
+                  $ref: '#/components/schemas/Webhook'
+                  description: An object of type Webhook
+
+              required:
+                - webhook
+
+
+
+
+
+  /config/webhook/{webhookId}/:
+
+    get:
+      tags:
+        - config
+      summary: "READ - get a Webhook object."
+      operationId: "configWebhookRead"
+      description: "READ - get a Webhook object."
+      parameters: 
+        - in: path
+          name: "webhookId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
+          schema:
+            type: string
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Webhook"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [admin]
+
+
+
+    put:
+      tags:
+        - config
+      summary: "UPDATE - Updates an existing Webhook object, returning the updated version."
+      operationId: "configWebhookUpdate"
+      description: "UPDATE - Updates an existing Webhook object, returning the updated version."
+      parameters: 
+        - in: path
+          name: "webhookId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Webhook"
+      responses:
+        '200':
+          description: ""
+            
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [admin]
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                webhook:
+                  $ref: '#/components/schemas/Webhook'
+                  description: An object of type Webhook
+
+              required:
+                - webhook
+
+
+
+
+
+    delete:
+      tags:
+        - config
+      summary: "DELETE - Deletes an existing Webhook object."
+      operationId: "configWebhookDelete"
+      description: "DELETE - Deletes an existing Webhook object."
+      parameters: 
+        - in: path
+          name: "webhookId"
+          description: "Unique ID of an object"
+          required: true
+          schema:
+            type: string
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Webhook"
+      responses:
+        '200':
+          description: ""
+            
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [admin]
+
+
+
+  /config/webhooks/:
+
+    get:
+      tags:
+        - config
+      summary: "Returns a list of readable Webhook objects"
+      operationId: "configWebhookList"
+      description: "LIST - Fetches list of readable Webhook objects"
+      parameters: 
+        - in: query
+          name: revisionId
+          description: "An object with id revisionId"
+          required: false
+          schema:
+            type: string
+
+        - in: query
+          name: "offset"
+          description: "Requested index for start of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+        - in: query
+          name: "limit"
+          description: "Requested number of resources to be provided in response requested by client"
+          required: false
+          schema:
+            type: integer
+
+      x-specification-usecase: ""
+      x-specification-scenario: ""
+      x-specification-pii-or-sensitive: "False"
+      x-specification-crudl-model: "Webhook"
+      responses:
+        '200':
+          description: "A list of Webhook objects readable for the current session's credentials."
+            
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '#/components/schemas/Webhook'
+
+        '400':
+          description: bad input parameter
+      security:
+        - OAuth2: [admin]
 
 
 
@@ -2213,6 +2431,99 @@ components:
           format: ""
           example: ""
           description: "Draft / Complete"
+
+
+    Webhook:
+      type: object
+      description: "Generic webhooks used to store subscriptions of third-parties that are notified by events."
+      x-not-in-database: false
+
+      required:
+           - id
+           - payloadUrl
+           - contentType
+           - disabled
+           - secretKey
+      properties:
+
+        id:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        payloadUrl:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        contentType:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        disabled:
+          type: boolean
+          format: ""
+          example: ""
+          description: ""
+
+        secretKey:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+
+    WebhookEvent:
+      type: object
+      description: "Webhook event types are stored in this schema."
+      x-not-in-database: false
+
+      required:
+           - id
+           - name
+      properties:
+
+        id:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        name:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+
+    WebhookEventSubscription:
+      type: object
+      description: "Many-to-many relationship between Webhook and WebhookEvent."
+      x-not-in-database: false
+
+      required:
+           - id
+      properties:
+
+        id:
+          type: string
+          format: ""
+          example: ""
+          description: ""
+
+        webhookId:
+          $ref: '#/components/schemas/Webhook'
+          x-fk-model: "Webhook"
+          description: ""
+
+        webhookEventId:
+          $ref: '#/components/schemas/WebhookEvent'
+          x-fk-model: "WebhookEvent"
+          description: ""
 
 
 

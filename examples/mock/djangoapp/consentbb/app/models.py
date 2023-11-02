@@ -543,4 +543,76 @@ class DataAgreementLifecycle(models.Model):
 
 
 
+class Webhook(models.Model):
+    """Generic webhooks used to store subscriptions of third-parties that are notified by events."""
+    
+    payloadUrl = models.CharField(
+        verbose_name="payloadUrl",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    contentType = models.CharField(
+        verbose_name="contentType",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    disabled = models.BooleanField(
+        verbose_name="disabled",
+        help_text="",
+        null=False,
+        blank=False,
+    )
+
+    secretKey = models.CharField(
+        verbose_name="secretKey",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+
+
+class WebhookEvent(models.Model):
+    """Webhook event types are stored in this schema."""
+    
+    name = models.CharField(
+        verbose_name="name",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+
+
+class WebhookEventSubscription(models.Model):
+    """Many-to-many relationship between Webhook and WebhookEvent."""
+    
+    webhookId = models.ForeignKey(
+        "Webhook",
+        verbose_name="webhookId",
+        help_text="",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    webhookEventId = models.ForeignKey(
+        "WebhookEvent",
+        verbose_name="webhookEventId",
+        help_text="",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+
+
 

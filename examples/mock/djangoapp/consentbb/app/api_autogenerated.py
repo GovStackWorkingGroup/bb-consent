@@ -308,22 +308,19 @@ def service_individual_consent_record_delete_all(request, ):
     return "undefined"
 
 
-@api.get("/audit/consentrecords/")
+@api.get("/audit/consent-records/")
 def audit_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
-@api.get("/audit/consentrecord/{consentRecordId}/")
+@api.get("/audit/consent-record/{consentRecordId}/")
 def audit_consent_record_read(request, consentRecordId: str):
     return "undefined"
 
 
-@api.post("/audit/data-agreements/")
+@api.get("/audit/data-agreements/")
 def audit_data_agreement_list(request, offset: int=None, limit: int=None):
-    db_instance = models.TBD.objects.create()
-    return {
-        "dataAgreements": schemas.TBDSchema.from_orm(db_instance).dict()
-    }
+    return "undefined"
 
 
 @api.get("/audit/data-agreement/{dataAgreementId}/")

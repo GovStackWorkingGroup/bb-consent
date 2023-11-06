@@ -1823,7 +1823,7 @@ paths:
 
 
 
-  /audit/consentrecords/:
+  /audit/consent-records/:
 
     get:
       tags:
@@ -1872,7 +1872,7 @@ paths:
 
 
 
-  /audit/consentrecord/{consentRecordId}/:
+  /audit/consent-record/{consentRecordId}/:
 
     get:
       tags:
@@ -1913,7 +1913,7 @@ paths:
 
   /audit/data-agreements/:
 
-    post:
+    get:
       tags:
         - auditor
       summary: "LIST - fetch all Agreements stored in the system."

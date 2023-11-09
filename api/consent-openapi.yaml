@@ -1143,55 +1143,6 @@ paths:
 
 
 
-  /service/data-agreements/:
-
-    get:
-      tags:
-        - service
-      summary: "LIST - fetches active latest versions of all DataAgreements"
-      operationId: "serviceDataAgreementList"
-      description: "LIST - fetches active latest versions of all DataAgreements"
-      parameters: 
-        - in: query
-          name: "offset"
-          description: "Requested index for start of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-        - in: query
-          name: "limit"
-          description: "Requested number of resources to be provided in response requested by client"
-          required: false
-          schema:
-            type: integer
-
-      x-specification-usecase: "UC-C-PIC-A-003"
-      x-specification-scenario: ""
-      x-specification-pii-or-sensitive: "False"
-      x-specification-crudl-model: "DataAgreement"
-      responses:
-        '200':
-          description: ""
-            
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  dataAgreements:
-                    type: array
-                    items:
-                      oneOf:
-                        - $ref: '#/components/schemas/DataAgreement'
-
-        '400':
-          description: bad input parameter
-      security:
-        - OAuth2: [org]
-
-
-
   /service/policy/{policyId}/:
 
     get:

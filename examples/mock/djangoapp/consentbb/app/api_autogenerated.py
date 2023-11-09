@@ -216,14 +216,6 @@ def service_data_agreement_read(request, dataAgreementId: str):
     }
 
 
-@api.get("/service/data-agreements/")
-def service_data_agreement_list(request, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.DataAgreement, pk=None)
-    return {
-        "dataAgreements": schemas.DataAgreementSchema.from_orm(db_instance).dict()
-    }
-
-
 @api.get("/service/policy/{policyId}/")
 def service_policy_read(request, policyId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.Policy, pk=policyId)

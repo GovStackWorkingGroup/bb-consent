@@ -216,6 +216,14 @@ def service_data_agreement_read(request, dataAgreementId: str):
     }
 
 
+@api.get("/service/data-agreements/")
+def service_data_agreement_list(request, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.DataAgreement, pk=None)
+    return {
+        "dataAgreements": schemas.DataAgreementSchema.from_orm(db_instance).dict()
+    }
+
+
 @api.get("/service/policy/{policyId}/")
 def service_policy_read(request, policyId: str, revisionId: str=None):
     db_instance = get_object_or_404(models.Policy, pk=policyId)
@@ -233,12 +241,12 @@ def service_verification_data_agreement_list(request, offset: int=None, limit: i
     return "undefined"
 
 
-@api.get("/service/verification/consentrecords/")
+@api.get("/service/verification/consent-records/")
 def service_verification_consent_record_list(request, offset: int=None, limit: int=None):
     return "undefined"
 
 
-@api.get("/service/verification/consentrecord/{consentRecordId}")
+@api.get("/service/verification/consent-record/{consentRecordId}/")
 def service_verification_consent_record_read(request, consentRecordId: str):
     return "undefined"
 

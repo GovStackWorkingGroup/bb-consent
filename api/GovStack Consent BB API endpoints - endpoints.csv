@@ -32,12 +32,14 @@ API tag: service,,,,,,,,,,,,,
 /service/individuals/,GET,,,,,individuals:Individual<List>,LIST - lists individuals in the system,TRUE,,serviceIndividualList,,org,Individual
 "Read operation for ""Agreement"" object",,,,,,,,FALSE,,,,,
 /service/data-agreement/{dataAgreementId}/,GET,UC-C-PIC-A-003,,,,"DataAgreement, Revision",READ - fetches the latest version of an Agreement,FALSE,,serviceDataAgreementRead,,org,DataAgreement
+"List operation for ""Agreement"" object",,,,,,,,FALSE,,,,,
+/service/data-agreements/,GET,UC-C-PIC-A-003,,,,dataAgreements:DataAgreement<List>,LIST - fetches active latest versions of all DataAgreements,FALSE,,serviceDataAgreementList,,org,DataAgreement
 "Read operation for ""Policy"" object",,,,,,,,FALSE,,,,,
 /service/policy/{policyId}/,GET,UC-C-PIC-A-003,,revisionId,,"Policy, Revision",READ - fetches the latest version of a Policy and the presented revisionId of an associated Agreement,FALSE,,servicePolicyRead,,org,Policy
 Verification mechanisms,,,,,,,,FALSE,,,,,
 /service/verification/data-agreements/,GET,UC-C-PIC-A-003,1.1,,,dataAgreements:DataAgreement<List>,LIST - Fetch ,FALSE,,serviceVerificationDataAgreementList,,consumer,
-/service/verification/consentrecords/,GET,UC-C-PIC-A-003,"3.1, 1.2",,,consentRecords:ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists.",TRUE,,serviceVerificationConsentRecordList,,consumer,
-/service/verification/consentrecord/{consentRecordId},GET,UC-C-PIC-A-003,"3.1, 1.2",,,"ConsentRecord, Revision",READ - Reads a consent record by its ID.,TRUE,,serviceVerificationConsentRecordRead,,consumer,
+/service/verification/consent-records/,GET,UC-C-PIC-A-003,"3.1, 1.2",,,consentRecords:ConsentRecord<List>,"LIST - Fetch consent records (latest revision). For a given ConsentRecordFilter, query if consent exists.",TRUE,,serviceVerificationConsentRecordList,,consumer,
+/service/verification/consent-record/{consentRecordId}/,GET,UC-C-PIC-A-003,"3.1, 1.2",,,"ConsentRecord, Revision",READ - Reads a consent record by its ID.,TRUE,,serviceVerificationConsentRecordRead,,consumer,
 Recording consent (giving/withdrawing),,,,,,,All services need to specify the Individual ID as an HTTP header.,FALSE,,,,,
 /service/individual/record/data-agreement/{dataAgreementId}/,POST,UC-C-PIC-I-002,1.2,"individualId*, revisionId",,"ConsentRecord, Revision","CREATE - For a particular Individual and a particular Agreement, create a new Consent Record pointing to the current Revision of a given Agreement. Individual ID supplied as HTTP header.",TRUE,,serviceIndividualConsentRecordCreate,,individual,
 /service/individual/record/consent-record/draft/,POST,UC-C-PIC-I-002,1.2,"individualId*, dataAgreementId*, revisionId",,"ConsentRecord, Signature",CREATE - Gets a DRAFT (unsaved) ConsentRecord and Signature objects (without a PK) for a given dataAgreementId.,TRUE,,serviceIndividualConsentRecordDraftCreate,,individual,

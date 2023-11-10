@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Individual(models.Model):
-    """Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent agreements."""
+    """Shallowly models an Individual which may reference some instance in an external system (registration system, functional ID, foundational ID etc). An Individual instance of this model is not to be mistaken with a unique natural individual. It is up to the system owner to decide if this record permits mapping to a natural individual and/or if a single Individual row can map to several consent records."""
     
     externalId = models.CharField(
         verbose_name="externalId",
@@ -33,8 +33,8 @@ class Individual(models.Model):
 
 
 
-class Agreement(models.Model):
-    """An agreement contains the specification of a single purpose that can be consented to. An Agreement is universal and can be consented to by *many* individuals through a ConsentRecord"""
+class DataAgreement(models.Model):
+    """A Data Agreement contains the specification of a single purpose that can be consented to. A Data Agreement is universal and can be consented to by *many* individuals through a ConsentRecord. A Data Agreement implements a specific type of agreement related to personal data, modeled by DataAgreementAttribute. There may be other types of agreements modeled in future Consent BB releases. Notice that when creating a serialized snapshop for revisioning a Data Agreement, all related objects have to be serialized and included."""
     
     version = models.CharField(
         verbose_name="version",
@@ -56,7 +56,7 @@ class Agreement(models.Model):
     policy = models.ForeignKey(
         "Policy",
         verbose_name="policy",
-        help_text="Reference to the policy under which this Agreement shall be governed",
+        help_text="Reference to the policy under which this Data Agreement shall be governed",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
@@ -72,7 +72,7 @@ class Agreement(models.Model):
 
     lawfulBasis = models.CharField(
         verbose_name="lawfulBasis",
-        help_text="Lawful basis of the agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest",
+        help_text="Lawful basis of the Data Agreement - consent / legal_obligation / contract / vital_interest / public_task / legitimate_interest",
         max_length=1024,
         null=False,
         blank=False,
@@ -94,18 +94,9 @@ class Agreement(models.Model):
         blank=False,
     )
 
-    signature = models.ForeignKey(
-        "Signature",
-        verbose_name="signature",
-        help_text="Signature of authorizing party of Agreement. Note: Signatures may be chained in case of multiple signatures.",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
     active = models.BooleanField(
         verbose_name="active",
-        help_text="Agreement is active and new ConsentRecords can be created.",
+        help_text="Data Agreement is active and new Consent Records can be created.",
         null=True,
         blank=True,
     )
@@ -118,18 +109,27 @@ class Agreement(models.Model):
     )
 
     compatibleWithVersion = models.ForeignKey(
-        "Agreement",
+        "DataAgreement",
         verbose_name="compatibleWithVersion",
-        help_text="WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Agreement.",
+        help_text="WIP: This field indicates that Consent Records may be transferred from this compatible previous version of the same Data Agreement.",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
     lifecycle = models.ForeignKey(
-        "AgreementLifecycle",
+        "DataAgreementLifecycle",
         verbose_name="lifecycle",
-        help_text="WIP: Current Lifecycle state of the Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.",
+        help_text="WIP: Current Lifecycle state of the Data Agreement. Lifecycle states are used to manage internal workflows and should not be assigned semantic meanings for active Consent Records.",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    signature = models.ForeignKey(
+        "Signature",
+        verbose_name="signature",
+        help_text="Signature of authorizing party of Data Agreement. Note: Signatures may be chained in case of multiple signatures. In cases where there are several chained signatures, this relation serves as a shortcut to the last signature in the chain.",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
@@ -137,12 +137,12 @@ class Agreement(models.Model):
 
 
 
-class AgreementData(models.Model):
-    """Agreement data contains specifications of exactly what is collected."""
+class DataAgreementAttribute(models.Model):
+    """A Data Agreement Attribute contains specifications of exactly what is data collected and used."""
     
-    agreement = models.ForeignKey(
-        "Agreement",
-        verbose_name="agreement",
+    dataAgreement = models.ForeignKey(
+        "DataAgreement",
+        verbose_name="dataAgreement",
         help_text="",
         on_delete=models.PROTECT,
         null=True,
@@ -176,7 +176,7 @@ class AgreementData(models.Model):
 
 
 class Policy(models.Model):
-    """A policy governs data and Agreement in the realm of an organisation that is refered to as \"data controller\" (GDPR) and owner of referencing Agreements."""
+    """A policy governs Data Agreements in the realm of an organisation that is often referred to as \"data controller\" (GDPR) and owner of referencing Data Agreements."""
     
     name = models.CharField(
         verbose_name="name",
@@ -244,29 +244,29 @@ class Policy(models.Model):
 
 
 class ConsentRecord(models.Model):
-    """A Consent Record expresses consent (as defined in this building block's specification) to a single Agreement. There must be a UNIQUE constraint on (agreementRevision, individual)"""
+    """A Consent Record expresses consent (as defined in this building block's specification) to a single Data Agreement. There must be a UNIQUE constraint on (dataAgreementRevision, individual)"""
     
-    agreement = models.ForeignKey(
-        "Agreement",
-        verbose_name="agreement",
-        help_text="The Agreement to which consent has been given",
+    dataAgreement = models.ForeignKey(
+        "DataAgreement",
+        verbose_name="dataAgreement",
+        help_text="The Data Agreement to which consent has been given",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
-    agreementRevision = models.ForeignKey(
+    dataAgreementRevision = models.ForeignKey(
         "Revision",
-        verbose_name="agreementRevision",
-        help_text="The Revision of the agreement which consent has been given to",
+        verbose_name="dataAgreementRevision",
+        help_text="The Revision object of the Data Agreement which consent has been given to.",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
-    agreementRevisionHash = models.CharField(
-        verbose_name="agreementRevisionHash",
-        help_text="Copy of the revision hash. The hash is the included in the signature and ensures against tampering with the original agreement.",
+    dataAgreementRevisionHash = models.CharField(
+        verbose_name="dataAgreementRevisionHash",
+        help_text="Copy of the Revision's hash. The hash is the included in the signature and ensures against tampering with the original Data Agreement.",
         max_length=1024,
         null=False,
         blank=False,
@@ -522,7 +522,7 @@ class Signature(models.Model):
 
     objectReference = models.CharField(
         verbose_name="objectReference",
-        help_text="A symmetric relation / back reference to the objectType that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a consent record, an agreement, policy etc)",
+        help_text="A symmetric relation / back reference to the objectType that was signed. We are currently just modelling signing another signature (a chain) or signing a Revision (which can be a revision of a Consent Record, a Data Agreement, Policy etc)",
         max_length=1024,
         null=True,
         blank=True,
@@ -530,8 +530,8 @@ class Signature(models.Model):
 
 
 
-class AgreementLifecycle(models.Model):
-    """TBD: Models the valid lifecycle states of an Agreement"""
+class DataAgreementLifecycle(models.Model):
+    """TBD: Models the valid lifecycle states of a Data Agreement"""
     
     name = models.CharField(
         verbose_name="name",
@@ -539,6 +539,78 @@ class AgreementLifecycle(models.Model):
         max_length=1024,
         null=False,
         blank=False,
+    )
+
+
+
+class Webhook(models.Model):
+    """Generic webhooks used to store subscriptions of third-parties that are notified by events."""
+    
+    payloadUrl = models.CharField(
+        verbose_name="payloadUrl",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    contentType = models.CharField(
+        verbose_name="contentType",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+    disabled = models.BooleanField(
+        verbose_name="disabled",
+        help_text="",
+        null=False,
+        blank=False,
+    )
+
+    secretKey = models.CharField(
+        verbose_name="secretKey",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+
+
+class WebhookEvent(models.Model):
+    """Webhook event types are stored in this schema."""
+    
+    name = models.CharField(
+        verbose_name="name",
+        help_text="",
+        max_length=1024,
+        null=False,
+        blank=False,
+    )
+
+
+
+class WebhookEventSubscription(models.Model):
+    """Many-to-many relationship between Webhook and WebhookEvent."""
+    
+    webhookId = models.ForeignKey(
+        "Webhook",
+        verbose_name="webhookId",
+        help_text="",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
+
+    webhookEventId = models.ForeignKey(
+        "WebhookEvent",
+        verbose_name="webhookEventId",
+        help_text="",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
 
 

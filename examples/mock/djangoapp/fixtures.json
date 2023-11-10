@@ -9,7 +9,7 @@
   }
 },
 {
-  "model": "app.agreement",
+  "model": "app.dataagreement",
   "pk": 1,
   "fields": {
     "version": "1.0",
@@ -19,11 +19,11 @@
     "lawfulBasis": "Consent",
     "dataUse": "data_source",
     "dpia": "DPIA by MoJ on \"user registration for health centers\", April 2nd 2023",
-    "signature": null,
     "active": true,
     "forgettable": null,
     "compatibleWithVersion": null,
-    "lifecycle": 2
+    "lifecycle": 2,
+    "signature": null
   }
 },
 {
@@ -44,13 +44,13 @@
   "model": "app.consentrecord",
   "pk": 1,
   "fields": {
-    "agreement": 1,
-    "agreementRevision": 3,
-    "agreementRevisionHash": "2f96142695f62ae2fb55f6218b9fff38b17414c6",
+    "dataAgreement": 1,
+    "dataAgreementRevision": 3,
+    "dataAgreementRevisionHash": "ea133b454bc66600f6b05e8fa87d3d8ff72ad334",
     "individual": 1,
     "optIn": null,
     "state": "signed",
-    "signature": 2
+    "signature": 1
   }
 },
 {
@@ -60,9 +60,9 @@
     "schemaName": "Policy",
     "objectId": "1",
     "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"Policy\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:42:48.286863+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"name\": \"Ministry of Health Privacy Policy\",\n    \"version\": \"1.0\",\n    \"url\": \"https://example.com/policy/1.0\",\n    \"jurisdiction\": \"EU\",\n    \"industrySector\": \"Public\",\n    \"dataRetentionPeriodDays\": 365,\n    \"geographicRestriction\": \"EU\",\n    \"storageLocation\": \"EU\"\n  }\n}",
-    "serializedHash": "066aef5f8fe7052232da5bded1bee0f2c4902ad6",
-    "timestamp": "2023-10-26 13:42:48.286863+00:00",
+    "serializedSnapshot": "{\n  \"schemaName\": \"Policy\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:52:26.991893+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"name\": \"Ministry of Health Privacy Policy\",\n    \"version\": \"1.0\",\n    \"url\": \"https://example.com/policy/1.0\",\n    \"jurisdiction\": \"EU\",\n    \"industrySector\": \"Public\",\n    \"dataRetentionPeriodDays\": 365,\n    \"geographicRestriction\": \"EU\",\n    \"storageLocation\": \"EU\"\n  }\n}",
+    "serializedHash": "498282a1fc1a0b1515920beb5acbf5b50d8e6daa",
+    "timestamp": "2023-10-31 21:52:26.991893+00:00",
     "authorizedByIndividual": null,
     "authorizedByOther": "Configuration admin user 'admin'",
     "successor": null,
@@ -74,12 +74,12 @@
   "model": "app.revision",
   "pk": 2,
   "fields": {
-    "schemaName": "Agreement",
+    "schemaName": "DataAgreement",
     "objectId": "1",
     "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"Agreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:43:39.140292+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": false,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Draft\"\n    },\n    \"agreementdata\": []\n  }\n}",
-    "serializedHash": "182570ca09371ba4d0681494589444d2cc906460",
-    "timestamp": "2023-10-26 13:43:39.140292+00:00",
+    "serializedSnapshot": "{\n  \"schemaName\": \"DataAgreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:53:36.871583+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"active\": false,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Draft\"\n    },\n    \"signature\": null,\n    \"dataagreementattribute\": []\n  }\n}",
+    "serializedHash": "795491d47f4fc1b32e0daf8b21ed1fb3b61697d2",
+    "timestamp": "2023-10-31 21:53:36.871583+00:00",
     "authorizedByIndividual": null,
     "authorizedByOther": "Configuration admin user 'admin'",
     "successor": 3,
@@ -91,16 +91,16 @@
   "model": "app.revision",
   "pk": 3,
   "fields": {
-    "schemaName": "Agreement",
+    "schemaName": "DataAgreement",
     "objectId": "1",
     "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"Agreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:43:50.748649+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"signature\": null,\n    \"active\": true,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Complete\"\n    },\n    \"agreementdata\": []\n  }\n}",
-    "serializedHash": "2f96142695f62ae2fb55f6218b9fff38b17414c6",
-    "timestamp": "2023-10-26 13:43:50.748649+00:00",
+    "serializedSnapshot": "{\n  \"schemaName\": \"DataAgreement\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:53:59.411517+00:00\",\n  \"authorizedByOther\": \"Configuration admin user 'admin'\",\n  \"authorizedByIndividual\": null,\n  \"objectData\": {\n    \"version\": \"1.0\",\n    \"controller\": {\n      \"name\": \"Ministry of Health\",\n      \"url\": \"https://example.com/\"\n    },\n    \"policy\": 1,\n    \"purpose\": \"Registration in Health App\",\n    \"lawfulBasis\": \"Consent\",\n    \"dataUse\": \"data_source\",\n    \"dpia\": \"DPIA by MoJ on \\\"user registration for health centers\\\", April 2nd 2023\",\n    \"active\": true,\n    \"forgettable\": null,\n    \"compatibleWithVersion\": null,\n    \"lifecycle\": {\n      \"name\": \"Complete\"\n    },\n    \"signature\": null,\n    \"dataagreementattribute\": []\n  }\n}",
+    "serializedHash": "ea133b454bc66600f6b05e8fa87d3d8ff72ad334",
+    "timestamp": "2023-10-31 21:53:59.411517+00:00",
     "authorizedByIndividual": null,
     "authorizedByOther": "Configuration admin user 'admin'",
     "successor": null,
-    "predecessorHash": "182570ca09371ba4d0681494589444d2cc906460",
+    "predecessorHash": "795491d47f4fc1b32e0daf8b21ed1fb3b61697d2",
     "predecessorSignature": null
   }
 },
@@ -111,9 +111,9 @@
     "schemaName": "ConsentRecord",
     "objectId": "1",
     "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:26.538090+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
-    "serializedHash": "206203b316c4039951458ba4433e24e6ec33de51",
-    "timestamp": "2023-10-26 13:45:26.538090+00:00",
+    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:02.910254+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
+    "serializedHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
+    "timestamp": "2023-10-31 21:55:02.910254+00:00",
     "authorizedByIndividual": null,
     "authorizedByOther": null,
     "successor": 5,
@@ -128,30 +128,13 @@
     "schemaName": "ConsentRecord",
     "objectId": "1",
     "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:36.523342+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
-    "serializedHash": "0191143ab3162072f502b8962d0afd178c9ab75f",
-    "timestamp": "2023-10-26 13:45:36.523342+00:00",
-    "authorizedByIndividual": null,
-    "authorizedByOther": null,
-    "successor": 6,
-    "predecessorHash": "206203b316c4039951458ba4433e24e6ec33de51",
-    "predecessorSignature": null
-  }
-},
-{
-  "model": "app.revision",
-  "pk": 6,
-  "fields": {
-    "schemaName": "ConsentRecord",
-    "objectId": "1",
-    "signedWithoutObjectId": null,
-    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:50.899631+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 2\n  }\n}",
-    "serializedHash": "91328b5f28004a249b008c5a2b436333a5c16690",
-    "timestamp": "2023-10-26 13:45:50.899631+00:00",
+    "serializedSnapshot": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:12.904646+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
+    "serializedHash": "cfe1c2c63c981a2411e2b05fc8923733ce9b679a",
+    "timestamp": "2023-10-31 21:55:12.904646+00:00",
     "authorizedByIndividual": null,
     "authorizedByOther": null,
     "successor": null,
-    "predecessorHash": "0191143ab3162072f502b8962d0afd178c9ab75f",
+    "predecessorHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
     "predecessorSignature": null
   }
 },
@@ -167,16 +150,16 @@
   "model": "app.signature",
   "pk": 1,
   "fields": {
-    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-26 13:45:26.547622+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 4\n}",
-    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlOm12FiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmghzwwv7Bml8p99yo2NtgKAGv/QnOhgE+92kNDP6HKt85862IVIIC0YAZVIxsr4R\nQBKApirE5fpyHtjQnS13kjRB7PsKQaokh1sGPzjwng4bEEqZPjGtZ3VzEESl4euO\n5xFI3BojsALPfqavvVB7zqtyITcpnJKU7NGlEU02urLOAXavyiw5HI29/y+FvcgG\nqkebprCIY1LwJgkeCWdy5RuedTsn7HEY+/4W+fjxan+lMbiMz/1jEO44aNtE9Bg5\ndHw/Pn/z1XO5sCEZhBmmPFTUP2ymCbB7XSSNdGWTLNinF7u7EcDJDE9PBInY2U36\n1mRidko5PDbpM2WNeKSMi14QiXRKQtmF9Y9/xaGMQHMW7XpEtKzYuPGMp2JdudXA\n94VAe+NKYIZQAOL76m1zQUWWEH0zyhT7gORvWAVpuSsIiL9+ZwBoJQ69sQKbiMHR\n5fEvNlLDh30RvNqchwJnEdDc3YK5KMpNq3WgOvWnsa2BUhz8Lwz79/wdY7nc/rGN\nWUwudxp/\n=Jwj7\n-----END PGP SIGNATURE-----\n",
+    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-31 21:55:02.917984+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 4\n}",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlQXe2FiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmgjV0gwAkgRpBTuWy4KQCM64uDpZMvENVZsVEtMeLxDRzyHPU0H24qjDhwjx/rOg\nUWSynvaMxHtdYgqmRNhsEtrfPpeHClAYZezKfjaiQXQOXvpBEiolKBwHlE+pkJcA\nh80/DDORtu6ipYxLXsY9Wy2TYXvSuqeM+pjZ9P+dut4Zy2qHkPKr88JCDcxY5A2T\nBcsu4y++Rmgo23BWd0E4+QQ31Esm0i0k5jBde8xDzCJPXos0TNisrjothQ26l7YO\nM13YVEkgTZLceEkYsMvFTmqUtIlO1BP8BoSJLltU1LEfed2rJ2RXbwxHA6UeQNs0\n7+axf1/32mK4KWePoitRodzGdjHsESbdbZYoKYHxA62a0Ng2eMUJe2MvxhoMJI1V\nAz+AtQnSxpPeK5ggOlM85aa6QZXuOI4iP14NN4ec0uGDjpxYfznIDKfTCnRXkz+E\nQ/9WyZF5dU+FFEed6FIxYAb8kN2ynb3mgM17LTYf3Rdz6NCAkUDFAGNmqjSGz7PV\nG7v1wrU0\n=IAUr\n-----END PGP SIGNATURE-----\n",
     "verificationMethod": "pgp",
-    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:26.538090+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
-    "verificationPayloadHash": "206203b316c4039951458ba4433e24e6ec33de51",
+    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:02.910254+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"unsigned\",\n    \"signature\": null\n  }\n}",
+    "verificationPayloadHash": "04a9a2654df64efb0d4f22f962d06d7efda58dcf",
     "verificationArtifact": "",
     "verificationSignedBy": "528419E5FA07B763D38224AA3EAC2988E1579A08",
     "verificationSignedAs": "individual",
     "verificationJwsHeader": null,
-    "timestamp": "2023-10-26 13:45:26.547622+00:00",
+    "timestamp": "2023-10-31 21:55:02.917984+00:00",
     "signedWithoutObjectReference": null,
     "objectType": "Revision",
     "objectReference": "4"
@@ -186,49 +169,30 @@
   "model": "app.signature",
   "pk": 2,
   "fields": {
-    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-26 13:45:36.540331+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 5\n}",
-    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlOm2AFiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmghAGQwApriTI4wz1puhsYo56NJIDeS1aKHSvHynsBlnDhNUPyTUc9dENjTRDQ/J\ngc7ap6+zTt0+NnaBDPRTA1k5Gm9rrp6jnLH0B31l8z07vtVhS0+wxxq7fCHhkyMa\nDiMxEkIu7v9zhpM08YSQ6cYXK/ktYi5SuyJIZvsE4b6ltBaVyGEPdVpPCaF5QIlu\nNpCG8UxmY6doVaHENlwbWY5RTZhHJweT1XdtDCCpddnqtku+zxTXHwrMb8w7SHgM\nN26zrs7PIofmcxnYp2XvHm+C9C/W4TUusc9rpEk9sfEAZKdhoIowjs2Y3H+nCdjP\nJfZuGQsPZCQ961OzuTGFrX2x/XQpeyxDyMUdpa+ndb2a28js2MNvOUJYMYh4KvVZ\nnmSjsgkrWNbbobRn/57vjtSCTVZTohYE2sl16UdpvHRIYZ9aMvu6K4yrQvU7pJlz\n1PL1LB1ExMJ8E/rAaKG/ckTEcDJnvrXptSfIM/aQpvjgqLJgxPtM/Kj22sXm3TeP\nEVkeg1tz\n=1Icz\n-----END PGP SIGNATURE-----\n",
+    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-31 21:55:12.917958+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 5\n}",
+    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlQXfAFiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmgiggAwArFnH+vPX7mRs1bOWuvXbqCk63k9MToeklq+SwZELUwTdWWKdeuwbNUHN\nzhtYxCMbhgxA0/2mTdj9eIl4SfmJ2XfGp5mw1/0GcfNYEnq7u3HUd/hIwa/YmlSN\nKnybT0k2+MNaFfereSYKXe4BAZPCDbW1gYLaSXDQFGyU1wMLBug9shcGDFL86cLU\nVzD/V7Xb0IYYBxB1IlMLVXsJ9gNA1b1AeCXy7Z0WteDtlHLe1hz9xxzgKax9smCT\nBP/0LLHMdEHLrDivWVjgSjvrPDe+Bowtr455v4iX6oXsmBKP1/KutxoHjeAljWYy\njmLXKeQgqRSpqFXrU6sdP166fotXnasjOyYZTDk3BZnc+WwPfD8mXE+Jt2Tov1qd\npOTk751rvQmnAI0VibEj1P7FFZn+SkOJrpqderHoMPcoZCmUMyF0cjywHJu0d3RN\nwpZeFnMY4wjcb2Q1GcdVFn6nXcGRSlIvPThrCgD5WHQDnr2iKXwsjX0OnNCaFqeI\neGA74usy\n=QvBD\n-----END PGP SIGNATURE-----\n",
     "verificationMethod": "pgp",
-    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:36.523342+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
-    "verificationPayloadHash": "0191143ab3162072f502b8962d0afd178c9ab75f",
+    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-31 21:55:12.904646+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"dataAgreement\": 1,\n    \"dataAgreementRevision\": 3,\n    \"dataAgreementRevisionHash\": \"ea133b454bc66600f6b05e8fa87d3d8ff72ad334\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 1\n  }\n}",
+    "verificationPayloadHash": "cfe1c2c63c981a2411e2b05fc8923733ce9b679a",
     "verificationArtifact": "",
     "verificationSignedBy": "528419E5FA07B763D38224AA3EAC2988E1579A08",
     "verificationSignedAs": "individual",
     "verificationJwsHeader": null,
-    "timestamp": "2023-10-26 13:45:36.540331+00:00",
+    "timestamp": "2023-10-31 21:55:12.917958+00:00",
     "signedWithoutObjectReference": null,
     "objectType": "Revision",
     "objectReference": "5"
   }
 },
 {
-  "model": "app.signature",
-  "pk": 3,
-  "fields": {
-    "payload": "{\n  \"verificationMethod\": \"pgp\",\n  \"timestamp\": \"2023-10-26 13:45:50.914939+00:00\",\n  \"verificationArtifact\": \"\",\n  \"verificationSignedBy\": \"528419E5FA07B763D38224AA3EAC2988E1579A08\",\n  \"verificationSignedAs\": \"individual\",\n  \"objectType\": \"Revision\",\n  \"objectReference\": 6\n}",
-    "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsDzBAABCgAdBQJlOm2OFiEEUoQZ5foHt2PTgiSqPqwpiOFXmggACgkQPqwpiOFX\nmgiSBQwAy7bDj/oZAVcVsanRwPsyc0hzbm0w05+DUWP4JMxWtKnjgfE+kmLzLLhg\nMjML2+L2PCtV+B5zrxOgWm6wWGCALC/MXEb0sGBTWhL53vzhCT6uOMizy49G8BGp\nFhxSRcJa6Rvx9iix1LWDmwTU7ps9xK/NbMVf93NO0jJhLrsDkgINOFeCf9Ddn4/6\n1fwKroh7GsTAog/DY/a+yoz+NsFbyWsTwzTcLvNosJrN+404ehHzFpNqpdXTWAlf\nrK7OLzFauuVmb5BXD+52i3YGcHPzdPudCALBb0pMCndwt13MF3/i+pP3sEDNWTJg\nSp4dWX0dU+r6ejzXRKurVZvWXdcM8QL3WDoqDvPmGQc0tQeSOeP/V5LgJpiC4rnd\nXTyBBgpBpBpiyWf7SzqxVWJuaZx5ZF2/5Il4OLklB1JChLRCupYItS/HWqYmahTF\nH8rcjlHdPYcYaVDhBI72RgGiyX8nuce/NE8W1/0zFX+qIfMVVa3FiloB7pDev5Zm\nukJ4HXOO\n=bT8e\n-----END PGP SIGNATURE-----\n",
-    "verificationMethod": "pgp",
-    "verificationPayload": "{\n  \"schemaName\": \"ConsentRecord\",\n  \"objectId\": 1,\n  \"timestamp\": \"2023-10-26 13:45:50.899631+00:00\",\n  \"authorizedByOther\": null,\n  \"authorizedByIndividual\": 1,\n  \"objectData\": {\n    \"agreement\": 1,\n    \"agreementRevision\": 3,\n    \"agreementRevisionHash\": \"2f96142695f62ae2fb55f6218b9fff38b17414c6\",\n    \"individual\": 1,\n    \"optIn\": null,\n    \"state\": \"signed\",\n    \"signature\": 2\n  }\n}",
-    "verificationPayloadHash": "91328b5f28004a249b008c5a2b436333a5c16690",
-    "verificationArtifact": "",
-    "verificationSignedBy": "528419E5FA07B763D38224AA3EAC2988E1579A08",
-    "verificationSignedAs": "individual",
-    "verificationJwsHeader": null,
-    "timestamp": "2023-10-26 13:45:50.914939+00:00",
-    "signedWithoutObjectReference": null,
-    "objectType": "Revision",
-    "objectReference": "6"
-  }
-},
-{
-  "model": "app.agreementlifecycle",
+  "model": "app.dataagreementlifecycle",
   "pk": 1,
   "fields": {
     "name": "Draft"
   }
 },
 {
-  "model": "app.agreementlifecycle",
+  "model": "app.dataagreementlifecycle",
   "pk": 2,
   "fields": {
     "name": "Complete"

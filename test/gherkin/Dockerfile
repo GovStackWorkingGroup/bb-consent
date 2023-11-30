@@ -12,4 +12,4 @@ WORKDIR /tests/
 ENV CONSENTBB_API_HOST=localhost:8888
 ENV CONSENTBB_API_PATH=/api
 
-CMD behave /tests
+CMD behave --format json --summary --outfile=/data/results.json /tests

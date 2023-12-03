@@ -1,0 +1,50 @@
+{
+  "DataBase": {
+    "hosts": ["mongo"],
+    "name": "bb-consent-consentdb",
+    "username": "bb-consent-user",
+    "password": "bb-consent-password"
+  },
+  "ApplicationMode": "single-tenant",
+  "TestMode": true,
+  "Organization": {
+    "name": "Skatteverket",
+    "location": "Sweden",
+    "description": "Skatteverket is committed to safeguarding your privacy. We process your personal data in line with data agreements, ensuring adherence to ISO27560 standards and legal frameworks like GDPR. For every personal data we process, you can view its usage purpose and make informed choices to opt in or out. For inquiries, contact our Data Protection Officer at dpo@skatteverket.com",
+    "eulaUrl": "https://www.skatteverket.se"
+  },
+  "User": {
+    "username": "admin@skatteverket.se",
+    "password": "qwerty123"
+  },
+  "ApiSecretKey": "samplekey",
+  "Iam": {
+    "url": "http://keycloak:8080",
+    "realm": "BB-Consent-Users",
+    "ClientId": "igrant-ios-app",
+    "AdminUser": "admin",
+    "AdminPassword": "admin",
+    "timeout": 5
+  },
+  "Smtp": {
+    "username": "consentbb@gmail.com",
+    "password": "xwtq",
+    "host": "smtp.gmail.com",
+    "port": 587,
+    "adminEmail": "consentbb@gmail.com"
+  },
+  "Webhooks": {
+    "events": ["consent.allowed", "consent.disallowed"]
+  },
+  "PrivacyDashboardDeployment": {
+    "Hostname": "https://privacy.bb-consent.dev",
+    "Version": "v2023.11.6"
+  },
+  "Policy": {
+    "Name": "Policy 1",
+    "Url": "https://www.skatteverket.se",
+    "IndustrySector": "Public",
+    "GeographicRestriction": "Sweden",
+    "StorageLocation": "Sweden"
+  }
+}

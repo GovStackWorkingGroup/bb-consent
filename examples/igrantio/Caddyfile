@@ -1,0 +1,46 @@
+{
+	admin 0.0.0.0:2019
+}
+
+localhost:443 {
+	@api {
+		path /*
+	}
+
+	reverse_proxy @api {
+		to http://api:80
+	}
+
+	route @api {
+		openapi {
+			spec /consent-openapi.yaml
+			log_error
+			# fall_through
+			check {
+				req_params req_body
+				# When we are ready to handle validation of the body:
+				# req_params req_body resp_body
+			}
+			validate_servers false
+		}
+	}
+
+	handle_errors {
+		respond @api "Resource: {http.request.orig_uri}. Error: {openapi.error}" {openapi.status_code} {
+			close
+		}
+	}
+
+	header / {
+		Strict-Transport-Security "max-age=31536000;"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer-when-downgrade"
+	}
+
+	# Log all requests to stdout for Docker logs
+	log {
+		output stdout
+		level DEBUG
+	}
+}

@@ -25,5 +25,11 @@ mkdir -p test-data-volume
 
 docker-compose up --build
 
+echo "Gherkin tests finished. Fetching and moving test report."
+
+TEST_REPORT=./result/example_result.message
+
 mkdir -p ./result
-cp ./test_data/results.json ./result/example_result.message
+cp ./test_data/results.json $TEST_REPORT
+
+echo "Wrote $TEST_REPORT, ready for uploading."

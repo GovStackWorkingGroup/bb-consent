@@ -1,6 +1,6 @@
 # Test and docker stuff
-test/gherkin/test_data/
-test/gherkin/result/
+test/*/test_data/
+test/*/result/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

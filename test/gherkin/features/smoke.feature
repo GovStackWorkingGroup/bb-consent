@@ -1,3 +1,4 @@
+@method=GET @endpoint=/service/policy/{policyId}/
 Feature: The Consent Building Block exists
 
   @smoke

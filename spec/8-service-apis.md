@@ -14,181 +14,181 @@ The tests for the Consent Building Block can be found in [this GitHub repository
 
 # 8.1 API specification
 
-The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/1.1.0-rc1/api).
+The following is an automated rendition of the [OpenAPI YAML specification contained in this release](https://github.com/GovStackWorkingGroup/bb-consent/tree/v23Q4/api/consent-openapi.yaml).
 
+You can see the latest unreleased version of the OpenAPI specification in [the main branch of our GitHub repository](https://github.com/GovStackWorkingGroup/bb-consent/blob/main/api/consent-openapi.yaml).
 
 ## 8.1.1 Config APIs
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policy/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policy/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="delete" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policy/{policyId}/" method="delete" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policy/{policyId}/revisions/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policy/{policyId}/revisions/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/policies/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/policies/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="delete" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/data-agreement/{dataAgreementId}/" method="delete" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/data-agreement/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/data-agreement/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/data-agreements/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/data-agreements/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/individual/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/individual/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/individual/{individualId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/individual/{individualId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/individuals/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/individuals/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/webhook/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/webhook/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="delete" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/webhook/{webhookId}/" method="delete" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/config/webhooks/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/config/webhooks/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
 ## 8.1.2 Service APIs
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/{individualId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/{individualId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/{individualId}/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/{individualId}/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individuals/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individuals/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/data-agreement/{dataAgreementId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/data-agreement/{dataAgreementId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/policy/{policyId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/policy/{policyId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/verification/data-agreements/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/verification/data-agreements/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/verification/consentrecords/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/verification/consent-records/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/verification/consentrecord/{consentRecordId}" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/verification/consent-record/{consentRecordId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/draft/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/draft/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/signature/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/signature/" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/signature/" method="put" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/consent-record/{consentRecordId}/signature/" method="put" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/all/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/data-agreement/{dataAgreementId}/all/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/service/individual/record/" method="delete" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/service/individual/record/" method="delete" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
 ## 8.1.3 Audit APIs
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/audit/consentrecords/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/audit/consent-records/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/audit/consentrecord/{consentRecordId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/audit/consent-record/{consentRecordId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/audit/data-agreements/" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/audit/data-agreements/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml" path="/audit/data-agreement/{dataAgreementId}/" method="get" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/1.1.0-rc1/api/consent-openapi.yaml)
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml" path="/audit/data-agreement/{dataAgreementId}/" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-consent/v23Q4/api/consent-openapi.yaml)
 {% endswagger %}
-None
 

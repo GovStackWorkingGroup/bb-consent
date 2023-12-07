@@ -14,8 +14,9 @@ The tests for the Consent Building Block can be found in [this GitHub repository
 
 # 8.1 API specification
 
-The following is an automated rendition of our latest [OpenAPI YAML specification](https://github.com/GovStackWorkingGroup/bb-consent/tree/v23Q4/api).
+The following is an automated rendition of the [OpenAPI YAML specification contained in this release](https://github.com/GovStackWorkingGroup/bb-consent/tree/v23Q4/api/consent-openapi.yaml).
 
+You can see the latest unreleased version of the OpenAPI specification in [the main branch of our GitHub repository](https://github.com/GovStackWorkingGroup/bb-consent/blob/main/api/consent-openapi.yaml).
 
 ## 8.1.1 Config APIs
 

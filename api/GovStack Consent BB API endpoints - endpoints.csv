@@ -18,11 +18,11 @@ CRUDL for DataAgreement object,,,,,,,,FALSE,,,,org,
 /config/individual/{individualId}/,GET,,,,,Individual,READ - Fetch an Individual in the Consent system,TRUE,,configIndividualRead,,org,Individual
 /config/individuals/,GET,,,,,individuals:Individual<List>,LIST - lists individuals in the system,TRUE,,configIndividualList,,org,Individual
 "CRUDL for ""Webhook"" object",,,,,,,,FALSE,,,,,
-/config/webhook/,POST,,,,Webhook*,Webhook,CREATE - Creates a new Webhook object and returns the new object,FALSE,,configWebhookCreate,"A set consisting of the new Webhook object created, together with the initial Revision object.",admin,Webhook
-/config/webhook/{webhookId}/,GET,,,revisionId,,Webhook,READ - get a Webhook object.,FALSE,,configWebhookRead,,admin,Webhook
+/config/webhook/,POST,,,,Webhook*,Webhook,CREATE - Creates a new Webhook object and returns the new object,FALSE,,configWebhookCreate,Returns the new Webhook object created,admin,Webhook
+/config/webhook/{webhookId}/,GET,,,,,Webhook,READ - get a Webhook object.,FALSE,,configWebhookRead,,admin,Webhook
 /config/webhook/{webhookId}/,PUT,,,,Webhook*,Webhook,"UPDATE - Updates an existing Webhook object, returning the updated version.",FALSE,,configWebhookUpdate,,admin,Webhook
 /config/webhook/{webhookId}/,DELETE,,,,,,DELETE - Deletes an existing Webhook object.,FALSE,,configWebhookDelete,,admin,Webhook
-/config/webhooks/,GET,,,revisionId,,webhooks:Webhook<List>,LIST - Fetches list of readable Webhook objects,FALSE,Returns a list of readable Webhook objects,configWebhookList,A list of Webhook objects readable for the current session's credentials.,admin,Webhook
+/config/webhooks/,GET,,,,,webhooks:Webhook<List>,LIST - Fetches list of readable Webhook objects,FALSE,Returns a list of readable Webhook objects,configWebhookList,A list of Webhook objects readable for the current session's credentials.,admin,Webhook
 ,,,,,,,,FALSE,,,,,
 API tag: service,,,,,,,,,,,,,
 "CRUDL for ""Individual"" object",,,,,,,,TRUE,,,,org,Individual

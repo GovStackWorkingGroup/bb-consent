@@ -216,9 +216,9 @@ paths:
     get:
       tags:
         - config
-      summary: "LIST - returns the current Policy"
+      summary: "LIST - returns all revisions of a Policy"
       operationId: "configPolicyRevisionsList"
-      description: "LIST - returns the current Policy"
+      description: "LIST - returns all revisions of a Policy"
       parameters: 
         - in: path
           name: "policyId"
@@ -254,8 +254,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  policy:
-                    $ref: '#/components/schemas/Policy'
+                  revisions:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter

@@ -61,7 +61,7 @@ def config_policy_delete(request, policyId: str):
 def config_policy_revisions_list(request, policyId: str, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Revision, pk=policyId)
     return {
-        "policy": schemas.RevisionSchema.from_orm(db_instance).dict()
+        "revisions": schemas.RevisionSchema.from_orm(db_instance).dict()
     }
 
 

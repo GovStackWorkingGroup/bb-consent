@@ -3,7 +3,7 @@ API tag: config,,,,,,,,,,,,,
 CRUDL for Policy object,,,,,,,,,,,,,
 /config/policy/,POST,UC-C-PIC-A-001,,,Policy*,"Policy, Revision",CREATE - Creates a new Policy object and returns the new object and a PolicyRevision,FALSE,,configPolicyCreate,"A set consisting of the new Policy object created, together with the initial Revision object.",org,Policy
 /config/policy/{policyId}/,GET,UC-C-PIC-A-003,,revisionId,,"Policy, Revision",READ - get a Policy object + latest Revisio,FALSE,,configPolicyRead,,org,Policy
-/config/policy/{policyId}/revisions/,GET,UC-C-PIC-A-003,,,,Policy,LIST - returns the current Policy,FALSE,,configPolicyRevisionsList,,org,Revision
+/config/policy/{policyId}/revisions/,GET,UC-C-PIC-A-003,,,,revisions:Revision<List>,LIST - returns all revisions of a Policy,FALSE,,configPolicyRevisionsList,,org,Revision
 /config/policy/{policyId}/,PUT,UC-C-PIC-A-002,,,Policy*,"Policy, Revision","UPDATE - Updates an existing Policy object, returning the updated version and a new revision. Updating a Policy must not affect existing active references in DataAgreement, the new Revision should be specified for Agreement.",FALSE,,configPolicyUpdate,,org,Policy
 /config/policy/{policyId}/,DELETE,UC-C-PIC-A-004,,,,Revision,"DELETE - Deletes an existing Policy object, returning a new revision. Deleting a Policy is not possible if it's associated with active DataAgreement.",FALSE,,configPolicyDelete,,org,Policy
 /config/policies/,GET,"UC-C-PIC-A-001, UC-C-PIC-A-002",,revisionId,,policies:Policy<List>,LIST - Fetches list of readable Policy objects,FALSE,Returns a list of readable Policy objects,configPolicyList,A list of Policy objects readable for the current session's credentials.,admin,Policy

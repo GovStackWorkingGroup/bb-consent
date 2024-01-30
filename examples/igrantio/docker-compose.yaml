@@ -44,7 +44,7 @@ services:
       - custom_network
 
   api:
-    image: igrantio/bb-consent-api:2023.12.2
+    image: igrantio/bb-consent-api:2024.1.1
     container_name: api
     restart: always
     ports:
@@ -73,7 +73,7 @@ services:
       - custom_network
 
   fixtures:
-    image: igrantio/bb-consent-fixtures:2023.12.2
+    image: igrantio/bb-consent-fixtures:2024.1.1
     container_name: fixtures
     volumes:
       - ./test-data.json:/app/data.json:ro

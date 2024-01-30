@@ -3,6 +3,375 @@
     {
       "id": "4b3d3b000000000000000000",
       "email": "johndoe@yopmail.com"
+    },
+    {
+      "id": "1",
+      "externalid": "",
+      "externalidtype": "",
+      "identityproviderid": "",
+      "name": "Katy",
+      "email": "katy@yopmail.com"
+    }
+  ],
+  "dataAgreements": [
+    {
+      "id": "1",
+      "purpose": "Registration in Health App",
+      "purposeDescription": "Registration in Health App",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dataAttributes": [
+        {
+          "id": "6595279313c370b9a5569c21",
+          "name": "Name",
+          "description": "Name of person",
+          "sensitivity": false,
+          "category": ""
+        },
+        {
+          "id": "6595279313c370b9a5569c22",
+          "name": "Age",
+          "description": "Age of person",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "dataUse": "data_source",
+      "dpia": "DPIA by MoJ on user registration for health centers, April 2nd 2023",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-03T09:23:31Z"
+    },
+    {
+      "id": "659c12ea3140212807b80000",
+      "purpose": "Marketing and campaign",
+      "purposeDescription": "Marketing and campaign",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dataAttributes": [
+        {
+          "id": "659c12ea3140212807b80003",
+          "name": "Name",
+          "description": "Name of person",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "methodOfUse": "data_source",
+      "dataUse": "data_source",
+      "dpia": "",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-03T09:23:31Z"
+    },
+    {
+      "id": "659e5aafa35cad660a9021f5",
+      "purpose": "Issue License",
+      "purposeDescription": "Issue License",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dpiaDate": "2023-10-31T14:24",
+      "dpiaSummaryUrl": "https://privacyant.se/dpia_results.html",
+      "dataAttributes": [
+        {
+          "id": "659e5aafa35cad660a9021f8",
+          "name": "Age",
+          "description": "Age of person",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "methodOfUse": "data_source",
+      "dataUse": "data_source",
+      "dpia": "",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-10T08:51:59Z"
+    },
+    {
+      "id": "2",
+      "purpose": "Registration in Sports App",
+      "purposeDescription": "Registration in Sports App",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dataAttributes": [
+        {
+          "id": "659fd6aaefcb8216c24c26a5",
+          "name": "Name",
+          "description": "Name of customer",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "dataUse": "data_source",
+      "dpia": "DPIA by MoJ on user registration for sports centers, April 2nd 2023",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-17T06:40:57Z"
+    },
+    {
+      "id": "3",
+      "purpose": "Registration for Blood donation",
+      "purposeDescription": "Registration for Blood donation",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dataAttributes": [
+        {
+          "id": "659fd6aaefcb8216c24c26a5",
+          "name": "Name",
+          "description": "Name of customer",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "dataUse": "data_source",
+      "dpia": "DPIA by MoJ on user registration for Blood donation, April 2nd 2023",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-08T07:23:32Z"
+    },
+    {
+      "id": "4",
+      "purpose": "Marketing",
+      "purposeDescription": "Marketing",
+      "lawfulBasis": "consent",
+      "active": true,
+      "forgettable": false,
+      "lifecycle": "complete",
+      "dataAttributes": [
+        {
+          "id": "65a7c013288e3422cf28694d",
+          "name": "Name",
+          "description": "Name of customer",
+          "sensitivity": false,
+          "category": ""
+        }
+      ],
+      "dataUse": "data_source",
+      "dpia": "",
+      "compatibleWithVersion": "",
+      "timestamp": "2024-01-08T07:23:32Z"
+    }
+  ],
+  "revisions": [
+    {
+      "id": "659f8deb4b2b93f60ca30223",
+      "schemaName": "DataAgreement",
+      "objectId": "1",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-11T06:42:51Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659f8be84b2b93f60ca301fe",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"1\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"659f8deb4b2b93f60ca3021f\",\"name\":\"Policy 1\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Registration in Health App\",\"purposeDescription\":\"Registration in Health App\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"\",\"dpiaSummaryUrl\":\"\",\"signature\":{\"id\":\"659f8deb4b2b93f60ca30220\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"659f8deb4b2b93f60ca30221\",\"name\":\"Name\",\"description\":\"Name of person\",\"sensitivity\":false,\"category\":\"\"},{\"id\":\"659f8deb4b2b93f60ca30222\",\"name\":\"Age\",\"description\":\"Age of person\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"DPIA by MoJ on user registration for health centers, April 2nd 2023\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "3f0f5aef5e79afb50428ed835ad628db449c4404",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"1\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-11T06:42:51Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"659f8be84b2b93f60ca301fe\",\"objectData\":\"{\\\"id\\\":\\\"1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca3021f\\\",\\\"name\\\":\\\"Policy 1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Registration in Health App\\\",\\\"purposeDescription\\\":\\\"Registration in Health App\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"\\\",\\\"dpiaSummaryUrl\\\":\\\"\\\",\\\"signature\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca30220\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"659f8deb4b2b93f60ca30221\\\",\\\"name\\\":\\\"Name\\\",\\\"description\\\":\\\"Name of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"},{\\\"id\\\":\\\"659f8deb4b2b93f60ca30222\\\",\\\"name\\\":\\\"Age\\\",\\\"description\\\":\\\"Age of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"DPIA by MoJ on user registration for health centers, April 2nd 2023\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "659c12ea3140212807b80004",
+      "schemaName": "DataAgreement",
+      "objectId": "659c12ea3140212807b80000",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-11T06:52:47Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659f8be84b2b93f60ca301fe",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"659c12ea3140212807b80000\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"659f903f4b2b93f60ca3022c\",\"name\":\"Policy 1\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Marketing and campaign\",\"purposeDescription\":\"Marketing and campaign\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"\",\"dpiaSummaryUrl\":\"\",\"signature\":{\"id\":\"659f903f4b2b93f60ca3022d\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"659f903f4b2b93f60ca3022e\",\"name\":\"Name\",\"description\":\"Name of person\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "684355a579b1b78462027ae4d51eba08ffc66b3a",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"659c12ea3140212807b80000\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-11T06:52:47Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"659f8be84b2b93f60ca301fe\",\"objectData\":\"{\\\"id\\\":\\\"659c12ea3140212807b80000\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"659f903f4b2b93f60ca3022c\\\",\\\"name\\\":\\\"Policy 1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Marketing and campaign\\\",\\\"purposeDescription\\\":\\\"Marketing and campaign\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"\\\",\\\"dpiaSummaryUrl\\\":\\\"\\\",\\\"signature\\\":{\\\"id\\\":\\\"659f903f4b2b93f60ca3022d\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"659f903f4b2b93f60ca3022e\\\",\\\"name\\\":\\\"Name\\\",\\\"description\\\":\\\"Name of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "659fd68befcb8216c24c2695",
+      "schemaName": "DataAgreement",
+      "objectId": "2",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-17T06:40:57Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659f8be84b2b93f60ca301fe",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"2\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"659f8deb4b2b93f60ca3021f\",\"name\":\"Policy 1\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Registration in Sports App\",\"purposeDescription\":\"Registration in Sports App\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"\",\"dpiaSummaryUrl\":\"\",\"signature\":{\"id\":\"659f8deb4b2b93f60ca30220\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"659fd6aaefcb8216c24c26a5\",\"name\":\"Name\",\"description\":\"Name of customer\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"DPIA by MoJ on user registration for sports centers, April 2nd 2023\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "3f0f5aef5e79afb50428ed835ad628db449c4504",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"2\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-17T06:40:57Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"659f8be84b2b93f60ca301fe\",\"objectData\":\"{\\\"id\\\":\\\"2\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca3021f\\\",\\\"name\\\":\\\"Policy 1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Registration in Sports App\\\",\\\"purposeDescription\\\":\\\"Registration in Sports App\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"\\\",\\\"dpiaSummaryUrl\\\":\\\"\\\",\\\"signature\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca30220\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"659fd6aaefcb8216c24c26a5\\\",\\\"name\\\":\\\"Name\\\",\\\"description\\\":\\\"Name of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"DPIA by MoJ on user registration for sports centers, April 2nd 2023\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "65a7b304419233604850973c",
+      "schemaName": "DataAgreement",
+      "objectId": "3",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-08T07:23:32Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659f8be84b2b93f60ca301fe",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"3\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"659f8deb4b2b93f60ca3021f\",\"name\":\"Policy 1\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Registration for Blood donation\",\"purposeDescription\":\"Registration for Blood donation\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"\",\"dpiaSummaryUrl\":\"\",\"signature\":{\"id\":\"659f8deb4b2b93f60ca30220\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"659fd6aaefcb8216c24c26a5\",\"name\":\"Name\",\"description\":\"Name of customer\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"DPIA by MoJ on user registration for Blood donation, April 2nd 2023\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "d0754d989e9f27fa05aa69fc13591bc343dddf37",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"3\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-08T07:23:32Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"659f8be84b2b93f60ca301fe\",\"objectData\":\"{\\\"id\\\":\\\"2\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca3021f\\\",\\\"name\\\":\\\"Policy 1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Registration for Blood donation\\\",\\\"purposeDescription\\\":\\\"Registration for Blood donation\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"\\\",\\\"dpiaSummaryUrl\\\":\\\"\\\",\\\"signature\\\":{\\\"id\\\":\\\"659f8deb4b2b93f60ca30220\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"659fd6aaefcb8216c24c26a5\\\",\\\"name\\\":\\\"Name\\\",\\\"description\\\":\\\"Name of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"DPIA by MoJ on user registration for Blood donation, April 2nd 2023\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "65a7c013288e3422cf28694e",
+      "schemaName": "DataAgreement",
+      "objectId": "4",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-17T11:54:59Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "65a7bf58288e3422cf286848",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"4\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"65a7c013288e3422cf28694b\",\"name\":\"Policy 1\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Marketing\",\"purposeDescription\":\"Marketing\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"\",\"dpiaSummaryUrl\":\"\",\"signature\":{\"id\":\"65a7c013288e3422cf28694c\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"65a7c013288e3422cf28694d\",\"name\":\"Name\",\"description\":\"Name of person\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "eb31877efa2bc218110435ca1ab31649d37b5f59",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"4\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-17T11:54:59Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"65a7bf58288e3422cf286848\",\"objectData\":\"{\\\"id\\\":\\\"4\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"65a7c013288e3422cf28694b\\\",\\\"name\\\":\\\"Policy 1\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Marketing\\\",\\\"purposeDescription\\\":\\\"Marketing\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"\\\",\\\"dpiaSummaryUrl\\\":\\\"\\\",\\\"signature\\\":{\\\"id\\\":\\\"65a7c013288e3422cf28694c\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"65a7c013288e3422cf28694d\\\",\\\"name\\\":\\\"Name\\\",\\\"description\\\":\\\"Name of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "659ba2f439e82e51b4885d77",
+      "schemaName": "ConsentRecord",
+      "objectId": "1",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-08T07:23:32Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659b9d1539e82e51b4885ca7",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"1\",\"dataAgreementId\":\"1\",\"dataAgreementRevisionId\":\"659f8deb4b2b93f60ca30223\",\"dataAgreementRevisionHash\":\"3f0f5aef5e79afb50428ed835ad628db449c4404\",\"individualId\":\"1\",\"optIn\":true,\"state\":\"unsigned\",\"signatureId\":\"\"}",
+      "successorId": "",
+      "serializedHash": "46b00089c3da22c62beff18c4989680d0f41fa01",
+      "serializedSnapshot": "{\"schemaName\":\"ConsentRecord\",\"objectId\":\"1\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-08T07:23:32Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOtherId\":\"659b9d1539e82e51b4885ca7\",\"objectData\":\"{\\\"id\\\":\\\"1\\\",\\\"dataAgreementId\\\":\\\"1\\\",\\\"dataAgreementRevisionId\\\":\\\"659f8deb4b2b93f60ca30223\\\",\\\"dataAgreementRevisionHash\\\":\\\"3f0f5aef5e79afb50428ed835ad628db449c4404\\\",\\\"individualId\\\":\\\"1\\\",\\\"optIn\\\":true,\\\"state\\\":\\\"unsigned\\\",\\\"signatureId\\\":\\\"\\\"}\"}"
+    },
+    {
+      "id": "659c16be3140212807b80009",
+      "schemaName": "Policy",
+      "objectId": "2",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-08T15:37:34Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659c121f3140212807b7ffee",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"2\",\"name\":\"Policy 2\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\"}",
+      "successorId": "",
+      "serializedHash": "2712c137158bd8ef2549f7c5fb84dfcbab5c0a9f",
+      "serializedSnapshot": "{\"schemaName\":\"Policy\",\"objectId\":\"2\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-08T15:37:34Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOtherId\":\"659c121f3140212807b7ffee\",\"objectData\":\"{\\\"id\\\":\\\"2\\\",\\\"name\\\":\\\"Policy 2\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\"}\"}"
+    },
+    {
+      "id": "659e5aafa35cad660a9021f9",
+      "schemaName": "DataAgreement",
+      "objectId": "659e5aafa35cad660a9021f5",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-10T08:51:59Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659e5aa4a35cad660a9021e4",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"659e5aafa35cad660a9021f5\",\"version\":\"1.0.0\",\"controllerId\":\"1\",\"controllerUrl\":\"https://www.skatteverket.se\",\"controllerName\":\"Skatteverket\",\"policy\":{\"id\":\"659e5aafa35cad660a9021f6\",\"name\":\"Policy 2\",\"version\":\"1.0.0\",\"url\":\"https://www.skatteverket.se\",\"jurisdiction\":\"Sweden\",\"industrySector\":\"Public\",\"dataRetentionPeriodDays\":1095,\"geographicRestriction\":\"Sweden\",\"storageLocation\":\"Sweden\",\"thirdPartyDataSharing\":true},\"purpose\":\"Issue License\",\"purposeDescription\":\"Issue License\",\"lawfulBasis\":\"consent\",\"methodOfUse\":\"data_source\",\"dpiaDate\":\"2023-10-31T14:24\",\"dpiaSummaryUrl\":\"https://privacyant.se/dpia_results.html\",\"signature\":{\"id\":\"659e5aafa35cad660a9021f7\",\"payload\":\"\",\"signature\":\"\",\"verificationMethod\":\"\",\"verificationPayload\":\"\",\"verificationPayloadHash\":\"\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"\",\"verificationSignedAs\":\"\",\"verificationJwsHeader\":\"\",\"timestamp\":\"\",\"signedWithoutObjectReference\":false,\"objectType\":\"\",\"objectReference\":\"\"},\"active\":true,\"forgettable\":false,\"compatibleWithVersionId\":\"\",\"lifecycle\":\"complete\",\"dataAttributes\":[{\"id\":\"659e5aafa35cad660a9021f8\",\"name\":\"Age\",\"description\":\"Age of person\",\"sensitivity\":false,\"category\":\"\"}],\"dataUse\":\"data_source\",\"dpia\":\"\",\"compatibleWithVersion\":\"\",\"controller\":{\"id\":\"1\",\"name\":\"Skatteverket\",\"url\":\"https://www.skatteverket.se\"}}",
+      "successorId": "",
+      "serializedHash": "f88bda218177f3ee1296d5897c145de96a2f59d0",
+      "serializedSnapshot": "{\"schemaName\":\"DataAgreement\",\"objectId\":\"659e5aafa35cad660a9021f5\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-10T08:51:59Z\",\"authorizedByIndividualId\":\"\",\"authorizedByOther\":\"659e5aa4a35cad660a9021e4\",\"objectData\":\"{\\\"id\\\":\\\"659e5aafa35cad660a9021f5\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"controllerId\\\":\\\"1\\\",\\\"controllerUrl\\\":\\\"https://www.skatteverket.se\\\",\\\"controllerName\\\":\\\"Skatteverket\\\",\\\"policy\\\":{\\\"id\\\":\\\"659e5aafa35cad660a9021f6\\\",\\\"name\\\":\\\"Policy 2\\\",\\\"version\\\":\\\"1.0.0\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\",\\\"jurisdiction\\\":\\\"Sweden\\\",\\\"industrySector\\\":\\\"Public\\\",\\\"dataRetentionPeriodDays\\\":1095,\\\"geographicRestriction\\\":\\\"Sweden\\\",\\\"storageLocation\\\":\\\"Sweden\\\",\\\"thirdPartyDataSharing\\\":true},\\\"purpose\\\":\\\"Issue License\\\",\\\"purposeDescription\\\":\\\"Issue License\\\",\\\"lawfulBasis\\\":\\\"consent\\\",\\\"methodOfUse\\\":\\\"data_source\\\",\\\"dpiaDate\\\":\\\"2023-10-31T14:24\\\",\\\"dpiaSummaryUrl\\\":\\\"https://privacyant.se/dpia_results.html\\\",\\\"signature\\\":{\\\"id\\\":\\\"659e5aafa35cad660a9021f7\\\",\\\"payload\\\":\\\"\\\",\\\"signature\\\":\\\"\\\",\\\"verificationMethod\\\":\\\"\\\",\\\"verificationPayload\\\":\\\"\\\",\\\"verificationPayloadHash\\\":\\\"\\\",\\\"verificationArtifact\\\":\\\"\\\",\\\"verificationSignedBy\\\":\\\"\\\",\\\"verificationSignedAs\\\":\\\"\\\",\\\"verificationJwsHeader\\\":\\\"\\\",\\\"timestamp\\\":\\\"\\\",\\\"signedWithoutObjectReference\\\":false,\\\"objectType\\\":\\\"\\\",\\\"objectReference\\\":\\\"\\\"},\\\"active\\\":true,\\\"forgettable\\\":false,\\\"compatibleWithVersionId\\\":\\\"\\\",\\\"lifecycle\\\":\\\"complete\\\",\\\"dataAttributes\\\":[{\\\"id\\\":\\\"659e5aafa35cad660a9021f8\\\",\\\"name\\\":\\\"Age\\\",\\\"description\\\":\\\"Age of person\\\",\\\"sensitivity\\\":false,\\\"category\\\":\\\"\\\"}],\\\"dataUse\\\":\\\"data_source\\\",\\\"dpia\\\":\\\"\\\",\\\"compatibleWithVersion\\\":\\\"\\\",\\\"controller\\\":{\\\"id\\\":\\\"1\\\",\\\"name\\\":\\\"Skatteverket\\\",\\\"url\\\":\\\"https://www.skatteverket.se\\\"}}\"}"
+    },
+    {
+      "id": "1",
+      "schemaName": "ConsentRecord",
+      "objectId": "2",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-17T10:15:07Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659b9d1539e82e51b4885ca7",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"2\",\"dataAgreementId\":\"2\",\"dataAgreementRevisionId\":\"659fd68befcb8216c24c2695\",\"dataAgreementRevisionHash\":\"3f0f5aef5e79afb50428ed835ad628db449c4504\",\"individualId\":\"1\",\"optIn\":true,\"state\":\"unsigned\",\"signatureId\":\"1\"}",
+      "successorId": "",
+      "serializedHash": "7d8399e3d7a9c6a8cf5d01ca8c3f1d2a2d1885fd",
+      "serializedSnapshot": "{\"schemaName\":\"ConsentRecord\",\"objectId\":\"2\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-17T10:15:07Z\",\"authorizedByIndividualId\":\"1\",\"authorizedByOtherId\":\"\",\"objectData\":\"{\\\"id\\\":\\\"2\\\",\\\"dataAgreementId\\\":\\\"2\\\",\\\"dataAgreementRevisionId\\\":\\\"659fd68befcb8216c24c2695\\\",\\\"dataAgreementRevisionHash\\\":\\\"3f0f5aef5e79afb50428ed835ad628db449c4504\\\",\\\"individualId\\\":\\\"1\\\",\\\"optIn\\\":true,\\\"state\\\":\\\"unsigned\\\",\\\"signatureId\\\":\\\"1\\\"}\"}"
+    },
+    {
+      "id": "2",
+      "schemaName": "ConsentRecord",
+      "objectId": "3",
+      "signedWithoutObjectId": false,
+      "timestamp": "2024-01-17T10:59:16Z",
+      "authorizedByIndividualId": "",
+      "authorizedByOther": "659b9d1539e82e51b4885ca7",
+      "predecessorHash": "",
+      "predecessorSignature": "",
+      "objectData": "{\"id\":\"3\",\"dataAgreementId\":\"3\",\"dataAgreementRevisionId\":\"65a7b304419233604850973c\",\"dataAgreementRevisionHash\":\"d0754d989e9f27fa05aa69fc13591bc343dddf37\",\"individualId\":\"1\",\"optIn\":true,\"state\":\"unsigned\",\"signatureId\":\"\"}",
+      "successorId": "",
+      "serializedHash": "f1f6c5eb2742c03aa964d5bb61d1cdd148d39972",
+      "serializedSnapshot": "{\"schemaName\":\"ConsentRecord\",\"objectId\":\"3\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-17T10:59:16Z\",\"authorizedByIndividualId\":\"1\",\"authorizedByOtherId\":\"\",\"objectData\":\"{\\\"id\\\":\\\"3\\\",\\\"dataAgreementId\\\":\\\"3\\\",\\\"dataAgreementRevisionId\\\":\\\"65a7b304419233604850973c\\\",\\\"dataAgreementRevisionHash\\\":\\\"d0754d989e9f27fa05aa69fc13591bc343dddf37\\\",\\\"individualId\\\":\\\"1\\\",\\\"optIn\\\":true,\\\"state\\\":\\\"unsigned\\\",\\\"signatureId\\\":\\\"\\\"}\"}"
+    }
+  ],
+  "consentRecords": [
+    {
+      "id" : "1",
+      "dataAgreementId" : "1",
+      "dataAgreementRevisionId" : "659f8deb4b2b93f60ca30223",
+      "dataAgreementRevisionHash" : "3f0f5aef5e79afb50428ed835ad628db449c4404",
+      "individualId" : "1",
+      "optIn" : true,
+      "state" : "unsigned",
+      "signatureId" : ""
+    },
+    {
+      "id" : "2",
+      "dataAgreementId" : "2",
+      "dataAgreementRevisionId" : "659fd68befcb8216c24c2695",
+      "dataAgreementRevisionHash" : "3f0f5aef5e79afb50428ed835ad628db449c4504",
+      "individualId" : "1",
+      "optIn" : true,
+      "state" : "unsigned",
+      "signatureId" : "1"
+    },
+    {
+      "id" : "3",
+      "dataAgreementId" : "3",
+      "dataAgreementRevisionId" : "65a7b304419233604850973c",
+      "dataAgreementRevisionHash" : "d0754d989e9f27fa05aa69fc13591bc343dddf37",
+      "individualId" : "1",
+      "optIn" : true,
+      "state" : "unsigned",
+      "signatureId" : ""
+    }
+  ],
+  "policies": [
+    {
+      "id": "2",
+      "name": "Policy 2",
+      "version": "1.0.0",
+      "url": "https://www.skatteverket.se",
+      "jurisdiction": "Sweden",
+      "industrySector": "Public",
+      "dataRetentionPeriodDays": 1095,
+      "geographicRestriction": "Sweden",
+      "storageLocation": "Sweden",
+      "thirdPartyDataSharing": true
+    }
+  ],
+  "signature": [
+    {
+      "id": "1",
+      "payload": "{\"verificationMethod\":\"P-256\",\"verificationArtifact\":\"\",\"verificationSignedBy\":\"{\\\"crv\\\":\\\"P-256\\\",\\\"kty\\\":\\\"EC\\\",\\\"x\\\":\\\"bNMhRP_V0M8gbHcdqP2CbQQs6OKAWROLHqL2jjitykw\\\",\\\"y\\\":\\\"zZivG5UKJqliypWBDCJIgaOeae-z4uCNXMFOSPYot80\\\"}\",\"verificationSignedAs\":\"individual\",\"timestamp\":\"2024-01-17T10:15:07Z\",\"objectType\":\"Revision\",\"objectReference\":\"\"}",
+      "signature": "eyJhbGciOiJFUzI1NiJ9.eyJzY2hlbWFOYW1lIjoiQ29uc2VudFJlY29yZCIsIm9iamVjdElkIjoiMiIsInNpZ25lZFdpdGhvdXRPYmplY3RJZCI6ZmFsc2UsInRpbWVzdGFtcCI6IjIwMjQtMDEtMTdUMTA6MTU6MDdaIiwiYXV0aG9yaXplZEJ5SW5kaXZpZHVhbElkIjoiMSIsImF1dGhvcml6ZWRCeU90aGVySWQiOiIiLCJvYmplY3REYXRhIjoie1wiaWRcIjpcIjJcIixcImRhdGFBZ3JlZW1lbnRJZFwiOlwiMlwiLFwiZGF0YUFncmVlbWVudFJldmlzaW9uSWRcIjpcIjY1OWZkNjhiZWZjYjgyMTZjMjRjMjY5NVwiLFwiZGF0YUFncmVlbWVudFJldmlzaW9uSGFzaFwiOlwiM2YwZjVhZWY1ZTc5YWZiNTA0MjhlZDgzNWFkNjI4ZGI0NDljNDUwNFwiLFwiaW5kaXZpZHVhbElkXCI6XCIxXCIsXCJvcHRJblwiOnRydWUsXCJzdGF0ZVwiOlwidW5zaWduZWRcIixcInNpZ25hdHVyZUlkXCI6XCIxXCJ9In0.ojwXTcCWrRwFbTL7eoZzf1IRu5zG4kZ3Jd7FRMhGK-6QwQsLIYvv8-7sniPUSLeMPtfm7z9eLhOWa87kKmr_fQ",
+      "verificationMethod": "P-256",
+      "verificationPayload": "{\"schemaName\":\"ConsentRecord\",\"objectId\":\"2\",\"signedWithoutObjectId\":false,\"timestamp\":\"2024-01-17T10:15:07Z\",\"authorizedByIndividualId\":\"1\",\"authorizedByOtherId\":\"\",\"objectData\":\"{\\\"id\\\":\\\"2\\\",\\\"dataAgreementId\\\":\\\"2\\\",\\\"dataAgreementRevisionId\\\":\\\"659fd68befcb8216c24c2695\\\",\\\"dataAgreementRevisionHash\\\":\\\"3f0f5aef5e79afb50428ed835ad628db449c4504\\\",\\\"individualId\\\":\\\"1\\\",\\\"optIn\\\":true,\\\"state\\\":\\\"unsigned\\\",\\\"signatureId\\\":\\\"1\\\"}\"}",
+      "verificationPayloadHash": "7d8399e3d7a9c6a8cf5d01ca8c3f1d2a2d1885fd",
+      "verificationArtifact": "",
+      "verificationSignedBy": "{\"crv\":\"P-256\",\"kty\":\"EC\",\"x\":\"dsinPJtDdWOVQMqvzTes17MSzut4ys7hz_b7I3mV7O8\",\"y\":\"uGExKGujL1zYLbc2JphA_qq2rSCFKI_57r6omE88RFQ\"}",
+      "verificationSignedAs": "individual",
+      "verificationJwsHeader": "",
+      "timestamp": "2024-01-17T10:15:07Z",
+      "signedWithoutObjectReference": true,
+      "objectType": "Revision",
+      "objectReference": ""
     }
   ]
 }

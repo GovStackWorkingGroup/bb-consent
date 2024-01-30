@@ -23,7 +23,7 @@ Feature: Retrieve Data Agreement Configuration
     When I make a GET request to /config/data-agreement/"<dataAgreementId>"
     Then The response should have a status code of 400
 
-  Examples:
-    | dataAgreementId |
-    | invalid_id      |
-    | 123!@#          |
+    Examples:
+      | dataAgreementId |
+      | invalid_id      |
+      | 123!%40%23      |

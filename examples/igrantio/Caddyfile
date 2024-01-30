@@ -3,14 +3,17 @@
 }
 
 localhost:443 {
+	# Define API path for OpenAPI validation
 	@api {
 		path /*
 	}
 
+	# Reverse proxy configuration
 	reverse_proxy @api {
 		to http://api:80
 	}
 
+	# OpenAPI validation within route block
 	route @api {
 		openapi {
 			spec /consent-openapi.yaml
@@ -18,19 +21,21 @@ localhost:443 {
 			# fall_through
 			check {
 				req_params req_body
-				# When we are ready to handle validation of the body:
+				# When ready to handle validation of the body:
 				# req_params req_body resp_body
 			}
 			validate_servers false
 		}
 	}
 
+	# Error handling configuration
 	handle_errors {
 		respond @api "Resource: {http.request.orig_uri}. Error: {openapi.error}" {openapi.status_code} {
 			close
 		}
 	}
 
+	# Security headers configuration
 	header / {
 		Strict-Transport-Security "max-age=31536000;"
 		X-Content-Type-Options "nosniff"
@@ -38,7 +43,7 @@ localhost:443 {
 		Referrer-Policy "no-referrer-when-downgrade"
 	}
 
-	# Log all requests to stdout for Docker logs
+	# Logging configuration
 	log {
 		output stdout
 		level DEBUG

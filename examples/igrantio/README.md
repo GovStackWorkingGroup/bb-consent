@@ -35,7 +35,7 @@ The servers are up and running. They are accessible at below addresses:
 | Consent BB API  Server | http://localhost:3333 |
 
 ***Note:***
-- *Test environment can be setup by executing `test-entrypoint.sh` file manually.*
+- *Test environment can be setup by executing `test_entrypoint.sh` file manually.*
 - *Test environment does not persist any of the data.*
 
 ## Contributing

@@ -16,7 +16,7 @@ destroy: ## Delete all containers and volumes
 	@echo "Destroyed all containers and volumes"
 
 setup-test: ## Setup test environment
-	./test-entrypoint.sh
+	./test_entrypoint.sh
 
 down: ## Stop the playground
 	docker-compose -f docker-compose.yaml down

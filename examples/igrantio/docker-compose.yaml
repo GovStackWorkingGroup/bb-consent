@@ -65,6 +65,7 @@ services:
       - "8888:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./../../api/consent-openapi.yaml:/consent-openapi.yaml
     environment:
       - CADDY_API=1
     depends_on:

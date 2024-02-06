@@ -64,24 +64,24 @@ components:
   schemas:
 {schemas}
 
-  securitySchemes:
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://example.com/oauth/authorize
-          tokenUrl: https://example.com/oauth/token
-          scopes:
-            read: Grants global read access
-            write: Grants global write access
-            org: Grants access to org operations
-            consumer: Grants access to data consumer operations
-            individual: Grants access to specific individual read/write operations
-            auditor: Grants access to specific auditor read operations
+#  securitySchemes:
+#    OAuth2:
+#      type: oauth2
+#      flows:
+#        authorizationCode:
+#          authorizationUrl: https://example.com/oauth/authorize
+#          tokenUrl: https://example.com/oauth/token
+#          scopes:
+#            read: Grants global read access
+#            write: Grants global write access
+#            org: Grants access to org operations
+#            consumer: Grants access to data consumer operations
+#            individual: Grants access to specific individual read/write operations
+#            auditor: Grants access to specific auditor read operations
 
-security:
-  - OAuth2:
-      - read
+#security:
+#  - OAuth2:
+#      - read
 """
 
 path_spec_template = """
@@ -102,8 +102,8 @@ path_spec_template = """
             {responseOK_objects}
         '400':
           description: bad input parameter
-      security:
-        - OAuth2: [{security}]
+#      security:
+#        - OAuth2: [{security}]
 {request_body}
 """
 

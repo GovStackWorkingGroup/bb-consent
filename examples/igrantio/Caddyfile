@@ -1,0 +1,51 @@
+{
+	admin 0.0.0.0:2019
+}
+
+localhost:443 {
+	# Define API path for OpenAPI validation
+	@api {
+		path /*
+	}
+
+	# Reverse proxy configuration
+	reverse_proxy @api {
+		to http://api:80
+	}
+
+	# OpenAPI validation within route block
+	route @api {
+		openapi {
+			spec /consent-openapi.yaml
+			log_error
+			# fall_through
+			check {
+				req_params req_body
+				# When ready to handle validation of the body:
+				# req_params req_body resp_body
+			}
+			validate_servers false
+		}
+	}
+
+	# Error handling configuration
+	handle_errors {
+		respond @api "Resource: {http.request.orig_uri}. Error: {openapi.error}" {openapi.status_code} {
+			close
+		}
+	}
+
+	# Security headers configuration
+	header / {
+		Strict-Transport-Security "max-age=31536000;"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer-when-downgrade"
+	}
+
+	# Logging configuration
+	log {
+		output stdout
+		level DEBUG
+	}
+}

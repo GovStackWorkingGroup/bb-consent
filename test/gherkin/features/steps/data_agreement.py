@@ -27,7 +27,7 @@ def step_impl(context):
 def step_impl(context, dataAgreementId):
     # Parse the response content and assert the data agreement details
     response_data = json.loads(context.response.content)
-    assert response_data["dataAgreement"]["id"] == int(dataAgreementId), "Data agreement ID does not match"
+    assert response_data["dataAgreement"]["id"] == dataAgreementId, "Data agreement ID does not match"
 
 @then("The response should have a status code of 400")
 def step_impl(context):

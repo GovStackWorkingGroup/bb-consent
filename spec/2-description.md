@@ -76,9 +76,9 @@ Consent Building Block enables interaction between three (3) distinct user categ
 
 Below is the graphical depiction of the actors and their interactions; a more detailed description of the Consent Building Block capabilities is provided in [Chapter 4 - Key Digital Functionalities](4-key-digital-functionalities.md).
 
-<figure><img src="images/consent-bb-actors-02.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/consent-bb-actors-02.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
-<figure><img src="images/consent-bb-actors-01.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/consent-bb-actors-01.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/ad64222d5">Diagram Source</a></p></figcaption></figure>
 
 It is important to realise that while the actors are defined via human roles, the consent-related interactions between such roles can be executed in machine-to-machine workflows performing tasks in the interest of the respective actor.
 
@@ -88,7 +88,7 @@ It is important to realise that while the actors are defined via human roles, th
 
 The overall relationship diagram is shown below.
 
-![Diagram Source](images/consent-bb-relationships.png)
+![Diagram Source](.gitbook/assets/consent-bb-relationships.png)
 
 The table below summarises the key relationships consumed during a consent transaction.
 

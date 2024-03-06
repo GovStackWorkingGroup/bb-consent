@@ -37,9 +37,9 @@ Agreement Configuration Requirements.
 
 ## Design and Components of Consent Building Block
 
-Within the scope of Consent Building Block version 1.0, the required components are as given. &#x20;
+Within the scope of Consent Building Block version 1.0, the required components are as given.
 
-<figure><img src="images/consent-bb-components.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/aeb6c8723">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/consent-bb-components.png" alt=""><figcaption><p><a href="https://app.moqups.com/P01asyy7ba/view/page/aeb6c8723">Diagram Source</a></p></figcaption></figure>
 
 **Consent Agreement Configuration Handler:** handles the creation, updation & deletion of consent agreements for organisations. Organisations can be Data Providers or Data Consumers.
 

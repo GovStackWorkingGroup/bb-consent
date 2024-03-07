@@ -62,7 +62,7 @@ then
   docker build . -t test:latest
   cd -
   cd ./examples/mock/
-  docker-compose build
+  docker compose build
   cd -
   exit
 fi
@@ -71,13 +71,13 @@ cd ./examples/mock/
 
 if [ "$1" == "fixtures" ]
 then
-  docker-compose exec -it consent python manage.py dumpdata app --indent 2 > ./djangoapp/fixtures.json
+  docker compose exec -it consent python manage.py dumpdata app --indent 2 > ./djangoapp/fixtures.json
   exit 0
 fi
 
 if [ "$1" == "test" ]
 then
-  docker-compose up -d
+  docker compose up -d
 else
 
   echo ""
@@ -88,7 +88,7 @@ else
   echo "https://localhost:8888 (HTTPS)"
   echo "http://localhost:8000 (Django mock application direct access)"
 
-  docker-compose up --build
+  docker compose up --build
 fi
 cd -
 
@@ -102,7 +102,7 @@ then
 
   cd ./examples/mock/
 
-  docker-compose stop
+  docker compose stop
 
   cd -
 fi

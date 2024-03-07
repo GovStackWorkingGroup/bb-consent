@@ -61,7 +61,7 @@ def config_policy_delete(request, policyId: str):
 def config_policy_revisions_list(request, policyId: str, offset: int=None, limit: int=None):
     db_instance = get_object_or_404(models.Revision, pk=policyId)
     return {
-        "policy": schemas.RevisionSchema.from_orm(db_instance).dict()
+        "revisions": schemas.RevisionSchema.from_orm(db_instance).dict()
     }
 
 
@@ -147,7 +147,7 @@ def config_webhook_create(request, webhook: schemas.WebhookSchema):
 
 
 @api.get("/config/webhook/{webhookId}/")
-def config_webhook_read(request, webhookId: str, revisionId: str=None):
+def config_webhook_read(request, webhookId: str):
     db_instance = get_object_or_404(models.Webhook, pk=webhookId)
     return {
         "webhook": schemas.WebhookSchema.from_orm(db_instance).dict()
@@ -168,8 +168,8 @@ def config_webhook_delete(request, webhookId: str):
 
 
 @api.get("/config/webhooks/")
-def config_webhook_list(request, revisionId: str=None, offset: int=None, limit: int=None):
-    db_instance = get_object_or_404(models.Webhook, pk=revisionId)
+def config_webhook_list(request, offset: int=None, limit: int=None):
+    db_instance = get_object_or_404(models.Webhook, pk=None)
     return {
         "webhooks": schemas.WebhookSchema.from_orm(db_instance).dict()
     }

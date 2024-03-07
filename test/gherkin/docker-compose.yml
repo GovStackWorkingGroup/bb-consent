@@ -8,7 +8,7 @@ services:
       context: .
     environment:
       - CONSENTBB_API_HOST=${CONSENTBB_API_HOST:-localhost:8888}
-      - CONSENTBB_API_PATH=${CONSENTBB_API_PATH:-/api}
+      - CONSENTBB_API_PATH=${CONSENTBB_API_PATH:-}
     volumes:
       - ./test_data/:/data
 

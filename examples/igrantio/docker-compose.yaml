@@ -1,0 +1,95 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: zcube/bitnami-compat-mongodb:6.0.5
+    container_name: mongo
+    environment:
+      - MONGODB_DATABASE=bb-consent-consentdb
+      - MONGODB_USERNAME=bb-consent-user
+      - MONGODB_PASSWORD=bb-consent-password
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - custom_network
+
+  postgresql:
+    image: bitnami/postgresql:14.10.0
+    container_name: postgresql
+    environment:
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_PASSWORD=bn_keycloak
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+    networks:
+      - custom_network
+
+  keycloak:
+    image: docker.io/bitnami/keycloak:22.0.2-debian-11-r0
+    container_name: keycloak
+    restart: always
+    environment:
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PASSWORD=bn_keycloak
+      - KEYCLOAK_HTTP_RELATIVE_PATH=/
+      - KEYCLOAK_ENABLE_HTTPS=false
+      - KEYCLOAK_ENABLE_STATISTICS=false
+      - KEYCLOAK_HTTP_PORT=8080
+      - KEYCLOAK_LOG_OUTPUT=default
+      - KEYCLOAK_PRODUCTION=false
+      - KEYCLOAK_PROXY=edge
+    depends_on:
+      - postgresql
+    networks:
+      - custom_network
+
+  api:
+    image: igrantio/bb-consent-api:2024.1.1
+    container_name: api
+    restart: always
+    ports:
+      - "3334:80"
+    volumes:
+      - ./api.json:/opt/bb-consent/api/config/config-production.json:ro
+    depends_on:
+      - mongo
+      - keycloak
+    networks:
+      - custom_network
+
+  caddy:
+    image: igrantio/bb-consent-caddy:2023.12.2
+    container_name: caddy
+    ports:
+      - "3333:443"
+      - "8888:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./../../api/consent-openapi.yaml:/consent-openapi.yaml
+    environment:
+      - CADDY_API=1
+    depends_on:
+      - api
+    networks:
+      - custom_network
+
+  fixtures:
+    image: igrantio/bb-consent-fixtures:2024.1.1
+    container_name: fixtures
+    volumes:
+      - ./test-data.json:/app/data.json:ro
+    depends_on:
+      - api
+      - caddy
+      - mongo
+      - keycloak
+    networks:
+      - custom_network
+
+volumes:
+  mongo:
+  postgresql:
+
+networks:
+  custom_network:
+    driver: bridge

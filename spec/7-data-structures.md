@@ -16,7 +16,7 @@ When an individual gives consent, it is implied that the Organisation from one s
 
 This Consent Record is a digital instance referencing the Agreement which is consented to or subsequently has consent withdrawn from.
 
-<figure><img src="images/simple-resource-model.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/simple-resource-model.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
 ### 7.1.2 Elaborated Resource Model
 
@@ -26,7 +26,7 @@ Revisions are maintained for Consent Records + Agreements and Data Policies, tog
 
 For a configured Agreement, data elements requiring consent are individually specified as Agreement Data. Agreement Data is not directly relatable to processes and internals of an external system. This architectural choice gives the consent model flexibility and greatly simplifies the architecture and consent lifecycle, but it does not contradict any additional features, allowing for relations to external systems.
 
-<figure><img src="images/elaborate-resource-model.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
+<figure><img src=".gitbook/assets/elaborate-resource-model.png" alt=""><figcaption><p><a href="https://github.com/GovStackWorkingGroup/bb-consent/tree/main/spec/diagrams">Diagram Source</a></p></figcaption></figure>
 
 * Individual changes Consent Record.
 * Individual withdraws/revokes Consent Agreement.

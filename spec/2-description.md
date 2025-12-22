@@ -12,7 +12,7 @@ This specification has used several available and recognised open standards belo
 * [ISO 29184: 2020](https://www.iso.org/standard/70331.html): Online Privacy Notices and Consent
 * [ISO/IEC 29100:2011](https://www.iso.org/standard/45123.html): Privacy Framework
 * [ISO/TS 17975:2022](https://www.iso.org/standard/78395.html): Health informatics — Principles and data requirements for consent in the Collection, Use or Disclosure of personal health information
-* [ISO/IEC TS 27560:2023](https://www.iso.org/standard/80392.html): Privacy technologies — Consent record information structure&#x20;
+* [ISO/IEC TS 27560:2023](https://www.iso.org/standard/80392.html): Privacy technologies — Consent record information structure
 
 ## What Consent Is
 
@@ -23,6 +23,8 @@ Some examples of such consent are:
 * allowing a healthcare provider to fetch socio-demographic data from a government-run population registry to provide adequate primary healthcare services.
 * allowing a government official to fetch relevant data from other/multiple government-run registries to analyse the eligibility for a social benefit programme.
 * allow a government official to send Personal Data to a bank for cash transfers on behalf of the government.
+
+Observe that different jurisdictions have different approaches to consent as the legal grounds for personal data processing. In particular, GDPR discourages the use of consent in government services (recital 43: _In order to ensure that consent is freely given, consent should not provide a valid legal ground for the processing of personal data in a specific case where there is a clear imbalance between the data subject and the controller, in particular where the controller is a public authority and it is therefore unlikely that consent was freely given in all the circumstances of that specific situation._ See also: European Data Protection Board’s [guidelines 05/2020 on consent](https://www.edpb.europa.eu/our-work-tools/our-documents/guidelines/guidelines-052020-consent-under-regulation-2016679_en)). Instead, some other GDPR legal grounds (article 6.1) may better fit personal data processing in government services.
 
 ## What Consent Is Not
 
@@ -42,13 +44,13 @@ Lays out the pre-conditions needed for anyone to use the Consent Building Block.
 
 ## Consent Agreement Lifecycle
 
-The life cycle of a consent agreement starts and ends within the organisation responsible for the information system. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
+The life cycle of a consent agreement starts and ends within the data controller. The organisation knows the context in which the information system operates and the intended purpose of the service. The rules and regulations to be applied for a given level of assurance define the functional framework for consent management.
 
-Consent Building Block deals with transparency on data usage in a given context. Thus privacy-by-design of the system's actors is often an excellent guiding principle for interpreting international, national, and organisational policies and governance principles to implement the functional consent framework. A tangible outcome from a Data Protection Impact Analysis (DPIA) is a structured approach that can deliver the input for the actual implementation of the Consent Building Block.
+Consent Building Block deals also with transparency on data usage in a given context. Thus privacy-by-design of the system's actors is often an excellent guiding principle for interpreting international, national, and organisational policies and governance principles to implement the functional consent framework. A tangible outcome from a Data Protection Impact Analysis (DPIA) is a structured approach that can deliver the input for the actual implementation of the Consent Building Block.
 
 Individual consent is captured within the context of digital interaction. This interaction is composite of all the information systems involved, not solely the Consent Building Block. Thus, the legal and ethical boundaries of consent are defined in the entirety of the interaction. In particular, consent, as defined by ISO/TS 17975:2015(E), should be seen as a "set of agreements and constraints" that an informed and knowledgeable \[individual] agrees to apply to their data processing. This definition, not based on the purpose of the data usage, can lead to a consent management framework also incorporating authorisations or unrelated constraints of the system. For example, in health information and healthcare service delivery, consent is also the process whereby a set of constraints is agreed upon so that information may be collected and used or disclosed. However, it is also the outcome of the process. As a rule of thumb, limiting unintended secondary usage of data is helpful to separate "consent" for a purpose from "consent" as an agreement to constraints and authorisation imposed by the system's functional requirements.
 
-As a result, the organisation responsible for the information system is the driver of the definition of the functional consent management framework. It is also the function of the organisation to design the workflow for obtaining and processing the consent in a way that is purposeful, but not annoying for individuals or data processors with unnecessary bureaucratic overhead. From this framework, the Consent Building Block achieves its purpose by employing Consent Agreements that contain the following:
+As a result, the data controller is the driver of the definition of the functional consent management framework. It is also the function of the organisation to design the workflow for obtaining and processing the consent in a way that is purposeful, but not annoying for individuals or data processors with unnecessary bureaucratic overhead. From this framework, the Consent Building Block achieves its purpose by employing Consent Agreements that contain the following:
 
 * A data policy that could be reused across multiple consent agreements (for example, based on the General Data Protection Regulation or any specific regulation)
 * The purpose of consent, processed data attributes
@@ -119,8 +121,6 @@ CONSENT-BB ||..|| INFORMATION-MEDIATOR-BB : "executes scheduled consent-based ta
 CONSENT-BB }|..|{ SCHEDULER-BB : "executes scheduled consent-based tasks"
 CONSENT-BB }|..|{ WORKFLOW-BB : "knows and orchestrates consent-based workflows"
 ```
-
-
 
 The table below summarises the key relationships consumed during a consent transaction.
 

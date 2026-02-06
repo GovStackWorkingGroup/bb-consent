@@ -4,7 +4,7 @@ description: Terminology used within this specification.
 
 # 3 Terminology
 
-We recognise there are common terms across all ID related Building Blocks (Identity, E-Signature, Consent, Wallet).  We define these [here](/broken/pages/G8wr9foLwthyK0hPnuG9).
+We recognise there are common terms across all ID related Building Blocks (Identity, E-Signature, Consent, Wallet).  We define these [here](https://app.gitbook.com/s/cuIQsUm31pRS11jL4LMg/3-terminology/id-related-bb-common-terminology).
 
 In addition the following terms are specific to the Consent Building Block.
 
@@ -50,7 +50,13 @@ The person giving consent (signing [Consent Agreement](3-terminology.md#consent-
 
 ### Individual&#x20;
 
-Is a person about whom the [Personal Data](3-terminology.md#personal-data) is stored in an information system (a.k.a. “Data Subject”) and who agrees or not with the use of this data outside of its primary purpose/location&#x20;
+Is a person about whom the [Personal Data](3-terminology.md#personal-data) is stored in an information system (a.k.a. “Data Subject”) and who agrees or not with the use of this data outside of its primary purpose/location
+
+### Legal Entity
+
+{% hint style="info" %}
+See [this entry](https://app.gitbook.com/s/cuIQsUm31pRS11jL4LMg/3-terminology/id-related-bb-common-terminology#legal-entity), and related terminology in the **ID Common Terminology** reference.
+{% endhint %}
 
 ### Personal Data
 
@@ -61,10 +67,9 @@ Is any information that&#x20;
 (b) is or might be directly or indirectly linked to the Individual ([ISO(IEC 29100:2024)](https://www.iso.org/standard/85938.html))
 
 {% hint style="info" %}
-please also see common definition of [Personally Identifiable Information (PII)](https://identity.govstack.global/development-5/3-terminology/id-related-bb-common-terminology#pii-personally-identifiable-information)
+please also see common definition of [Personally Identifiable Information (PII)](https://app.gitbook.com/s/cuIQsUm31pRS11jL4LMg/3-terminology/id-related-bb-common-terminology#pii-personally-identifiable-information)
 {% endhint %}
 
 ### Regulations
 
 Are broadly defined as rules followed by any system: could be laws, bylaws, ​norms or architectures that​ regulate a given system. The term and definition is inspired by [Lessig’s modalities of regulation](https://lessig.org/images/resources/1999-Code.pdf).
-

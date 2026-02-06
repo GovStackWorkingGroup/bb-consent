@@ -116,6 +116,23 @@ Healthcare application-->-Application admin: Displays results
 
 ## UC-C-PIC-A-003: Postpartum and infant care (Configuration READ)
 
+{% hint style="info" %}
+For consideration of Future Log
+{% endhint %}
+
+
+
 ## UC-C-PIC-A-004: Postpartum and infant care (Configuration DELETE)
 
+{% hint style="info" %}
+For consideration of Future Log
+{% endhint %}
+
+
+
 ## UC-C-PIC-A-005: Postpartum and infant care (Configuration NOTIFICATIONS)
+
+{% hint style="info" %}
+For consideration of Future Log
+{% endhint %}
+

@@ -42,7 +42,7 @@ We use the two boolean flags `Revision.signed_without_object_id` and `Signature.
 
 #### Sequence diagram
 
-```mermaid  fullWidth="true"
+```mermaid fullWidth="true"
 sequenceDiagram
 
 actor Individual
@@ -83,7 +83,7 @@ note right of Individual: Consent can now be<br>assumed valid, and<br>the regist
 
 ### 9.2.2 Building block interactions
 
-```mermaid  fullWidth="true"
+```mermaid fullWidth="true"
 
 sequenceDiagram
 
@@ -146,7 +146,7 @@ In more frequent situations, when the individual is already provisioned in the S
 
 #### Sequence diagram
 
-```mermaid  fullWidth="true"
+```mermaid fullWidth="true"
 sequenceDiagram
 
 actor Individual
@@ -187,7 +187,7 @@ note right of Individual: Consent can now be<br>assumed valid
 
 ### 9.3.2 Building block interactions
 
-```mermaid  fullWidth="true"
+```mermaid fullWidth="true"
 
 sequenceDiagram
 
@@ -228,11 +228,13 @@ In this universal workflow, we check if a valid `ConsentRecord` exists or not fo
 
 ### Sequence diagram
 
-TODO
+{% hint style="info" %}
+To be included in a future iteration
+{% endhint %}
 
 ### 9.4.2: Building block interactions
 
-```mermaid  fullWidth="true"
+```mermaid fullWidth="true"
 sequenceDiagram
 
 Application->>+Workflow BB: Triggers the consent verification workflow (consent agreement ID)

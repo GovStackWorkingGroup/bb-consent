@@ -216,9 +216,9 @@ paths:
     get:
       tags:
         - config
-      summary: "LIST - returns the current Policy"
+      summary: "LIST - returns all revisions of a Policy"
       operationId: "configPolicyRevisionsList"
-      description: "LIST - returns the current Policy"
+      description: "LIST - returns all revisions of a Policy"
       parameters: 
         - in: path
           name: "policyId"
@@ -254,8 +254,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  policy:
-                    $ref: '#/components/schemas/Policy'
+                  revisions:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/Revision'
 
         '400':
           description: bad input parameter
@@ -700,7 +703,7 @@ paths:
       x-specification-crudl-model: "Webhook"
       responses:
         '200':
-          description: "A set consisting of the new Webhook object created, together with the initial Revision object."
+          description: "Returns the new Webhook object created"
             
           content:
             application/json:
@@ -745,13 +748,6 @@ paths:
           name: "webhookId"
           description: "Unique ID of an object"
           required: true
-          schema:
-            type: string
-
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
           schema:
             type: string
 
@@ -868,13 +864,6 @@ paths:
       operationId: "configWebhookList"
       description: "LIST - Fetches list of readable Webhook objects"
       parameters: 
-        - in: query
-          name: revisionId
-          description: "An object with id revisionId"
-          required: false
-          schema:
-            type: string
-
         - in: query
           name: "offset"
           description: "Requested index for start of resources to be provided in response requested by client"
